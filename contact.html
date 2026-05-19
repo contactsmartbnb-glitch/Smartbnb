@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SmartBNB — Formulaire de découverte client. Racontez-nous votre projet d'investissement au Maroc en 5 minutes.">
+<title>Prendre RDV — SmartBNB</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.form-step { display: none; }
+.form-step.active { display: block; animation: fadeUp 0.4s forwards; }
+.step-indicator { display: flex; gap: .5rem; margin-bottom: 2.5rem; }
+.step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gris-light); transition: var(--transition); }
+.step-dot.done { background: var(--sable); }
+.step-dot.active { background: var(--terracotta); width: 24px; border-radius: 4px; }
+.form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--gris-light); }
+.progress-bar { height: 3px; background: var(--gris-light); border-radius: 2px; margin-bottom: 2rem; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--sable); border-radius: 2px; transition: width 0.4s ease; }
+.submit-success { display: none; text-align: center; padding: 2rem; }
+.submit-success.show { display: block; animation: fadeUp 0.5s forwards; }
+</style>
+</head>
+<body>
+
+<nav class="nav scrolled" id="nav">
+  <a href="index.html" class="nav-logo" style="color:var(--noir)">SmartBNB</a>
+  <ul class="nav-links">
+    <li><a href="services.html">Nos services</a></li>
+    <li><a href="villes.html">Les villes</a></li>
+    <li><a href="sci.html">Créer une SCI</a></li>
+    <li><a href="marche.html">Marché & Fiscalité</a></li>
+    <li><a href="contact.html" class="nav-cta" style="background:var(--terracotta)!important">Prendre RDV</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header" style="--bg-img:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80')">
+  <div class="page-header-inner">
+    <div class="breadcrumb"><a href="index.html">Accueil</a><span>/</span><span style="color:rgba(250,248,244,.6)">Contact</span></div>
+    <h1>Parlons de<br><em>votre projet.</em></h1>
+    <p>Remplissez le formulaire en 5 minutes. Nous revenons vers vous sous 24h avec des conseils personnalisés pour votre situation.</p>
+  </div>
+</div>
+
+<!-- FORM SECTION -->
+<div class="form-wrap">
+  <div class="section-inner">
+    <div class="form-grid">
+      <!-- INTRO SIDE -->
+      <div class="reveal">
+        <span class="section-tag">Avant de commencer</span>
+        <h2>Un formulaire, zéro obligation.</h2>
+        <div class="divider"></div>
+        <p>Ce formulaire nous permet de comprendre votre projet et de vous préparer des recommandations pertinentes avant notre appel. Il prend 5 à 7 minutes.</p>
+        <div class="form-contact mt-md">
+          <div class="form-contact-item">
+            <div class="form-contact-icon">📧</div>
+            <div>
+              <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);font-weight:500;margin-bottom:.2rem">Email</div>
+              <a href="mailto:contact@smartbnb.ma" class="form-contact-text">contact@smartbnb.ma</a>
+            </div>
+          </div>
+          <div class="form-contact-item">
+            <div class="form-contact-icon">💬</div>
+            <div>
+              <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);font-weight:500;margin-bottom:.2rem">WhatsApp</div>
+              <a href="https://wa.me/212600000000" class="form-contact-text">+212 600 000 000</a>
+            </div>
+          </div>
+          <div class="form-contact-item">
+            <div class="form-contact-icon">⏰</div>
+            <div>
+              <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);font-weight:500;margin-bottom:.2rem">Délai de réponse</div>
+              <div class="form-contact-text">Sous 24h ouvrées</div>
+            </div>
+          </div>
+          <div class="form-contact-item">
+            <div class="form-contact-icon">🌍</div>
+            <div>
+              <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);font-weight:500;margin-bottom:.2rem">Langues</div>
+              <div class="form-contact-text">FR · ES · EN · AR · Darija</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:2.5rem;background:var(--blanc);padding:1.5rem;border-radius:var(--radius-lg)">
+          <h4 style="font-family:var(--font-body);font-weight:500;margin-bottom:.8rem">Nos villes couvertes</h4>
+          <div class="villes-grid" style="grid-template-columns:1fr 1fr 1fr;gap:.6rem">
+            <a href="villes.html#marrakech" style="background:var(--blanc-warm);padding:.6rem;border-radius:6px;text-align:center;font-size:.8rem;color:var(--gris)">🌹 Marrakech</a>
+            <a href="villes.html#casablanca" style="background:var(--blanc-warm);padding:.6rem;border-radius:6px;text-align:center;font-size:.8rem;color:var(--gris)">🏙️ Casablanca</a>
+            <a href="villes.html#rabat" style="background:var(--blanc-warm);padding:.6rem;border-radius:6px;text-align:center;font-size:.8rem;color:var(--gris)">⚜️ Rabat</a>
+            <a href="villes.html#tanger" style="background:var(--blanc-warm);padding:.6rem;border-radius:6px;text-align:center;font-size:.8rem;color:var(--gris)">🌊 Tanger</a>
+            <a href="villes.html#fes" style="background:var(--blanc-warm);padding:.6rem;border-radius:6px;text-align:center;font-size:.8rem;color:var(--gris)">🕌 Fès</a>
+            <a href="villes.html#essaouira" style="background:var(--blanc-warm);padding:.6rem;border-radius:6px;text-align:center;font-size:.8rem;color:var(--gris)">🌬️ Essaouira</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM SIDE -->
+      <div class="reveal">
+        <div class="disc-form">
+          <div class="progress-bar"><div class="progress-fill" id="progress" style="width:14%"></div></div>
+          <div class="step-indicator" id="steps">
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+          </div>
+
+          <!-- STEP 1 -->
+          <div class="form-step active" id="step1">
+            <div style="font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem">Question 1 / 7</div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1.5rem">C'est quoi votre niveau d'expérience en investissement immobilier ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q1" value="debutant"> 🌱 Débutant complet — c'est mon premier investissement</label>
+              <label class="form-option"><input type="radio" name="q1" value="quelques_bases"> 📚 J'ai quelques bases mais je n'ai jamais acheté</label>
+              <label class="form-option"><input type="radio" name="q1" value="deja_investi"> 🏠 J'ai déjà investi dans l'immobilier (en France / Europe)</label>
+              <label class="form-option"><input type="radio" name="q1" value="investi_maroc"> 🇲🇦 J'ai déjà investi au Maroc</label>
+              <label class="form-option"><input type="radio" name="q1" value="portefeuille"> 💼 J'ai déjà un portefeuille immobilier</label>
+            </div>
+            <div class="form-nav"><div></div><button class="btn btn-primary" onclick="nextStep(1)">Suivant →</button></div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="form-step" id="step2">
+            <div style="font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem">Question 2 / 7</div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1.5rem">Quel type de bien vous intéresse ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q2" value="studio"> 🛏️ Studio ou T1 — locatif rentable, budget maîtrisé</label>
+              <label class="form-option"><input type="radio" name="q2" value="appartement"> 🏢 Appartement T2 / T3 — familles ou colocations</label>
+              <label class="form-option"><input type="radio" name="q2" value="riad"> 🏡 Riad ou villa — coup de cœur, potentiel premium</label>
+              <label class="form-option"><input type="radio" name="q2" value="pas_sure"> 🤔 Je ne sais pas encore — c'est à vous de me conseiller</label>
+            </div>
+            <div class="form-nav"><button class="btn" style="background:var(--blanc-warm);color:var(--gris)" onclick="prevStep(2)">← Retour</button><button class="btn btn-primary" onclick="nextStep(2)">Suivant →</button></div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="form-step" id="step3">
+            <div style="font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem">Question 3 / 7</div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1.5rem">Quel est votre horizon d'investissement ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q3" value="urgent"> 🚀 Dès que possible — dans les 3 prochains mois</label>
+              <label class="form-option"><input type="radio" name="q3" value="6mois"> 📅 Dans les 6 prochains mois</label>
+              <label class="form-option"><input type="radio" name="q3" value="1an"> 🗓️ D'ici un an</label>
+              <label class="form-option"><input type="radio" name="q3" value="reflexion"> 💭 Je suis en phase de réflexion — encore 1–2 ans</label>
+            </div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1rem;margin-top:1.5rem">Quel est votre objectif principal ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q3b" value="rendement"> 💰 Rendement locatif maximum</label>
+              <label class="form-option"><input type="radio" name="q3b" value="retraite"> 🌴 Retraite / résidence secondaire au Maroc</label>
+              <label class="form-option"><input type="radio" name="q3b" value="heritage"> 👨‍👩‍👧‍👦 Constitution de patrimoine familial</label>
+              <label class="form-option"><input type="radio" name="q3b" value="mixte"> ⚖️ Les deux — locatif et usage personnel</label>
+            </div>
+            <div class="form-nav"><button class="btn" style="background:var(--blanc-warm);color:var(--gris)" onclick="prevStep(3)">← Retour</button><button class="btn btn-primary" onclick="nextStep(3)">Suivant →</button></div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="form-step" id="step4">
+            <div style="font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem">Question 4 / 7</div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1.5rem">Quel est votre budget total d'acquisition ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q4" value="moins30k"> 💶 Moins de 30 000 €</label>
+              <label class="form-option"><input type="radio" name="q4" value="30_50k"> 💶 30 000 à 50 000 €</label>
+              <label class="form-option"><input type="radio" name="q4" value="50_100k"> 💶 50 000 à 100 000 €</label>
+              <label class="form-option"><input type="radio" name="q4" value="100_200k"> 💶 100 000 à 200 000 €</label>
+              <label class="form-option"><input type="radio" name="q4" value="plus200k"> 💶 Plus de 200 000 €</label>
+            </div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1rem;margin-top:1.5rem">Quelle rentabilité brute minimale souhaitez-vous ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q4b" value="pas_sure"> 🤷 Je ne sais pas comment calculer</label>
+              <label class="form-option"><input type="radio" name="q4b" value="4pct"> 📊 4–5% (je privilégie la sécurité)</label>
+              <label class="form-option"><input type="radio" name="q4b" value="6pct"> 📈 6–8% (bon équilibre risque/rendement)</label>
+              <label class="form-option"><input type="radio" name="q4b" value="10pct"> 🚀 8–10%+ (j'accepte d'optimiser plus)</label>
+            </div>
+            <div class="form-nav"><button class="btn" style="background:var(--blanc-warm);color:var(--gris)" onclick="prevStep(4)">← Retour</button><button class="btn btn-primary" onclick="nextStep(4)">Suivant →</button></div>
+          </div>
+
+          <!-- STEP 5 -->
+          <div class="form-step" id="step5">
+            <div style="font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem">Question 5 / 7</div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1.5rem">Comment financez-vous ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q5" value="cash"> 💵 100% cash — fonds propres</label>
+              <label class="form-option"><input type="radio" name="q5" value="credit_maroc"> 🏦 Crédit bancaire marocain</label>
+              <label class="form-option"><input type="radio" name="q5" value="credit_fr"> 🏦 Crédit en France / Europe</label>
+              <label class="form-option"><input type="radio" name="q5" value="mixte"> 🤝 Mixte — cash + crédit</label>
+              <label class="form-option"><input type="radio" name="q5" value="sci"> 🏢 Via une SCI (ou je veux créer une SCI)</label>
+            </div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1rem;margin-top:1.5rem">Avez-vous une préférence ancien/neuf ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q5b" value="ancien"> 🏛️ Ancien — je préfère charme et authenticité</label>
+              <label class="form-option"><input type="radio" name="q5b" value="neuf"> 🏗️ Neuf — garanties et moins de travaux</label>
+              <label class="form-option"><input type="radio" name="q5b" value="indifferent"> 🤔 Indifférent — selon le rapport qualité/prix</label>
+            </div>
+            <div class="form-nav"><button class="btn" style="background:var(--blanc-warm);color:var(--gris)" onclick="prevStep(5)">← Retour</button><button class="btn btn-primary" onclick="nextStep(5)">Suivant →</button></div>
+          </div>
+
+          <!-- STEP 6 -->
+          <div class="form-step" id="step6">
+            <div style="font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem">Question 6 / 7</div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1.5rem">Quelle(s) ville(s) vous intéressent ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="checkbox" name="q6" value="marrakech"> 🌹 Marrakech</label>
+              <label class="form-option"><input type="checkbox" name="q6" value="casablanca"> 🏙️ Casablanca</label>
+              <label class="form-option"><input type="checkbox" name="q6" value="rabat"> ⚜️ Rabat</label>
+              <label class="form-option"><input type="checkbox" name="q6" value="tanger"> 🌊 Tanger</label>
+              <label class="form-option"><input type="checkbox" name="q6" value="fes"> 🕌 Fès</label>
+              <label class="form-option"><input type="checkbox" name="q6" value="essaouira"> 🌬️ Essaouira</label>
+              <label class="form-option"><input type="checkbox" name="q6" value="pas_sure"> 🤷 Pas encore décidé — conseillez-moi</label>
+            </div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1rem;margin-top:1.5rem">Comment définissez-vous votre style de négociation ?</h4>
+            <div class="form-options">
+              <label class="form-option"><input type="radio" name="q6b" value="cash_fast"> ⚡ Cash buyer rapide — je peux aller vite si c'est le bon bien</label>
+              <label class="form-option"><input type="radio" name="q6b" value="negociateur"> 🎯 Négociateur — je ne paye pas le prix affiché</label>
+              <label class="form-option"><input type="radio" name="q6b" value="prudent"> 🧐 Prudent — je préfère analyser à fond avant d'offrir</label>
+            </div>
+            <div class="form-nav"><button class="btn" style="background:var(--blanc-warm);color:var(--gris)" onclick="prevStep(6)">← Retour</button><button class="btn btn-primary" onclick="nextStep(6)">Suivant →</button></div>
+          </div>
+
+          <!-- STEP 7 — Contact -->
+          <div class="form-step" id="step7">
+            <div style="font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem">Dernière étape</div>
+            <h4 style="font-family:var(--font-body);font-size:1rem;font-weight:500;margin-bottom:1.5rem">Pour finir — vos coordonnées</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Prénom *</label>
+                <input type="text" class="form-input" id="prenom" placeholder="Votre prénom" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nom *</label>
+                <input type="text" class="form-input" id="nom" placeholder="Votre nom" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" class="form-input" id="email" placeholder="votre@email.com" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">WhatsApp / Téléphone</label>
+                <input type="tel" class="form-input" id="tel" placeholder="+33 6 00 00 00 00">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Pays de résidence</label>
+                <select class="form-select" id="pays">
+                  <option value="">Choisissez un pays</option>
+                  <option>France</option>
+                  <option>Espagne</option>
+                  <option>Belgique</option>
+                  <option>Pays-Bas</option>
+                  <option>Suisse</option>
+                  <option>Allemagne</option>
+                  <option>Grande-Bretagne</option>
+                  <option>Canada</option>
+                  <option>États-Unis</option>
+                  <option>Émirats Arabes Unis</option>
+                  <option>Arabie Saoudite</option>
+                  <option>Maroc</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Âge (optionnel)</label>
+              <select class="form-select" id="age">
+                <option value="">Préférez ne pas répondre</option>
+                <option>Moins de 30 ans</option>
+                <option>30–39 ans</option>
+                <option>40–49 ans</option>
+                <option>50–59 ans</option>
+                <option>60 ans et plus</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ce qui vous motive à investir au Maroc (optionnel)</label>
+              <textarea class="form-textarea" id="motivation" placeholder="Ce que vous pouvez partager : fiscalité, retour au pays, diversification, coup de cœur, famille..."></textarea>
+            </div>
+            <div class="form-nav"><button class="btn" style="background:var(--blanc-warm);color:var(--gris)" onclick="prevStep(7)">← Retour</button><button class="btn btn-terracotta" onclick="submitForm()">Envoyer mon projet →</button></div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="submit-success" id="success">
+            <div style="font-size:4rem;margin-bottom:1rem">✅</div>
+            <h3 style="font-family:var(--font-display);font-size:2rem;margin-bottom:.8rem">Parfait !</h3>
+            <p>Nous avons bien reçu votre projet. Notre équipe vous répondra sous <strong>24h ouvrées</strong> avec des recommandations personnalisées.</p>
+            <p style="margin-top:.8rem;font-size:.88rem">En attendant, consultez nos ressources :</p>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem">
+              <a href="villes.html" class="btn btn-dark">Guide des villes</a>
+              <a href="marche.html" class="btn btn-primary">Marché & Fiscalité</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTS DIRECTS -->
+<section class="section bg-warm">
+  <div class="section-inner">
+    <div class="reveal" style="margin-bottom:2rem">
+      <span class="section-tag">Contact direct</span>
+      <h2>Préférez l'échange direct ?</h2>
+    </div>
+    <div class="grid-3 reveal">
+      <div style="background:var(--blanc);padding:2rem;border-radius:var(--radius-lg);text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:1rem">📧</div>
+        <h4 style="font-family:var(--font-body);font-weight:500;margin-bottom:.5rem">Email</h4>
+        <a href="mailto:contact@smartbnb.ma" style="color:var(--sable-dark);font-size:.9rem">contact@smartbnb.ma</a>
+      </div>
+      <div style="background:var(--blanc);padding:2rem;border-radius:var(--radius-lg);text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:1rem">💬</div>
+        <h4 style="font-family:var(--font-body);font-weight:500;margin-bottom:.5rem">WhatsApp</h4>
+        <a href="https://wa.me/212600000000" style="color:var(--sable-dark);font-size:.9rem">+212 600 000 000</a>
+      </div>
+      <div style="background:var(--blanc);padding:2rem;border-radius:var(--radius-lg);text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:1rem">📱</div>
+        <h4 style="font-family:var(--font-body);font-weight:500;margin-bottom:.5rem">Réseaux sociaux</h4>
+        <div style="display:flex;gap:.8rem;justify-content:center;margin-top:.5rem">
+          <a href="#" style="color:var(--gris);font-size:1.3rem">📷</a>
+          <a href="#" style="color:var(--gris);font-size:1.3rem">🎵</a>
+          <a href="#" style="color:var(--gris);font-size:1.3rem">💼</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>SmartBNB</h3>
+        <p>Cabinet de chasse, gestion et investissement immobilier au Maroc.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="TikTok">🎵</a>
+          <a href="#" aria-label="LinkedIn">💼</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="services.html#chasse-premium">Chasse premium</a></li>
+          <li><a href="services.html#gestion">Gestion 17%</a></li>
+          <li><a href="sci.html">Création SCI</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Villes</h4>
+        <ul class="footer-links">
+          <li><a href="villes.html#marrakech">Marrakech</a></li>
+          <li><a href="villes.html#casablanca">Casablanca</a></li>
+          <li><a href="villes.html#tanger">Tanger</a></li>
+          <li><a href="villes.html#rabat">Rabat</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ressources</h4>
+        <ul class="footer-links">
+          <li><a href="marche.html">Marché & Fiscalité</a></li>
+          <li><a href="marche.html#idees-recues">Idées reçues</a></li>
+          <li><a href="services.html#legal">Loi 80-14</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SmartBNB — contact@smartbnb.ma</p>
+      <div class="footer-flags">🇫🇷 🇪🇸 🇬🇧 🇺🇸 🇨🇦 🇲🇦</div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/212600000000" class="wa-float" aria-label="WhatsApp">💬</a>
+
+<script src="js/main.js"></script>
+<script>
+let currentStep = 1;
+const totalSteps = 7;
+
+function updateProgress() {
+  const pct = (currentStep / totalSteps) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((dot, i) => {
+    dot.className = 'step-dot';
+    if (i < currentStep - 1) dot.classList.add('done');
+    else if (i === currentStep - 1) dot.classList.add('active');
+  });
+}
+
+function nextStep(n) {
+  document.getElementById('step' + n).classList.remove('active');
+  currentStep = n + 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateProgress();
+  window.scrollTo({ top: document.querySelector('.disc-form').offsetTop - 80, behavior: 'smooth' });
+}
+
+function prevStep(n) {
+  document.getElementById('step' + n).classList.remove('active');
+  currentStep = n - 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateProgress();
+}
+
+function submitForm() {
+  const prenom = document.getElementById('prenom').value;
+  const email = document.getElementById('email').value;
+  if (!prenom || !email) {
+    alert('Merci de renseigner votre prénom et votre email.');
+    return;
+  }
+  // In production: send form data to backend / Netlify Forms / Formspree
+  document.getElementById('step7').style.display = 'none';
+  const success = document.getElementById('success');
+  success.classList.add('show');
+  document.querySelector('.step-indicator').style.display = 'none';
+  document.querySelector('.progress-bar').style.display = 'none';
+}
+</script>
+</body>
+</html>
