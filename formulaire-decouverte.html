@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBnB — Formulaire découverte investisseur</title>
+<meta name="description" content="15 questions pour qualifier votre profil investisseur au Maroc. SmartBnB vous propose l'accompagnement adapté.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #fafaf7;
+    --surface-2: #f1efe8;
+    --ink: #1a1a1a;
+    --ink-soft: #5f5e5a;
+    --ink-muted: #888780;
+    --border: #d3d1c7;
+    --border-soft: #e8e6df;
+    --accent: #0f6e56;
+    --accent-soft: #e1f5ee;
+    --accent-dark: #04342c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Inter", system-ui, sans-serif;
+    color: var(--ink); background: var(--surface);
+    line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh;
+  }
+  a { color: inherit; }
+  header { background: #fff; border-bottom: 1px solid var(--border); }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .logo {
+    font-weight: 600; font-size: 18px; letter-spacing: -0.02em;
+    color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px;
+  }
+  .logo-mark {
+    width: 30px; height: 30px; background: var(--ink); border-radius: 7px;
+    display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; font-weight: 600;
+  }
+  .partie-badge {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--surface-2); color: var(--ink-muted); padding: 4px 10px; border-radius: 100px;
+  }
+  .wizard { max-width: 760px; margin: 40px auto; padding: 0 24px; }
+  .intro { text-align: center; margin-bottom: 32px; }
+  .intro-eyebrow { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .intro h1 { font-size: clamp(28px, 4vw, 38px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; margin-bottom: 12px; }
+  .intro p { color: var(--ink-soft); font-size: 16px; }
+  .progress { background: var(--surface-2); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .progress-bar { background: var(--accent); height: 100%; transition: width 0.3s ease; width: 0%; }
+  .progress-label { text-align: right; font-size: 12px; color: var(--ink-muted); margin-bottom: 24px; }
+  .form-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04); min-height: 480px; display: flex; flex-direction: column;
+  }
+  .step { display: none; flex: 1; flex-direction: column; }
+  .step.active { display: flex; }
+  .step-num { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .step h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
+  .step .step-help { color: var(--ink-soft); font-size: 14px; margin-bottom: 24px; }
+  .choices { display: grid; gap: 10px; margin-bottom: 24px; }
+  .choices.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .choices.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 540px) { .choices.cols-2, .choices.cols-4 { grid-template-columns: 1fr; } .form-card { padding: 24px; } }
+  .choice {
+    border: 1.5px solid var(--border); border-radius: 10px; padding: 16px;
+    cursor: pointer; background: #fff; transition: all 0.15s; display: flex; align-items: center; gap: 12px;
+  }
+  .choice:hover { border-color: var(--ink); background: var(--surface); }
+  .choice.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .choice .check {
+    width: 20px; height: 20px; border: 1.5px solid var(--border); border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+  }
+  .choice.selected .check { background: var(--accent); border-color: var(--accent); }
+  .choice.selected .check::after { content: "✓"; color: white; font-size: 12px; font-weight: 600; }
+  .choice .icon-emoji { font-size: 22px; flex-shrink: 0; line-height: 1; }
+  .choice .label { flex: 1; font-size: 14px; font-weight: 500; }
+  .choice .sublabel { font-size: 12px; color: var(--ink-muted); margin-top: 2px; display: block; font-weight: 400; }
+  .choice-center { justify-content: center; flex-direction: column; text-align: center; padding: 20px 10px; }
+  .choice-center .check { margin: 0 auto 8px; }
+  .choice-center .label { font-size: 13px; }
+  .input-group { margin-bottom: 20px; }
+  .input-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+  .input-group input, .input-group select, .input-group textarea {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 8px; font-size: 14px; font-family: inherit; background: #fff; transition: border-color 0.15s;
+  }
+  .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: none; border-color: var(--accent); }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 540px) { .input-grid { grid-template-columns: 1fr; } }
+  .actions {
+    display: flex; justify-content: space-between;
+    margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-soft);
+  }
+  .btn { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; }
+  .btn-prev { background: transparent; color: var(--ink-soft); }
+  .btn-prev:hover { color: var(--ink); }
+  .btn-next { background: var(--ink); color: #fff; }
+  .btn-next:hover { background: #333; }
+  .btn-next.accent { background: var(--accent); }
+  .btn-next.accent:hover { background: var(--accent-dark); }
+  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+  .success { text-align: center; padding: 20px 0; }
+  .success-icon {
+    width: 60px; height: 60px; background: var(--accent-soft); border: 2px solid var(--accent);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin: 0 auto 20px; color: var(--accent);
+  }
+  .success h2 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
+  .success p { color: var(--ink-soft); font-size: 15px; max-width: 440px; margin: 0 auto 20px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+  .tag { background: var(--surface-2); border: 1px solid var(--border); border-radius: 100px; padding: 4px 12px; font-size: 12px; color: var(--ink-soft); }
+  footer { text-align: center; padding: 20px; color: var(--ink-muted); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="logo"><span class="logo-mark">S</span><span>SmartBnB</span></a>
+    <span class="partie-badge" id="partie-badge">Partie 1 — Expérience</span>
+  </nav>
+</header>
+
+<div class="wizard">
+  <div class="intro">
+    <div class="intro-eyebrow">Formulaire découverte investisseur</div>
+    <h1>Parlons de vous 🎯</h1>
+    <p>15 questions pour comprendre votre projet et vous proposer l'accompagnement idéal. Sans engagement, sans prise de tête.</p>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+  <div class="progress-label"><span id="progress-text">Question 1 sur 15</span></div>
+
+  <div class="form-card">
+
+    <!-- Q1 -->
+    <div class="step active" data-step="1">
+      <div class="step-num">Question 1 — Expérience</div>
+      <h2>Ton niveau d'expérience dans l'investissement immobilier ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="debutant" onclick="sel(this,'exp')"><div class="check"></div><span class="icon-emoji">🚀</span><div class="label">Premier investissement : c'est le moment, je suis prêt à me lancer !</div></div>
+        <div class="choice" data-value="rp" onclick="sel(this,'exp')"><div class="check"></div><span class="icon-emoji">🏠</span><div class="label">J'ai ma résidence principale</div></div>
+        <div class="choice" data-value="rp_plus" onclick="sel(this,'exp')"><div class="check"></div><span class="icon-emoji">🏠🏠</span><div class="label">J'ai ma résidence principale et un autre logement</div></div>
+        <div class="choice" data-value="multi" onclick="sel(this,'exp')"><div class="check"></div><span class="icon-emoji">💼</span><div class="label">Tu veux des apparts ? J'en ai à vendre !</div></div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="step" data-step="2">
+      <div class="step-num">Question 2 — Type de bien</div>
+      <h2>Quel type de bien recherchez-vous ?</h2>
+      <p class="step-help">Plusieurs choix possibles.</p>
+      <div class="choices cols-2">
+        <div class="choice" data-value="studio" onclick="multi(this,'type')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🏢</span><div class="label">Studio ou appartement</div></div>
+        <div class="choice" data-value="villa" onclick="multi(this,'type')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🏡</span><div class="label">Villa ou riad à rénover</div></div>
+        <div class="choice" data-value="terrain" onclick="multi(this,'type')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🌿</span><div class="label">Terrain</div></div>
+        <div class="choice" data-value="immeuble" onclick="multi(this,'type')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🏬</span><div class="label">Immeuble ou local commercial</div></div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="step" data-step="3">
+      <div class="step-num">Question 3 — Emplacement</div>
+      <h2>Quel emplacement vous correspond le mieux ?</h2>
+      <p class="step-help">Cela oriente fortement vers certains quartiers dans chaque ville.</p>
+      <div class="choices">
+        <div class="choice" data-value="mer" onclick="multi(this,'emplacement')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🌊</span><div class="label">Proximité mer ou océan<span class="sublabel">Vue ou accès en quelques minutes à pied</span></div></div>
+        <div class="choice" data-value="centre" onclick="multi(this,'emplacement')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🏙️</span><div class="label">Plein centre-ville, je fais tout à pied<span class="sublabel">Commerces, cafés, vie de quartier intense</span></div></div>
+        <div class="choice" data-value="residentiel" onclick="multi(this,'emplacement')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🌳</span><div class="label">Quartier résidentiel calme<span class="sublabel">Verdure, sécurité, tranquillité</span></div></div>
+        <div class="choice" data-value="chaabi" onclick="multi(this,'emplacement')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🕌</span><div class="label">Ambiance chaâbi et authentique<span class="sublabel">Médina, souk, vie locale, loin du tourisme de masse</span></div></div>
+        <div class="choice" data-value="pragmatique" onclick="multi(this,'emplacement')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">📍</span><div class="label">Peu importe — la rentabilité prime sur le quartier</div></div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="step" data-step="4">
+      <div class="step-num">Question 4 — Horizon</div>
+      <h2>À quel horizon souhaitez-vous investir ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="urgent" onclick="sel(this,'horizon')"><div class="check"></div><span class="icon-emoji">🔥</span><div class="label">C'est le feu : j'ai l'impression de rater des opportunités !</div></div>
+        <div class="choice" data-value="ecoute" onclick="sel(this,'horizon')"><div class="check"></div><span class="icon-emoji">👂</span><div class="label">À l'écoute des opportunités — mais je ne veux pas attendre que tout augmente</div></div>
+        <div class="choice" data-value="serein" onclick="sel(this,'horizon')"><div class="check"></div><span class="icon-emoji">🐢</span><div class="label">Lentement mais sûrement : je prends mon temps pour faire le bon choix</div></div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="step" data-step="5">
+      <div class="step-num">Question 5 — Budget</div>
+      <h2>Quel montant prévoyez-vous d'investir ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="m500k" onclick="sel(this,'budget')"><div class="check"></div><div class="label">Moins de 500 000 MAD<span class="sublabel">≈ moins de 45 000 €</span></div></div>
+        <div class="choice" data-value="500k_1m" onclick="sel(this,'budget')"><div class="check"></div><div class="label">500 000 — 1 000 000 MAD<span class="sublabel">≈ 45 000 — 90 000 €</span></div></div>
+        <div class="choice" data-value="1m_2m" onclick="sel(this,'budget')"><div class="check"></div><div class="label">1 000 000 — 2 000 000 MAD<span class="sublabel">≈ 90 000 — 180 000 €</span></div></div>
+        <div class="choice" data-value="2m_3m" onclick="sel(this,'budget')"><div class="check"></div><div class="label">2 000 000 — 3 000 000 MAD<span class="sublabel">≈ 180 000 — 270 000 €</span></div></div>
+        <div class="choice" data-value="p3m" onclick="sel(this,'budget')"><div class="check"></div><div class="label">Plus de 3 000 000 MAD<span class="sublabel">≈ plus de 270 000 €</span></div></div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="step" data-step="6">
+      <div class="step-num">Question 6 — Rentabilité</div>
+      <h2>Quelle rentabilité souhaitez-vous ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="moderee" onclick="sel(this,'renta')"><div class="check"></div><span class="icon-emoji">🛡️</span><div class="label">Modérée et stable<span class="sublabel">Je préfère un rendement sûr même s'il est plus bas</span></div></div>
+        <div class="choice" data-value="elevee" onclick="sel(this,'renta')"><div class="check"></div><span class="icon-emoji">📊</span><div class="label">Élevée avec un peu plus de risques<span class="sublabel">Je suis prêt à accepter des fluctuations</span></div></div>
+        <div class="choice" data-value="max" onclick="sel(this,'renta')"><div class="check"></div><span class="icon-emoji">🚀</span><div class="label">Je veux maximiser le rendement, peu importe les risques</div></div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="step" data-step="7">
+      <div class="step-num">Question 7 — Financement</div>
+      <h2>Avez-vous besoin d'un financement ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="oui" onclick="sel(this,'financement')"><div class="check"></div><span class="icon-emoji">🏦</span><div class="label">Oui, je compte sur un prêt</div></div>
+        <div class="choice" data-value="non" onclick="sel(this,'financement')"><div class="check"></div><span class="icon-emoji">💵</span><div class="label">Non, j'ai les fonds disponibles</div></div>
+        <div class="choice" data-value="nsp" onclick="sel(this,'financement')"><div class="check"></div><span class="icon-emoji">🤷</span><div class="label">Je ne sais pas encore, conseillez-moi</div></div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="step" data-step="8">
+      <div class="step-num">Question 8 — Gestion</div>
+      <h2>Comment souhaitez-vous gérer votre bien ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="perso" onclick="sel(this,'gestion')"><div class="check"></div><span class="icon-emoji">👤</span><div class="label">Gérer moi-même ou via mon propre réseau</div></div>
+        <div class="choice" data-value="smartbnb" onclick="sel(this,'gestion')"><div class="check"></div><span class="icon-emoji">🏢</span><div class="label">Faire appel à SmartBnB pour une gestion sans stress<span class="sublabel">17% du loyer brut, aucun frais fixe</span></div></div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="step" data-step="9">
+      <div class="step-num">Question 9 — Usage personnel</div>
+      <h2>Souhaitez-vous profiter du bien pour vos vacances ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="oui" onclick="sel(this,'vacances')"><div class="check"></div><span class="icon-emoji">🌴</span><div class="label">Oui, je veux l'utiliser régulièrement</div></div>
+        <div class="choice" data-value="non" onclick="sel(this,'vacances')"><div class="check"></div><span class="icon-emoji">💰</span><div class="label">Non, je veux le louer en permanence</div></div>
+        <div class="choice" data-value="mixte" onclick="sel(this,'vacances')"><div class="check"></div><span class="icon-emoji">🔄</span><div class="label">Un mélange des deux</div></div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="step" data-step="10">
+      <div class="step-num">Question 10 — Décoration</div>
+      <h2>Comment voulez-vous gérer l'ameublement et la déco ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="cle" onclick="sel(this,'deco')"><div class="check"></div><span class="icon-emoji">🎁</span><div class="label">Je ne me charge de rien — clé en main<span class="sublabel">SmartBnB s'occupe de tout</span></div></div>
+        <div class="choice" data-value="accomp" onclick="sel(this,'deco')"><div class="check"></div><span class="icon-emoji">🎨</span><div class="label">J'ai des idées précises mais j'ai besoin d'accompagnement</div></div>
+        <div class="choice" data-value="seul" onclick="sel(this,'deco')"><div class="check"></div><span class="icon-emoji">🔨</span><div class="label">Je m'occupe de tout</div></div>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="step" data-step="11">
+      <div class="step-num">Question 11 — Localisation</div>
+      <h2>Ancien ou neuf ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="ancien" onclick="sel(this,'ancneuf')"><div class="check"></div><span class="icon-emoji">🔨</span><div class="label">Ancien à rénover<span class="sublabel">Je cherche la bonne affaire</span></div></div>
+        <div class="choice" data-value="recent" onclick="sel(this,'ancneuf')"><div class="check"></div><span class="icon-emoji">🏠</span><div class="label">Récent à rafraîchir</div></div>
+        <div class="choice" data-value="neuf" onclick="sel(this,'ancneuf')"><div class="check"></div><span class="icon-emoji">✨</span><div class="label">Neuf</div></div>
+        <div class="choice" data-value="loc" onclick="sel(this,'ancneuf')"><div class="check"></div><span class="icon-emoji">📍</span><div class="label">Peu importe — l'important c'est la localisation</div></div>
+        <div class="choice" data-value="renta" onclick="sel(this,'ancneuf')"><div class="check"></div><span class="icon-emoji">💰</span><div class="label">Pas le temps de réfléchir, je veux de la rentabilité !</div></div>
+      </div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="step" data-step="12">
+      <div class="step-num">Question 12 — Ville</div>
+      <h2>Dans quelle ville souhaitez-vous investir ?</h2>
+      <p class="step-help">Plusieurs choix possibles.</p>
+      <div class="choices cols-2">
+        <div class="choice" data-value="marrakech" onclick="multi(this,'ville')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🌹</span><div class="label">Marrakech</div></div>
+        <div class="choice" data-value="casablanca" onclick="multi(this,'ville')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🏙️</span><div class="label">Casablanca</div></div>
+        <div class="choice" data-value="rabat" onclick="multi(this,'ville')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🏛️</span><div class="label">Rabat</div></div>
+        <div class="choice" data-value="tanger" onclick="multi(this,'ville')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">⚓</span><div class="label">Tanger</div></div>
+        <div class="choice" data-value="fes" onclick="multi(this,'ville')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🕌</span><div class="label">Fès</div></div>
+        <div class="choice" data-value="essaouira" onclick="multi(this,'ville')"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🌊</span><div class="label">Essaouira</div></div>
+        <div class="choice" data-value="ouvert" onclick="multiExcl(this,'ville')" style="grid-column:1/-1"><div class="check" style="border-radius:4px"></div><span class="icon-emoji">🗺️</span><div class="label">Ouvert à tout — orientez-moi !</div></div>
+      </div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="step" data-step="13">
+      <div class="step-num">Question 13 — Profil</div>
+      <h2>Tu vas faire un tour au souk, tu…</h2>
+      <p class="step-help">Pas de bonne réponse, on veut juste vous cerner 😏</p>
+      <div class="choices">
+        <div class="choice" data-value="negocie_fort" onclick="sel(this,'souk')"><div class="check"></div><span class="icon-emoji">🦁</span><div class="label">Tu divises le prix par 3<span class="sublabel">Me prends pas pour un touriste, je négocie à fond !</span></div></div>
+        <div class="choice" data-value="negocie_peu" onclick="sel(this,'souk')"><div class="check"></div><span class="icon-emoji">😏</span><div class="label">Tu négocies un peu<span class="sublabel">Je ne suis pas un pigeon mais bon... le pauvre c'est son travail</span></div></div>
+        <div class="choice" data-value="prix_fixes" onclick="sel(this,'souk')"><div class="check"></div><span class="icon-emoji">🏪</span><div class="label">Tu cherches un magasin avec les prix affichés</div></div>
+      </div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="step" data-step="14">
+      <div class="step-num">Question 14 — Profil</div>
+      <h2>Sur la route, c'est limité à 120 km/h :</h2>
+      <div class="choices cols-2">
+        <div class="choice choice-center" data-value="120" onclick="sel(this,'vitesse')"><div class="check"></div><div class="label">Je règle le limiteur à 120 😇</div></div>
+        <div class="choice choice-center" data-value="123" onclick="sel(this,'vitesse')"><div class="check"></div><div class="label">Je règle le limiteur à 123 😏</div></div>
+        <div class="choice choice-center" data-value="110" onclick="sel(this,'vitesse')"><div class="check"></div><div class="label">Je règle le limiteur à 110 🐢</div></div>
+        <div class="choice choice-center" data-value="quoi" onclick="sel(this,'vitesse')"><div class="check"></div><div class="label">On dit limiteur ou limitateur ? 🤔</div></div>
+      </div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="step" data-step="15">
+      <div class="step-num">Question 15 — Motivation</div>
+      <h2>Pourquoi investir au Maroc ?</h2>
+      <div class="choices">
+        <div class="choice" data-value="potentiel" onclick="sel(this,'motivation')"><div class="check"></div><span class="icon-emoji">📈</span><div class="label">Je crois au potentiel — le marché est en plein développement</div></div>
+        <div class="choice" data-value="pays" onclick="sel(this,'motivation')"><div class="check"></div><span class="icon-emoji">🇲🇦</span><div class="label">C'est mon pays, tahia Maghreb !</div></div>
+        <div class="choice" data-value="europe" onclick="sel(this,'motivation')"><div class="check"></div><span class="icon-emoji">😤</span><div class="label">Je ne veux plus donner d'argent à l'Europe !</div></div>
+        <div class="choice" data-value="hasard" onclick="sel(this,'motivation')"><div class="check"></div><span class="icon-emoji">🎲</span><div class="label">Concours de circonstances — héritage, famille, occasion</div></div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="step" data-step="16">
+      <div class="step-num">Pour vous recontacter</div>
+      <h2>Vos coordonnées</h2>
+      <p class="step-help">Un conseiller SmartBnB vous contacte sous 24h pour échanger sur votre projet. Sans engagement.</p>
+
+      <form name="decouverte-investisseur" netlify netlify-honeypot="bot-field" id="netlify-decouverte" style="display:contents">
+        <input type="hidden" name="form-name" value="decouverte-investisseur">
+        <input type="hidden" name="bot-field" style="display:none">
+        <input type="hidden" name="experience" id="h-exp" value="">
+        <input type="hidden" name="type_bien" id="h-type" value="">
+        <input type="hidden" name="emplacement" id="h-empl" value="">
+        <input type="hidden" name="horizon" id="h-horiz" value="">
+        <input type="hidden" name="budget" id="h-budget" value="">
+        <input type="hidden" name="rentabilite" id="h-renta" value="">
+        <input type="hidden" name="financement" id="h-fin" value="">
+        <input type="hidden" name="gestion" id="h-gest" value="">
+        <input type="hidden" name="vacances" id="h-vac" value="">
+        <input type="hidden" name="deco" id="h-deco" value="">
+        <input type="hidden" name="ancien_neuf" id="h-anc" value="">
+        <input type="hidden" name="ville" id="h-ville" value="">
+        <input type="hidden" name="negociation" id="h-souk" value="">
+        <input type="hidden" name="vitesse" id="h-vit" value="">
+        <input type="hidden" name="motivation" id="h-motiv" value="">
+
+        <div class="input-grid">
+          <div class="input-group"><label>Prénom *</label><input type="text" id="firstname" name="prenom" required placeholder="Zorro"></div>
+          <div class="input-group"><label>Nom *</label><input type="text" id="lastname" name="nom" required placeholder="Alami"></div>
+        </div>
+        <div class="input-group"><label>Email *</label><input type="email" id="email" name="email" required placeholder="votre@email.com"></div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>Tranche d'âge</label>
+            <select name="age">
+              <option value="">—</option>
+              <option>20–25 ans</option><option>25–30 ans</option><option>30–35 ans</option>
+              <option>35–40 ans</option><option>40+ ans</option><option>Ça ne vous regarde pas !</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Pays de résidence</label>
+            <select name="pays">
+              <option value="">—</option>
+              <option>France</option><option>Belgique</option><option>Espagne</option>
+              <option>Canada</option><option>Maroc</option><option>Groland</option><option>Autre</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group"><label>Téléphone / WhatsApp</label><input type="tel" name="telephone" placeholder="+33 6 12 34 56 78"></div>
+        <div class="input-group">
+          <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
+            <input type="checkbox" id="consent" required style="width:auto;margin-top:4px;">
+            <span style="font-size:13px;color:var(--ink-soft);">J'accepte que SmartBnB me contacte pour étudier mon projet (loi 09-08 / RGPD).</span>
+          </label>
+        </div>
+      </form>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="step" data-step="17">
+      <div class="success">
+        <div class="success-icon">✓</div>
+        <h2>Merci, on vous rappelle vite !</h2>
+        <p>Un conseiller SmartBnB prend contact sous <strong>24h ouvrées</strong> pour échanger sur votre projet et vous proposer les options les plus adaptées.</p>
+        <div class="tags" id="summary-tags"></div>
+        <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="mailto:contact.smartbnb@gmail.com" style="padding:11px 22px;background:var(--accent);color:white;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;">Envoyer un email</a>
+          <a href="https://wa.me/212775961740" style="padding:11px 22px;background:#fff;color:var(--accent-dark);border:1px solid var(--accent);border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;">WhatsApp</a>
+        </div>
+        <div style="margin-top:16px;text-align:center;font-size:13px;">
+          <button onclick="location.reload()" style="background:none;border:none;color:var(--ink-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:13px;">↻ Recommencer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions" id="actions">
+      <button type="button" class="btn btn-prev" id="btn-prev" onclick="prevStep()" style="visibility:hidden;">← Précédent</button>
+      <button type="button" class="btn btn-next" id="btn-next" onclick="nextStep()" disabled>Suivant →</button>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 SmartBnB — Données protégées (loi 09-08 / RGPD)</footer>
+
+<script>
+const TOTAL = 15;
+let currentStep = 1;
+
+const PARTIES = [
+  { steps: [1,2,3,4,5], label: 'Partie 1 — Expérience & objectifs' },
+  { steps: [6,7,8,9,10], label: 'Partie 2 — Rentabilité & gestion' },
+  { steps: [11,12], label: 'Partie 3 — Localisation & bien' },
+  { steps: [13,14,15], label: 'Partie 4 — Votre profil' },
+  { steps: [16], label: 'Vos coordonnées' },
+  { steps: [17], label: 'Confirmation' },
+];
+
+const A = {
+  exp:null, type:[], emplacement:[], horizon:null, budget:null,
+  renta:null, financement:null, gestion:null, vacances:null, deco:null,
+  ancneuf:null, ville:[], souk:null, vitesse:null, motivation:null,
+  firstname:'', lastname:'', email:'', consent:false
+};
+
+// Multi-select (case à cocher)
+function multi(el, key) {
+  const val = el.dataset.value;
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) {
+    if (!A[key].includes(val)) A[key].push(val);
+  } else {
+    A[key] = A[key].filter(v => v !== val);
+  }
+  updateNextButton();
+}
+
+// Multi exclusif (sélectionner ça désélectionne tout le reste)
+function multiExcl(el, key) {
+  el.parentElement.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  A[key] = [el.dataset.value];
+  updateNextButton();
+}
+
+const MAP = {
+  debutant:'1er invest', rp:'RP seulement', rp_plus:'RP + autre', multi:'Multi-biens',
+  studio:'Appartement', villa:'Villa/riad', terrain:'Terrain', immeuble:'Immeuble',
+  mer:'Vue mer', centre:'Plein centre', residentiel:'Résidentiel', chaabi:'Chaâbi authentique', pragmatique:'Pragmatique',
+  urgent:'Urgent !', ecoute:'À l\'écoute', serein:'Serein',
+  m500k:'< 45k€', '500k_1m':'45–90k€', '1m_2m':'90–180k€', '2m_3m':'180–270k€', p3m:'> 270k€',
+  moderee:'Renta modérée', elevee:'Renta élevée', max:'Renta max',
+  oui:'Avec financement', non:'Fonds propres', nsp:'Financement ?',
+  perso:'Gestion perso', smartbnb:'Gestion SmartBnB',
+  mixte:'Usage mixte',
+  cle:'Déco clé en main', accomp:'Déco accompagné', seul:'Déco seul',
+  ancien:'Ancien', recent:'Récent', neuf:'Neuf', loc:'Localisation first', renta:'Renta first',
+  marrakech:'Marrakech', casablanca:'Casablanca', rabat:'Rabat', tanger:'Tanger', fes:'Fès', essaouira:'Essaouira', ouvert:'Toute ville',
+  negocie_fort:'Négocie fort', negocie_peu:'Négocie un peu', prix_fixes:'Prix affichés',
+  potentiel:'Croit au potentiel', pays:'Tahia Maghreb', europe:'Fuit l\'Europe', hasard:'Hasard/famille'
+};
+
+const KEYS = ['exp','type','emplacement','horizon','budget','renta','financement','gestion','vacances','deco','ancneuf','ville','souk','vitesse','motivation'];
+
+function getPartie(step) {
+  return PARTIES.find(p => p.steps.includes(step)) || PARTIES[PARTIES.length - 1];
+}
+
+function sel(el, key) {
+  el.parentElement.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  A[key] = el.dataset.value;
+  updateNextButton();
+}
+
+function isStepValid() {
+  if (currentStep >= 1 && currentStep <= 15) {
+    const key = KEYS[currentStep - 1];
+    const val = A[key];
+    if (Array.isArray(val)) return val.length > 0;
+    return val !== null;
+  }
+  if (currentStep === 16) {
+    const f = document.getElementById('firstname'), l = document.getElementById('lastname'),
+          e = document.getElementById('email'), c = document.getElementById('consent');
+    return f && f.value.trim() && l && l.value.trim() && e && e.value.includes('@') && c && c.checked;
+  }
+  return true;
+}
+
+function updateNextButton() {
+  captureFreeFields();
+  const btn = document.getElementById('btn-next');
+  btn.disabled = !isStepValid();
+  if (currentStep === 16) { btn.textContent = 'Envoyer ma demande →'; btn.classList.add('accent'); }
+  else { btn.textContent = 'Suivant →'; btn.classList.remove('accent'); }
+}
+
+function captureFreeFields() {
+  if (currentStep === 16) {
+    const f = document.getElementById('firstname'), l = document.getElementById('lastname'),
+          e = document.getElementById('email'), c = document.getElementById('consent');
+    if (f) A.firstname = f.value;
+    if (l) A.lastname = l.value;
+    if (e) A.email = e.value;
+    if (c) A.consent = c.checked;
+  }
+}
+
+function updateProgress() {
+  const d = Math.min(currentStep, TOTAL);
+  const done = currentStep === 17;
+  document.getElementById('progress-bar').style.width = (done ? 100 : ((d - 1) / TOTAL * 100)) + '%';
+  document.getElementById('progress-text').textContent = done ? 'Terminé !' : `Question ${d} sur ${TOTAL}`;
+  document.getElementById('partie-badge').textContent = getPartie(currentStep).label;
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const t = document.querySelector(`.step[data-step="${n}"]`);
+  if (t) t.classList.add('active');
+  document.getElementById('btn-prev').style.visibility = n > 1 && n < 17 ? 'visible' : 'hidden';
+  if (n === 17) { document.getElementById('actions').style.display = 'none'; }
+  currentStep = n;
+  updateProgress();
+  updateNextButton();
+}
+
+function nextStep() {
+  captureFreeFields();
+  if (!isStepValid()) return;
+  if (currentStep === 16) { submitAndConfirm(); return; }
+  showStep(currentStep + 1);
+}
+
+function prevStep() {
+  if (currentStep > 1) showStep(currentStep - 1);
+}
+
+function submitAndConfirm() {
+  // Populate hidden fields
+  const hids = ['exp','type','emplacement','horizon','budget','renta','financement','gestion','vacances','deco','ancneuf','ville','souk','vitesse','motivation'];
+  const hkeys = ['h-exp','h-type','h-empl','h-horiz','h-budget','h-renta','h-fin','h-gest','h-vac','h-deco','h-anc','h-ville','h-souk','h-vit','h-motiv'];
+  hids.forEach((k, i) => {
+    const el = document.getElementById(hkeys[i]);
+    if (el) el.value = Array.isArray(A[k]) ? A[k].join(', ') : (A[k] || '');
+  });
+
+  const form = document.getElementById('netlify-decouverte');
+  if (form) {
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).catch(e => console.log(e));
+  }
+
+  // Build tags
+  const tags = [];
+  KEYS.forEach(k => {
+    const val = A[k];
+    if (Array.isArray(val)) { val.forEach(v => { if (MAP[v]) tags.push(MAP[v]); }); }
+    else if (val && MAP[val]) tags.push(MAP[val]);
+  });
+  document.getElementById('summary-tags').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+  showStep(17);
+}
+
+document.addEventListener('change', () => { captureFreeFields(); updateNextButton(); });
+document.addEventListener('input', () => { captureFreeFields(); updateNextButton(); });
+
+updateProgress();
+updateNextButton();
+</script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBnB — Marketplace biens immobiliers Maroc</title>
+<meta name="description" content="Découvrez nos biens immobiliers sélectionnés au Maroc. Investissement locatif à Marrakech, Casablanca, Tanger, Rabat, Fès, Essaouira.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.mkt-hero{background:var(--noir);padding:5rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+.mkt-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=1400&q=85&auto=format&fit=crop') center/cover;opacity:.15}
+.mkt-hero-content{position:relative;z-index:1}
+.mkt-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);color:var(--blanc);margin-bottom:.75rem}
+.mkt-hero h1 em{color:var(--sable);font-style:italic}
+.mkt-hero p{color:rgba(250,248,244,.6);font-size:1rem;max-width:520px;margin:0 auto 1.5rem}
+
+/* FILTERS */
+.mkt-filters{background:#fff;border-bottom:1px solid #e8e6df;padding:1rem 2rem;position:sticky;top:0;z-index:50}
+.mkt-filters-inner{max-width:1280px;margin:0 auto;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.mkt-filter-btn{padding:6px 14px;border-radius:100px;border:1px solid #e8e6df;background:transparent;font-size:12px;font-weight:500;color:#6B5D54;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+.mkt-filter-btn:hover{border-color:#C9A96E;color:#1A1410}
+.mkt-filter-btn.act{background:#1A1410;color:#FAF8F4;border-color:#1A1410}
+.mkt-search{flex:1;min-width:200px;padding:7px 14px;border:1px solid #e8e6df;border-radius:100px;font-size:12px;font-family:inherit}
+.mkt-search:focus{outline:none;border-color:#C9A96E}
+.mkt-count{font-size:12px;color:#9e9690;margin-left:auto}
+
+/* GRID */
+.mkt-wrap{max-width:1280px;margin:0 auto;padding:2rem}
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+@media(max-width:900px){.mkt-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.mkt-grid{grid-template-columns:1fr}}
+
+/* CARD */
+.bien-card{background:#fff;border:0.5px solid #e8e6df;border-radius:16px;overflow:hidden;cursor:pointer;transition:all .25s}
+.bien-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,20,16,.1);border-color:#C9A96E}
+.bien-photo{position:relative;aspect-ratio:4/3;overflow:hidden;background:#f0ede8}
+.bien-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.bien-card:hover .bien-photo img{transform:scale(1.05)}
+.bien-badges{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-wrap:wrap}
+.bien-badge{padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700}
+.bb-exclu{background:#1A1410;color:#C9A96E}
+.bb-new{background:#C1714F;color:#fff}
+.bb-promo{background:#0F6E56;color:#fff}
+.bien-fav{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s}
+.bien-fav:hover{background:#fff;transform:scale(1.1)}
+.bien-body{padding:1rem}
+.bien-ville{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C9A96E;margin-bottom:.3rem}
+.bien-titre{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#1A1410;margin-bottom:.3rem;line-height:1.3}
+.bien-adresse{font-size:11px;color:#9e9690;margin-bottom:.75rem}
+.bien-stats{display:flex;gap:1rem;margin-bottom:.75rem}
+.bien-stat{font-size:11px;color:#6B5D54;display:flex;align-items:center;gap:3px}
+.bien-prix-row{display:flex;align-items:baseline;justify-content:space-between}
+.bien-prix{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#1A1410}
+.bien-prix small{font-size:11px;font-family:'Jost',sans-serif;color:#9e9690;font-weight:400}
+.bien-renta{background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:700}
+.bien-footer{padding:.875rem 1rem;border-top:0.5px solid #f0ede8;display:flex;gap:.5rem}
+.bien-btn-primary{flex:1;background:#1A1410;color:#FAF8F4;border:none;border-radius:100px;padding:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s}
+.bien-btn-primary:hover{background:#C1714F}
+.bien-btn-wa{width:36px;height:36px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .15s}
+.bien-btn-wa:hover{transform:scale(1.08)}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{display:flex}
+.modal-box{background:#fff;border-radius:18px;width:100%;max-width:700px;max-height:90vh;overflow-y:auto}
+.modal-photos{display:grid;grid-template-columns:2fr 1fr;gap:4px;border-radius:14px 14px 0 0;overflow:hidden;background:#f0ede8}
+.modal-photo-main{aspect-ratio:16/10;overflow:hidden}
+.modal-photo-main img{width:100%;height:100%;object-fit:cover}
+.modal-photos-side{display:flex;flex-direction:column;gap:4px}
+.modal-photo-small{aspect-ratio:4/3;overflow:hidden}
+.modal-photo-small img{width:100%;height:100%;object-fit:cover}
+.modal-content{padding:1.5rem}
+.modal-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
+.modal-close{width:32px;height:32px;border:1px solid #e8e6df;border-radius:50%;background:transparent;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.modal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem}
+.modal-stat{background:#faf8f4;border-radius:8px;padding:.75rem;text-align:center}
+.modal-stat-n{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#1A1410}
+.modal-stat-l{font-size:10px;color:#9e9690;margin-top:2px}
+.modal-desc{font-size:13px;color:#6B5D54;line-height:1.7;margin-bottom:1rem}
+.modal-prix{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#1A1410;margin-bottom:1rem}
+.modal-prix small{font-size:13px;font-family:'Jost',sans-serif;color:#9e9690;font-weight:400}
+.modal-actions{display:flex;gap:.75rem}
+.modal-btn-p{flex:1;background:#1A1410;color:#FAF8F4;border:none;border-radius:100px;padding:11px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s}
+.modal-btn-p:hover{background:#C1714F}
+.modal-btn-wa{padding:11px 20px;background:#25D366;color:#fff;border:none;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.empty-state{text-align:center;padding:4rem 2rem;color:#9e9690}
+.empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:.5rem;color:#1A1410}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav scrolled" id="nav">
+  <a href="index.html" class="nav-logo">SmartBNB</a>
+  <ul class="nav-links">
+    <li><a href="marketplace.html" style="color:var(--terracotta)">Biens disponibles</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="smart-invest.html">Smart Invest</a></li>
+    <li><a href="formulaire-decouverte.html" class="nav-cta">Mon profil investisseur</a></li>
+  </ul>
+  <button class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mkt-hero">
+  <div class="mkt-hero-content">
+    <span class="section-tag" style="color:var(--sable);border-color:rgba(201,169,110,.4)">Biens sélectionnés par SmartBnB</span>
+    <h1>Nos biens <em>disponibles</em></h1>
+    <p>Chaque bien est visité, vérifié et analysé par nos chasseurs. Rendement estimé inclus.</p>
+  </div>
+</div>
+
+<div class="mkt-filters">
+  <div class="mkt-filters-inner">
+    <button class="mkt-filter-btn act" onclick="setFilter('',this)">Tous</button>
+    <button class="mkt-filter-btn" onclick="setFilter('marrakech',this)">Marrakech</button>
+    <button class="mkt-filter-btn" onclick="setFilter('casablanca',this)">Casablanca</button>
+    <button class="mkt-filter-btn" onclick="setFilter('tanger',this)">Tanger</button>
+    <button class="mkt-filter-btn" onclick="setFilter('rabat',this)">Rabat</button>
+    <button class="mkt-filter-btn" onclick="setFilter('fes',this)">Fès</button>
+    <button class="mkt-filter-btn" onclick="setFilter('essaouira',this)">Essaouira</button>
+    <input class="mkt-search" type="text" placeholder="Rechercher un bien..." id="srch" oninput="render()">
+    <span class="mkt-count" id="mkt-count">— biens</span>
+  </div>
+</div>
+
+<div class="mkt-wrap">
+  <div class="mkt-grid" id="mkt-grid"></div>
+</div>
+
+<!-- MODAL DETAIL -->
+<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modal-box"></div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/chatbot.js"></script>
+<script>
+// Données biens — chargées depuis localStorage (admin upload) ou démo
+let biens = [];
+let filtreVille = '';
+let favs = JSON.parse(localStorage.getItem('sbnb-favs') || '[]');
+
+const DEMO_BIENS = [
+  {
+    id:1, titre:'Appartement moderne — Guéliz', ville:'marrakech', quartier:'Guéliz',
+    type:'Appartement', surface:65, chambres:2, sdb:1, etage:'3ème',
+    prix:850000, renta:9.2, statut:'exclu',
+    desc:'Bel appartement rénové en 2024 au cœur de Guéliz. Lumineux, vue dégagée, copropriété sécurisée. Parfait pour la location courte durée — fort taux d\'occupation constaté dans ce quartier.',
+    points:['Vue dégagée côté montagne','Copropriété avec gardien','Parking privatif','Cuisine équipée neuve'],
+    photos:[
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=85&auto=format&fit=crop'
+    ]
+  },
+  {
+    id:2, titre:'Riad authentique — Médina', ville:'marrakech', quartier:'Médina',
+    type:'Riad', surface:180, chambres:4, sdb:4, etage:'RC+1',
+    prix:2200000, renta:11.5, statut:'new',
+    desc:'Riad de caractère dans la médina historique, à 5 minutes de la place Jemaa el-Fna. Patio central avec fontaine, terrasse panoramique, 4 suites indépendantes. Potentiel LCD exceptionnel.',
+    points:['Patio central + fontaine','Terrasse panoramique','4 suites indépendantes','5 min Jemaa el-Fna'],
+    photos:[
+      'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=85&auto=format&fit=crop'
+    ]
+  },
+  {
+    id:3, titre:'Studio vue mer — Malabata', ville:'tanger', quartier:'Malabata',
+    type:'Studio', surface:42, chambres:1, sdb:1, etage:'5ème',
+    prix:480000, renta:8.1, statut:'exclu',
+    desc:'Studio avec vue directe sur le détroit de Gibraltar depuis le 5ème étage. Résidence récente, piscine commune. Quartier en pleine valorisation — excellent pour un premier investissement.',
+    points:['Vue mer directe','Piscine commune','Résidence récente','Quartier en forte valorisation'],
+    photos:[
+      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&q=85&auto=format&fit=crop'
+    ]
+  },
+  {
+    id:4, titre:'Appartement T3 — Agdal', ville:'rabat', quartier:'Agdal',
+    type:'Appartement', surface:95, chambres:3, sdb:2, etage:'2ème',
+    prix:1150000, renta:5.8, statut:'',
+    desc:'Grand appartement familial dans le quartier résidentiel le plus prisé de Rabat. Proche ambassades et ministères. Cible locative: diplomates, cadres. Location longue durée recommandée.',
+    points:['Quartier ambassades','Cible cadres/diplomates','LLD recommandée','Cave et parking'],
+    photos:[
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=85&auto=format&fit=crop'
+    ]
+  },
+  {
+    id:5, titre:'Duplex de charme — Hivernage', ville:'marrakech', quartier:'Hivernage',
+    type:'Duplex', surface:120, chambres:3, sdb:2, etage:'4-5ème',
+    prix:1800000, renta:10.3, statut:'promo',
+    desc:'Duplex d\'exception dans le quartier des grands hôtels. Terrasse privative de 40m², piscine commune chauffée. Ameublement SmartDéco inclus dans le prix. Prêt à louer.',
+    points:['Terrasse privative 40m²','Piscine commune chauffée','Ameublement inclus','Prêt à louer immédiatement'],
+    photos:[
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=85&auto=format&fit=crop'
+    ]
+  },
+  {
+    id:6, titre:'Appartement vue port — Médina', ville:'essaouira', quartier:'Médina',
+    type:'Appartement', surface:55, chambres:2, sdb:1, etage:'2ème',
+    prix:650000, renta:7.8, statut:'new',
+    desc:'Appartement rénové avec vue sur le port historique et les remparts. Clientèle CSP+ en quête d\'authenticité. Essaouira séduit une clientèle européenne haut de gamme.',
+    points:['Vue port et remparts','Médina classée UNESCO','Clientèle CSP+ européenne','Rénové 2024'],
+    photos:[
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=85&auto=format&fit=crop'
+    ]
+  }
+];
+
+function loadBiens(){
+  // Charge depuis localStorage (admin) ou démo
+  const saved = localStorage.getItem('sbnb-biens');
+  biens = saved ? [...JSON.parse(saved), ...DEMO_BIENS] : DEMO_BIENS;
+  render();
+}
+
+function getFiltered(){
+  const q = (document.getElementById('srch')?.value||'').toLowerCase();
+  return biens.filter(b => {
+    const mv = !filtreVille || b.ville === filtreVille;
+    const mq = !q || `${b.titre} ${b.quartier} ${b.ville} ${b.type}`.toLowerCase().includes(q);
+    return mv && mq;
+  });
+}
+
+function fmt(n){return n.toLocaleString('fr-MA')+' MAD';}
+
+function render(){
+  const fil = getFiltered();
+  document.getElementById('mkt-count').textContent = `${fil.length} bien${fil.length!==1?'s':''}`;
+
+  if(!fil.length){
+    document.getElementById('mkt-grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>Aucun bien pour ce filtre</h3><p>Revenez bientôt ou contactez-nous pour accéder aux biens off-market.</p></div>`;
+    return;
+  }
+
+  document.getElementById('mkt-grid').innerHTML = fil.map(b => {
+    const isFav = favs.includes(b.id);
+    const statuts = {exclu:'bb-exclu', new:'bb-new', promo:'bb-promo'};
+    const statLabels = {exclu:'Exclusivité', new:'Nouveau', promo:'Offre spéciale'};
+    return `
+    <div class="bien-card" onclick="openModal(${b.id})">
+      <div class="bien-photo">
+        <img src="${b.photos[0]}" alt="${b.titre}" loading="lazy">
+        <div class="bien-badges">
+          ${b.statut&&statuts[b.statut]?`<span class="bien-badge ${statuts[b.statut]}">${statLabels[b.statut]}</span>`:''}
+        </div>
+        <button class="bien-fav" onclick="event.stopPropagation();toggleFav(${b.id},this)">${isFav?'❤️':'🤍'}</button>
+      </div>
+      <div class="bien-body">
+        <div class="bien-ville">${b.ville.charAt(0).toUpperCase()+b.ville.slice(1)} — ${b.quartier}</div>
+        <div class="bien-titre">${b.titre}</div>
+        <div class="bien-adresse">${b.type} · ${b.surface}m² · ${b.chambres} ch.</div>
+        <div class="bien-stats">
+          <span class="bien-stat">🛏 ${b.chambres}</span>
+          <span class="bien-stat">🚿 ${b.sdb}</span>
+          <span class="bien-stat">📐 ${b.surface}m²</span>
+        </div>
+        <div class="bien-prix-row">
+          <div class="bien-prix">${fmt(b.prix)} <small>TTC</small></div>
+          <span class="bien-renta">${b.renta}% brut</span>
+        </div>
+      </div>
+      <div class="bien-footer">
+        <button class="bien-btn-primary" onclick="event.stopPropagation();openModal(${b.id})">Voir le détail</button>
+        <a class="bien-btn-wa" href="https://wa.me/212775961740?text=Bonjour%2C%20je%20suis%20intéressé%20par%20le%20bien%20'${encodeURIComponent(b.titre)}'" onclick="event.stopPropagation()" target="_blank" title="WhatsApp">💬</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleFav(id, btn){
+  if(favs.includes(id)){favs=favs.filter(f=>f!==id);btn.textContent='🤍';}
+  else{favs.push(id);btn.textContent='❤️';}
+  localStorage.setItem('sbnb-favs',JSON.stringify(favs));
+}
+
+function setFilter(ville, btn){
+  filtreVille = ville;
+  document.querySelectorAll('.mkt-filter-btn').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  render();
+}
+
+function openModal(id){
+  const b = biens.find(x=>x.id===id);if(!b)return;
+  document.getElementById('modal-box').innerHTML = `
+    <div class="modal-photos">
+      <div class="modal-photo-main"><img src="${b.photos[0]}" alt="${b.titre}"></div>
+      <div class="modal-photos-side">
+        ${b.photos.slice(1,3).map(p=>`<div class="modal-photo-small"><img src="${p}" alt="${b.titre}"></div>`).join('')}
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-hd">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C9A96E;margin-bottom:.3rem">${b.ville.charAt(0).toUpperCase()+b.ville.slice(1)} — ${b.quartier}</div>
+          <div class="modal-title">${b.titre}</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-stats">
+        <div class="modal-stat"><div class="modal-stat-n">${b.surface}m²</div><div class="modal-stat-l">Surface</div></div>
+        <div class="modal-stat"><div class="modal-stat-n">${b.chambres}</div><div class="modal-stat-l">Chambres</div></div>
+        <div class="modal-stat"><div class="modal-stat-n">${b.renta}%</div><div class="modal-stat-l">Renta brute</div></div>
+        <div class="modal-stat"><div class="modal-stat-n">${b.etage}</div><div class="modal-stat-l">Étage</div></div>
+      </div>
+      <div class="modal-desc">${b.desc}</div>
+      <div style="margin-bottom:1rem">
+        ${b.points.map(p=>`<div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#6B5D54;padding:4px 0"><span style="color:#C9A96E;font-weight:700">✓</span>${p}</div>`).join('')}
+      </div>
+      <div class="modal-prix">${fmt(b.prix)} <small>TTC · Frais de notaire ~8% en sus</small></div>
+      <div class="modal-actions">
+        <button class="modal-btn-p" onclick="window.location='formulaire-decouverte.html'">Je suis intéressé →</button>
+        <a class="modal-btn-wa" href="https://wa.me/212775961740?text=Bonjour%2C%20je%20voudrais%20des%20infos%20sur%20le%20bien%20'${encodeURIComponent(b.titre)}'" target="_blank">💬 WhatsApp</a>
+      </div>
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+loadBiens();
+</script>
+</body>
+</html>

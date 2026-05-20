@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBnB — Confier mon bien</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.form-hero{background:var(--noir);padding:5rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+.form-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=1400&q=85&auto=format&fit=crop') center/cover;opacity:.18}
+.form-hero-content{position:relative;z-index:1}
+.form-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);color:var(--blanc);margin-bottom:.75rem}
+.form-hero h1 em{color:var(--sable);font-style:italic}
+.form-hero p{color:rgba(250,248,244,.65);font-size:1rem;max-width:520px;margin:0 auto}
+.form-wrap{max-width:720px;margin:0 auto;padding:3rem 1.5rem 5rem}
+.step-wrap{background:var(--blanc);border:1px solid #e8e6df;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(26,23,20,.06)}
+.step-progress{height:4px;background:#f0ede6}
+.step-progress-fill{height:100%;background:linear-gradient(90deg,var(--sable),var(--terracotta));transition:width .4s ease}
+.step-header{padding:1.5rem 2rem;border-bottom:1px solid #f0ede6;display:flex;align-items:center;justify-content:space-between}
+.step-label{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sable)}
+.step-count{font-size:.75rem;color:#9e9690}
+.step-body{padding:2rem}
+.step{display:none}.step.active{display:block}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--noir);margin-bottom:.35rem;line-height:1.3}
+.step-sub{font-size:.82rem;color:#9e9690;margin-bottom:1.5rem}
+.opts{display:grid;gap:.625rem;margin-bottom:1.5rem}
+.opts-2{grid-template-columns:1fr 1fr}
+.opts-3{grid-template-columns:1fr 1fr 1fr}
+.opt{background:#faf8f4;border:1.5px solid #e8e6df;border-radius:10px;padding:.875rem 1.125rem;cursor:pointer;text-align:left;font-family:inherit;width:100%;transition:all .15s;display:flex;align-items:flex-start;gap:.75rem}
+.opt:hover{border-color:var(--sable)}
+.opt.sel{border-color:var(--terracotta);background:rgba(193,113,79,.06)}
+.opt-check{width:18px;height:18px;border:1.5px solid #d3d1c7;border-radius:50%;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.sel .opt-check{background:var(--terracotta);border-color:var(--terracotta)}
+.opt.sel .opt-check::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+.opt-em{font-size:1.25rem;flex-shrink:0;line-height:1}
+.opt-label{font-size:.875rem;font-weight:500;color:var(--noir);display:block}
+.opt-sub{font-size:.75rem;color:#9e9690;margin-top:2px;display:block;font-weight:400}
+.opt.sel .opt-label{color:var(--terracotta)}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:.78rem;font-weight:500;color:#6b6560;margin-bottom:.35rem}
+.fg input,.fg select,.fg textarea{width:100%;padding:.7rem 1rem;border:1.5px solid #e8e6df;border-radius:8px;font-size:.875rem;font-family:inherit;background:#fff;color:var(--noir)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--sable);box-shadow:0 0 0 3px rgba(201,169,110,.12)}
+.fields-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0ede6}
+.btn-back{background:transparent;border:1.5px solid #e8e6df;border-radius:100px;padding:.6rem 1.4rem;font-size:.82rem;font-weight:500;color:#9e9690;cursor:pointer;font-family:inherit}
+.btn-back:hover{border-color:#9e9690;color:var(--noir)}
+.btn-next{background:var(--noir);border:none;border-radius:100px;padding:.7rem 1.75rem;font-size:.82rem;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;transition:background .2s}
+.btn-next:hover{background:var(--terracotta)}
+.btn-next:disabled{background:#d3cfc9;cursor:not-allowed}
+.btn-next.accent{background:var(--terracotta)}
+.btn-next.accent:hover{background:#a05030}
+.infobox{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.25);border-left:3px solid var(--sable);border-radius:0 8px 8px 0;padding:.875rem 1.125rem;font-size:.82rem;color:#6b6560;line-height:1.6;margin-bottom:1.25rem}
+.infobox strong{color:var(--noir)}
+.success{text-align:center;padding:1.5rem 1rem}
+.success-ic{width:56px;height:56px;border-radius:50%;background:rgba(201,169,110,.12);border:1.5px solid var(--sable);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1.25rem}
+.success h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--noir);margin-bottom:.625rem}
+.success p{font-size:.875rem;color:#6b6560;max-width:380px;margin:0 auto 1.25rem;line-height:1.65}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1rem}
+.tag{background:#faf8f4;border:1px solid #e8e6df;border-radius:100px;padding:.25rem .75rem;font-size:.72rem;color:#6b6560}
+@media(max-width:600px){.opts-2,.opts-3,.fields-2{grid-template-columns:1fr}.step-body{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav class="nav scrolled" id="nav">
+  <a href="index.html" class="nav-logo">SmartBNB</a>
+  <ul class="nav-links">
+    <li><a href="services.html">Nos services</a></li>
+    <li><a href="villes.html">Les villes</a></li>
+    <li><a href="sci.html">Créer une SCI</a></li>
+    <li><a href="marche.html">Marché & Fiscalité</a></li>
+    <li><a href="contact.html" class="nav-cta">Prendre RDV</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="form-hero">
+  <div class="form-hero-content">
+    <span class="section-tag" style="color:var(--sable);border-color:rgba(201,169,110,.4)">Gestion locative</span>
+    <h1>Confiez votre bien à<br><em>SmartBnB</em></h1>
+    <p>3 minutes pour nous parler de votre bien. On s'occupe du reste — 17% du loyer, zéro tracas.</p>
+  </div>
+</div>
+
+<div class="form-wrap">
+  <div class="step-wrap">
+    <div class="step-progress"><div class="step-progress-fill" id="prog" style="width:12%"></div></div>
+    <div class="step-header">
+      <span class="step-label" id="slbl">Votre situation</span>
+      <span class="step-count" id="scnt">Étape 1 / 8</span>
+    </div>
+    <div class="step-body">
+
+      <!-- Q1 : Situation du bien -->
+      <div class="step active" id="s1">
+        <div class="step-title">Où en êtes-vous avec votre bien ?</div>
+        <div class="step-sub">On s'adapte à votre situation, quelle qu'elle soit</div>
+        <div class="opts">
+          <button class="opt" data-k="situation" data-v="pret" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">🏠</span>
+            <div><span class="opt-label">Mon bien est prêt à louer</span><span class="opt-sub">Meublé et disponible immédiatement</span></div>
+          </button>
+          <button class="opt" data-k="situation" data-v="vide" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">🪑</span>
+            <div><span class="opt-label">Mon bien est vide — besoin d'ameublement</span><span class="opt-sub">On peut vous proposer notre pack clé en main</span></div>
+          </button>
+          <button class="opt" data-k="situation" data-v="renovation" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">🔨</span>
+            <div><span class="opt-label">Mon bien est en cours de rénovation</span><span class="opt-sub">On prend le relais dès que c'est prêt</span></div>
+          </button>
+          <button class="opt" data-k="situation" data-v="acquisition" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">📋</span>
+            <div><span class="opt-label">Je suis en cours d'acquisition</span><span class="opt-sub">On prépare tout en avance — zéro délai à la livraison</span></div>
+          </button>
+          <button class="opt" data-k="situation" data-v="recherche" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">🔍</span>
+            <div><span class="opt-label">Je cherche encore le bon bien</span><span class="opt-sub">On peut aussi vous aider à trouver le bon investissement</span></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q2 : Type de bien -->
+      <div class="step" id="s2">
+        <div class="step-title">Quel type de bien souhaitez-vous confier ?</div>
+        <div class="step-sub">Plusieurs réponses possibles</div>
+        <div class="opts opts-2">
+          <button class="opt multi" data-k="type" data-v="studio" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">🏢</span>
+            <div><span class="opt-label">Studio / T1</span><span class="opt-sub">Idéal pour la LCD</span></div>
+          </button>
+          <button class="opt multi" data-k="type" data-v="appart" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">🏠</span>
+            <div><span class="opt-label">Appartement T2 / T3+</span><span class="opt-sub">Familles et séjours longs</span></div>
+          </button>
+          <button class="opt multi" data-k="type" data-v="riad" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">🕌</span>
+            <div><span class="opt-label">Riad / Maison de charme</span><span class="opt-sub">Fort potentiel premium</span></div>
+          </button>
+          <button class="opt multi" data-k="type" data-v="villa" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">🏡</span>
+            <div><span class="opt-label">Villa avec piscine</span><span class="opt-sub">Haut rendement haute saison</span></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q3 : Ville -->
+      <div class="step" id="s3">
+        <div class="step-title">Dans quelle ville se trouve votre bien ?</div>
+        <div class="opts opts-2">
+          <button class="opt" data-k="ville" data-v="marrakech" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🌹</span><div><span class="opt-label">Marrakech</span></div></button>
+          <button class="opt" data-k="ville" data-v="casablanca" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🏙️</span><div><span class="opt-label">Casablanca</span></div></button>
+          <button class="opt" data-k="ville" data-v="rabat" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🏛️</span><div><span class="opt-label">Rabat</span></div></button>
+          <button class="opt" data-k="ville" data-v="tanger" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">⚓</span><div><span class="opt-label">Tanger</span></div></button>
+          <button class="opt" data-k="ville" data-v="fes" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🕌</span><div><span class="opt-label">Fès</span></div></button>
+          <button class="opt" data-k="ville" data-v="essaouira" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🌊</span><div><span class="opt-label">Essaouira</span></div></button>
+          <button class="opt" data-k="ville" data-v="autre" onclick="sel(this)" style="grid-column:1/-1"><div class="opt-check"></div><span class="opt-em">📍</span><div><span class="opt-label">Autre ville</span></div></button>
+        </div>
+      </div>
+
+      <!-- Q4 : Gestion actuelle -->
+      <div class="step" id="s4">
+        <div class="step-title">Comment gérez-vous votre bien actuellement ?</div>
+        <div class="opts">
+          <button class="opt" data-k="gestion_actuelle" data-v="perso" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">😓</span>
+            <div><span class="opt-label">Je gère moi-même — c'est épuisant</span><span class="opt-sub">Messages à toute heure, ménage, check-in... vous méritez mieux</span></div>
+          </button>
+          <button class="opt" data-k="gestion_actuelle" data-v="autre_agence" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">😕</span>
+            <div><span class="opt-label">J'ai une agence mais je ne suis pas satisfait</span><span class="opt-sub">Mauvais rendement, mauvaise communication, frais cachés</span></div>
+          </button>
+          <button class="opt" data-k="gestion_actuelle" data-v="vide_lld" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">💸</span>
+            <div><span class="opt-label">Le bien est vide ou en location longue durée</span><span class="opt-sub">Vous laissez de l'argent sur la table</span></div>
+          </button>
+          <button class="opt" data-k="gestion_actuelle" data-v="premier" onclick="sel(this)">
+            <div class="opt-check"></div><span class="opt-em">🚀</span>
+            <div><span class="opt-label">C'est mon premier bien, je pars de zéro</span><span class="opt-sub">Parfait — on gère tout depuis le début</span></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q5 : Disponibilité -->
+      <div class="step" id="s5">
+        <div class="step-title">Quand souhaitez-vous démarrer la gestion ?</div>
+        <div class="opts opts-3">
+          <button class="opt" data-k="demarrage" data-v="maintenant" onclick="sel(this)" style="flex-direction:column;align-items:center;text-align:center;padding:1.25rem .75rem">
+            <div class="opt-check" style="margin:0 auto .5rem"></div><span class="opt-em">⚡</span><span class="opt-label">Immédiatement</span><span class="opt-sub">Dès que possible</span>
+          </button>
+          <button class="opt" data-k="demarrage" data-v="1mois" onclick="sel(this)" style="flex-direction:column;align-items:center;text-align:center;padding:1.25rem .75rem">
+            <div class="opt-check" style="margin:0 auto .5rem"></div><span class="opt-em">📅</span><span class="opt-label">Dans 1 mois</span><span class="opt-sub">Le temps de préparer</span>
+          </button>
+          <button class="opt" data-k="demarrage" data-v="plus" onclick="sel(this)" style="flex-direction:column;align-items:center;text-align:center;padding:1.25rem .75rem">
+            <div class="opt-check" style="margin:0 auto .5rem"></div><span class="opt-em">🗓️</span><span class="opt-label">Dans 3 mois+</span><span class="opt-sub">En cours de préparation</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q6 : Ce qu'ils attendent -->
+      <div class="step" id="s6">
+        <div class="step-title">Qu'est-ce qui compte le plus pour vous ?</div>
+        <div class="step-sub">Plusieurs réponses possibles</div>
+        <div class="opts">
+          <button class="opt multi" data-k="priorites" data-v="rendement" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">💰</span>
+            <div><span class="opt-label">Maximiser le rendement</span><span class="opt-sub">Je veux le meilleur taux d'occupation possible</span></div>
+          </button>
+          <button class="opt multi" data-k="priorites" data-v="tranquillite" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">😌</span>
+            <div><span class="opt-label">Gérer sans m'en occuper</span><span class="opt-sub">Distance et zéro stress — vous êtes à l'étranger</span></div>
+          </button>
+          <button class="opt multi" data-k="priorites" data-v="conformite" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">📋</span>
+            <div><span class="opt-label">Être en règle avec la loi 80-14</span><span class="opt-sub">Autorisation, déclarations, conformité CNDP</span></div>
+          </button>
+          <button class="opt multi" data-k="priorites" data-v="valorisation" onclick="multi(this)">
+            <div class="opt-check" style="border-radius:4px"></div><span class="opt-em">✨</span>
+            <div><span class="opt-label">Valoriser et rénover le bien</span><span class="opt-sub">Home staging, ameublement, photos pro</span></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q7 : Budget ameublement si vide -->
+      <div class="step" id="s7">
+        <div class="step-title">Si votre bien nécessite un ameublement, quel est votre budget ?</div>
+        <div class="opts">
+          <button class="opt" data-k="budget_ameub" data-v="35k" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🛏️</span><div><span class="opt-label">35 000 MAD</span><span class="opt-sub">Studio / T1 — pack essentiel</span></div></button>
+          <button class="opt" data-k="budget_ameub" data-v="50k" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🛋️</span><div><span class="opt-label">50 000 MAD</span><span class="opt-sub">T2 — confort et style</span></div></button>
+          <button class="opt" data-k="budget_ameub" data-v="75k" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🏠</span><div><span class="opt-label">75 000 MAD</span><span class="opt-sub">T3+ — haut de gamme</span></div></button>
+          <button class="opt" data-k="budget_ameub" data-v="110k" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">🏰</span><div><span class="opt-label">110 000 MAD+</span><span class="opt-sub">Villa / Riad — prestige</span></div></button>
+          <button class="opt" data-k="budget_ameub" data-v="deja" onclick="sel(this)"><div class="opt-check"></div><span class="opt-em">✅</span><div><span class="opt-label">Déjà meublé</span><span class="opt-sub">Prêt à louer</span></div></button>
+        </div>
+      </div>
+
+      <!-- Q8 : Contact -->
+      <div class="step" id="s8">
+        <div class="step-title">Vos coordonnées</div>
+        <div class="step-sub">Un conseiller SmartBnB vous contacte sous 24h pour une estimation gratuite de votre rendement.</div>
+        <form netlify name="confier-mon-bien" id="form-confier" style="display:contents">
+          <input type="hidden" name="form-name" value="confier-mon-bien">
+          <input type="hidden" name="situation" id="h-sit">
+          <input type="hidden" name="type_bien" id="h-type">
+          <input type="hidden" name="ville" id="h-ville">
+          <input type="hidden" name="gestion_actuelle" id="h-gest">
+          <input type="hidden" name="demarrage" id="h-dem">
+          <input type="hidden" name="priorites" id="h-prio">
+          <input type="hidden" name="budget_ameublement" id="h-ameub">
+          <div class="fields-2">
+            <div class="fg"><label>Prénom *</label><input type="text" name="prenom" id="f-prenom" required placeholder="Mohamed"></div>
+            <div class="fg"><label>Nom *</label><input type="text" name="nom" id="f-nom" required placeholder="Alami"></div>
+          </div>
+          <div class="fg"><label>Email *</label><input type="email" name="email" id="f-email" required placeholder="votre@email.com"></div>
+          <div class="fields-2">
+            <div class="fg"><label>Téléphone / WhatsApp</label><input type="tel" name="telephone" placeholder="+33 6 12 34 56 78"></div>
+            <div class="fg"><label>Pays de résidence</label>
+              <select name="pays"><option>France</option><option>Belgique</option><option>Espagne</option><option>Canada</option><option>Maroc</option><option>Autre</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Adresse approximative du bien (facultatif)</label><input type="text" name="adresse" placeholder="Ex: Guéliz, Marrakech"></div>
+          <div class="fg"><label>Commentaire</label><textarea name="commentaire" rows="2" placeholder="Précisions sur votre bien..."></textarea></div>
+        </form>
+        <div class="infobox" style="margin-top:.75rem">
+          <strong>Ce qu'on fait avec ces infos :</strong> on prépare une estimation de rendement personnalisée pour votre bien et on vous propose un RDV de 30 minutes. Zéro spam, zéro engagement.
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="step" id="s9">
+        <div class="success">
+          <div class="success-ic">✓</div>
+          <h2>On prend votre bien en main !</h2>
+          <p>Un conseiller SmartBnB vous contacte sous <strong>24h ouvrées</strong> avec une estimation gratuite du rendement locatif de votre bien.</p>
+          <div class="tags" id="stags"></div>
+          <div style="display:flex;gap:.75rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap">
+            <a href="https://wa.me/212775961740" style="padding:.7rem 1.5rem;background:var(--terracotta);color:#fff;border-radius:100px;font-size:.85rem;font-weight:600;text-decoration:none">💬 WhatsApp direct</a>
+            <a href="index.html" style="padding:.7rem 1.5rem;background:transparent;border:1.5px solid #e8e6df;color:var(--noir);border-radius:100px;font-size:.85rem;font-weight:500;text-decoration:none">← Retour accueil</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="nav-btns" id="nav-btns">
+      <button class="btn-back" id="btn-back" onclick="back()" style="visibility:hidden">← Précédent</button>
+      <button class="btn-next" id="btn-next" onclick="next()" disabled>Continuer →</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+const LABELS={
+  situation:{pret:'Bien prêt',vide:'Bien vide',renovation:'En rénovation',acquisition:'En acquisition',recherche:'En recherche'},
+  type:{studio:'Studio/T1',appart:'Appartement',riad:'Riad',villa:'Villa'},
+  ville:{marrakech:'Marrakech',casablanca:'Casablanca',rabat:'Rabat',tanger:'Tanger',fes:'Fès',essaouira:'Essaouira',autre:'Autre'},
+  gestion_actuelle:{perso:'Gestion perso',autre_agence:'Autre agence',vide_lld:'Vide/LLD',premier:'Premier bien'},
+  demarrage:{maintenant:'Immédiatement',mois:'1 mois','1mois':'1 mois',plus:'3 mois+'},
+  priorites:{rendement:'Rendement max',tranquillite:'Gestion à distance',conformite:'Conformité loi',valorisation:'Valorisation'},
+  budget_ameub:{'35k':'35k MAD','50k':'50k MAD','75k':'75k MAD','110k':'110k+ MAD',deja:'Déjà meublé'}
+};
+const STEP_LABELS=['Votre situation','Type de bien','Ville','Gestion actuelle','Démarrage','Vos priorités','Ameublement','Vos coordonnées'];
+const TOTAL=8;
+let cur=1;
+const A={situation:null,type:[],ville:null,gestion_actuelle:null,demarrage:null,priorites:[],budget_ameub:null};
+
+function sel(el){
+  const k=el.dataset.k;
+  el.closest('.opts').querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  A[k]=el.dataset.v;
+  check();
+}
+function multi(el){
+  const k=el.dataset.k,v=el.dataset.v;
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')){if(!A[k].includes(v))A[k].push(v);}
+  else{A[k]=A[k].filter(x=>x!==v);}
+  check();
+}
+function valid(){
+  if(cur===1)return!!A.situation;
+  if(cur===2)return A.type.length>0;
+  if(cur===3)return!!A.ville;
+  if(cur===4)return!!A.gestion_actuelle;
+  if(cur===5)return!!A.demarrage;
+  if(cur===6)return A.priorites.length>0;
+  if(cur===7)return!!A.budget_ameub;
+  if(cur===8){
+    captureForms();
+    const p=document.getElementById('f-prenom').value.trim();
+    const n=document.getElementById('f-nom').value.trim();
+    const e=document.getElementById('f-email').value.trim();
+    return p&&n&&e&&e.includes('@');
+  }
+  return true;
+}
+function captureForms(){
+  const map={sit:'situation',type:'type',ville:'ville',gest:'gestion_actuelle',dem:'demarrage',prio:'priorites',ameub:'budget_ameub'};
+  document.getElementById('h-sit').value=A.situation||'';
+  document.getElementById('h-type').value=Array.isArray(A.type)?A.type.join(', '):A.type||'';
+  document.getElementById('h-ville').value=A.ville||'';
+  document.getElementById('h-gest').value=A.gestion_actuelle||'';
+  document.getElementById('h-dem').value=A.demarrage||'';
+  document.getElementById('h-prio').value=Array.isArray(A.priorites)?A.priorites.join(', '):A.priorites||'';
+  document.getElementById('h-ameub').value=A.budget_ameub||'';
+}
+function check(){
+  const btn=document.getElementById('btn-next');
+  captureForms();
+  btn.disabled=!valid();
+  if(cur===8){btn.textContent='Envoyer →';btn.classList.add('accent');}
+  else{btn.textContent='Continuer →';btn.classList.remove('accent');}
+}
+function render(){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+cur).classList.add('active');
+  document.getElementById('slbl').textContent=STEP_LABELS[cur-1]||'Confirmation';
+  document.getElementById('scnt').textContent=cur<9?`Étape ${cur} / ${TOTAL}`:'';
+  document.getElementById('prog').style.width=(cur<=TOTAL?(cur-1)/TOTAL*100:100)+'%';
+  document.getElementById('btn-back').style.visibility=cur>1&&cur<9?'visible':'hidden';
+  document.getElementById('nav-btns').style.display=cur===9?'none':'flex';
+  if(cur===8){document.addEventListener('input',check);document.addEventListener('change',check);}
+  check();
+}
+function next(){
+  captureForms();
+  if(!valid())return;
+  if(cur===8){submit();return;}
+  cur++;render();
+}
+function back(){if(cur>1){cur--;render();}}
+function submit(){
+  captureForms();
+  const form=document.getElementById('form-confier');
+  if(form){
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()}).catch(()=>{});
+  }
+  const url=localStorage.getItem('smartbnb-script-url');
+  if(url){
+    const prenom=document.getElementById('f-prenom').value;
+    const nom=document.getElementById('f-nom').value;
+    fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({...A,prenom,nom,email:document.getElementById('f-email').value,formulaire:'confier-mon-bien'})}).catch(()=>{});
+  }
+  buildTags();
+  cur=9;render();
+}
+function buildTags(){
+  const tags=[];
+  Object.entries(A).forEach(([k,v])=>{
+    if(Array.isArray(v)){v.forEach(x=>{if(LABELS[k]&&LABELS[k][x])tags.push(LABELS[k][x]);});}
+    else if(v&&LABELS[k]&&LABELS[k][v])tags.push(LABELS[k][v]);
+  });
+  document.getElementById('stags').innerHTML=tags.map(t=>`<span class="tag">${t}</span>`).join('');
+}
+render();
+</script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

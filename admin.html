@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBnB — Dashboard Admin</title>
+<style>
+:root {
+  --ink: #1a1a1a; --ink-soft: #5f5e5a; --ink-muted: #888780;
+  --bg: #f5f4f0; --surface: #ffffff; --border: #d3d1c7;
+  --accent: #0f6e56; --accent-soft: #e1f5ee; --accent-dark: #04342c;
+  --danger: #e24b4a; --warning: #ba7517; --success: #3b6d11;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif; background: var(--bg); color: var(--ink); font-size: 14px; -webkit-font-smoothing: antialiased; }
+
+/* LOGIN */
+.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 100%; max-width: 380px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+.login-logo { font-weight: 600; font-size: 20px; margin-bottom: 24px; }
+.login-logo span { color: var(--accent); }
+.login-card h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.login-card p { color: var(--ink-soft); margin-bottom: 24px; font-size: 13px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-bottom: 6px; }
+.field input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: inherit; }
+.field input:focus { outline: none; border-color: var(--accent); }
+.btn-login { width: 100%; padding: 11px; background: var(--ink); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; }
+.btn-login:hover { background: var(--accent); }
+.login-error { color: var(--danger); font-size: 12px; margin-top: 8px; display: none; }
+
+/* DASHBOARD */
+.dashboard { display: none; min-height: 100vh; }
+.topbar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10;
+}
+.topbar-logo { font-weight: 600; font-size: 16px; }
+.topbar-logo span { color: var(--accent); }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.btn-sm { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; font-family: inherit; }
+.btn-sm:hover { background: var(--bg); }
+.btn-accent { background: var(--accent); color: white; border-color: var(--accent); }
+.btn-accent:hover { background: var(--accent-dark); }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+/* STATS */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+.stat-label { font-size: 11px; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.stat-num { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+.stat-sub { font-size: 11px; color: var(--ink-muted); margin-top: 4px; }
+.stat-accent { color: var(--accent); }
+.stat-warn { color: var(--warning); }
+
+/* FILTERS */
+.filters { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.filter-label { font-size: 12px; font-weight: 500; color: var(--ink-soft); }
+.filter-btn { padding: 5px 12px; border-radius: 100px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); background: transparent; font-family: inherit; }
+.filter-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+.filter-btn:hover:not(.active) { background: var(--bg); }
+.search-input { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; width: 200px; margin-left: auto; }
+.search-input:focus { outline: none; border-color: var(--accent); }
+
+/* TABLE */
+.table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.table-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.table-title { font-size: 14px; font-weight: 500; }
+.table-count { font-size: 12px; color: var(--ink-muted); }
+table { width: 100%; border-collapse: collapse; }
+th { padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; background: #fafaf7; border-bottom: 1px solid var(--border); }
+td { padding: 12px 16px; border-bottom: 1px solid #f0ede6; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafaf7; }
+.lead-name { font-weight: 500; font-size: 14px; }
+.lead-email { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+.badge { display: inline-block; padding: 3px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; }
+.badge-decouverte { background: #e1f5ee; color: #085041; }
+.badge-sci { background: #faeeda; color: #633806; }
+.badge-profil { background: #eeedfe; color: #26215c; }
+.badge-qualification { background: #e6f1fb; color: #042c53; }
+.badge-nouveau { background: #fcebeb; color: #501313; }
+.badge-contact { background: #eaf3de; color: #173404; }
+.badge-traite { background: #f1efe8; color: #444441; }
+.action-btns { display: flex; gap: 6px; }
+.btn-icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.btn-icon:hover { background: var(--bg); }
+.btn-icon.green:hover { background: var(--accent-soft); border-color: var(--accent); }
+.btn-icon.red:hover { background: #fcebeb; border-color: var(--danger); }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--surface); border-radius: 14px; width: 100%; max-width: 580px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+.modal-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--surface); }
+.modal-head h2 { font-size: 16px; font-weight: 600; }
+.modal-close { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: transparent; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+.modal-body { padding: 20px 24px; }
+.detail-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0ede6; font-size: 13px; }
+.detail-row:last-child { border-bottom: none; }
+.detail-key { color: var(--ink-muted); min-width: 140px; }
+.detail-val { color: var(--ink); font-weight: 500; flex: 1; }
+.modal-actions { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+
+/* TOAST */
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: white; padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.3s; z-index: 200; pointer-events: none; }
+.toast.show { opacity: 1; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(--ink-muted); }
+.empty-state-icon { font-size: 40px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; }
+
+@media (max-width: 768px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Smart<span>BnB</span></div>
+    <h1>Accès admin</h1>
+    <p>Connectez-vous pour gérer vos leads.</p>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="contact.smartbnb@gmail.com" value="contact.smartbnb@gmail.com">
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="login-error" id="login-error">Email ou mot de passe incorrect.</div>
+    <button class="btn-login" onclick="doLogin()">Se connecter →</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="topbar">
+    <div class="topbar-logo">Smart<span>BnB</span> <span style="font-size:11px;font-weight:400;color:var(--ink-muted);margin-left:6px">Dashboard leads</span></div>
+    <div class="topbar-right">
+      <button class="btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn-sm" onclick="doLogout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total leads</div>
+        <div class="stat-num stat-accent" id="stat-total">—</div>
+        <div class="stat-sub">Tous formulaires</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Nouveaux</div>
+        <div class="stat-num stat-warn" id="stat-new">—</div>
+        <div class="stat-sub">Non traités</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Cette semaine</div>
+        <div class="stat-num" id="stat-week">—</div>
+        <div class="stat-sub">7 derniers jours</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Taux traitement</div>
+        <div class="stat-num" id="stat-rate">—</div>
+        <div class="stat-sub">Traités / total</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <span class="filter-label">Formulaire :</span>
+      <button class="filter-btn active" onclick="setFilter('tous',this)">Tous</button>
+      <button class="filter-btn" onclick="setFilter('decouverte',this)">Découverte</button>
+      <button class="filter-btn" onclick="setFilter('profil',this)">Profil acquéreur</button>
+      <button class="filter-btn" onclick="setFilter('sci',this)">SCI</button>
+      <button class="filter-btn" onclick="setFilter('qualification',this)">Qualification</button>
+      <span class="filter-label" style="margin-left:8px">Statut :</span>
+      <button class="filter-btn active" id="f-statut-tous" onclick="setStatutFilter('tous',this)">Tous</button>
+      <button class="filter-btn" onclick="setStatutFilter('nouveau',this)">Nouveaux</button>
+      <button class="filter-btn" onclick="setStatutFilter('contact',this)">Contactés</button>
+      <button class="filter-btn" onclick="setStatutFilter('traite',this)">Traités</button>
+      <input class="search-input" type="text" placeholder="Rechercher..." oninput="setSearch(this.value)" id="search-input">
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div class="table-header">
+        <div class="table-title">Leads</div>
+        <div class="table-count" id="table-count">— résultats</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Contact</th>
+            <th>Formulaire</th>
+            <th>Statut</th>
+            <th>Ville ciblée</th>
+            <th>Reçu le</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="leads-tbody">
+          <tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">⏳</div><p>Chargement des leads...</p></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modal-title">Détail du lead</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-accent" onclick="updateStatus('contact')">Marquer contacté</button>
+      <button class="btn-sm btn-accent" style="background:var(--success);border-color:var(--success)" onclick="updateStatus('traite')">Marquer traité ✓</button>
+      <button class="btn-sm" style="color:var(--danger);border-color:var(--danger)" onclick="deleteLead()">Supprimer</button>
+      <button class="btn-sm" style="margin-left:auto" onclick="closeModal()">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════
+// CONFIGURATION — À personnaliser
+// ════════════════════════════════════════
+const CONFIG = {
+  // Mot de passe admin (simple, côté client)
+  // Pour une vraie sécurité, remplacer par Supabase Auth
+  password: 'smartbnb2026',
+
+  // Supabase (remplir après création du projet sur supabase.com)
+  supabaseUrl: 'https://VOTRE_PROJECT_ID.supabase.co',
+  supabaseKey: 'VOTRE_ANON_KEY',
+};
+// ════════════════════════════════════════
+
+// État
+let allLeads = [];
+let currentFilter = 'tous';
+let currentStatut = 'tous';
+let currentSearch = '';
+let currentLeadId = null;
+let useDemo = true; // Passe à false quand Supabase est configuré
+
+// ── LOGIN ──
+function doLogin() {
+  const pwd = document.getElementById('login-pwd').value;
+  if (pwd === CONFIG.password) {
+    sessionStorage.setItem('smartbnb_admin', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadLeads();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('smartbnb_admin');
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+}
+
+// Auto-login si session active
+if (sessionStorage.getItem('smartbnb_admin')) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+}
+
+// ── DONNÉES DEMO ──
+const DEMO_LEADS = [
+  { id:1, prenom:'Mohamed', nom:'Alami', email:'m.alami@gmail.com', telephone:'+33 6 12 34 56 78', pays:'France', formulaire:'decouverte', ville:'Marrakech', budget:'1m_2m', statut:'nouveau', created_at:'2026-05-18T10:23:00', data:{ experience:'1er investissement', type_bien:'Studio, Appartement', emplacement:'Vue mer, Plein centre', horizon:'Urgent', rentabilite:'Élevée', financement:'Prêt', gestion:'SmartBnB', motivation:'Croit au potentiel' } },
+  { id:2, prenom:'Fatima', nom:'Benali', email:'f.benali@outlook.fr', telephone:'+32 4 78 90 12 34', pays:'Belgique', formulaire:'sci', ville:'Casablanca', budget:'2m_3m', statut:'contact', created_at:'2026-05-17T14:45:00', data:{ motif:'Bien futur', associes:'En famille', nationalite:'MRE', nb_associes:'3', options:'Comptabilité, Notaire', devis_total:'4 400 MAD' } },
+  { id:3, prenom:'Karim', nom:'Essafi', email:'k.essafi@gmail.com', telephone:'+33 7 65 43 21 09', pays:'France', formulaire:'profil', ville:'Tanger', budget:'500k_1m', statut:'nouveau', created_at:'2026-05-17T09:12:00', data:{ foyer:'Couple', mobilite:'Véhiculé', environnement:'Vue mer, Modernité', standing:'Confort', usage:'Louer uniquement', animation:'Calme' } },
+  { id:4, prenom:'Sarah', nom:'Chraibi', email:'s.chraibi@yahoo.fr', telephone:'+34 6 12 34 56 78', pays:'Espagne', formulaire:'qualification', ville:'Rabat', budget:'m500k', statut:'traite', created_at:'2026-05-16T16:30:00', data:{ projet:'Investissement LCD', pays_residence:'Espagne', villes:'Rabat', budget:'500k_1m', financement:'Fonds propres', horizon:'À l\'écoute' } },
+  { id:5, prenom:'Youssef', nom:'Tahiri', email:'y.tahiri@gmail.com', telephone:'+1 514 123 4567', pays:'Canada', formulaire:'decouverte', ville:'Marrakech', budget:'p3m', statut:'nouveau', created_at:'2026-05-16T11:00:00', data:{ experience:'Multi-biens', type_bien:'Villa, Riad', emplacement:'Chaâbi authentique', horizon:'À l\'écoute', rentabilite:'Élevée', financement:'Fonds propres', motivation:'C\'est mon pays' } },
+  { id:6, prenom:'Leila', nom:'Moussaoui', email:'l.moussaoui@gmail.com', telephone:'+33 6 98 76 54 32', pays:'France', formulaire:'sci', ville:'Essaouira', budget:'1m_2m', statut:'contact', created_at:'2026-05-15T13:20:00', data:{ motif:'Bien futur, Bien acquis', associes:'Couple', nationalite:'Marocaine', nb_associes:'2', options:'Aucune', devis_total:'2 800 MAD' } },
+  { id:7, prenom:'Omar', nom:'Belkadi', email:'o.belkadi@hotmail.fr', telephone:'+33 6 11 22 33 44', pays:'France', formulaire:'profil', ville:'Fès', budget:'500k_1m', statut:'traite', created_at:'2026-05-14T09:45:00', data:{ foyer:'Famille', mobilite:'Sans voiture', environnement:'Médina, Authenticité', standing:'Standard', usage:'Usage personnel + location', animation:'Animé' } },
+];
+
+// ── LOAD LEADS ──
+async function loadLeads() {
+  if (useDemo || !CONFIG.supabaseUrl.includes('supabase.co')) {
+    allLeads = DEMO_LEADS;
+    renderAll();
+    return;
+  }
+  try {
+    const res = await fetch(`${CONFIG.supabaseUrl}/rest/v1/leads?order=created_at.desc`, {
+      headers: { 'apikey': CONFIG.supabaseKey, 'Authorization': `Bearer ${CONFIG.supabaseKey}` }
+    });
+    allLeads = await res.json();
+    renderAll();
+  } catch(e) {
+    allLeads = DEMO_LEADS;
+    renderAll();
+    showToast('Mode démo — Supabase non configuré');
+  }
+}
+
+// ── RENDER ──
+function getFiltered() {
+  return allLeads.filter(l => {
+    const matchF = currentFilter === 'tous' || l.formulaire === currentFilter;
+    const matchS = currentStatut === 'tous' || l.statut === currentStatut;
+    const q = currentSearch.toLowerCase();
+    const matchQ = !q || `${l.prenom} ${l.nom} ${l.email} ${l.ville || ''}`.toLowerCase().includes(q);
+    return matchF && matchS && matchQ;
+  });
+}
+
+function renderAll() {
+  updateStats();
+  renderTable();
+}
+
+function updateStats() {
+  const total = allLeads.length;
+  const nouveau = allLeads.filter(l => l.statut === 'nouveau').length;
+  const week = allLeads.filter(l => {
+    const d = new Date(l.created_at);
+    return (Date.now() - d) < 7 * 24 * 3600 * 1000;
+  }).length;
+  const traite = allLeads.filter(l => l.statut === 'traite').length;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-new').textContent = nouveau;
+  document.getElementById('stat-week').textContent = week;
+  document.getElementById('stat-rate').textContent = total ? Math.round(traite / total * 100) + '%' : '—';
+}
+
+const FORM_LABELS = { decouverte:'Découverte', sci:'SCI', profil:'Profil acquéreur', qualification:'Qualification' };
+const STATUT_LABELS = { nouveau:'Nouveau', contact:'Contacté', traite:'Traité' };
+
+function renderTable() {
+  const filtered = getFiltered();
+  document.getElementById('table-count').textContent = `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''}`;
+
+  if (!filtered.length) {
+    document.getElementById('leads-tbody').innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">📭</div><p>Aucun lead pour ces filtres.</p></div></td></tr>`;
+    return;
+  }
+
+  document.getElementById('leads-tbody').innerHTML = filtered.map(l => `
+    <tr>
+      <td>
+        <div class="lead-name">${l.prenom} ${l.nom}</div>
+        <div class="lead-email">${l.email}</div>
+      </td>
+      <td><span class="badge badge-${l.formulaire}">${FORM_LABELS[l.formulaire] || l.formulaire}</span></td>
+      <td><span class="badge badge-${l.statut}">${STATUT_LABELS[l.statut] || l.statut}</span></td>
+      <td style="color:var(--ink-soft)">${l.ville || '—'}</td>
+      <td style="color:var(--ink-muted);font-size:12px">${formatDate(l.created_at)}</td>
+      <td>
+        <div class="action-btns">
+          <button class="btn-icon" title="Voir détail" onclick="openModal(${l.id})">👁</button>
+          <a href="mailto:${l.email}" class="btn-icon" title="Envoyer email" style="text-decoration:none;display:flex;align-items:center;justify-content:center">✉️</a>
+          ${l.telephone ? `<a href="https://wa.me/${l.telephone.replace(/[^0-9]/g,'')}" class="btn-icon green" title="WhatsApp" target="_blank" style="text-decoration:none;display:flex;align-items:center;justify-content:center">💬</a>` : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function formatDate(str) {
+  const d = new Date(str);
+  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+}
+
+// ── FILTERS ──
+function setFilter(val, btn) {
+  currentFilter = val;
+  document.querySelectorAll('.filters .filter-btn').forEach(b => {
+    if (['tous','decouverte','profil','sci','qualification'].includes(b.textContent.toLowerCase().replace('é','e').replace('è','e').trim()) || b === btn) {
+      if (b === btn) b.classList.add('active');
+    }
+  });
+  // Simpler: just toggle the clicked button group
+  btn.closest('.filters').querySelectorAll('.filter-btn').forEach(b => {
+    const vals = ['tous','decouverte','profil','sci','qualification','nouveau','contact','traite'];
+    if (vals.includes(b.onclick?.toString().match(/'([^']+)'/)?.[1])) return;
+  });
+  document.querySelectorAll('.filters .filter-btn').forEach(b => {
+    const v = b.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+    if (['tous','decouverte','profil','sci','qualification'].includes(v)) {
+      b.classList.toggle('active', v === val);
+    }
+  });
+  renderTable();
+}
+
+function setStatutFilter(val, btn) {
+  currentStatut = val;
+  document.querySelectorAll('.filters .filter-btn').forEach(b => {
+    const v = b.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+    if (['tous','nouveau','contact','traite'].includes(v)) {
+      b.classList.toggle('active', v === val);
+    }
+  });
+  renderTable();
+}
+
+function setSearch(val) { currentSearch = val; renderTable(); }
+
+// ── MODAL ──
+function openModal(id) {
+  currentLeadId = id;
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  document.getElementById('modal-title').textContent = `${l.prenom} ${l.nom} — ${FORM_LABELS[l.formulaire] || l.formulaire}`;
+
+  const rows = [
+    ['Email', `<a href="mailto:${l.email}" style="color:var(--accent)">${l.email}</a>`],
+    ['Téléphone', l.telephone ? `<a href="https://wa.me/${l.telephone.replace(/[^0-9]/g,'')}" style="color:var(--accent)" target="_blank">${l.telephone} 💬</a>` : '—'],
+    ['Pays', l.pays || '—'],
+    ['Ville ciblée', l.ville || '—'],
+    ['Budget', l.budget || '—'],
+    ['Statut', `<span class="badge badge-${l.statut}">${STATUT_LABELS[l.statut]}</span>`],
+    ['Reçu le', formatDate(l.created_at)],
+  ];
+
+  if (l.data) {
+    rows.push(['──────', '<span style="color:var(--ink-muted);font-size:11px">RÉPONSES DU FORMULAIRE</span>']);
+    Object.entries(l.data).forEach(([k, v]) => {
+      const label = k.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+      rows.push([label, v || '—']);
+    });
+  }
+
+  document.getElementById('modal-body').innerHTML = rows.map(([k,v]) =>
+    k === '──────' ? `<div style="padding:8px 0;font-size:11px;color:var(--ink-muted);letter-spacing:.06em">${v}</div>` :
+    `<div class="detail-row"><div class="detail-key">${k}</div><div class="detail-val">${v}</div></div>`
+  ).join('');
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  currentLeadId = null;
+}
+
+function updateStatus(status) {
+  if (!currentLeadId) return;
+  const lead = allLeads.find(l => l.id === currentLeadId);
+  if (lead) {
+    lead.statut = status;
+    renderAll();
+    closeModal();
+    showToast(`Statut mis à jour : ${STATUT_LABELS[status]}`);
+    // Supabase update
+    if (!useDemo) {
+      fetch(`${CONFIG.supabaseUrl}/rest/v1/leads?id=eq.${currentLeadId}`, {
+        method: 'PATCH',
+        headers: { 'apikey': CONFIG.supabaseKey, 'Authorization': `Bearer ${CONFIG.supabaseKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ statut: status })
+      });
+    }
+  }
+}
+
+function deleteLead() {
+  if (!currentLeadId || !confirm('Supprimer ce lead ?')) return;
+  allLeads = allLeads.filter(l => l.id !== currentLeadId);
+  renderAll();
+  closeModal();
+  showToast('Lead supprimé');
+}
+
+// ── EXPORT CSV ──
+function exportCSV() {
+  const filtered = getFiltered();
+  const cols = ['prenom','nom','email','telephone','pays','formulaire','ville','budget','statut','created_at'];
+  const header = cols.join(';');
+  const rows = filtered.map(l => cols.map(c => `"${(l[c]||'').toString().replace(/"/g,'""')}"`).join(';'));
+  const csv = [header, ...rows].join('\n');
+  const blob = new Blob(['\uFEFF'+csv], { type:'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `smartbnb-leads-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast(`${filtered.length} leads exportés`);
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Close modal on overlay click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Auto-login check
+if (sessionStorage.getItem('smartbnb_admin')) loadLeads();
+</script>
+</body>
+</html>

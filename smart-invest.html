@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBnB — Smart Invest, simulateur de rendement</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.sim-hero{background:var(--noir);padding:5rem 2rem 3rem;text-align:center}
+.sim-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);color:var(--blanc);margin-bottom:.75rem}
+.sim-hero h1 em{color:var(--sable);font-style:italic}
+.sim-hero p{color:rgba(250,248,244,.6);font-size:1rem;max-width:520px;margin:0 auto}
+.sim-wrap{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem 5rem;display:grid;grid-template-columns:1.1fr 1fr;gap:2rem}
+@media(max-width:768px){.sim-wrap{grid-template-columns:1fr}}
+.sim-card{background:#fff;border:1px solid #e8e6df;border-radius:16px;padding:1.75rem;height:fit-content}
+.sim-card h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--noir);margin-bottom:1.5rem;padding-bottom:.875rem;border-bottom:1px solid #f0ede6}
+.sim-field{margin-bottom:1.25rem}
+.sim-field label{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;font-weight:500;color:#6b6560;margin-bottom:.4rem}
+.sim-field label span{font-weight:600;color:var(--noir);font-size:.85rem}
+.sim-field input[type=range]{width:100%;height:4px;accent-color:var(--terracotta);cursor:pointer;margin-bottom:.25rem}
+.track-labels{display:flex;justify-content:space-between;font-size:.68rem;color:#b4b2a9}
+.sim-field select{width:100%;padding:.65rem .875rem;border:1.5px solid #e8e6df;border-radius:8px;font-size:.875rem;font-family:inherit;background:#fff;color:var(--noir)}
+.sim-field select:focus{outline:none;border-color:var(--sable)}
+.sim-divider{height:1px;background:#f0ede6;margin:1.25rem 0}
+.results{display:flex;flex-direction:column;gap:1rem}
+.result-main{background:var(--noir);border-radius:12px;padding:1.5rem;text-align:center}
+.result-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,248,244,.5);margin-bottom:.5rem}
+.result-val{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--sable);line-height:1}
+.result-sub{font-size:.75rem;color:rgba(250,248,244,.4);margin-top:.4rem}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+.result-item{background:#faf8f4;border:1px solid #e8e6df;border-radius:10px;padding:1rem;text-align:center}
+.ri-label{font-size:.68rem;font-weight:600;color:#9e9690;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.375rem}
+.ri-val{font-size:1.4rem;font-weight:600;color:var(--noir);line-height:1}
+.ri-sub{font-size:.68rem;color:#b4b2a9;margin-top:.25rem}
+.ri-val.green{color:#0f6e56}.ri-val.amber{color:#854f0b}
+.result-breakdown{background:#faf8f4;border:1px solid #e8e6df;border-radius:10px;padding:1rem}
+.rb-title{font-size:.72rem;font-weight:700;color:#9e9690;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem}
+.rb-row{display:flex;justify-content:space-between;font-size:.82rem;padding:.3rem 0;border-bottom:1px solid #f0ede6}
+.rb-row:last-child{border-bottom:none;font-weight:600;color:var(--noir);font-size:.875rem;padding-top:.5rem}
+.rb-row span:first-child{color:#6b6560}
+.rb-row.pos span:last-child{color:#0f6e56}
+.rb-row.neg span:last-child{color:#854f0b}
+.disclaimer{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:8px;padding:.875rem 1rem;font-size:.75rem;color:#9e9690;margin-top:1rem;line-height:1.6}
+.disclaimer strong{color:#6b6560}
+.cta-block{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid #f0ede6}
+.cta-block p{font-size:.82rem;color:#6b6560;margin-bottom:.875rem;line-height:1.6}
+.cta-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+.cta-btn-primary{flex:1;padding:.7rem 1rem;background:var(--terracotta);color:#fff;border:none;border-radius:100px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;display:inline-block}
+.cta-btn-outline{flex:1;padding:.7rem 1rem;background:transparent;color:var(--noir);border:1.5px solid #e8e6df;border-radius:100px;font-size:.82rem;font-weight:500;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;display:inline-block}
+</style>
+</head>
+<body>
+<nav class="nav scrolled" id="nav">
+  <a href="index.html" class="nav-logo">SmartBNB</a>
+  <ul class="nav-links">
+    <li><a href="services.html">Nos services</a></li>
+    <li><a href="villes.html">Les villes</a></li>
+    <li><a href="smart-invest.html" style="color:var(--terracotta)">Smart Invest</a></li>
+    <li><a href="marche.html">Marché & Fiscalité</a></li>
+    <li><a href="contact.html" class="nav-cta">Prendre RDV</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="sim-hero">
+  <span class="section-tag" style="color:var(--sable);border-color:rgba(201,169,110,.4)">Outil SmartBnB</span>
+  <h1><em>Smart Invest</em> — Simulez votre<br>rendement locatif au Maroc</h1>
+  <p>Estimez en temps réel le revenu, la rentabilité et le cash-flow net de votre investissement.</p>
+</div>
+
+<div class="sim-wrap">
+
+  <!-- PARAMÈTRES -->
+  <div class="sim-card">
+    <h2>Vos paramètres</h2>
+
+    <div class="sim-field">
+      <label>Prix d'achat <span id="v-prix">1 500 000 MAD</span></label>
+      <input type="range" id="r-prix" min="300000" max="10000000" step="50000" value="1500000" oninput="calc()">
+      <div class="track-labels"><span>300k MAD</span><span>10M MAD</span></div>
+    </div>
+
+    <div class="sim-field">
+      <label>Ville <span></span></label>
+      <select id="s-ville" onchange="calc()">
+        <option value="marrakech">Marrakech</option>
+        <option value="tanger">Tanger</option>
+        <option value="casablanca">Casablanca</option>
+        <option value="rabat">Rabat</option>
+        <option value="fes">Fès</option>
+        <option value="essaouira">Essaouira</option>
+      </select>
+    </div>
+
+    <div class="sim-field">
+      <label>Type de bien <span></span></label>
+      <select id="s-type" onchange="calc()">
+        <option value="studio">Studio / T1</option>
+        <option value="appart" selected>Appartement T2/T3</option>
+        <option value="riad">Riad / Maison de charme</option>
+        <option value="villa">Villa avec piscine</option>
+      </select>
+    </div>
+
+    <div class="sim-field">
+      <label>Taux d'occupation estimé <span id="v-occ">70%</span></label>
+      <input type="range" id="r-occ" min="40" max="95" step="5" value="70" oninput="calc()">
+      <div class="track-labels"><span>40%</span><span>95%</span></div>
+    </div>
+
+    <div class="sim-field">
+      <label>Prix nuitée moyen <span id="v-nuit">450 MAD</span></label>
+      <input type="range" id="r-nuit" min="150" max="3000" step="50" value="450" oninput="calc()">
+      <div class="track-labels"><span>150 MAD</span><span>3 000 MAD</span></div>
+    </div>
+
+    <div class="sim-divider"></div>
+
+    <div class="sim-field">
+      <label>Financement <span></span></label>
+      <select id="s-fin" onchange="calc()">
+        <option value="cash">Achat comptant</option>
+        <option value="30">Crédit — apport 30%</option>
+        <option value="20">Crédit — apport 20%</option>
+      </select>
+    </div>
+
+    <div id="credit-fields">
+      <div class="sim-field">
+        <label>Taux crédit annuel <span id="v-taux">5.5%</span></label>
+        <input type="range" id="r-taux" min="3" max="9" step="0.5" value="5.5" oninput="calc()">
+        <div class="track-labels"><span>3%</span><span>9%</span></div>
+      </div>
+      <div class="sim-field">
+        <label>Durée du crédit <span id="v-duree">20 ans</span></label>
+        <input type="range" id="r-duree" min="5" max="25" step="5" value="20" oninput="calc()">
+        <div class="track-labels"><span>5 ans</span><span>25 ans</span></div>
+      </div>
+    </div>
+
+    <div class="sim-divider"></div>
+
+    <div class="sim-field">
+      <label>Commission gestion SmartBnB <span>17%</span></label>
+      <input type="range" min="17" max="17" value="17" disabled style="opacity:.5">
+    </div>
+
+  </div>
+
+  <!-- RÉSULTATS -->
+  <div>
+    <div class="sim-card">
+      <h2>Votre simulation</h2>
+      <div class="results">
+
+        <div class="result-main">
+          <div class="result-label">Rendement brut annuel</div>
+          <div class="result-val" id="r-rendement">—</div>
+          <div class="result-sub" id="r-rendement-sub">sur le prix d'achat</div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="ri-label">Revenu brut/mois</div>
+            <div class="ri-val" id="r-brut">—</div>
+            <div class="ri-sub">MAD</div>
+          </div>
+          <div class="result-item">
+            <div class="ri-label">Net après commission</div>
+            <div class="ri-val green" id="r-net">—</div>
+            <div class="ri-sub">MAD / mois</div>
+          </div>
+          <div class="result-item">
+            <div class="ri-label">Cash-flow mensuel</div>
+            <div class="ri-val" id="r-cashflow">—</div>
+            <div class="ri-sub">après crédit</div>
+          </div>
+          <div class="result-item">
+            <div class="ri-label">Retour sur invest</div>
+            <div class="ri-val amber" id="r-roi">—</div>
+            <div class="ri-sub">années</div>
+          </div>
+        </div>
+
+        <div class="result-breakdown">
+          <div class="rb-title">Détail mensuel</div>
+          <div class="rb-row pos"><span>Revenu brut LCD</span><span id="rb-brut">—</span></div>
+          <div class="rb-row neg"><span>Commission SmartBnB (17%)</span><span id="rb-comm">—</span></div>
+          <div class="rb-row neg"><span>Charges (taxe séjour, entretien)</span><span id="rb-charges">—</span></div>
+          <div class="rb-row neg" id="rb-credit-row"><span>Mensualité crédit</span><span id="rb-credit">—</span></div>
+          <div class="rb-row"><span>Cash-flow net estimé</span><span id="rb-net">—</span></div>
+        </div>
+
+        <div class="disclaimer">
+          <strong>Simulation indicative.</strong> Les chiffres sont basés sur les moyennes de marché SmartBnB 2025. Le rendement réel dépend du bien, de la qualité de gestion et de la saisonnalité. Demandez une estimation personnalisée.
+        </div>
+
+        <div class="cta-block">
+          <p>Cette simulation vous convainc ? Parlez-nous de votre projet — on vous fait une estimation sur votre bien précis.</p>
+          <div class="cta-btns">
+            <a href="confier-mon-bien.html" class="cta-btn-primary">Confier mon bien →</a>
+            <a href="https://wa.me/212775961740" class="cta-btn-outline">💬 WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+const CITY_OCC={marrakech:.75,tanger:.70,casablanca:.68,rabat:.62,fes:.60,essaouira:.65};
+const CITY_NUIT={marrakech:550,tanger:480,casablanca:520,rabat:400,fes:350,essaouira:420};
+const TYPE_MULT={studio:.85,appart:1,riad:1.3,villa:2.1};
+
+function fmt(n){return Math.round(n).toLocaleString('fr-MA')+' MAD';}
+function fmtPct(n){return n.toFixed(1)+'%';}
+
+function calc(){
+  const prix=+document.getElementById('r-prix').value;
+  const occ=+document.getElementById('r-occ').value/100;
+  const nuit=+document.getElementById('r-nuit').value;
+  const taux=+document.getElementById('r-taux').value/100/12;
+  const duree=+document.getElementById('r-duree').value*12;
+  const fin=document.getElementById('s-fin').value;
+  const type=document.getElementById('s-type').value;
+
+  // Update labels
+  document.getElementById('v-prix').textContent=fmt(prix);
+  document.getElementById('v-occ').textContent=(occ*100)+'%';
+  document.getElementById('v-nuit').textContent=nuit+' MAD';
+  document.getElementById('v-taux').textContent=(+document.getElementById('r-taux').value)+'%';
+  document.getElementById('v-duree').textContent=+document.getElementById('r-duree').value+' ans';
+
+  // Show/hide credit fields
+  const showCredit=fin!=='cash';
+  document.getElementById('credit-fields').style.display=showCredit?'block':'none';
+  document.getElementById('rb-credit-row').style.display=showCredit?'flex':'none';
+
+  // Revenue calc
+  const joursOcc=occ*30;
+  const brut_mensuel=joursOcc*nuit;
+  const commission=brut_mensuel*0.17;
+  const charges=brut_mensuel*0.06; // taxe séjour ~3%, entretien ~3%
+  const net_avant_credit=brut_mensuel-commission-charges;
+
+  // Credit calc
+  let mensualite=0;
+  if(showCredit){
+    const apport=fin==='30'?0.30:0.20;
+    const capital=prix*(1-apport);
+    mensualite=capital*(taux*Math.pow(1+taux,duree))/(Math.pow(1+taux,duree)-1);
+  }
+
+  const cashflow=net_avant_credit-mensualite;
+  const brut_annuel=brut_mensuel*12;
+  const rendement_brut=(brut_annuel/prix)*100;
+  const roi=fin==='cash'?(prix/net_avant_credit/12).toFixed(1):(prix*0.3/Math.max(cashflow*12,1)).toFixed(1);
+
+  // Display
+  document.getElementById('r-rendement').textContent=fmtPct(rendement_brut);
+  document.getElementById('r-rendement-sub').textContent=`${fmt(brut_annuel)} brut / an`;
+  document.getElementById('r-brut').textContent=fmt(brut_mensuel);
+  document.getElementById('r-net').textContent=fmt(net_avant_credit);
+  const cf=document.getElementById('r-cashflow');
+  cf.textContent=fmt(cashflow);
+  cf.className='ri-val '+(cashflow>=0?'green':'amber');
+  document.getElementById('r-roi').textContent=roi+' ans';
+  document.getElementById('rb-brut').textContent='+'+fmt(brut_mensuel);
+  document.getElementById('rb-comm').textContent='-'+fmt(commission);
+  document.getElementById('rb-charges').textContent='-'+fmt(charges);
+  document.getElementById('rb-credit').textContent='-'+fmt(mensualite);
+  const rbn=document.getElementById('rb-net');
+  rbn.textContent=(cashflow>=0?'+':'')+fmt(cashflow);
+  rbn.style.color=cashflow>=0?'#0f6e56':'#854f0b';
+}
+
+// Sync city/type presets
+document.getElementById('s-ville').addEventListener('change',function(){
+  const v=this.value;
+  if(CITY_OCC[v]){document.getElementById('r-occ').value=Math.round(CITY_OCC[v]*100);document.getElementById('r-nuit').value=CITY_NUIT[v];}
+  calc();
+});
+document.getElementById('s-type').addEventListener('change',function(){
+  const mult=TYPE_MULT[this.value]||1;
+  const base=CITY_NUIT[document.getElementById('s-ville').value]||450;
+  document.getElementById('r-nuit').value=Math.round(base*mult/50)*50;
+  calc();
+});
+
+calc();
+</script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>
