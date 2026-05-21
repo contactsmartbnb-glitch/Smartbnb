@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Investir au Maroc — Rendement locatif courte durée par ville | SmartBNB</title>
+<meta name="description" content="Investir dans la location courte durée au Maroc : rendements, prix au m², taux d'occupation et quartiers recherchés à Marrakech, Tanger, Casablanca, Rabat, Essaouira et Fès.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero-dark">
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Investir au Maroc · Location courte durée</span>
+        <h1>Le Maroc, terre de <span style="color:var(--vert)">rendement locatif.</span></h1>
+        <p class="lead">Tourisme record, demande Airbnb en forte croissance et prix au m² encore accessibles : la location courte durée marocaine offre des rendements bruts de 5 à 10%. Découvrez le marché ville par ville.</p>
+        <div class="hero-cta">
+          <a href="simulateur.html" class="btn btn-vert btn-lg">Simuler mon rendement</a>
+          <a href="https://wa.me/212775961740" target="_blank" class="btn btn-wa btn-lg">Parler sur WhatsApp</a>
+        </div>
+        <div class="hero-metrics">
+          <div class="hero-metric"><div class="v">17,4M</div><div class="l">Touristes au Maroc en 2024</div></div>
+          <div class="hero-metric"><div class="v">5–10%</div><div class="l">Rendement brut selon la ville</div></div>
+          <div class="hero-metric"><div class="v">6</div><div class="l">Marchés analysés par SmartBNB</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="mockup">
+          <div class="mockup-head">
+            <strong style="font-family:'Fraunces',serif">Marché LCD · Maroc</strong>
+            <span class="badge" style="background:#e7f0e0;color:var(--vert-d)">● Tendance +</span>
+          </div>
+          <div class="mockup-kpis">
+            <div class="mk green"><div class="v">9,8%</div><div class="l">Meilleur rendement (Marrakech)</div></div>
+            <div class="mk"><div class="v">78%</div><div class="l">Occupation haute (Marrakech)</div></div>
+            <div class="mk"><div class="v">10–22k</div><div class="l">Prix MAD / m² selon la ville</div></div>
+            <div class="mk"><div class="v">100%</div><div class="l">Financement MRE en devises</div></div>
+          </div>
+          <div style="font-size:.8rem;color:var(--gris);margin-bottom:4px">Arrivées touristiques · tendance</div>
+          <div class="bars" id="bars"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== WHY MOROCCO ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Pourquoi le Maroc</span>
+      <h2 style="margin-top:8px">Un marché porteur, des fondamentaux solides</h2>
+      <p class="muted">Quatre raisons font du Maroc l'une des destinations d'investissement locatif les plus attractives.</p>
+    </div>
+    <div class="grid grid-4">
+      <div class="card"><div style="font-size:1.8rem">🌍</div><h3 style="margin:12px 0 8px">Tourisme record</h3><p class="muted">17,4 millions de visiteurs en 2024 et un cap des 26 millions visé pour 2030, dopé par la CAN et la Coupe du monde.</p></div>
+      <div class="card"><div style="font-size:1.8rem">📈</div><h3 style="margin:12px 0 8px">Demande LCD en hausse</h3><p class="muted">La location courte durée explose dans les médinas et les villes côtières, avec des taux d'occupation de 60 à 80%.</p></div>
+      <div class="card"><div style="font-size:1.8rem">💶</div><h3 style="margin:12px 0 8px">Financement MRE</h3><p class="muted">Les Marocains du monde financent jusqu'à 100% en devises et bénéficient d'un accompagnement bancaire dédié.</p></div>
+      <div class="card"><div style="font-size:1.8rem">🏷️</div><h3 style="margin:12px 0 8px">Prix encore accessibles</h3><p class="muted">De 10 000 à 22 000 MAD/m² selon la ville : un ticket d'entrée bien inférieur aux marchés européens.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CITY EXPLORER ===== -->
+<section class="section" style="background:var(--beige2)">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 36px">
+      <span class="eyebrow">Marchés ville par ville</span>
+      <h2 style="margin-top:8px">Choisissez votre ville d'investissement</h2>
+      <p class="muted">Rendement, prix au m², occupation, revenus estimés et quartiers recherchés pour chaque marché.</p>
+    </div>
+    <div class="tabs" id="cityTabs" style="justify-content:center;margin-bottom:26px"></div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div id="cityPanel" class="city-panel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTEXT ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid-2" style="align-items:center;gap:44px">
+      <div>
+        <span class="eyebrow">Contexte d'investissement</span>
+        <h2 style="margin:8px 0 14px">Un environnement qui joue en votre faveur</h2>
+        <p style="margin-bottom:14px">Le Maroc a engagé une stratégie touristique ambitieuse : nouvelles liaisons aériennes, infrastructures et grands événements sportifs nourrissent une demande durable en hébergement de courte durée.</p>
+        <p>Pour les investisseurs comme pour les MRE, la location meublée touristique combine un cadre fiscal incitatif, un coût d'acquisition mesuré et une gestion désormais entièrement délégable, à distance, avec SmartBNB.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+          <a href="simulateur.html" class="btn btn-primary">Estimer mon rendement</a>
+          <a href="marketplace.html" class="btn btn-ghost">Voir les biens</a>
+        </div>
+      </div>
+      <div class="grid grid-2" style="gap:14px">
+        <div class="kpi"><div class="v" style="color:var(--vert)">17,4M</div><div class="l">Touristes en 2024</div></div>
+        <div class="kpi"><div class="v" style="color:var(--vert)">+20%</div><div class="l">Croissance des nuitées LCD</div></div>
+        <div class="kpi"><div class="v" style="color:var(--vert)">100%</div><div class="l">Financement possible en devises</div></div>
+        <div class="kpi"><div class="v" style="color:var(--vert)">6</div><div class="l">Villes couvertes par SmartBNB</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="card center" style="background:var(--noir);color:#fff;border:none;padding:60px 30px">
+      <h2 style="color:#fff">Quelle ville pour votre prochain investissement&nbsp;?</h2>
+      <p style="color:#bdbdb8;max-width:520px;margin:12px auto 26px">Recevez un diagnostic gratuit et personnalisé : budget, ville idéale et rendement cible, étudiés par nos chasseurs immobiliers.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="formulaire.html" class="btn btn-vert btn-lg">Diagnostic gratuit</a>
+        <a href="simulateur.html" class="btn btn-ghost btn-lg" style="color:#fff;border-color:#444">Simuler mon rendement</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+/* ---- hero bars ---- */
+const bars=document.getElementById('bars');
+[42,50,58,66,80,94].forEach(h=>{const d=document.createElement('div');d.style.height=h+'%';bars.appendChild(d);});
+
+/* ---- city data ---- */
+const cityImg={
+  marrakech:'photo-1597211684565-dca64d72c2c9',
+  tanger:'photo-1570191037834-c0b8c4b6cd28',
+  casablanca:'photo-1577717903315-1691ae25ab3f',
+  rabat:'photo-1592861956120-e524fc739696',
+  essaouira:'photo-1531761535209-180857e963b9',
+  fes:'photo-1518105779142-d975f22f1b0a'
+};
+const cityDesc={
+  marrakech:"La capitale touristique du royaume. Riads et villas premium portés par une demande LCD record toute l'année.",
+  tanger:"Porte de l'Europe en plein essor, un marché courte durée jeune, dynamique et tourné vers le tourisme d'affaires et balnéaire.",
+  casablanca:"Métropole économique : marché locatif d'affaires solide et forte valeur patrimoniale sur le long terme.",
+  rabat:"Capitale administrative et culturelle, demande stable toute l'année avec un ticket d'entrée accessible.",
+  essaouira:"Destination balnéaire prisée des voyageurs : forte saisonnalité estivale et médina classée très recherchée.",
+  fes:"Capitale spirituelle et artisanale, riads authentiques au meilleur prix au m² du pays."
+};
+const cityQuartiers={
+  marrakech:['Guéliz','Hivernage','Médina','Palmeraie'],
+  tanger:['Malabata','Marshan','Centre-ville','Cap Spartel'],
+  casablanca:['Gauthier','Maârif','Anfa','Bourgogne'],
+  rabat:['Agdal','Hassan','Hay Riad','Souissi'],
+  essaouira:['Médina','Quartier des Dunes','Ghazoua'],
+  fes:['Fès El Bali','Ville Nouvelle','Atlas']
+};
+const cityFisc={
+  marrakech:"Location meublée touristique : abattement forfaitaire de 40% sur les revenus locatifs et exonération partielle d'IR sous conditions. Taxe de séjour collectée par nuitée.",
+  tanger:"Régime de la location meublée avec abattement de 40% à l'IR. La taxe de séjour s'applique par voyageur et par nuit, reversée à la commune.",
+  casablanca:"Abattement de 40% sur les loyers déclarés et fiscalité allégée en SCI. Taxe de séjour due par nuitée pour les hébergements touristiques.",
+  rabat:"Revenus meublés soumis à l'IR après abattement de 40%. Exonérations possibles selon la structure (SCI) et taxe de séjour communale.",
+  essaouira:"Location saisonnière : abattement de 40% à l'IR et taxe de séjour par nuitée. La structuration en SCI optimise la transmission du patrimoine.",
+  fes:"Abattement forfaitaire de 40% sur les revenus locatifs meublés. Taxe de séjour modérée, parmi les charges fiscales les plus légères du pays."
+};
+
+const tabs=document.getElementById('cityTabs'), panel=document.getElementById('cityPanel');
+
+function renderCity(k){
+  const m=MARKET[k];
+  const sim=simulate({ville:k,type:'appartement',standing:'premium',surface:80,chambres:2});
+  const revenus=sim.mensuel;
+  const quartiers=cityQuartiers[k].map(q=>`<span class="chip">${q}</span>`).join('');
+  panel.innerHTML=`
+    <div class="city-img">
+      <img src="https://images.unsplash.com/${cityImg[k]}?w=700&q=80&auto=format&fit=crop" alt="${m.nom}">
+    </div>
+    <div style="padding:34px">
+      <h3 style="font-size:1.8rem">${m.nom}</h3>
+      <p class="muted" style="margin:8px 0 18px">${cityDesc[k]}</p>
+      <div class="grid grid-2" style="gap:14px">
+        <div class="kpi"><div class="v" style="color:var(--vert)">${m.yield}%</div><div class="l">Rendement brut annuel</div></div>
+        <div class="kpi"><div class="v">${Math.round(m.occ*100)}%</div><div class="l">Taux d'occupation</div></div>
+        <div class="kpi"><div class="v">${fmt(m.prixm2)}</div><div class="l">Prix moyen MAD / m²</div></div>
+        <div class="kpi"><div class="v">${fmt(revenus)}</div><div class="l">Revenus moyens MAD / mois</div></div>
+      </div>
+      <div style="margin-top:20px">
+        <div class="eyebrow" style="margin-bottom:8px">Quartiers recherchés</div>
+        <div class="chips">${quartiers}</div>
+      </div>
+      <div class="notice" style="margin-top:18px">
+        <b>Info fiscale ·</b> ${cityFisc[k]}
+      </div>
+      <a href="simulateur.html" class="btn btn-primary" style="margin-top:18px">Simuler mon rendement à ${m.nom}</a>
+    </div>`;
+}
+
+Object.keys(MARKET).forEach((k,i)=>{
+  const b=document.createElement('div');
+  b.className='chip'+(i===0?' active':'');
+  b.textContent=MARKET[k].nom;
+  b.onclick=()=>{
+    document.querySelectorAll('#cityTabs .chip').forEach(c=>c.classList.remove('active'));
+    b.classList.add('active');
+    renderCity(k);
+  };
+  tabs.appendChild(b);
+});
+renderCity('marrakech');
+</script>
+<style>
+.city-panel{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.city-img{min-height:340px;background:var(--beige2)}
+.city-img img{height:100%;width:100%;object-fit:cover}
+@media(max-width:760px){.city-panel{grid-template-columns:1fr}.city-img{min-height:240px}}
+</style>
+</body>
+</html>
