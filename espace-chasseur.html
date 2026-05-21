@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace chasseur immobilier — SmartBNB</title>
+<meta name="description" content="Espace chasseur immobilier SmartBNB : soumettez des biens off-market, suivez vos validations et vos commissions estimées.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-no-footer>
+
+<div class="app-layout">
+  <aside class="sidebar">
+    <a class="active" data-view="board">📊 Tableau de bord</a>
+    <a data-view="soumettre">➕ Soumettre un bien</a>
+    <a data-view="soumis">🗂️ Mes biens soumis</a>
+  </aside>
+  <main class="app-main">
+
+    <!-- BOARD -->
+    <section data-panel="board">
+      <span class="eyebrow">Espace chasseur</span>
+      <h2 style="margin:6px 0 4px">Tableau de bord chasseur</h2>
+      <p class="muted" style="margin-bottom:24px">Suivez vos soumissions et vos commissions SmartBNB.</p>
+      <div class="grid grid-4">
+        <div class="kpi"><div class="v" style="color:var(--vert)">17</div><div class="l">Leads reçus</div></div>
+        <div class="kpi"><div class="v">8</div><div class="l">Biens soumis</div></div>
+        <div class="kpi"><div class="v">63%</div><div class="l">Taux de validation</div></div>
+        <div class="kpi"><div class="v">94 500 MAD</div><div class="l">Commission estimée</div></div>
+      </div>
+      <div class="card" style="margin-top:26px;background:var(--beige2);border:none">
+        <h3 style="margin-bottom:6px">Comment ça marche</h3>
+        <p class="muted" style="font-size:.92rem">Soumettez un bien off-market via le formulaire. Chaque bien validé par SmartBNB vous fait gagner une commission d'apporteur d'affaires. Plus le score qualité est élevé, plus la validation est rapide.</p>
+      </div>
+    </section>
+
+    <!-- SOUMETTRE -->
+    <section data-panel="soumettre" class="hide">
+      <span class="eyebrow">Nouveau bien</span>
+      <h2 style="margin:6px 0 4px">Soumettre un bien</h2>
+      <p class="muted" style="margin-bottom:22px">Renseignez les informations du bien off-market. Le score se met à jour en direct.</p>
+      <div class="grid grid-2" style="align-items:start">
+        <div class="card" style="grid-column:1 / -1">
+          <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;padding:6px 4px 18px;border-bottom:1px solid var(--border);margin-bottom:20px">
+            <div>
+              <div class="muted" style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase">Score qualité du bien</div>
+              <div style="display:flex;align-items:baseline;gap:6px">
+                <span class="result-big" id="scoreVal">0</span>
+                <span class="muted" style="font-size:1.1rem">/100</span>
+              </div>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <div class="split-bar" style="height:14px;background:var(--border)">
+                <i id="scoreBar" style="background:var(--vert);width:0%"></i>
+              </div>
+              <div class="muted" style="font-size:.8rem" id="scoreHint">Renseignez le bien pour calculer le score.</div>
+            </div>
+          </div>
+
+          <div class="field"><label>Titre de l'annonce *</label>
+            <input class="input" id="fTitre" placeholder="ex : Riad rénové cœur de Médina"></div>
+
+          <div class="row3">
+            <div class="field"><label>Ville *</label>
+              <select class="input" id="fVille"></select></div>
+            <div class="field"><label>Type de bien *</label>
+              <select class="input" id="fType">
+                <option value="studio">Studio</option>
+                <option value="appartement" selected>Appartement</option>
+                <option value="riad">Riad</option>
+                <option value="villa">Villa</option>
+              </select></div>
+            <div class="field"><label>Prix demandé (MAD)</label>
+              <input class="input" id="fPrix" type="number" placeholder="1 800 000"></div>
+          </div>
+
+          <div class="row3">
+            <div class="field"><label>Surface (m²)</label>
+              <input class="input" id="fSurface" type="number" placeholder="90"></div>
+            <div class="field"><label>Chambres</label>
+              <select class="input" id="fChambres">
+                <option value="1">1</option><option value="2" selected>2</option>
+                <option value="3">3</option><option value="4">4</option>
+                <option value="5">5</option><option value="6">6</option>
+              </select></div>
+            <div class="field"><label>Photos du bien</label>
+              <input class="input" id="fPhotos" type="file" multiple accept="image/*" style="padding:9px"></div>
+          </div>
+
+          <div class="field"><label>Équipements</label>
+            <div class="grid grid-3" id="fEquip" style="gap:10px"></div>
+          </div>
+
+          <div class="field"><label>Conditions de vente</label>
+            <textarea class="input" id="fConditions" placeholder="Vente directe propriétaire, titre foncier, libre de toute occupation…"></textarea></div>
+          <div class="field"><label>Notes du chasseur</label>
+            <textarea class="input" id="fNotes" placeholder="Contexte de la vente, marge de négociation, urgence du vendeur…"></textarea></div>
+          <div class="row2">
+            <div class="field"><label>Points forts</label>
+              <textarea class="input" id="fForts" placeholder="Emplacement, vue, état, rendement…"></textarea></div>
+            <div class="field"><label>Points faibles</label>
+              <textarea class="input" id="fFaibles" placeholder="Travaux à prévoir, étage, vis-à-vis…"></textarea></div>
+          </div>
+
+          <div class="notice hide" id="subMsg" style="margin-bottom:14px"></div>
+          <button class="btn btn-primary btn-block btn-lg" id="subBtn" onclick="submitBien()">Soumettre le bien à SmartBNB</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOUMIS -->
+    <section data-panel="soumis" class="hide">
+      <span class="eyebrow">Historique</span>
+      <h2 style="margin:6px 0 20px">Mes biens soumis</h2>
+      <div class="grid grid-3" id="soumisList"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+/* ---------- SIDEBAR NAV ---------- */
+document.querySelectorAll('.sidebar a[data-view]').forEach(a=>{
+  a.onclick=()=>{
+    document.querySelectorAll('.sidebar a[data-view]').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active');
+    const v=a.dataset.view;
+    document.querySelectorAll('[data-panel]').forEach(p=>p.classList.toggle('hide',p.dataset.panel!==v));
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+});
+
+/* ---------- VILLES ---------- */
+const vSel=document.getElementById('fVille');
+Object.keys(MARKET).forEach(k=>{
+  const o=document.createElement('option'); o.value=k; o.textContent=MARKET[k].nom; vSel.appendChild(o);
+});
+
+/* ---------- EQUIPEMENTS ---------- */
+const EQUIP=['Piscine','Parking','Terrasse','Climatisation','Ascenseur','Meublé'];
+const equipBox=document.getElementById('fEquip');
+EQUIP.forEach(e=>{
+  const lbl=document.createElement('label'); lbl.className='check';
+  lbl.innerHTML=`<input type="checkbox" value="${e}"> ${e}`;
+  const cb=lbl.querySelector('input');
+  cb.onchange=()=>{ lbl.classList.toggle('on',cb.checked); updateScore(); };
+  equipBox.appendChild(lbl);
+});
+function selectedEquip(){
+  return [...equipBox.querySelectorAll('input:checked')].map(c=>c.value);
+}
+
+/* ---------- SCORE (live) ---------- */
+function updateScore(){
+  const ville=document.getElementById('fVille').value;
+  const type=document.getElementById('fType').value;
+  const surface=+document.getElementById('fSurface').value||0;
+  const chambres=+document.getElementById('fChambres').value||1;
+  const eq=selectedEquip();
+  const hasPhotos=document.getElementById('fPhotos').files.length>0;
+
+  let score=0;
+  // rendement potentiel -> jusqu'à 60 pts
+  const r=simulate({ville,type,standing:'premium',surface:surface||80,chambres,
+    piscine:eq.includes('Piscine'),parking:eq.includes('Parking')});
+  const yld=parseFloat(r.rendBrut)||6;            // ~5 à 12
+  score += Math.min(60, Math.round((yld/12)*60));
+  // équipements -> jusqu'à 25 pts
+  score += Math.min(25, eq.length*5);
+  // photos -> 15 pts
+  if(hasPhotos) score += 15;
+  score=Math.max(0,Math.min(100,score));
+
+  document.getElementById('scoreVal').textContent=score;
+  document.getElementById('scoreBar').style.width=score+'%';
+  const bar=document.getElementById('scoreBar');
+  bar.style.background = score>=70?'var(--vert)' : score>=45?'#9a7b25' : '#a04545';
+  let hint='Bien à renforcer — ajoutez photos et équipements.';
+  if(score>=70) hint='Excellent bien — validation rapide attendue.';
+  else if(score>=45) hint='Bien correct — quelques points à améliorer.';
+  document.getElementById('scoreHint').textContent=hint
+    + ` · Rendement brut estimé ${r.rendBrut}%`;
+}
+['fVille','fType','fPrix','fSurface','fChambres'].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener('input',updateScore);
+  el.addEventListener('change',updateScore);
+});
+document.getElementById('fPhotos').addEventListener('change',updateScore);
+updateScore();
+
+/* ---------- SUBMIT ---------- */
+async function submitBien(){
+  const titre=document.getElementById('fTitre').value.trim();
+  const ville=document.getElementById('fVille').value;
+  const prix=+document.getElementById('fPrix').value||0;
+  const surface=+document.getElementById('fSurface').value||0;
+  const chambres=+document.getElementById('fChambres').value||1;
+  const eq=selectedEquip();
+  const msg=document.getElementById('subMsg');
+  const btn=document.getElementById('subBtn');
+  msg.classList.add('hide');
+
+  if(!titre){ msg.className='notice'; msg.style.background='#f3e0e0'; msg.style.borderColor='#e0c4c4';
+    msg.style.color='#a04545'; msg.textContent='Renseignez au moins le titre du bien.'; msg.classList.remove('hide'); return; }
+
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>';
+
+  /* ---- photo upload to Supabase Storage ---- */
+  const photoUrls=[];
+  const files=document.getElementById('fPhotos').files;
+  for(const file of files){
+    try{
+      const path=`${Date.now()}-${file.name.replace(/[^\w.\-]/g,'_')}`;
+      const up=await fetch(`${SB.url}/storage/v1/object/hunted/${path}`,{
+        method:'POST',
+        headers:{ 'apikey':SB.anon, 'Authorization':'Bearer '+SB.anon, 'Content-Type':file.type },
+        body:file
+      });
+      if(up.ok) photoUrls.push(`${SB.url}/storage/v1/object/public/hunted/${path}`);
+    }catch(e){ /* bucket may not exist — continue gracefully */ }
+  }
+
+  const chasseur=localStorage.getItem('sb_chasseur')||'chasseur';
+  const score=document.getElementById('scoreVal').textContent;
+  const payload={
+    chasseur,
+    titre,
+    ville,
+    type:document.getElementById('fType').value,
+    prix,
+    surface,
+    chambres,
+    equipements:eq,
+    conditions:document.getElementById('fConditions').value.trim(),
+    notes:document.getElementById('fNotes').value.trim(),
+    points_forts:document.getElementById('fForts').value.trim(),
+    points_faibles:document.getElementById('fFaibles').value.trim(),
+    score:+score,
+    statut:'en attente',
+    photos:photoUrls
+  };
+
+  await Promise.allSettled([
+    sbInsert('hunted_properties', payload),
+    sendMail('SmartBNB — Nouveau bien soumis par un chasseur', {
+      Chasseur:chasseur, Titre:titre, Ville:MARKET[ville].nom, Type:payload.type,
+      Prix:fmtMAD(prix), Surface:surface+' m²', Chambres:chambres,
+      Equipements:eq, Conditions:payload.conditions, Notes:payload.notes,
+      'Points forts':payload.points_forts, 'Points faibles':payload.points_faibles,
+      'Score qualité':score+'/100', Photos:photoUrls.length?photoUrls:'aucune'
+    })
+  ]);
+
+  msg.className='notice'; msg.style.background='#f3f5ef'; msg.style.borderColor='#d9e0d0';
+  msg.style.color='var(--vert-d)';
+  msg.innerHTML=`✓ <b>Bien soumis avec succès</b> — score ${score}/100. L'équipe SmartBNB l'examine sous 48h.`;
+  msg.classList.remove('hide');
+  toast('Bien soumis à SmartBNB');
+  btn.disabled=false; btn.textContent='Soumettre le bien à SmartBNB';
+  // reset essentials
+  document.getElementById('fTitre').value='';
+  document.getElementById('fPrix').value='';
+  document.getElementById('fSurface').value='';
+  document.getElementById('fConditions').value='';
+  document.getElementById('fNotes').value='';
+  document.getElementById('fForts').value='';
+  document.getElementById('fFaibles').value='';
+  equipBox.querySelectorAll('input:checked').forEach(c=>{c.checked=false;c.closest('.check').classList.remove('on');});
+  document.getElementById('fPhotos').value='';
+  updateScore();
+}
+
+/* ---------- BIENS SOUMIS (demo) ---------- */
+const SOUMIS=[
+  {nom:'Riad Bab Doukkala',ville:'Marrakech',img:'photo-1597211684565-dca64d72c2c9',prix:'2 350 000 MAD',score:84,st:'ok',lbl:'Validé'},
+  {nom:'Appartement Malabata',ville:'Tanger',img:'photo-1570191037834-c0b8c4b6cd28',prix:'1 480 000 MAD',score:61,st:'wait',lbl:'En attente'},
+  {nom:'Studio Hassan',ville:'Rabat',img:'photo-1502672260266-1c1ef2d93688',prix:'690 000 MAD',score:38,st:'no',lbl:'Refusé'}
+];
+document.getElementById('soumisList').innerHTML=SOUMIS.map(b=>`
+  <div class="prop">
+    <div class="prop-img"><img src="https://images.unsplash.com/${b.img}?w=700&q=80&auto=format&fit=crop" alt="${b.nom}">
+      <span class="prop-tag">${b.ville}</span></div>
+    <div class="prop-body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 style="font-size:1.1rem">${b.nom}</h3>
+        <span class="pill ${b.st}">${b.lbl}</span>
+      </div>
+      <div class="prop-meta"><span>Prix ${b.prix}</span><span>Score ${b.score}/100</span></div>
+      <div class="split-bar" style="height:8px;background:var(--border)">
+        <i style="background:var(--vert);width:${b.score}%"></i>
+      </div>
+    </div>
+  </div>`).join('');
+</script>
+</body>
+</html>

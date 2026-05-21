@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulateur de rendement locatif — SmartBNB</title>
+<meta name="description" content="Estimez le revenu et le rendement de votre investissement locatif courte durée au Maroc. Données de marché réelles, résultats en temps réel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="wrap" style="padding:54px 24px 20px">
+  <span class="eyebrow">Simulateur de rendement</span>
+  <h1 style="margin:8px 0 10px">Combien rapporte votre futur bien&nbsp;?</h1>
+  <p class="lead">Réglez les paramètres : les revenus et la rentabilité se recalculent instantanément à partir de données de marché réelles.</p>
+</header>
+
+<section class="wrap" style="padding-bottom:80px">
+  <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:26px" id="simGrid">
+
+    <!-- ===== FILTRES ===== -->
+    <div class="card">
+      <h3>Votre projet</h3>
+
+      <div class="field" style="margin-top:18px">
+        <label>Ville</label>
+        <div class="chips" id="fCity"></div>
+      </div>
+
+      <div class="field">
+        <label>Type de bien</label>
+        <div class="chips" id="fType"></div>
+      </div>
+
+      <div class="field">
+        <label>Chambres : <b id="fChVal">2</b></label>
+        <input type="range" id="fCh" min="1" max="6" value="2">
+      </div>
+
+      <div class="field">
+        <label>Standing</label>
+        <div class="chips" id="fStand"></div>
+      </div>
+
+      <div class="field">
+        <label>Surface : <b id="fSurfVal">80</b> m²</label>
+        <input type="range" id="fSurf" min="25" max="350" step="5" value="80">
+      </div>
+
+      <div class="field">
+        <label>Options</label>
+        <div class="row2">
+          <label class="check"><input type="checkbox" id="fPool"> Piscine</label>
+          <label class="check"><input type="checkbox" id="fPark"> Parking</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RESULTATS ===== -->
+    <div>
+      <div class="card" style="background:var(--noir);color:#fff;border:none">
+        <div style="font-size:.85rem;color:#bdbdb8">Revenu locatif mensuel estimé</div>
+        <div class="result-big" id="rMensuel" style="color:#fff;margin:6px 0 4px">—</div>
+        <div style="color:#9b9b95;font-size:.88rem"><span id="rNuit">—</span> / nuit · <span id="rOcc">—</span> d'occupation</div>
+        <div class="divider" style="background:#333"></div>
+        <div class="res-row" style="color:#fff;border-color:#333"><span>Revenu annuel brut</span><b id="rAnnuel">—</b></div>
+        <div class="res-row" style="color:#fff;border-color:#333"><span>Charges & entretien (~22%)</span><b id="rCharges">—</b></div>
+        <div class="res-row" style="color:#fff;border-color:#333"><span>Commission SmartBNB (17%)</span><b id="rComm">—</b></div>
+        <div class="res-row" style="color:#fff;border-color:#333"><span>Revenu net annuel</span><b id="rNet" style="color:#a8b89c">—</b></div>
+      </div>
+
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="kpi center"><div class="v" id="rBrut" style="color:var(--vert)">—</div><div class="l">Rendement brut</div></div>
+        <div class="kpi center"><div class="v" id="rRendNet">—</div><div class="l">Rendement net</div></div>
+        <div class="kpi center"><div class="v" id="rCash">—</div><div class="l">Cash-flow / mois</div></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div style="display:flex;justify-content:space-between"><span class="muted" style="font-size:.85rem">Prix d'achat estimé du bien</span><b id="rPrix" style="font-family:'Fraunces',serif">—</b></div>
+        <div class="divider"></div>
+        <div style="font-size:.85rem;font-weight:600;margin-bottom:4px">Répartition des réservations</div>
+        <div class="split-bar">
+          <i style="background:#FF5A5F;width:55%"></i>
+          <i style="background:#003580;width:30%"></i>
+          <i style="background:var(--vert);width:15%"></i>
+        </div>
+        <div style="display:flex;gap:16px;font-size:.8rem;color:var(--gris);flex-wrap:wrap">
+          <span>● Airbnb <b id="rAir">—</b></span>
+          <span>● Booking <b id="rBook">—</b></span>
+          <span>● Direct <b id="rDir">—</b></span>
+        </div>
+      </div>
+
+      <a href="formulaire.html" class="btn btn-vert btn-block btn-lg" style="margin-top:16px">Obtenir une analyse personnalisée</a>
+    </div>
+  </div>
+
+  <!-- ===== DONNEES MARCHE ===== -->
+  <div class="card" style="margin-top:30px;background:var(--beige2);border:none">
+    <span class="eyebrow">Indicateurs de marché 2024</span>
+    <div class="grid grid-3" style="margin-top:14px">
+      <div><div class="kpi"><div class="v">+4,2%</div><div class="l">IPAI — indice des prix des actifs immobiliers (HCP)</div></div></div>
+      <div><div class="kpi"><div class="v">2,50%</div><div class="l">Taux directeur Bank Al-Maghrib (BAM)</div></div></div>
+      <div><div class="kpi"><div class="v">17,4M</div><div class="l">Touristes accueillis au Maroc en 2024</div></div></div>
+    </div>
+  </div>
+</section>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+const state={ville:'marrakech',type:'appartement',standing:'premium',chambres:2,surface:80,piscine:false,parking:false};
+
+function chipGroup(el,items,key){
+  Object.entries(items).forEach(([k,label],i)=>{
+    const c=document.createElement('div');
+    c.className='chip'+(state[key]===k?' active':'');
+    c.textContent=label;
+    c.onclick=()=>{state[key]=k;el.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');render();};
+    el.appendChild(c);
+  });
+}
+chipGroup(fCity,{marrakech:'Marrakech',tanger:'Tanger',casablanca:'Casablanca',rabat:'Rabat',essaouira:'Essaouira',fes:'Fès'},'ville');
+chipGroup(fType,{studio:'Studio',appartement:'Appartement',riad:'Riad',villa:'Villa'},'type');
+chipGroup(fStand,{standard:'Standard',premium:'Premium',luxe:'Luxe'},'standing');
+
+fCh.oninput=()=>{state.chambres=+fCh.value;fChVal.textContent=fCh.value;render();};
+fSurf.oninput=()=>{state.surface=+fSurf.value;fSurfVal.textContent=fSurf.value;render();};
+fPool.onchange=()=>{state.piscine=fPool.checked;render();};
+fPark.onchange=()=>{state.parking=fPark.checked;render();};
+
+function render(){
+  const r=simulate(state);
+  rMensuel.textContent=fmtMAD(r.mensuel);
+  rNuit.textContent=fmtMAD(r.nuit);
+  rOcc.textContent=r.occ+'%';
+  rAnnuel.textContent=fmtMAD(r.annuel);
+  rCharges.textContent='– '+fmtMAD(r.charges);
+  rComm.textContent='– '+fmtMAD(r.commission);
+  rNet.textContent=fmtMAD(r.net);
+  rBrut.textContent=r.rendBrut+'%';
+  rRendNet.textContent=r.rendNet+'%';
+  rCash.textContent=fmt(r.cashflow);
+  rPrix.textContent=fmtMAD(r.prixBien);
+  rAir.textContent=fmt(r.airbnb)+' MAD';
+  rBook.textContent=fmt(r.booking)+' MAD';
+  rDir.textContent=fmt(r.direct)+' MAD';
+}
+render();
+</script>
+</body>
+</html>
