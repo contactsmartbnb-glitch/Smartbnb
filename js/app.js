@@ -72,6 +72,7 @@
           <h4>Espaces</h4>
           <a href="espace-client.html">Espace investisseur</a>
           <a href="espace-chasseur.html">Espace chasseur</a>
+          <a href="reseaux.html">Autopilote réseaux</a>
           <a href="formulaire.html">Diagnostic gratuit</a>
           <a href="contact.html">Contact</a>
         </div>
