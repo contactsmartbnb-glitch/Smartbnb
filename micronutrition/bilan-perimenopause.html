@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon bilan péri-ménopause — Équilia</title>
+  <meta name="description" content="Bilan péri-ménopause en ligne : un questionnaire guidé qui identifie les analyses à demander à votre médecin.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="brand-dot"></span>Équilia</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="sante-de-la-femme.html">Santé de la femme</a></li>
+        <li><a href="perimenopause.html">Péri-ménopause</a></li>
+        <li><a href="index.html#methode">Notre méthode</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    </nav>
+  </header>
+
+  <section class="section">
+    <div class="wrap quiz-shell">
+
+      <!-- QUESTIONNAIRE -->
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-progress"><div class="quiz-progress-bar" id="progressBar"></div></div>
+        <p class="quiz-meta" id="quizMeta">Question 1</p>
+        <h2 class="quiz-question" id="quizQuestion">Chargement…</h2>
+        <p class="quiz-hint" id="quizHint"></p>
+        <div id="quizBody"></div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" id="btnPrev">← Précédent</button>
+          <button class="btn btn-primary" id="btnNext">Continuer →</button>
+        </div>
+      </div>
+
+      <!-- RÉSULTATS -->
+      <div class="quiz-card result-block" id="resultCard">
+        <div class="result-intro">
+          <div class="check-badge">✓</div>
+          <h2 style="font-family:var(--serif)">Votre bilan est prêt</h2>
+          <p id="resultSummary">Voici les analyses que nous vous recommandons de demander à votre médecin.</p>
+        </div>
+
+        <h3 style="font-family:var(--sans);font-weight:700">Analyses recommandées</h3>
+        <p style="font-size:.9rem">À présenter à votre médecin traitant, qui reste seul juge de la prescription.</p>
+        <ul class="analysis-list" id="analysisList"></ul>
+
+        <div class="disclaimer">
+          <strong>Ces recommandations ne sont pas une prescription.</strong> Elles servent de support de discussion avec votre médecin. La péri-ménopause se diagnostique cliniquement&nbsp;; les analyses aident à écarter d'autres causes et à orienter l'accompagnement micronutrition.
+        </div>
+
+        <h3 style="font-family:var(--sans);font-weight:700;margin-top:8px">La suite&nbsp;: votre protocole personnalisé</h3>
+        <p style="font-size:.95rem">Une fois vos analyses obtenues, créez votre espace privé pour les déposer en toute sécurité. Vous recevrez alors un accompagnement micronutrition adapté à vos résultats.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn btn-primary" id="btnSpace">Créer mon espace privé</button>
+          <button class="btn btn-ghost" id="btnRestart">Recommencer le bilan</button>
+        </div>
+        <p id="spaceNote" style="font-size:.82rem;margin-top:14px;display:none"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-legal" style="border:none;text-align:center">
+        © 2026 Équilia (nom provisoire) — Accompagnement micronutrition. Ne se substitue pas à un avis médical.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/questionnaire.js"></script>
+</body>
+</html>

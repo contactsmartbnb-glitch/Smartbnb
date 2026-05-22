@@ -1,0 +1,17 @@
+# Configuration Netlify — Équilia (micronutrition)
+# Déployer ce dossier comme un site Netlify distinct :
+#   Site settings → Build & deploy → Base directory = "micronutrition"
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  # Inclut les cours de micronutrition dans le bundle de la fonction
+  included_files = ["cours/**"]
+
+[[redirects]]
+  from = "/api/analyse"
+  to = "/.netlify/functions/analyse"
+  status = 200
