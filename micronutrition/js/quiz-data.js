@@ -13,10 +13,26 @@
 var SCALE_DEFAULT = ['Aucun', 'Léger', 'Modéré', 'Important'];
 var SCALE_FREQ    = ['Jamais', 'Parfois', 'Souvent', 'Très souvent'];
 
+/* ---------- Icônes SVG (jeu sur mesure, plus d'emojis) ---------- */
+var _SVG = function (inner) {
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+         'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
+};
+var ICONS = {
+  leaf:    _SVG('<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 19 5 19 5s0 3.5-1.1 9.2A7 7 0 0 1 5 13"/><path d="M5 21c0-6 3-10 9-13"/>'),
+  flame:   _SVG('<path d="M12 3c3.5 3.6 5.5 6.6 5.5 10.5a5.5 5.5 0 0 1-11 0c0-2 .8-3.6 2.3-5C9.5 11 11 8.5 12 3Z"/><path d="M12 20a2.7 2.7 0 0 0 2.7-2.7c0-1.8-1.4-2.8-2.7-4.5-1.3 1.7-2.7 2.7-2.7 4.5A2.7 2.7 0 0 0 12 20Z"/>'),
+  sparkle: _SVG('<path d="M12 3l1.9 5.6L19.5 10l-5.6 1.4L12 17l-1.9-5.6L4.5 10l5.6-1.4Z"/><path d="M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8Z"/>'),
+  pulse:   _SVG('<path d="M3 12h4l2.4-6 4.2 12 2.6-6H21"/>'),
+  child:   _SVG('<circle cx="12" cy="5.5" r="3"/><path d="M12 8.5v8M6.5 21l5.5-5 5.5 5M7.5 13h9"/>'),
+  sprout:  _SVG('<path d="M12 21v-8"/><path d="M12 13c0-3.3-2.2-5.5-6.5-5.5C5.5 11.8 7.7 14 12 14"/><path d="M12 12c0-4 2.4-6.5 6.5-6.5C18.5 9.6 16.1 12 12 12"/>'),
+  flower:  _SVG('<circle cx="12" cy="12" r="2.6"/><ellipse cx="12" cy="6.4" rx="2.5" ry="3.5"/><ellipse cx="12" cy="17.6" rx="2.5" ry="3.5"/><ellipse cx="6.4" cy="12" rx="3.5" ry="2.5"/><ellipse cx="17.6" cy="12" rx="3.5" ry="2.5"/>')
+};
+function iconSvg(key) { return ICONS[key] || ICONS.leaf; }
+
 /* ---------- Les 4 univers ---------- */
 var AUDIENCES = {
   femme: {
-    key: 'femme', name: 'Femmes', icon: '🌸',
+    key: 'femme', name: 'Femmes', icon: 'flower',
     eyebrow: 'Univers · Femmes',
     metaTitle: 'Univers Femmes — Mehdia',
     tagline: 'Hormones, minceur, beauté, énergie',
@@ -24,7 +40,7 @@ var AUDIENCES = {
     topics: ['perimenopause', 'minceur', 'beaute']
   },
   homme: {
-    key: 'homme', name: 'Hommes', icon: '💪',
+    key: 'homme', name: 'Hommes', icon: 'pulse',
     eyebrow: 'Univers · Hommes',
     metaTitle: 'Univers Hommes — Mehdia',
     tagline: 'Énergie, métabolisme, vitalité',
@@ -32,7 +48,7 @@ var AUDIENCES = {
     topics: ['homme']
   },
   enfant: {
-    key: 'enfant', name: 'Enfants', icon: '🧒',
+    key: 'enfant', name: 'Enfants', icon: 'child',
     eyebrow: 'Univers · Enfants',
     metaTitle: 'Univers Enfants — Mehdia',
     tagline: 'Croissance, immunité, concentration',
@@ -40,7 +56,7 @@ var AUDIENCES = {
     topics: ['enfant']
   },
   senior: {
-    key: 'senior', name: 'Seniors', icon: '🌳',
+    key: 'senior', name: 'Seniors', icon: 'sprout',
     eyebrow: 'Univers · Seniors',
     metaTitle: 'Univers Seniors — Mehdia',
     tagline: 'Bien-vieillir, énergie, mémoire',
@@ -54,7 +70,7 @@ var TOPICS = {
 
   /* ===================== PÉRI-MÉNOPAUSE ===================== */
   perimenopause: {
-    slug: 'perimenopause', audience: 'femme', icon: '🌿',
+    slug: 'perimenopause', audience: 'femme', icon: 'leaf',
     name: 'Péri-ménopause & ménopause',
     eyebrow: 'Bilan · Équilibre hormonal',
     metaTitle: 'Mon bilan péri-ménopause — Mehdia',
@@ -149,7 +165,7 @@ var TOPICS = {
 
   /* ================ MINCEUR & MÉTABOLISME ================== */
   minceur: {
-    slug: 'minceur', audience: 'femme', icon: '⚖️',
+    slug: 'minceur', audience: 'femme', icon: 'flame',
     name: 'Minceur & métabolisme',
     eyebrow: 'Bilan · Poids & énergie',
     metaTitle: 'Mon bilan minceur & métabolisme — Mehdia',
@@ -231,7 +247,7 @@ var TOPICS = {
 
   /* ===================== BEAUTÉ ============================= */
   beaute: {
-    slug: 'beaute', audience: 'femme', icon: '✨',
+    slug: 'beaute', audience: 'femme', icon: 'sparkle',
     name: 'Beauté — peau, cheveux, ongles',
     eyebrow: 'Bilan · Beauté de l\'intérieur',
     metaTitle: 'Mon bilan beauté peau & cheveux — Mehdia',
@@ -302,7 +318,7 @@ var TOPICS = {
 
   /* ================= VITALITÉ MASCULINE ==================== */
   homme: {
-    slug: 'homme', audience: 'homme', icon: '💪',
+    slug: 'homme', audience: 'homme', icon: 'pulse',
     name: 'Vitalité masculine',
     eyebrow: 'Bilan · Énergie & métabolisme',
     metaTitle: 'Mon bilan vitalité masculine — Mehdia',
@@ -373,7 +389,7 @@ var TOPICS = {
 
   /* ============== VITALITÉ DE L'ENFANT ===================== */
   enfant: {
-    slug: 'enfant', audience: 'enfant', icon: '🧒',
+    slug: 'enfant', audience: 'enfant', icon: 'child',
     name: 'Vitalité de l\'enfant',
     eyebrow: 'Bilan · Croissance & immunité',
     metaTitle: 'Mon bilan vitalité de l\'enfant — Mehdia',
@@ -437,7 +453,7 @@ var TOPICS = {
 
   /* ================= BIEN-VIEILLIR (SENIOR) ================ */
   senior: {
-    slug: 'senior', audience: 'senior', icon: '🌳',
+    slug: 'senior', audience: 'senior', icon: 'sprout',
     name: 'Bien-vieillir',
     eyebrow: 'Bilan · Vitalité après 65 ans',
     metaTitle: 'Mon bilan bien-vieillir — Mehdia',
