@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mehdia — Bilan micronutrition personnalisé</title>
-  <meta name="description" content="Un accompagnement en micronutrition pensé pour la santé de la femme : péri-ménopause, ménopause, équilibre hormonal. Bilan en ligne guidé par une pharmacienne.">
+  <title>Mehdia — La micronutrition pensée pour les femmes</title>
+  <meta name="description" content="Hormones, poids, beauté, énergie : un bilan micronutrition en ligne qui transforme vos symptômes en plan d'action. Conçu par une pharmacienne.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,10 +16,10 @@
     <nav class="nav">
       <a href="index.html" class="brand"><span class="brand-dot"></span>Mehdia</a>
       <ul class="nav-links" id="navLinks">
+        <li><a href="#bilans">Nos bilans</a></li>
         <li><a href="sante-de-la-femme.html">Santé de la femme</a></li>
-        <li><a href="perimenopause.html">Péri-ménopause</a></li>
-        <li><a href="index.html#methode">Notre méthode</a></li>
-        <li><a href="bilan-perimenopause.html" class="btn btn-primary">Commencer mon bilan</a></li>
+        <li><a href="#methode">Notre méthode</a></li>
+        <li><a href="#bilans" class="btn btn-primary">Commencer mon bilan</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     </nav>
@@ -29,11 +29,11 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow">Micronutrition · Santé de la femme</span>
-        <h1>Comprendre votre corps, retrouver votre équilibre.</h1>
-        <p class="lead">Un bilan en ligne, simple et bienveillant, qui transforme vos symptômes en un plan clair&nbsp;: les bonnes analyses à demander, puis un accompagnement micronutrition personnalisé.</p>
+        <span class="eyebrow">Micronutrition · Santé &amp; beauté des femmes</span>
+        <h1>La micronutrition qui prend enfin soin de vous.</h1>
+        <p class="lead">Hormones, poids, peau, cheveux, énergie&nbsp;: vos symptômes ont une explication. Un bilan en ligne les transforme en un plan clair — les bonnes analyses, puis un accompagnement personnalisé.</p>
         <div class="hero-actions">
-          <a href="bilan-perimenopause.html" class="btn btn-primary btn-lg">Commencer mon bilan gratuit</a>
+          <a href="#bilans" class="btn btn-primary btn-lg">Choisir mon bilan gratuit</a>
           <a href="#methode" class="btn btn-ghost btn-lg">Comment ça marche&nbsp;?</a>
         </div>
       </div>
@@ -57,33 +57,56 @@
     </div>
   </section>
 
-  <!-- THÈMES -->
-  <section class="section">
+  <!-- STATS / REPÈRES -->
+  <section class="stat-band">
+    <div class="wrap">
+      <div class="stat-row">
+        <div>
+          <div class="stat-num">8 / 10</div>
+          <div class="stat-lbl">femmes traversent des déséquilibres hormonaux ou métaboliques sans réponse claire</div>
+        </div>
+        <div>
+          <div class="stat-num">5 min</div>
+          <div class="stat-lbl">pour faire votre bilan en ligne, gratuitement et sans engagement</div>
+        </div>
+        <div>
+          <div class="stat-num">100&nbsp;%</div>
+          <div class="stat-lbl">conçu et supervisé par une pharmacienne formée en micronutrition</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BILANS -->
+  <section class="section" id="bilans">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Nos accompagnements</span>
-        <h2>Chaque étape de vie a ses besoins</h2>
-        <p>Nous commençons par la santé hormonale de la femme. D'autres thèmes arrivent progressivement.</p>
+        <span class="eyebrow">Nos bilans</span>
+        <h2>Par quoi souhaitez-vous commencer&nbsp;?</h2>
+        <p>Chaque bilan est gratuit, anonyme et ne prend que quelques minutes.</p>
       </div>
       <div class="card-grid">
-        <a href="perimenopause.html" class="theme-card">
+        <a href="bilan.html?t=perimenopause" class="theme-card is-link">
           <div class="theme-icon">🌿</div>
+          <span class="theme-meta">● 5 min · gratuit</span>
           <h3>Péri-ménopause &amp; ménopause</h3>
           <p>Bouffées de chaleur, sommeil, humeur, prise de poids&nbsp;: comprendre ce qui change et agir en douceur.</p>
-          <span class="card-link">Découvrir →</span>
+          <span class="card-link">Faire ce bilan →</span>
         </a>
-        <div class="theme-card">
-          <div class="theme-icon">🩸</div>
-          <h3>SOPK &amp; résistance à l'insuline</h3>
-          <p>Cycles irréguliers, fatigue, difficultés de poids&nbsp;: une approche micronutrition ciblée.</p>
-          <span class="tag-soon">Bientôt disponible</span>
-        </div>
-        <div class="theme-card">
-          <div class="theme-icon">🌾</div>
-          <h3>Confort digestif</h3>
-          <p>Ballonnements, inconfort, transit&nbsp;: souvent multifactoriel, toujours décryptable.</p>
-          <span class="tag-soon">Bientôt disponible</span>
-        </div>
+        <a href="bilan.html?t=minceur" class="theme-card is-link">
+          <div class="theme-icon">⚖️</div>
+          <span class="theme-meta">● 5 min · gratuit</span>
+          <h3>Minceur &amp; métabolisme</h3>
+          <p>Poids qui résiste, ventre qui stocke, fringales&nbsp;: et si c'était une question de métabolisme&nbsp;?</p>
+          <span class="card-link">Faire ce bilan →</span>
+        </a>
+        <a href="bilan.html?t=beaute" class="theme-card is-link">
+          <div class="theme-icon">✨</div>
+          <span class="theme-meta">● 4 min · gratuit</span>
+          <h3>Beauté — peau, cheveux, ongles</h3>
+          <p>La beauté se joue aussi de l'intérieur&nbsp;: cheveux, ongles, éclat de la peau, imperfections.</p>
+          <span class="card-link">Faire ce bilan →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -121,8 +144,30 @@
     </div>
   </section>
 
-  <!-- CONFIANCE -->
+  <!-- PUBLIC VISÉ -->
   <section class="section">
+    <div class="wrap audience-grid">
+      <div>
+        <span class="eyebrow" style="color:var(--sage-d);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem">Pensé pour vous</span>
+        <h2 style="margin:10px 0 8px">Mehdia s'adresse à toutes les femmes qui veulent comprendre leur corps</h2>
+        <ul class="audience-list">
+          <li><span class="a-ico">✓</span><span>Celle qui ne se reconnaît plus&nbsp;: fatigue, poids, humeur, sommeil.</span></li>
+          <li><span class="a-ico">✓</span><span>Celle qui aborde la péri-ménopause et veut anticiper sereinement.</span></li>
+          <li><span class="a-ico">✓</span><span>Celle qui «&nbsp;fait tout bien&nbsp;» mais dont le poids ne bouge pas.</span></li>
+          <li><span class="a-ico">✓</span><span>Celle qui veut une peau et des cheveux en bonne santé, durablement.</span></li>
+          <li><span class="a-ico">✓</span><span>Celle qui en a assez des solutions miracles et veut une démarche sérieuse.</span></li>
+        </ul>
+      </div>
+      <div class="audience-visual">
+        <div class="quote-mark">“</div>
+        <p style="margin-top:14px">La micronutrition ne cherche pas à masquer un symptôme. Elle remonte à la source&nbsp;: ce qui manque, ce qui déborde, ce qu'on peut rééquilibrer par l'alimentation et le mode de vie.</p>
+        <p style="margin-top:16px;font-weight:600;color:var(--white)">— L'approche Mehdia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIANCE -->
+  <section class="section section-cream">
     <div class="wrap narrow">
       <div class="section-head">
         <span class="eyebrow">Sérieux &amp; confidentialité</span>
@@ -152,12 +197,44 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Questions fréquentes</span>
+        <h2>Tout ce que vous vous demandez</h2>
+      </div>
+      <div class="faq">
+        <details class="faq-item">
+          <summary>Le bilan est-il vraiment gratuit&nbsp;?</summary>
+          <div class="faq-body"><p>Oui. Le questionnaire et la liste d'analyses recommandées sont entièrement gratuits et sans engagement. L'accompagnement micronutrition personnalisé, une fois vos analyses obtenues, fera l'objet d'une offre dédiée.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Mehdia remplace-t-il mon médecin&nbsp;?</summary>
+          <div class="faq-body"><p>Non, jamais. Mehdia est un accompagnement en micronutrition qui vient en complément de votre suivi médical. Seul votre médecin peut prescrire des examens, poser un diagnostic et adapter un traitement.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Pourquoi me demande-t-on des analyses&nbsp;?</summary>
+          <div class="faq-body"><p>Parce qu'un même symptôme peut avoir plusieurs origines. Les analyses permettent d'objectiver votre situation et de bâtir un accompagnement réellement adapté, plutôt que des conseils génériques.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Comment mes données sont-elles protégées&nbsp;?</summary>
+          <div class="faq-body"><p>Nous ne demandons pas votre nom. Votre espace est pseudonymisé, vos documents d'analyses sont dé-identifiés automatiquement, et tout est stocké de façon chiffrée sur des serveurs européens.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Qui est derrière Mehdia&nbsp;?</summary>
+          <div class="faq-body"><p>La démarche est conçue et supervisée par une pharmacienne diplômée, formée en micronutrition. Chaque recommandation s'appuie sur des connaissances validées.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-band">
     <div class="wrap narrow">
       <h2>Et si vous compreniez enfin ce que vous ressentez&nbsp;?</h2>
-      <p>Le bilan péri-ménopause est gratuit et ne prend que quelques minutes.</p>
-      <a href="bilan-perimenopause.html" class="btn btn-primary btn-lg">Commencer mon bilan</a>
+      <p>Choisissez votre bilan — c'est gratuit et ça ne prend que quelques minutes.</p>
+      <a href="#bilans" class="btn btn-primary btn-lg">Commencer mon bilan</a>
     </div>
   </section>
 
@@ -166,19 +243,19 @@
       <div class="footer-grid">
         <div>
           <div class="brand"><span class="brand-dot"></span>Mehdia</div>
-          <p>L'accompagnement micronutrition pensé pour la santé de la femme. Conçu par une pharmacienne.</p>
+          <p>La micronutrition pensée pour la santé et la beauté des femmes. Conçu par une pharmacienne.</p>
         </div>
         <div class="footer-col">
-          <h5>Thèmes</h5>
-          <a href="sante-de-la-femme.html">Santé de la femme</a>
-          <a href="perimenopause.html">Péri-ménopause</a>
-          <a href="bilan-perimenopause.html">Faire mon bilan</a>
+          <h5>Nos bilans</h5>
+          <a href="bilan.html?t=perimenopause">Péri-ménopause</a>
+          <a href="bilan.html?t=minceur">Minceur &amp; métabolisme</a>
+          <a href="bilan.html?t=beaute">Beauté peau &amp; cheveux</a>
         </div>
         <div class="footer-col">
           <h5>Informations</h5>
-          <a href="index.html#methode">Notre méthode</a>
+          <a href="sante-de-la-femme.html">Santé de la femme</a>
+          <a href="#methode">Notre méthode</a>
           <a href="#">Confidentialité &amp; RGPD</a>
-          <a href="#">Mentions légales</a>
         </div>
       </div>
       <div class="footer-legal">

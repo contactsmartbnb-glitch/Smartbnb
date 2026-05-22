@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon bilan péri-ménopause — Mehdia</title>
-  <meta name="description" content="Bilan péri-ménopause en ligne : un questionnaire guidé qui identifie les analyses à demander à votre médecin.">
+  <title>Mon bilan — Mehdia</title>
+  <meta name="description" content="Bilan micronutrition en ligne : un questionnaire guidé qui identifie les analyses à demander à votre médecin.">
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,8 +17,8 @@
     <nav class="nav">
       <a href="index.html" class="brand"><span class="brand-dot"></span>Mehdia</a>
       <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#bilans">Nos bilans</a></li>
         <li><a href="sante-de-la-femme.html">Santé de la femme</a></li>
-        <li><a href="perimenopause.html">Péri-ménopause</a></li>
         <li><a href="index.html#methode">Notre méthode</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
@@ -27,6 +27,11 @@
 
   <section class="section">
     <div class="wrap quiz-shell">
+
+      <div class="quiz-topbar">
+        <span class="eyebrow" id="topicEyebrow">Bilan</span>
+        <h1 class="quiz-topic" id="topicName">Mon bilan</h1>
+      </div>
 
       <!-- QUESTIONNAIRE -->
       <div class="quiz-card" id="quizCard">
@@ -54,7 +59,7 @@
         <ul class="analysis-list" id="analysisList"></ul>
 
         <div class="disclaimer">
-          <strong>Ces recommandations ne sont pas une prescription.</strong> Elles servent de support de discussion avec votre médecin. La péri-ménopause se diagnostique cliniquement&nbsp;; les analyses aident à écarter d'autres causes et à orienter l'accompagnement micronutrition.
+          <strong>Ces recommandations ne sont pas une prescription.</strong> Elles servent de support de discussion avec votre médecin. Seul un professionnel de santé peut prescrire des examens et poser un diagnostic.
         </div>
 
         <h3 style="font-family:var(--sans);font-weight:700;margin-top:8px">La suite&nbsp;: votre protocole personnalisé</h3>
@@ -78,6 +83,7 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="js/questionnaire.js"></script>
+  <script src="js/quiz-data.js"></script>
+  <script src="js/quiz-engine.js"></script>
 </body>
 </html>
