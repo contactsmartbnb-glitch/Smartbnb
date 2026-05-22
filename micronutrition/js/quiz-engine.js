@@ -179,6 +179,11 @@
       'Selon vos réponses, voici ' + analyses.length
       + ' analyses utiles à demander à votre médecin. Conservez cette liste pour votre consultation.';
 
+    var disc = document.getElementById('resultDisclaimer');
+    if (disc && topic.disclaimer) {
+      disc.innerHTML = '<strong>Important&nbsp;:</strong> ' + topic.disclaimer;
+    }
+
     elCard.style.display = 'none';
     elResult.classList.add('active');
     elBar.style.width = '100%';

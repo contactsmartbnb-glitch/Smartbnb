@@ -1,9 +1,9 @@
 /* ============================================================
-   Mehdia — Données des bilans (multi-thèmes)
+   Mehdia — Données des bilans (4 univers, multi-thèmes)
    ------------------------------------------------------------
-   Chaque thème = un jeu de questions + une logique d'orientation
-   vers les analyses. Le moteur (quiz-engine.js) lit le paramètre
-   ?t= de l'URL pour choisir le thème.
+   AUDIENCES : les 4 univers (Femmes / Hommes / Enfants / Seniors)
+   TOPICS    : un thème = questions + logique d'orientation vers
+               les analyses. Le moteur lit ?t= dans l'URL.
 
    IMPORTANT : les questions et la logique sont une PREMIÈRE
    VERSION, à valider et affiner avec les cours de micronutrition
@@ -13,14 +13,52 @@
 var SCALE_DEFAULT = ['Aucun', 'Léger', 'Modéré', 'Important'];
 var SCALE_FREQ    = ['Jamais', 'Parfois', 'Souvent', 'Très souvent'];
 
+/* ---------- Les 4 univers ---------- */
+var AUDIENCES = {
+  femme: {
+    key: 'femme', name: 'Femmes', icon: '🌸',
+    eyebrow: 'Univers · Femmes',
+    metaTitle: 'Univers Femmes — Mehdia',
+    tagline: 'Hormones, minceur, beauté, énergie',
+    intro: 'Du cycle à la ménopause, l\'équilibre hormonal influence l\'énergie, le poids, la peau et l\'humeur. Nos bilans transforment vos symptômes en plan d\'action.',
+    topics: ['perimenopause', 'minceur', 'beaute']
+  },
+  homme: {
+    key: 'homme', name: 'Hommes', icon: '💪',
+    eyebrow: 'Univers · Hommes',
+    metaTitle: 'Univers Hommes — Mehdia',
+    tagline: 'Énergie, métabolisme, vitalité',
+    intro: 'Fatigue, baisse de libido, poids qui s\'installe, masse musculaire qui fond : la micronutrition aide à comprendre et à soutenir la vitalité masculine.',
+    topics: ['homme']
+  },
+  enfant: {
+    key: 'enfant', name: 'Enfants', icon: '🧒',
+    eyebrow: 'Univers · Enfants',
+    metaTitle: 'Univers Enfants — Mehdia',
+    tagline: 'Croissance, immunité, concentration',
+    intro: 'Infections à répétition, fatigue, sommeil agité, appétit difficile : des repères de micronutrition pour accompagner votre enfant — toujours en lien avec son pédiatre.',
+    topics: ['enfant']
+  },
+  senior: {
+    key: 'senior', name: 'Seniors', icon: '🌳',
+    eyebrow: 'Univers · Seniors',
+    metaTitle: 'Univers Seniors — Mehdia',
+    tagline: 'Bien-vieillir, énergie, mémoire',
+    intro: 'Énergie, mémoire, masse musculaire, appétit : après 65 ans, quelques équilibres micronutritionnels font une vraie différence sur la forme et l\'autonomie.',
+    topics: ['senior']
+  }
+};
+
+/* ---------- Les thèmes de bilan ---------- */
 var TOPICS = {
 
   /* ===================== PÉRI-MÉNOPAUSE ===================== */
   perimenopause: {
-    slug: 'perimenopause',
+    slug: 'perimenopause', audience: 'femme', icon: '🌿',
     name: 'Péri-ménopause & ménopause',
     eyebrow: 'Bilan · Équilibre hormonal',
     metaTitle: 'Mon bilan péri-ménopause — Mehdia',
+    blurb: 'Bouffées de chaleur, sommeil, humeur, poids : comprendre la transition hormonale.',
     questions: [
       { id: 'age', type: 'number', question: 'Quel âge avez-vous ?',
         hint: 'La péri-ménopause débute le plus souvent entre 40 et 50 ans.',
@@ -111,10 +149,11 @@ var TOPICS = {
 
   /* ================ MINCEUR & MÉTABOLISME ================== */
   minceur: {
-    slug: 'minceur',
+    slug: 'minceur', audience: 'femme', icon: '⚖️',
     name: 'Minceur & métabolisme',
     eyebrow: 'Bilan · Poids & énergie',
     metaTitle: 'Mon bilan minceur & métabolisme — Mehdia',
+    blurb: 'Poids qui résiste, ventre qui stocke, fringales : et si c\'était le métabolisme ?',
     questions: [
       { id: 'age', type: 'number', question: 'Quel âge avez-vous ?',
         min: 18, max: 80, placeholder: 'Ex. 42' },
@@ -164,9 +203,9 @@ var TOPICS = {
         hint: 'Le manque de sommeil dérègle l\'appétit et le stockage des graisses.' },
       { id: 'historique', type: 'single', question: 'Avez-vous déjà suivi des régimes ?',
         options: [
-          { value: 'jamais',      label: 'Jamais vraiment' },
-          { value: 'quelques',    label: 'Quelques-uns' },
-          { value: 'nombreux',    label: 'De nombreux régimes, avec effet yo-yo' }
+          { value: 'jamais',   label: 'Jamais vraiment' },
+          { value: 'quelques', label: 'Quelques-uns' },
+          { value: 'nombreux', label: 'De nombreux régimes, avec effet yo-yo' }
         ] }
     ],
     analyses: function (a) {
@@ -192,10 +231,11 @@ var TOPICS = {
 
   /* ===================== BEAUTÉ ============================= */
   beaute: {
-    slug: 'beaute',
+    slug: 'beaute', audience: 'femme', icon: '✨',
     name: 'Beauté — peau, cheveux, ongles',
     eyebrow: 'Bilan · Beauté de l\'intérieur',
     metaTitle: 'Mon bilan beauté peau & cheveux — Mehdia',
+    blurb: 'Cheveux, ongles, éclat de la peau : la beauté se soutient de l\'intérieur.',
     questions: [
       { id: 'age', type: 'number', question: 'Quel âge avez-vous ?',
         min: 16, max: 80, placeholder: 'Ex. 34' },
@@ -213,19 +253,19 @@ var TOPICS = {
         ] },
       { id: 'chute', type: 'single', question: 'Concernant vos cheveux, où en êtes-vous ?',
         options: [
-          { value: 'non',        label: 'Pas de chute particulière' },
-          { value: 'recente',    label: 'Une chute récente (moins de 6 mois)' },
-          { value: 'chronique',  label: 'Une chute installée (plus de 6 mois)' },
-          { value: 'saisonniere',label: 'Une chute surtout saisonnière' }
+          { value: 'non',         label: 'Pas de chute particulière' },
+          { value: 'recente',     label: 'Une chute récente (moins de 6 mois)' },
+          { value: 'chronique',   label: 'Une chute installée (plus de 6 mois)' },
+          { value: 'saisonniere', label: 'Une chute surtout saisonnière' }
         ] },
       { id: 'alimentation', type: 'multi', question: 'Comment décririez-vous votre alimentation ?',
         hint: 'Plusieurs réponses possibles.',
         options: [
-          { value: 'vegetarien',   label: 'Végétarienne ou végane' },
-          { value: 'peu_proteines',label: 'Je mange peu de protéines' },
-          { value: 'regime_recent',label: 'Régime restrictif ou perte de poids rapide récente' },
-          { value: 'transformes',  label: 'Beaucoup de produits transformés' },
-          { value: 'equilibree',   label: 'Variée et équilibrée' }
+          { value: 'vegetarien',    label: 'Végétarienne ou végane' },
+          { value: 'peu_proteines', label: 'Je mange peu de protéines' },
+          { value: 'regime_recent', label: 'Régime restrictif ou perte de poids rapide récente' },
+          { value: 'transformes',   label: 'Beaucoup de produits transformés' },
+          { value: 'equilibree',    label: 'Variée et équilibrée' }
         ] },
       { id: 'digestion', type: 'scale', question: 'Avez-vous des troubles digestifs ?',
         hint: 'Ballonnements, transit irrégulier. L\'intestin influence la peau.' },
@@ -256,6 +296,206 @@ var TOPICS = {
         add('Bilan hormonal (FSH, LH, œstradiol)', 'Préciser l\'origine des cycles irréguliers associés.');
       if ((a.fatigue || 0) >= 2)
         add('Magnésium érythrocytaire', 'Soutient l\'énergie et la résistance au stress, qui marquent la peau.');
+      return list;
+    }
+  },
+
+  /* ================= VITALITÉ MASCULINE ==================== */
+  homme: {
+    slug: 'homme', audience: 'homme', icon: '💪',
+    name: 'Vitalité masculine',
+    eyebrow: 'Bilan · Énergie & métabolisme',
+    metaTitle: 'Mon bilan vitalité masculine — Mehdia',
+    blurb: 'Énergie, libido, poids, masse musculaire : retrouver sa vitalité.',
+    questions: [
+      { id: 'age', type: 'number', question: 'Quel âge avez-vous ?',
+        min: 18, max: 90, placeholder: 'Ex. 45' },
+      { id: 'energie', type: 'scale', question: 'Ressentez-vous une baisse d\'énergie ou de motivation ?',
+        hint: 'Par rapport à votre forme habituelle des années précédentes.' },
+      { id: 'libido', type: 'scale', question: 'Avez-vous remarqué une baisse de libido ?' },
+      { id: 'poids', type: 'single', question: 'Avez-vous pris du poids, surtout au niveau du ventre ?',
+        options: [
+          { value: 'non',         label: 'Non, mon poids est stable' },
+          { value: 'un_peu',      label: 'Un peu' },
+          { value: 'oui_marquee', label: 'Oui, nettement, surtout le ventre' }
+        ] },
+      { id: 'force', type: 'single', question: 'Concernant votre masse musculaire et votre force ?',
+        options: [
+          { value: 'stable',       label: 'Stables' },
+          { value: 'baisse_legere',label: 'Une baisse légère' },
+          { value: 'baisse_nette', label: 'Une baisse nette' }
+        ] },
+      { id: 'sommeil', type: 'scale', question: 'Rencontrez-vous des troubles du sommeil ?',
+        hint: 'Réveils nocturnes, sommeil peu réparateur, ronflements importants.' },
+      { id: 'stress', type: 'scale', question: 'Comment évaluez-vous votre niveau de stress au quotidien ?' },
+      { id: 'cheveux', type: 'single', question: 'Concernant vos cheveux ?',
+        options: [
+          { value: 'non',       label: 'Pas de chute particulière' },
+          { value: 'debut',     label: 'Une chute qui débute' },
+          { value: 'installee', label: 'Une calvitie installée' }
+        ] },
+      { id: 'antecedents', type: 'multi', question: 'Avez-vous des antécédents personnels ou familiaux ?',
+        hint: 'Plusieurs réponses possibles.',
+        options: [
+          { value: 'diabete',      label: 'Diabète ou prédiabète (vous ou famille proche)' },
+          { value: 'cholesterol',  label: 'Cholestérol ou triglycérides élevés' },
+          { value: 'hypertension', label: 'Hypertension artérielle' },
+          { value: 'thyroide',     label: 'Problème de thyroïde' },
+          { value: 'aucun',        label: 'Aucun', exclusive: true }
+        ] },
+      { id: 'activite', type: 'single', question: 'Quel est votre niveau d\'activité physique ?',
+        options: [
+          { value: 'sedentaire', label: 'Plutôt sédentaire' },
+          { value: 'legere',     label: 'Activité légère et occasionnelle' },
+          { value: 'reguliere',  label: 'Activité régulière' }
+        ] }
+    ],
+    analyses: function (a) {
+      var list = [], ant = a.antecedents || [];
+      function add(n, w) { list.push({ name: n, why: w }); }
+      add('Testostérone totale et biodisponible + SHBG', 'Évaluer le statut androgénique, central pour l\'énergie, la libido et la masse musculaire.');
+      add('TSH (bilan thyroïdien)', 'Une thyroïde ralentie pèse sur l\'énergie et le poids.');
+      add('Glycémie à jeun + HbA1c', 'Évaluer la régulation du sucre sanguin.');
+      add('Bilan lipidique complet', 'Cholestérol et triglycérides, marqueurs cardiovasculaires.');
+      add('25-OH Vitamine D', 'Statut souvent insuffisant ; impacte énergie, immunité et muscle.');
+      add('Ferritine + numération formule sanguine (NFS)', 'Rechercher une carence ou une anémie sous-jacente à la fatigue.');
+      if (a.poids !== 'non')
+        add('Insulinémie à jeun', 'Mesurer la résistance à l\'insuline (calcul du HOMA).');
+      if (a.poids === 'oui_marquee')
+        add('CRP ultra-sensible', 'Mesurer l\'inflammation de bas grade liée au tissu adipeux abdominal.');
+      if (a.force !== 'stable' || (a.sommeil || 0) >= 2 || (a.stress || 0) >= 2)
+        add('Magnésium érythrocytaire', 'Soutient l\'énergie musculaire, le sommeil et la gestion du stress.');
+      if (a.cheveux !== 'non')
+        add('Zinc', 'Oligo-élément impliqué dans le métabolisme des hormones et la santé du cheveu.');
+      return list;
+    }
+  },
+
+  /* ============== VITALITÉ DE L'ENFANT ===================== */
+  enfant: {
+    slug: 'enfant', audience: 'enfant', icon: '🧒',
+    name: 'Vitalité de l\'enfant',
+    eyebrow: 'Bilan · Croissance & immunité',
+    metaTitle: 'Mon bilan vitalité de l\'enfant — Mehdia',
+    blurb: 'Immunité, sommeil, concentration, appétit : accompagner sa croissance.',
+    disclaimer: 'Ce bilan ne remplace en aucun cas le suivi du pédiatre, seul habilité à examiner votre enfant, prescrire des analyses et poser un diagnostic. Chez l\'enfant, toute analyse ou complément doit être décidé avec lui. Mehdia propose uniquement des repères d\'accompagnement micronutrition, à présenter au pédiatre.',
+    questions: [
+      { id: 'age', type: 'number', question: 'Quel âge a votre enfant ?',
+        hint: 'Ce bilan est destiné aux enfants de 1 à 17 ans, rempli par un parent.',
+        min: 1, max: 17, placeholder: 'Ex. 7' },
+      { id: 'motif', type: 'multi', question: 'Qu\'observez-vous chez votre enfant ?',
+        hint: 'Plusieurs réponses possibles.',
+        options: [
+          { value: 'infections',    label: 'Infections à répétition (ORL, rhumes…)' },
+          { value: 'fatigue',       label: 'Fatigue, manque d\'entrain' },
+          { value: 'sommeil',       label: 'Sommeil agité ou difficile' },
+          { value: 'appetit',       label: 'Appétit difficile' },
+          { value: 'concentration', label: 'Difficultés de concentration' },
+          { value: 'peau',          label: 'Peau sèche, eczéma' },
+          { value: 'aucun',         label: 'Rien de particulier', exclusive: true }
+        ] },
+      { id: 'infections', type: 'single', question: 'Concernant les infections (rhumes, angines, otites…) ?',
+        options: [
+          { value: 'rares',        label: 'Rares, comme la plupart des enfants' },
+          { value: 'saisonnieres', label: 'Surtout en hiver' },
+          { value: 'repetees',     label: 'Très fréquentes, presque enchaînées' }
+        ] },
+      { id: 'alimentation', type: 'single', question: 'Comment décririez-vous son alimentation ?',
+        options: [
+          { value: 'variee',         label: 'Variée, il/elle mange de tout' },
+          { value: 'selective',      label: 'Plutôt sélective' },
+          { value: 'tres_selective', label: 'Très sélective, peu d\'aliments acceptés' }
+        ] },
+      { id: 'sommeil', type: 'scale', question: 'Son sommeil est-il perturbé ?',
+        hint: 'Endormissement difficile, réveils, sommeil peu réparateur.' },
+      { id: 'croissance', type: 'single', question: 'Concernant sa croissance et son poids ?',
+        options: [
+          { value: 'harmonieuse',     label: 'Harmonieuse, sans inquiétude' },
+          { value: 'inquietude_poids',label: 'Une inquiétude sur le poids' },
+          { value: 'inquietude_taille',label: 'Une inquiétude sur la taille' }
+        ] },
+      { id: 'suivi', type: 'single', question: 'Un pédiatre suit-il actuellement votre enfant pour ce motif ?',
+        options: [
+          { value: 'oui', label: 'Oui' },
+          { value: 'non', label: 'Pas encore' }
+        ] }
+    ],
+    analyses: function (a) {
+      var list = [], motif = a.motif || [];
+      function add(n, w) { list.push({ name: n, why: w }); }
+      add('Ferritine + numération formule sanguine (NFS)', 'La carence en fer est fréquente chez l\'enfant et pèse sur l\'énergie et la concentration.');
+      add('25-OH Vitamine D', 'Statut souvent insuffisant ; importante pour l\'immunité et la croissance osseuse.');
+      if (a.infections === 'repetees' || motif.indexOf('infections') > -1)
+        add('Bilan de base à discuter avec le pédiatre', 'Devant des infections répétées, le pédiatre jugera des examens utiles.');
+      if (a.alimentation === 'selective' || a.alimentation === 'tres_selective')
+        add('Zinc (± vitamine B12 selon le pédiatre)', 'Une alimentation sélective expose à des carences en oligo-éléments.');
+      if (a.croissance === 'inquietude_poids' || a.croissance === 'inquietude_taille')
+        add('Suivi de la courbe de croissance par le pédiatre', 'Toute inquiétude de croissance relève en priorité d\'un examen pédiatrique.');
+      return list;
+    }
+  },
+
+  /* ================= BIEN-VIEILLIR (SENIOR) ================ */
+  senior: {
+    slug: 'senior', audience: 'senior', icon: '🌳',
+    name: 'Bien-vieillir',
+    eyebrow: 'Bilan · Vitalité après 65 ans',
+    metaTitle: 'Mon bilan bien-vieillir — Mehdia',
+    blurb: 'Énergie, mémoire, masse musculaire, appétit : bien-vieillir en forme.',
+    questions: [
+      { id: 'age', type: 'number', question: 'Quel âge avez-vous ?',
+        min: 55, max: 105, placeholder: 'Ex. 72' },
+      { id: 'energie', type: 'scale', question: 'Ressentez-vous une fatigue ou une baisse d\'énergie ?' },
+      { id: 'appetit', type: 'single', question: 'Comment est votre appétit ?',
+        options: [
+          { value: 'bon',     label: 'Bon, je mange avec plaisir' },
+          { value: 'diminue', label: 'Diminué' },
+          { value: 'faible',  label: 'Faible, je mange peu' }
+        ] },
+      { id: 'poids', type: 'single', question: 'Avez-vous perdu du poids involontairement ces derniers mois ?',
+        options: [
+          { value: 'non',         label: 'Non' },
+          { value: 'un_peu',      label: 'Un peu' },
+          { value: 'oui_marquee', label: 'Oui, une perte nette' }
+        ] },
+      { id: 'force', type: 'single', question: 'Concernant votre force et votre masse musculaire ?',
+        options: [
+          { value: 'stable',        label: 'Stables' },
+          { value: 'baisse_legere', label: 'Une baisse légère' },
+          { value: 'baisse_nette',  label: 'Une baisse nette (se lever, porter…)' }
+        ] },
+      { id: 'memoire', type: 'scale', question: 'Rencontrez-vous des troubles de la mémoire ou de la concentration ?' },
+      { id: 'sommeil', type: 'scale', question: 'Rencontrez-vous des troubles du sommeil ?' },
+      { id: 'chutes', type: 'single', question: 'Avez-vous fait des chutes récemment ?',
+        options: [
+          { value: 'aucune',    label: 'Aucune' },
+          { value: 'une',       label: 'Une chute' },
+          { value: 'plusieurs', label: 'Plusieurs chutes' }
+        ] },
+      { id: 'traitements', type: 'single', question: 'Combien de médicaments prenez-vous au quotidien ?',
+        options: [
+          { value: 'aucun_un',  label: 'Aucun ou un seul' },
+          { value: 'deux_trois',label: 'Deux à trois' },
+          { value: 'quatre_plus',label: 'Quatre ou plus' }
+        ] },
+      { id: 'moral', type: 'scale', question: 'Comment évaluez-vous votre moral ces derniers temps ?',
+        scaleLabels: ['Très bon', 'Correct', 'Fragile', 'Bas'] }
+    ],
+    analyses: function (a) {
+      var list = [];
+      function add(n, w) { list.push({ name: n, why: w }); }
+      add('25-OH Vitamine D', 'Essentielle aux os, aux muscles et à l\'immunité ; déficit très fréquent après 65 ans.');
+      add('Vitamine B12 et folates', 'Carence fréquente avec l\'âge ; impacte mémoire, énergie et formation du sang.');
+      add('Ferritine + numération formule sanguine (NFS)', 'L\'anémie est fréquente et souvent sous-estimée chez le senior.');
+      add('Albumine', 'Marqueur clé de l\'état nutritionnel et du risque de dénutrition.');
+      add('TSH (bilan thyroïdien)', 'Un déséquilibre thyroïdien peut imiter fatigue et troubles de l\'humeur.');
+      add('Calcium + fonction rénale (créatinine, DFG)', 'Surveiller l\'équilibre osseux et adapter tout apport en micronutriments.');
+      if (a.appetit !== 'bon' || a.poids !== 'non')
+        add('CRP et préalbumine', 'Préciser un risque de dénutrition ou une inflammation associée.');
+      if (a.force !== 'stable' || a.chutes !== 'aucune')
+        add('Magnésium érythrocytaire (± évaluation de la masse musculaire)', 'Rechercher des facteurs de fonte musculaire (sarcopénie).');
+      if (a.traitements === 'quatre_plus')
+        add('Revue de l\'ordonnance avec votre médecin', 'La prise de nombreux médicaments peut épuiser certains micronutriments.');
       return list;
     }
   }

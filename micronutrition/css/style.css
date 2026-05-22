@@ -284,6 +284,29 @@ img { max-width: 100%; display: block; }
 .audience-visual p { color: var(--rose); font-size: .96rem; }
 .audience-visual .quote-mark { font-family: var(--serif); font-size: 3rem; line-height: .5; color: var(--terracotta); }
 
+/* ---------- Sélecteur d'univers ---------- */
+.aud-switch { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.aud-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; border-radius: 999px; font-size: .9rem; font-weight: 600;
+  background: var(--white); border: 1.5px solid var(--line); color: var(--ink-soft);
+}
+.aud-chip:hover { border-color: var(--terracotta); color: var(--terracotta-d); }
+.aud-chip.active { background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+
+/* ---------- Cartes d'univers (accueil) ---------- */
+.universe-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.universe-card {
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 28px 22px; text-align: center; text-decoration: none;
+  transition: transform .18s ease, box-shadow .2s ease; display: block;
+}
+.universe-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.universe-emoji { font-size: 2.4rem; }
+.universe-card h3 { margin: 10px 0 6px; }
+.universe-card p { font-size: .88rem; }
+.universe-card .card-link { display: inline-block; margin-top: 12px; font-weight: 600; font-size: .9rem; }
+
 /* ---------- FAQ ---------- */
 .faq { max-width: 760px; margin: 0 auto; }
 .faq-item {
@@ -306,6 +329,7 @@ img { max-width: 100%; display: block; }
   .hero-grid { grid-template-columns: 1fr; gap: 36px; }
   .card-grid, .steps-row { grid-template-columns: 1fr; }
   .info-grid, .footer-grid { grid-template-columns: 1fr; }
+  .universe-grid { grid-template-columns: 1fr 1fr; }
   .stat-row { grid-template-columns: 1fr; gap: 30px; }
   .audience-grid { grid-template-columns: 1fr; gap: 32px; }
   .nav-links {
