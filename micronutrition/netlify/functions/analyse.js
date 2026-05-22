@@ -1,5 +1,5 @@
 /* ============================================================
-   Équilia — Fonction serverless d'accompagnement micronutrition
+   Mehdia — Fonction serverless d'accompagnement micronutrition
    ------------------------------------------------------------
    Reçoit : les réponses au questionnaire + le texte DÉ-IDENTIFIÉ
             des analyses déposées par l'utilisatrice.
@@ -14,7 +14,7 @@ var fs = require('fs');
 var path = require('path');
 
 var API_URL = 'https://api.anthropic.com/v1/messages';
-var MODEL = process.env.EQUILIA_MODEL || 'claude-sonnet-4-6';
+var MODEL = process.env.MEHDIA_MODEL || 'claude-sonnet-4-6';
 
 // Charge la base de connaissance (cours de micronutrition).
 // Déposez les fichiers .txt / .md dans le dossier /cours.
@@ -34,7 +34,7 @@ function loadKnowledgeBase() {
 }
 
 var SYSTEM_INTRO =
-  'Tu es l\'assistant micronutrition d\'Équilia, encadré par une pharmacienne ' +
+  'Tu es l\'assistant micronutrition de Mehdia, encadré par une pharmacienne ' +
   'diplômée. Tu proposes un ACCOMPAGNEMENT en micronutrition, jamais un ' +
   'diagnostic ni une prescription médicale. Tu t\'appuies STRICTEMENT sur la ' +
   'base de connaissance fournie ci-dessous. Règles : ' +

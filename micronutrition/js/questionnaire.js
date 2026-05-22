@@ -1,5 +1,5 @@
 /* ============================================================
-   Équilia — Moteur de questionnaire « Péri-ménopause »
+   Mehdia — Moteur de questionnaire « Péri-ménopause »
    Première version. Les questions et la logique d'orientation
    seront affinées avec les cours de micronutrition.
    ============================================================ */
@@ -164,7 +164,7 @@ function buildAnalyses(a) {
 
 /* ---------- Moteur d'affichage ---------- */
 (function () {
-  var STORAGE_KEY = 'equilia-bilan-perimenopause';
+  var STORAGE_KEY = 'mehdia-bilan-perimenopause';
   var idx = 0;
   var answers = {};
 

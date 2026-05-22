@@ -1,4 +1,4 @@
-// Équilia — interactions globales
+// Mehdia — interactions globales
 (function () {
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
