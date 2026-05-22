@@ -166,14 +166,18 @@
     } catch (e) {}
 
     var analyses = topic.analyses(answers);
-    var ul = document.getElementById('analysisList');
-    ul.innerHTML = '';
-    analyses.forEach(function (item) {
-      var li = document.createElement('li');
-      li.innerHTML = '<span class="a-dot">●</span><span class="a-txt"><strong>'
-        + item.name + '</strong><span>' + item.why + '</span></span>';
-      ul.appendChild(li);
+    var grid = document.getElementById('analysisList');
+    grid.innerHTML = '';
+    analyses.forEach(function (item, i) {
+      var card = document.createElement('div');
+      card.className = 'analysis-card';
+      card.innerHTML = '<span class="ac-num">' + (i + 1) + '</span>'
+        + '<div class="ac-body"><strong>' + item.name + '</strong><span>'
+        + item.why + '</span></div>';
+      grid.appendChild(card);
     });
+    var sc = document.getElementById('statCount');
+    if (sc) sc.textContent = analyses.length;
 
     document.getElementById('resultSummary').textContent =
       'Selon vos réponses, voici ' + analyses.length

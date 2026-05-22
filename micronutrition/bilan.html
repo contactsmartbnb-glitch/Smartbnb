@@ -45,31 +45,42 @@
         </div>
       </div>
 
-      <!-- RÉSULTATS -->
+      <!-- RÉSULTATS — tableau de bord -->
       <div class="quiz-card result-block" id="resultCard">
-        <div class="result-intro">
+        <div class="result-hero">
           <div class="check-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-11"/></svg>
           </div>
-          <h2 style="font-family:var(--serif)">Votre bilan est prêt</h2>
+          <h2>Votre bilan est prêt</h2>
           <p id="resultSummary">Voici les analyses que nous vous recommandons de demander à votre médecin.</p>
         </div>
 
-        <h3 style="font-family:var(--sans);font-weight:700">Analyses recommandées</h3>
-        <p style="font-size:.9rem">À présenter à votre médecin traitant, qui reste seul juge de la prescription.</p>
-        <ul class="analysis-list" id="analysisList"></ul>
+        <div class="result-stats">
+          <div class="rstat"><span class="rstat-num" id="statCount">—</span><span class="rstat-lbl">analyses ciblées</span></div>
+          <div class="rstat"><span class="rstat-num">5 min</span><span class="rstat-lbl">à présenter au médecin</span></div>
+          <div class="rstat"><span class="rstat-num">1</span><span class="rstat-lbl">protocole à la clé</span></div>
+        </div>
+
+        <h3 class="result-h">Vos analyses recommandées</h3>
+        <p class="result-sub">À présenter à votre médecin traitant, qui reste seul juge de la prescription.</p>
+        <div class="analysis-grid" id="analysisList"></div>
 
         <div class="disclaimer" id="resultDisclaimer">
           <strong>Ces recommandations ne sont pas une prescription.</strong> Elles servent de support de discussion avec votre médecin. Seul un professionnel de santé peut prescrire des examens et poser un diagnostic.
         </div>
 
-        <h3 style="font-family:var(--sans);font-weight:700;margin-top:8px">La suite&nbsp;: votre protocole personnalisé</h3>
-        <p style="font-size:.95rem">Une fois vos analyses obtenues, créez votre espace privé pour les déposer en toute sécurité. Vous recevrez alors un accompagnement micronutrition adapté à vos résultats.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
-          <button class="btn btn-primary" id="btnSpace">Créer mon espace privé</button>
-          <button class="btn btn-ghost" id="btnRestart">Recommencer le bilan</button>
+        <div class="offer-card">
+          <div class="offer-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.4L12 17l-1.9-5.6L4.5 10l5.6-1.4Z"/></svg>
+          </div>
+          <h3>La suite&nbsp;: votre protocole personnalisé</h3>
+          <p>Une fois vos analyses obtenues, déposez-les dans votre espace privé sécurisé. Vous recevrez un accompagnement micronutrition adapté à vos résultats.</p>
+          <div class="offer-actions">
+            <button class="btn btn-primary" id="btnSpace">Créer mon espace privé</button>
+            <button class="btn btn-ghost" id="btnRestart">Recommencer le bilan</button>
+          </div>
+          <p id="spaceNote" style="display:none"></p>
         </div>
-        <p id="spaceNote" style="font-size:.82rem;margin-top:14px;display:none"></p>
       </div>
 
     </div>
