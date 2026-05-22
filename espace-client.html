@@ -35,10 +35,10 @@
 <div id="dashboard" class="hide">
   <div class="app-layout">
     <aside class="sidebar">
-      <a class="active" data-view="board">📊 Tableau de bord</a>
-      <a data-view="biens">🏠 Mes biens</a>
-      <a data-view="reservations">📅 Réservations</a>
-      <a data-view="reporting">📈 Reporting</a>
+      <a class="active" data-view="board">Tableau de bord</a>
+      <a data-view="biens">Mes biens</a>
+      <a data-view="reservations">Réservations</a>
+      <a data-view="reporting">Reporting</a>
       <a onclick="logout()" style="color:#a04545">⎋ Déconnexion</a>
     </aside>
     <main class="app-main">
@@ -204,7 +204,7 @@ function renderDashboard(){
   // reporting
   document.getElementById('reportList').innerHTML = REPORTS.map(m=>`
     <div class="res-row" style="padding:14px 12px">
-      <span>📄 Reporting mensuel — <b>${m}</b></span>
+      <span>Reporting mensuel — <b>${m}</b></span>
       <button class="btn btn-vert" style="padding:9px 18px" onclick="toast('Téléchargement du reporting ${m}…')">Télécharger</button>
     </div>`).join('');
 }

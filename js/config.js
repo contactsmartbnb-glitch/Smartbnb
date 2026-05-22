@@ -26,20 +26,22 @@ window.simulate = function(o){
   const mt = MULT_TYPE[o.type] || 1;
   const ms = MULT_STANDING[o.standing] || 1;
   let nuit = m.base * mt * ms;
-  if(o.chambres) nuit *= (0.82 + o.chambres*0.09);
-  if(o.piscine) nuit *= 1.18;
-  if(o.parking) nuit *= 1.05;
+  if(o.chambres) nuit *= (0.88 + o.chambres*0.05);
+  if(o.piscine) nuit *= 1.09;
+  if(o.parking) nuit *= 1.03;
   nuit = Math.round(nuit);
   const nuitsMois = Math.round(30 * m.occ);
   const mensuel = nuit * nuitsMois;
   const annuel = mensuel * 12;
   const prixBien = Math.round((o.surface||80) * m.prixm2 * ms);
-  const charges = Math.round(annuel * 0.22);          // charges + entretien
+  const charges = Math.round(annuel * 0.25);          // charges + entretien
   const commission = Math.round(annuel * 0.17);       // SmartBNB 17%
   const net = annuel - charges - commission;
-  const rendBrut = prixBien ? (annuel / prixBien * 100) : m.yield;
-  const rendNet  = prixBien ? (net / prixBien * 100) : m.yield*0.7;
-  const cashflow = Math.round(net / 12);
+  // rendement borné au marché réel pour rester crédible (jamais surpromis)
+  let rendBrut = prixBien ? (annuel / prixBien * 100) : m.yield;
+  rendBrut = Math.max(3.5, Math.min(rendBrut, m.yield + 1));
+  const rendNet = rendBrut * 0.6;
+  const cashflow = Math.round(prixBien * rendNet/100 / 12);
   return {
     nuit, nuitsMois, mensuel, annuel, prixBien, charges, commission, net,
     rendBrut: rendBrut.toFixed(1), rendNet: rendNet.toFixed(1), cashflow,

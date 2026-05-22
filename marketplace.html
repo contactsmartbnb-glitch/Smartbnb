@@ -97,9 +97,9 @@
 <script>
 const AMEN=['Off-market','Géré LCD','Piscine','Parking','Terrasse','Climatisation','Ascenseur','Meublé'];
 const PROPS=[
-  {id:1,titre:'Riad rénové cœur de Médina',ville:'Marrakech',type:'Riad',etat:'Bon état',prix:3200000,surface:180,chambres:4,rendement:9.6,lat:31.6312,lng:-7.9890,amenities:['Off-market','Piscine','Terrasse','Climatisation','Meublé'],img:'photo-1539020140153-e479b8c22e70',desc:"Riad authentique de 4 chambres rénové avec patio et plunge pool, à 5 min de la place Jemaa el-Fna. Idéal location courte durée premium."},
+  {id:1,titre:'Riad rénové cœur de Médina',ville:'Marrakech',type:'Riad',etat:'Bon état',prix:3200000,surface:180,chambres:4,rendement:8.9,lat:31.6312,lng:-7.9890,amenities:['Off-market','Piscine','Terrasse','Climatisation','Meublé'],img:'photo-1539020140153-e479b8c22e70',desc:"Riad authentique de 4 chambres rénové avec patio et plunge pool, à 5 min de la place Jemaa el-Fna. Idéal location courte durée premium."},
   {id:2,titre:'Appartement vue mer standing',ville:'Tanger',type:'Appartement',etat:'Neuf',prix:1450000,surface:95,chambres:2,rendement:8.1,lat:35.7720,lng:-5.8000,amenities:['Géré LCD','Parking','Terrasse','Climatisation','Ascenseur','Meublé'],img:'photo-1502672260266-1c1ef2d93688',desc:"Appartement neuf de 2 chambres avec balcon vue mer, résidence sécurisée avec piscine commune. Forte demande estivale."},
-  {id:3,titre:'Villa contemporaine avec piscine',ville:'Marrakech',type:'Villa',etat:'Neuf',prix:5400000,surface:320,chambres:5,rendement:10.2,lat:31.6010,lng:-8.0350,amenities:['Off-market','Piscine','Parking','Terrasse','Climatisation','Meublé'],img:'photo-1613490493576-7fde63acd811',desc:"Villa moderne de 5 chambres sur la route de l'Ourika, grande piscine chauffée et jardin paysager. Rendement LCD exceptionnel."},
+  {id:3,titre:'Villa contemporaine avec piscine',ville:'Marrakech',type:'Villa',etat:'Neuf',prix:5400000,surface:320,chambres:5,rendement:9.1,lat:31.6010,lng:-8.0350,amenities:['Off-market','Piscine','Parking','Terrasse','Climatisation','Meublé'],img:'photo-1613490493576-7fde63acd811',desc:"Villa moderne de 5 chambres sur la route de l'Ourika, grande piscine chauffée et jardin paysager. Bon rendement LCD sur le segment villa premium."},
   {id:4,titre:'Studio design centre-ville',ville:'Casablanca',type:'Studio',etat:'Bon état',prix:780000,surface:38,chambres:1,rendement:6.4,lat:33.5890,lng:-7.6190,amenities:['Géré LCD','Climatisation','Ascenseur','Meublé'],img:'photo-1502672260266-1c1ef2d93688',desc:"Studio entièrement meublé en hypercentre, parfait pour la clientèle d'affaires. Occupation stable toute l'année."},
   {id:5,titre:'Appartement haussmannien Hassan',ville:'Rabat',type:'Appartement',etat:'À rénover',prix:1100000,surface:110,chambres:3,rendement:5.8,lat:34.0150,lng:-6.8350,amenities:['Parking','Ascenseur'],img:'photo-1560448204-e02f11c3d0e2',desc:"Bel appartement de caractère à rénover, quartier Hassan. Fort potentiel de valorisation après travaux."},
   {id:6,titre:'Riad de charme à rénover',ville:'Fès',type:'Riad',etat:'À rénover',prix:680000,surface:160,chambres:4,rendement:8.8,lat:34.0640,lng:-4.9780,amenities:['Off-market','Terrasse'],img:'photo-1505691938895-1758d7feb511',desc:"Riad traditionnel dans la médina classée UNESCO. Prix au m² imbattable, idéal projet maison d'hôtes."},
@@ -163,7 +163,7 @@ function cardHTML(p){
     <div class="prop-img">
       <img src="https://images.unsplash.com/${p.img}?w=700&q=80&auto=format&fit=crop" alt="${p.titre}">
       <span class="prop-tag">${p.amenities.includes('Off-market')?'Off-market':p.etat}</span>
-      <button class="prop-fav" onclick="event.stopPropagation();toggleFav(${p.id},this)">${fav?'❤️':'🤍'}</button>
+      <button class="prop-fav" onclick="event.stopPropagation();toggleFav(${p.id},this)" title="Favori">${fav?'★':'☆'}</button>
     </div>
     <div class="prop-body">
       <span class="prop-yield">Rendement ${p.rendement}%</span>
@@ -211,7 +211,7 @@ function drawMap(list){
 function toggleFav(id,btn){
   FAV=FAV.includes(id)?FAV.filter(x=>x!==id):[...FAV,id];
   localStorage.setItem('sb_fav',JSON.stringify(FAV));
-  if(btn) btn.textContent=FAV.includes(id)?'❤️':'🤍';
+  if(btn) btn.textContent=FAV.includes(id)?'★':'☆';
   toast(FAV.includes(id)?'Ajouté aux favoris':'Retiré des favoris');
 }
 

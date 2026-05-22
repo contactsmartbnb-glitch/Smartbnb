@@ -85,7 +85,7 @@
 
   /* ---------- CHATBOT ---------- */
   const chatbot = `
-  <button class="chat-fab" id="chatFab" aria-label="Chat">💬</button>
+  <button class="chat-fab" id="chatFab" aria-label="Ouvrir le chat"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5Z"/></svg></button>
   <div class="chat-panel" id="chatPanel">
     <div class="chat-head">
       <strong>Assistant SmartBNB</strong>
@@ -146,7 +146,7 @@
       panel.classList.toggle('open');
       if(panel.classList.contains('open') && !body.dataset.init){
         body.dataset.init='1';
-        add("Bonjour 👋 Je suis l'assistant SmartBNB. Comment puis-je vous aider ?",'bot');
+        add("Bonjour, je suis l'assistant SmartBNB. Comment puis-je vous aider ?",'bot');
       }
     };
     document.getElementById('chatSend').onclick=()=>send();
