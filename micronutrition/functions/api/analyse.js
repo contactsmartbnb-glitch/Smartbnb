@@ -1,37 +1,22 @@
 /* ============================================================
-   Mehdia — Fonction serverless d'accompagnement micronutrition
+   Mehdia — Cloudflare Pages Function : accompagnement micronutrition
    ------------------------------------------------------------
+   Route automatique : POST /api/analyse
    Reçoit : les réponses au questionnaire + le texte DÉ-IDENTIFIÉ
             des analyses déposées par l'utilisatrice.
    Renvoie : un protocole micronutrition structuré, généré par
              l'API Claude, en s'appuyant sur les cours fournis.
 
    Sécurité : la clé API reste côté serveur (variable
-   d'environnement ANTHROPIC_API_KEY). Le front n'y a jamais accès.
+   d'environnement ANTHROPIC_API_KEY, définie dans le tableau de
+   bord Cloudflare Pages). Le front n'y a jamais accès.
+
+   Note runtime : les Pages Functions n'ont pas d'accès disque.
+   Les cours sont lus via les assets statiques (env.ASSETS) à
+   partir du manifeste /cours/manifest.json.
    ============================================================ */
 
-var fs = require('fs');
-var path = require('path');
-
 var API_URL = 'https://api.anthropic.com/v1/messages';
-var MODEL = process.env.MEHDIA_MODEL || 'claude-sonnet-4-6';
-
-// Charge la base de connaissance (cours de micronutrition).
-// Déposez les fichiers .txt / .md dans le dossier /cours.
-function loadKnowledgeBase() {
-  try {
-    var dir = path.join(__dirname, '..', '..', 'cours');
-    if (!fs.existsSync(dir)) return '';
-    return fs.readdirSync(dir)
-      .filter(function (f) { return /\.(txt|md)$/i.test(f) && f.charAt(0) !== '_'; })
-      .map(function (f) {
-        return '### ' + f + '\n' + fs.readFileSync(path.join(dir, f), 'utf8');
-      })
-      .join('\n\n');
-  } catch (e) {
-    return '';
-  }
-}
 
 var SYSTEM_INTRO =
   'Tu es l\'assistant micronutrition de Mehdia, encadré par une pharmacienne ' +
@@ -47,13 +32,43 @@ var SYSTEM_INTRO =
   'hygiène de vie). ' +
   '5) Répondre en français, avec bienveillance, de façon claire et structurée.';
 
-exports.handler = async function (event) {
-  if (event.httpMethod !== 'POST') {
-    return json(405, { error: 'Méthode non autorisée.' });
+// Charge les cours de micronutrition depuis les assets statiques.
+// Déposez les fichiers dans /cours et listez-les dans /cours/manifest.json.
+async function loadKnowledgeBase(env, request) {
+  try {
+    var manifestRes = await env.ASSETS.fetch(
+      new Request(new URL('/cours/manifest.json', request.url))
+    );
+    if (!manifestRes.ok) return '';
+    var files = await manifestRes.json();
+    if (!Array.isArray(files) || !files.length) return '';
+    var parts = [];
+    for (var i = 0; i < files.length; i++) {
+      var r = await env.ASSETS.fetch(
+        new Request(new URL('/cours/' + files[i], request.url))
+      );
+      if (r.ok) parts.push('### ' + files[i] + '\n' + (await r.text()));
+    }
+    return parts.join('\n\n');
+  } catch (e) {
+    return '';
   }
+}
 
-  var apiKey = process.env.ANTHROPIC_API_KEY;
-  var knowledge = loadKnowledgeBase();
+function json(code, body) {
+  return new Response(JSON.stringify(body), {
+    status: code,
+    headers: { 'content-type': 'application/json; charset=utf-8' }
+  });
+}
+
+export async function onRequestPost(context) {
+  var request = context.request;
+  var env = context.env;
+
+  var apiKey = env.ANTHROPIC_API_KEY;
+  var model = env.MEHDIA_MODEL || 'claude-sonnet-4-6';
+  var knowledge = await loadKnowledgeBase(env, request);
 
   if (!apiKey) {
     return json(200, {
@@ -66,13 +81,13 @@ exports.handler = async function (event) {
     return json(200, {
       status: 'knowledge_pending',
       message: 'La base de connaissance micronutrition n\'a pas encore été ' +
-               'chargée (dossier /cours vide).'
+               'chargée (dossier /cours vide ou manifeste absent).'
     });
   }
 
   var payload;
   try {
-    payload = JSON.parse(event.body || '{}');
+    payload = await request.json();
   } catch (e) {
     return json(400, { error: 'Requête invalide.' });
   }
@@ -99,7 +114,7 @@ exports.handler = async function (event) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: MODEL,
+        model: model,
         max_tokens: 2000,
         system: [
           { type: 'text', text: SYSTEM_INTRO },
@@ -126,12 +141,4 @@ exports.handler = async function (event) {
   } catch (e) {
     return json(500, { error: 'Erreur serveur.', detail: String(e) });
   }
-};
-
-function json(code, body) {
-  return {
-    statusCode: code,
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(body)
-  };
 }
