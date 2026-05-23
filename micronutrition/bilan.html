@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon bilan — Mehdia</title>
+  <meta name="description" content="Bilan micronutrition en ligne : un questionnaire guidé qui identifie les analyses à demander à votre médecin.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="brand-dot"></span>Mehdia</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#univers">Les univers</a></li>
+        <li><a href="index.html#methode">Notre méthode</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    </nav>
+  </header>
+
+  <section class="section">
+    <div class="wrap quiz-shell">
+
+      <div class="quiz-topbar">
+        <span class="eyebrow" id="topicEyebrow">Bilan</span>
+        <h1 class="quiz-topic" id="topicName">Mon bilan</h1>
+      </div>
+
+      <!-- QUESTIONNAIRE -->
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-progress"><div class="quiz-progress-bar" id="progressBar"></div></div>
+        <p class="quiz-meta" id="quizMeta">Question 1</p>
+        <h2 class="quiz-question" id="quizQuestion">Chargement…</h2>
+        <p class="quiz-hint" id="quizHint"></p>
+        <div id="quizBody"></div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" id="btnPrev">← Précédent</button>
+          <button class="btn btn-primary" id="btnNext">Continuer →</button>
+        </div>
+      </div>
+
+      <!-- RÉSULTATS — tableau de bord -->
+      <div class="quiz-card result-block" id="resultCard">
+        <div class="result-hero">
+          <div class="check-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-11"/></svg>
+          </div>
+          <h2>Votre bilan est prêt</h2>
+          <p id="resultSummary">Voici les analyses que nous vous recommandons de demander à votre médecin.</p>
+        </div>
+
+        <div class="result-stats">
+          <div class="rstat"><span class="rstat-num" id="statCount">—</span><span class="rstat-lbl">analyses ciblées</span></div>
+          <div class="rstat"><span class="rstat-num">5 min</span><span class="rstat-lbl">à présenter au médecin</span></div>
+          <div class="rstat"><span class="rstat-num">1</span><span class="rstat-lbl">protocole à la clé</span></div>
+        </div>
+
+        <h3 class="result-h">Vos analyses recommandées</h3>
+        <p class="result-sub">À présenter à votre médecin traitant, qui reste seul juge de la prescription.</p>
+        <div class="analysis-grid" id="analysisList"></div>
+
+        <div class="disclaimer" id="resultDisclaimer">
+          <strong>Ces recommandations ne sont pas une prescription.</strong> Elles servent de support de discussion avec votre médecin. Seul un professionnel de santé peut prescrire des examens et poser un diagnostic.
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.4L12 17l-1.9-5.6L4.5 10l5.6-1.4Z"/></svg>
+          </div>
+          <h3>La suite&nbsp;: votre protocole personnalisé</h3>
+          <p>Une fois vos analyses obtenues, déposez-les dans votre espace privé sécurisé. Vous recevrez un accompagnement micronutrition adapté à vos résultats.</p>
+          <div class="offer-actions">
+            <button class="btn btn-primary" id="btnSpace">Créer mon espace privé</button>
+            <button class="btn btn-ghost" id="btnRestart">Recommencer le bilan</button>
+          </div>
+          <p id="spaceNote" style="display:none"></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-legal" style="border:none;text-align:center">
+<a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité &amp; RGPD</a><br>
+        © 2026 Mehdia (nom provisoire) — Accompagnement micronutrition. Ne se substitue pas à un avis médical.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/quiz-data.js"></script>
+  <script src="js/quiz-engine.js"></script>
+</body>
+</html>
