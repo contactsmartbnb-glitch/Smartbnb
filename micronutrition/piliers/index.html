@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les 7 piliers de la micronutrition — Mehdia</title>
+  <meta name="description" content="Tube digestif, énergie, acides gras, détox, immunité, glucose-insuline, minéraux-vitamines, hormones : les 7 piliers MAPS Castronovo, vulgarisés. Avec un quizz par pilier.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="brand-dot"></span>Mehdia</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#univers">Les univers</a></li>
+        <li><a href="index.html">Les 7 piliers</a></li>
+        <li><a href="../index.html#confiance">Confidentialité</a></li>
+        <li><a href="../index.html#univers" class="btn btn-primary">Commencer mon bilan</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="section">
+    <div class="wrap narrow" style="text-align:center">
+      <span class="eyebrow">La méthode · Pr V. Castronovo (DU MAPS)</span>
+      <h1 style="margin:.6rem 0 1rem">Les <em>7 piliers</em> de la micronutrition</h1>
+      <p class="lead">La médecine micronutritionnelle s'appuie sur sept équilibres fondamentaux. Ensemble, ils gouvernent votre énergie, votre humeur, votre digestion, votre poids et vos hormones. Comprenez-les, puis évaluez où vous en êtes — pilier par pilier.</p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="wrap">
+      <div class="piliers-grid" id="piliersGrid"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow" style="text-align:center">
+      <span class="eyebrow">Note importante</span>
+      <h2 style="margin:.5rem 0 1rem">Une démarche de prévention, pas un diagnostic</h2>
+      <p>Les contenus et quizz Mehdia ont une vocation <strong>éducative et préventive</strong>. Ils ne remplacent jamais une consultation médicale. Les analyses suggérées sont des pistes à discuter avec votre médecin traitant. Conçu sous la direction d'une pharmacienne diplômée du DU MAPS (Pr V. Castronovo).</p>
+    </div>
+  </section>
+
+  <footer style="padding:32px 0;background:var(--bg-soft);border-top:1px solid var(--line)">
+    <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center">
+      <span style="color:var(--ink-2);font-size:.9rem">© Mehdia — La micronutrition personnalisée.</span>
+      <div style="display:flex;gap:18px">
+        <a href="../mentions-legales.html" style="font-size:.9rem;color:var(--ink-2)">Mentions légales</a>
+        <a href="../confidentialite.html" style="font-size:.9rem;color:var(--ink-2)">Confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/piliers-content.js"></script>
+  <script>
+    (function () {
+      var grid = document.getElementById('piliersGrid');
+      var keys = ['tube-digestif','energie','acides-gras','detox','immunite','glucose-insuline','mineraux-vitamines','hormones-femme'];
+      keys.forEach(function (k) {
+        var p = PILIERS[k]; if (!p) return;
+        var a = document.createElement('a');
+        a.className = 'pilier-card';
+        a.href = 'pilier.html?p=' + p.slug;
+        a.innerHTML =
+          '<span class="pc-num">' + (p.n === 8 ? '+' : p.n) + '</span>' +
+          '<h3>' + p.title + '</h3>' +
+          '<p class="pc-sub">' + p.sub + '</p>' +
+          '<p class="pc-hook">' + (p.hook.length > 160 ? p.hook.slice(0,160).trim() + '…' : p.hook) + '</p>' +
+          '<span class="pc-cta">Comprendre &amp; faire mon quizz →</span>';
+        grid.appendChild(a);
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprendre — Mehdia</title>
+  <meta name="description" content="Comprendre le pilier de la micronutrition, et évaluer où vous en êtes avec un quizz d'auto-évaluation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="brand-dot"></span>Mehdia</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#univers">Les univers</a></li>
+        <li><a href="index.html">Les 7 piliers</a></li>
+        <li><a href="../index.html#confiance">Confidentialité</a></li>
+        <li><a href="index.html" class="btn btn-ghost">← Tous les piliers</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO PILIER -->
+  <section class="section">
+    <div class="wrap narrow">
+      <span class="eyebrow" id="pilierEyebrow">—</span>
+      <h1 id="pilierTitle" style="margin:.6rem 0 1.2rem">—</h1>
+      <p class="lead" id="pilierHook">—</p>
+      <div style="margin-top:2rem;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#comprendre" class="btn btn-ghost">Comprendre</a>
+        <a href="#quizz" class="btn btn-primary">Faire le quizz d'auto-évaluation →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTIONS COMPRENDRE -->
+  <section class="section section-soft" id="comprendre">
+    <div class="wrap narrow">
+      <span class="eyebrow">Comprendre</span>
+      <div id="pilierSections" style="margin-top:1.5rem"></div>
+    </div>
+  </section>
+
+  <!-- CTA QUIZZ -->
+  <section class="section" id="quizz">
+    <div class="wrap narrow" style="text-align:center">
+      <span class="eyebrow">Où en êtes-vous ?</span>
+      <h2 style="margin:.5rem 0 1rem">Faites votre quizz d'auto-évaluation</h2>
+      <p>10 à 15 questions simples sur vos symptômes et vos habitudes. À la fin, vous obtenez : votre profil, les analyses utiles à demander à votre médecin, et des pistes d'action concrètes.</p>
+      <div style="margin-top:2rem">
+        <a href="#" id="quizzLink" class="btn btn-primary btn-lg">Lancer mon quizz →</a>
+      </div>
+      <p style="margin-top:1rem;font-size:.85rem;color:var(--ink-2)">Anonyme · Gratuit · ~3 minutes</p>
+    </div>
+  </section>
+
+  <!-- SOURCES & DISCLAIMER -->
+  <section class="section section-soft">
+    <div class="wrap narrow">
+      <span class="eyebrow">Pour aller plus loin</span>
+      <h3 style="margin:.5rem 0 1rem">Notre source</h3>
+      <p id="pilierSources" style="font-size:.95rem">—</p>
+      <div style="margin-top:2rem;padding:1.5rem;background:var(--white);border-radius:var(--r);border:1px solid var(--line)">
+        <strong>Important :</strong> Ces contenus ont une vocation éducative et préventive. Ils ne remplacent jamais l'avis d'un professionnel de santé. Mehdia accompagne, ne diagnostique pas et ne se substitue pas à un médecin. En cas de symptômes persistants, consultez.
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:32px 0;background:var(--bg-soft);border-top:1px solid var(--line)">
+    <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center">
+      <span style="color:var(--ink-2);font-size:.9rem">© Mehdia — La micronutrition personnalisée.</span>
+      <div style="display:flex;gap:18px">
+        <a href="../mentions-legales.html" style="font-size:.9rem;color:var(--ink-2)">Mentions légales</a>
+        <a href="../confidentialite.html" style="font-size:.9rem;color:var(--ink-2)">Confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/piliers-content.js"></script>
+  <script>
+    (function () {
+      var m = /[?&]p=([a-z\-]+)/i.exec(window.location.search);
+      var slug = m ? m[1] : 'tube-digestif';
+      var p = PILIERS[slug] || PILIERS['tube-digestif'];
+
+      document.title = p.title + ' — Mehdia';
+      document.getElementById('pilierEyebrow').textContent = p.sub;
+      document.getElementById('pilierTitle').textContent = p.title;
+      document.getElementById('pilierHook').innerHTML = p.hook;
+      document.getElementById('pilierSources').textContent = p.sources;
+      document.getElementById('quizzLink').href = '../bilan.html?t=' + p.quizSlug;
+
+      var sectionsEl = document.getElementById('pilierSections');
+      p.sections.forEach(function (s) {
+        var div = document.createElement('div');
+        div.style.marginBottom = '2rem';
+        div.innerHTML = '<h3 style="margin-bottom:.6rem">' + s.title + '</h3><div style="color:var(--ink-2)">' + s.body + '</div>';
+        sectionsEl.appendChild(div);
+      });
+    })();
+  </script>
+
+</body>
+</html>

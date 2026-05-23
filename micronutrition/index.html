@@ -17,6 +17,7 @@
       <a href="index.html" class="brand"><span class="brand-dot"></span>Mehdia</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#univers">Les univers</a></li>
+        <li><a href="piliers/index.html">Les 7 piliers</a></li>
         <li><a href="#methode">Notre méthode</a></li>
         <li><a href="#confiance">Confidentialité</a></li>
         <li><a href="#univers" class="btn btn-primary">Commencer mon bilan</a></li>
@@ -120,6 +121,21 @@
           <p>Bien-vieillir, énergie, mémoire.</p>
           <span class="card-link">Découvrir →</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LES 7 PILIERS -->
+  <section class="section section-cream" id="piliers-home">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">La méthode · Pr V. Castronovo (DU MAPS)</span>
+        <h2>Les 7 piliers de la micronutrition</h2>
+        <p>Sept équilibres fondamentaux qui gouvernent votre énergie, vos hormones, votre digestion, votre humeur. Comprenez-les, puis évaluez où vous en êtes — pilier par pilier.</p>
+      </div>
+      <div class="piliers-grid" id="piliersHomeGrid"></div>
+      <div style="text-align:center;margin-top:36px">
+        <a href="piliers/index.html" class="btn btn-primary btn-lg">Explorer les 7 piliers →</a>
       </div>
     </div>
   </section>
@@ -303,8 +319,9 @@
           <a href="univers.html?u=senior">Seniors</a>
         </div>
         <div class="footer-col">
-          <h5>Informations</h5>
-          <a href="#methode">Notre méthode</a>
+          <h5>La méthode</h5>
+          <a href="piliers/index.html">Les 7 piliers</a>
+          <a href="#methode">Notre démarche</a>
           <a href="confidentialite.html">Confidentialité &amp; RGPD</a>
           <a href="mentions-legales.html">Mentions légales</a>
         </div>
@@ -316,5 +333,26 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/piliers-content.js"></script>
+  <script>
+    (function () {
+      var grid = document.getElementById('piliersHomeGrid');
+      if (!grid) return;
+      var keys = ['tube-digestif','energie','acides-gras','detox','immunite','glucose-insuline','mineraux-vitamines','hormones-femme'];
+      keys.forEach(function (k) {
+        var p = PILIERS[k]; if (!p) return;
+        var a = document.createElement('a');
+        a.className = 'pilier-card';
+        a.href = 'piliers/pilier.html?p=' + p.slug;
+        a.innerHTML =
+          '<span class="pc-num">' + (p.n === 8 ? '+' : p.n) + '</span>' +
+          '<h3>' + p.title + '</h3>' +
+          '<p class="pc-sub">' + p.sub + '</p>' +
+          '<p class="pc-hook">' + (p.hook.length > 130 ? p.hook.slice(0,130).trim() + '…' : p.hook) + '</p>' +
+          '<span class="pc-cta">Comprendre &amp; mon quizz →</span>';
+        grid.appendChild(a);
+      });
+    })();
+  </script>
 </body>
 </html>
