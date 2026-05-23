@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Diagnostic gratuit — SmartBNB</title>
-<meta name="description" content="Formulaire de diagnostic SmartBNB en 8 étapes : recevez une analyse personnalisée et gratuite de votre projet d'investissement locatif au Maroc.">
+<title>Mon projet — SmartBNB</title>
+<meta name="description" content="Formulaire SmartBNB en 8 étapes : recevez une analyse personnalisée et gratuite de votre projet d'investissement locatif au Maroc.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -13,7 +13,7 @@
 
 <section class="wrap" style="padding:54px 24px 90px;max-width:720px">
   <div class="center" style="margin-bottom:24px">
-    <span class="eyebrow">Diagnostic gratuit · 2 minutes</span>
+    <span class="eyebrow">Mon projet · 2 minutes</span>
     <h1 style="margin-top:8px;font-size:2.3rem">Construisons votre projet</h1>
   </div>
 
@@ -81,7 +81,7 @@
     <!-- 8 contact -->
     <div class="form-step" data-step="7">
       <h3>Vos coordonnées</h3>
-      <p class="muted" style="margin-bottom:16px">Pour recevoir votre diagnostic personnalisé.</p>
+      <p class="muted" style="margin-bottom:16px">Pour recevoir votre projet personnalisé.</p>
       <div class="row2">
         <div class="field"><label>Prénom *</label><input class="input" id="cNom"></div>
         <div class="field"><label>Téléphone *</label><input class="input" id="cTel"></div>
@@ -96,7 +96,7 @@
     <div class="form-step" data-step="8">
       <div class="center">
         <div style="font-size:3rem">✓</div>
-        <h3 style="font-size:1.6rem;margin:8px 0">Merci, votre diagnostic est en route !</h3>
+        <h3 style="font-size:1.6rem;margin:8px 0">Votre projet est entre nos mains.</h3>
         <p class="muted">Un conseiller SmartBNB vous recontacte sous 24h ouvrées.</p>
       </div>
       <div class="card" style="background:var(--beige2);border:none;margin-top:20px" id="recap"></div>
@@ -184,7 +184,7 @@ function paint(){
   document.querySelectorAll('.form-step').forEach(s=>s.classList.toggle('active',+s.dataset.step===step));
   [...stepper.children].forEach((b,i)=>b.classList.toggle('done',i<=step));
   btnPrev.style.visibility=step===0?'hidden':'visible';
-  btnNext.textContent=step===TOTAL-1?'Envoyer mon diagnostic':'Continuer';
+  btnNext.textContent=step===TOTAL-1?'Envoyer mon projet':'Continuer';
   document.getElementById('nav').style.display=step>=TOTAL?'none':'flex';
 }
 function valid(){
@@ -210,11 +210,11 @@ async function submit(){
   btnNext.disabled=true;btnNext.innerHTML='<span class="spin"></span>';
   const payload={
     full_name:cNom.value.trim(),email:cEmail.value.trim(),phone:cTel.value.trim(),
-    city:data.villes.join(', '),lead_type:'diagnostic',source:'formulaire-decouverte',status:'nouveau',
+    city:data.villes.join(', '),lead_type:'projet',source:'formulaire-decouverte',status:'nouveau',
     message:`Situation: ${data.situation} | Objectifs: ${data.objectifs.join(', ')}`,
     notes:`Pays: ${cPays.value} | Types: ${data.types.join(', ')} | Budget: ${fmt(data.budget)} MAD | Financement: ${data.financement} | Délai: ${data.delai}`
   };
-  await submitLead(payload,'SmartBNB — Nouveau diagnostic : '+payload.full_name);
+  await submitLead(payload,'SmartBNB — Nouveau projet : '+payload.full_name);
   recap.innerHTML=`
     <div style="font-weight:600;margin-bottom:8px">Récapitulatif de votre projet</div>
     <div class="res-row"><span>Situation</span><b>${data.situation}</b></div>

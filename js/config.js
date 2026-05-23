@@ -71,6 +71,18 @@ window.sbInsert = async function(table, row){
   }catch(e){ return { ok:false, error:e.message }; }
 };
 
+/* ----- Réponse automatique envoyée à l'investisseur ----- */
+window.AUTO_REPLY_INVESTOR =
+"Bonjour,\n\n"+
+"Merci d'avoir confié votre projet à SmartBNB. Nous avons bien reçu vos informations.\n\n"+
+"Un conseiller dédié étudie votre demande et reviendra vers vous personnellement sous 24 heures ouvrées.\n\n"+
+"En attendant, vous pouvez :\n"+
+"• Nous écrire directement sur WhatsApp : https://wa.me/212775961740\n"+
+"• Nous joindre par e-mail : contact.smartbnb@gmail.com\n"+
+"• Consulter notre sélection de biens : https://smartbnb.ma/marketplace.html\n\n"+
+"À très bientôt,\n"+
+"L'équipe SmartBNB";
+
 /* ----- Email via Formsubmit.co ----- */
 window.sendMail = async function(subject, data){
   try{
@@ -78,7 +90,10 @@ window.sendMail = async function(subject, data){
     fd.append('_subject', subject);
     fd.append('_template', 'table');
     fd.append('_captcha', 'false');
-    Object.entries(data).forEach(([k,v])=>fd.append(k, Array.isArray(v)?v.join(', '):(v??'')));
+    Object.entries(data).forEach(([k,v])=>{
+      if(k === '_autoresponse'){ fd.append('_autoresponse', v); return; }
+      fd.append(k, Array.isArray(v)?v.join(', '):(v??''));
+    });
     await fetch('https://formsubmit.co/ajax/'+SB.email, {
       method:'POST', headers:{'Accept':'application/json'}, body: fd
     });
@@ -86,10 +101,11 @@ window.sendMail = async function(subject, data){
   }catch(e){ return false; }
 };
 
-/* ----- Submit a lead everywhere (Supabase + email) ----- */
+/* ----- Submit a lead everywhere (Supabase + email + réponse auto) ----- */
 window.submitLead = async function(payload, mailSubject){
   const r1 = sbInsert('leads', payload);
-  const r2 = sendMail(mailSubject || 'Nouveau lead SmartBNB', payload);
+  const r2 = sendMail(mailSubject || 'Nouveau lead SmartBNB',
+    { ...payload, _autoresponse: AUTO_REPLY_INVESTOR });
   await Promise.allSettled([r1, r2]);
   return true;
 };

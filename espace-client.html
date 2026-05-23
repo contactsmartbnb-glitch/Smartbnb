@@ -26,7 +26,7 @@
     <button class="btn btn-primary btn-block" id="logBtn" onclick="doLogin()">Se connecter</button>
     <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="demoLogin()">Démo — voir le tableau de bord</button>
     <p class="center muted" style="font-size:.85rem;margin-top:16px">
-      Pas encore client ? <a href="formulaire.html" style="color:var(--vert);font-weight:600">Faire un diagnostic gratuit →</a>
+      Pas encore client ? <a href="formulaire.html" style="color:var(--vert);font-weight:600">Démarrer mon projet →</a>
     </p>
   </div>
 </section>
@@ -137,12 +137,12 @@ async function doLogin(){
       showDashboard();
     }else{
       err.innerHTML = 'Identifiants incorrects ou compte introuvable. '
-        + '<a href="formulaire.html" style="font-weight:600;text-decoration:underline">Pas encore client ? Faire un diagnostic</a>';
+        + '<a href="formulaire.html" style="font-weight:600;text-decoration:underline">Pas encore client ? Démarrer mon projet</a>';
       err.classList.remove('hide');
     }
   }catch(e){
     err.innerHTML = 'Connexion impossible pour le moment. '
-      + '<a href="formulaire.html" style="font-weight:600;text-decoration:underline">Faire un diagnostic</a>';
+      + '<a href="formulaire.html" style="font-weight:600;text-decoration:underline">Démarrer mon projet</a>';
     err.classList.remove('hide');
   }
   btn.disabled=false; btn.textContent='Se connecter';

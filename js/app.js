@@ -24,7 +24,7 @@
       <div class="nav-links">${navLinks}</div>
       <div class="nav-cta">
         <a href="espace-client.html" class="btn btn-ghost">Espace client</a>
-        <a href="formulaire.html" class="btn btn-vert">Diagnostic gratuit</a>
+        <a href="formulaire.html" class="btn btn-vert">Démarrer mon projet</a>
         <a href="https://wa.me/${SB.whatsapp}" target="_blank" class="btn btn-wa nav-wa">WhatsApp</a>
       </div>
       <button class="burger" aria-label="Menu" onclick="document.getElementById('mobMenu').classList.toggle('open')">
@@ -35,7 +35,7 @@
       ${links.map(([h,t])=>`<a href="${h}">${t}</a>`).join('')}
       <a href="espace-client.html">Espace client</a>
       <a href="espace-chasseur.html">Espace chasseur</a>
-      <a href="formulaire.html" style="color:var(--vert);font-weight:600">Diagnostic gratuit →</a>
+      <a href="formulaire.html" style="color:var(--vert);font-weight:600">Démarrer mon projet →</a>
     </div>
   </nav>`;
 
@@ -73,7 +73,7 @@
           <a href="espace-client.html">Espace investisseur</a>
           <a href="espace-chasseur.html">Espace chasseur</a>
           <a href="reseaux.html">Autopilote réseaux</a>
-          <a href="formulaire.html">Diagnostic gratuit</a>
+          <a href="formulaire.html">Démarrer mon projet</a>
           <a href="contact.html">Contact</a>
         </div>
       </div>
@@ -122,13 +122,13 @@
     {k:['rendement','rentabilité','yield','gagner','revenu','simul'],a:"Les rendements bruts vont de 5% à 10% selon la ville. Utilisez notre simulateur pour une estimation personnalisée en 30 secondes."},
     {k:['mre','étranger','devises','financement','crédit'],a:"Les MRE peuvent financer jusqu'à 100% en devises (50% minimum en devises requis par les banques marocaines). On vous accompagne sur le montage."},
     {k:['ville','marrakech','tanger','casa','rabat','essaouira','fes','fès'],a:"On opère à Marrakech, Tanger, Casablanca, Rabat, Essaouira et Fès. Marrakech offre le meilleur rendement (~9,8%). Voir la page Investir."},
-    {k:['contact','rendez','rdv','appel','téléphone','joindre'],a:"Vous pouvez nous joindre sur WhatsApp au +212 775 961 740 ou par email à contact.smartbnb@gmail.com. Le diagnostic est gratuit."},
+    {k:['contact','rendez','rdv','appel','téléphone','joindre'],a:"Vous pouvez nous joindre sur WhatsApp au +212 775 961 740 ou par email à contact.smartbnb@gmail.com. C'est gratuit."},
     {k:['marketplace','vente','liste','annonce'],a:"Notre marketplace présente des biens sélectionnés avec rendement estimé. Certains sont off-market. Filtrez par ville, budget et rendement."}
   ];
   function botReply(txt){
     const t = txt.toLowerCase();
     for(const e of KB){ if(e.k.some(w=>t.includes(w))) return e.a; }
-    return "Bonne question ! Pour une réponse précise, écrivez-nous sur WhatsApp (+212 775 961 740) ou lancez un diagnostic gratuit. Je peux aussi vous parler de la gestion, la chasse, la SCI ou les rendements.";
+    return "Bonne question ! Pour une réponse précise, écrivez-nous sur WhatsApp (+212 775 961 740) ou lancez votre projet. Je peux aussi vous parler de la gestion, la chasse, la SCI ou les rendements.";
   }
   function initChat(){
     const fab=document.getElementById('chatFab'), panel=document.getElementById('chatPanel'),
