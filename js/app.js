@@ -34,7 +34,6 @@
     <div class="mobile-menu" id="mobMenu">
       ${links.map(([h,t])=>`<a href="${h}">${t}</a>`).join('')}
       <a href="espace-client.html">Espace client</a>
-      <a href="espace-chasseur.html">Espace chasseur</a>
       <a href="formulaire.html" style="color:var(--vert);font-weight:600">Démarrer mon projet →</a>
     </div>
   </nav>`;
@@ -71,8 +70,6 @@
         <div>
           <h4>Espaces</h4>
           <a href="espace-client.html">Espace investisseur</a>
-          <a href="espace-chasseur.html">Espace chasseur</a>
-          <a href="reseaux.html">Autopilote réseaux</a>
           <a href="formulaire.html">Démarrer mon projet</a>
           <a href="contact.html">Contact</a>
         </div>
