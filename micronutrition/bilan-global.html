@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bilan Santé Global — Mehdia</title>
+  <meta name="description" content="Une anamnèse complète façon première consultation micronutrition. 30 questions ciblées, un profil multi-piliers, des analyses biologiques prioritaires et 3 actions concrètes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="brand-dot"></span>Mehdia</a>
+      <ul class="nav-links">
+        <li><a href="index.html#univers">Les univers</a></li>
+        <li><a href="piliers/index.html">Les 7 piliers</a></li>
+        <li><a href="bilan-global.html" class="btn btn-primary">Bilan global</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="section" style="padding-top:36px;padding-bottom:36px">
+    <div class="wrap narrow" style="text-align:center">
+      <span class="eyebrow">Anamnèse complète · ~5 minutes</span>
+      <h1 style="margin:.5rem 0 1rem">Bilan Santé Global</h1>
+      <p class="lead">Une <strong>première consultation micronutrition</strong> en ligne. ~30 questions calibrées sur les 7 piliers MAPS et l'axe hormonal. En sortie : votre profil personnalisé, les analyses biologiques utiles à demander à votre médecin, et 3 actions concrètes à mettre en place dès cette semaine.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap narrow">
+
+      <div id="quizCard" class="quiz-card">
+        <div class="quiz-progress"><div class="quiz-progress-bar" id="progressBar"></div></div>
+        <div class="quiz-meta" id="quizMeta">—</div>
+        <h2 class="quiz-question" id="quizQuestion">—</h2>
+        <p class="quiz-hint" id="quizHint"></p>
+        <div id="quizBody"></div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost hidden" id="btnPrev">← Précédent</button>
+          <button class="btn btn-primary" id="btnNext">Continuer →</button>
+        </div>
+      </div>
+
+      <div id="resultCard" class="result-block">
+        <span class="eyebrow">Votre bilan global</span>
+        <h2 style="margin:.5rem 0 1rem">Voici votre profil micronutrition</h2>
+        <div id="profileBlock" style="margin-bottom:2rem"></div>
+
+        <h3 style="margin:1.5rem 0 1rem">Vos piliers en un coup d'œil</h3>
+        <div id="scoresBlock" class="scores-block"></div>
+
+        <h3 style="margin:2rem 0 .5rem">Les <span id="statCount">…</span> analyses utiles à demander à votre médecin</h3>
+        <p style="color:var(--ink-2);margin-bottom:1rem">Présentez cette liste à votre médecin traitant. Celles marquées <strong>PRIORITÉ</strong> méritent un dosage en premier.</p>
+        <div id="analysesBlock" class="analysis-grid"></div>
+
+        <h3 style="margin:2.5rem 0 1rem">3 actions concrètes pour cette semaine</h3>
+        <div id="actionsBlock" class="actions-grid"></div>
+
+        <div style="margin-top:2.5rem;padding:1.5rem;background:var(--bg-soft);border-radius:var(--r);border:1px solid var(--line)">
+          <strong>Pour aller plus loin :</strong>
+          <p style="margin:.5rem 0 1rem">Explorez en détail vos piliers prioritaires :</p>
+          <div id="linksBlock"></div>
+        </div>
+
+        <div style="margin-top:2rem;padding:1.2rem;background:#fff;border:1px solid var(--line);border-radius:var(--r);font-size:.92rem;color:var(--ink-2)">
+          <strong>Important :</strong> Ce bilan a une vocation éducative et préventive. Il ne remplace jamais un avis médical. Les analyses recommandées doivent être discutées avec votre médecin traitant, qui seul peut prescrire et interpréter. Mehdia accompagne, ne diagnostique pas.
+        </div>
+
+        <div style="margin-top:2rem;text-align:center">
+          <button class="btn btn-ghost" id="btnRestart">↻ Refaire le bilan</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="padding:32px 0;background:var(--bg-soft);border-top:1px solid var(--line)">
+    <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center">
+      <span style="color:var(--ink-2);font-size:.9rem">© Mehdia — La micronutrition personnalisée.</span>
+      <div style="display:flex;gap:18px">
+        <a href="mentions-legales.html" style="font-size:.9rem;color:var(--ink-2)">Mentions légales</a>
+        <a href="confidentialite.html" style="font-size:.9rem;color:var(--ink-2)">Confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/bilan-global-data.js"></script>
+  <script src="js/bilan-global-engine.js"></script>
+</body>
+</html>

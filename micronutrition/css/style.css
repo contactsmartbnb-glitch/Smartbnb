@@ -369,6 +369,26 @@ img, svg { display: block; max-width: 100%; }
   .piliers-grid { grid-template-columns: 1fr !important; }
 }
 
+/* ---------- Bilan Global — scores par pilier ---------- */
+.scores-block { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 8px; }
+.score-row { display: grid; grid-template-columns: 1.4fr 2.6fr 36px; align-items: center; gap: 14px; padding: 10px 14px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--r); }
+.score-name { font-size: .94rem; font-weight: 600; color: var(--ink); }
+.score-meter { height: 10px; background: rgba(0,0,0,.05); border-radius: 999px; overflow: hidden; }
+.score-meter i { display: block; height: 100%; border-radius: 999px; transition: width .4s var(--ease); }
+.score-val { text-align: right; font-weight: 800; font-size: .95rem; color: var(--ink-2); }
+
+/* ---------- Bilan Global — actions ---------- */
+.actions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.action-box { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-l); padding: 22px 22px 20px; position: relative; }
+.action-box .action-num { position: absolute; top: 16px; right: 18px; width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 800; font-size: .92rem; display: flex; align-items: center; justify-content: center; }
+.action-box h4 { font-size: 1.05rem; margin: 0 36px 8px 0; color: var(--ink); }
+.action-box p { font-size: .92rem; color: var(--ink-2); line-height: 1.55; }
+
+@media (max-width: 600px) {
+  .score-row { grid-template-columns: 1fr 1.6fr 30px; gap: 8px; padding: 9px 11px; }
+  .score-name { font-size: .85rem; }
+}
+
 /* ---------- Grille des 7 piliers ---------- */
 .piliers-grid {
   display: grid;
