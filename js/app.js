@@ -23,7 +23,6 @@
       </a>
       <div class="nav-links">${navLinks}</div>
       <div class="nav-cta">
-        <a href="espace-client.html" class="btn btn-ghost">Espace client</a>
         <a href="formulaire.html" class="btn btn-vert">Démarrer mon projet</a>
         <a href="https://wa.me/${SB.whatsapp}" target="_blank" class="btn btn-wa nav-wa">WhatsApp</a>
       </div>
