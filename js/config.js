@@ -1,7 +1,7 @@
 /* ===== SmartBNB — Config & shared data ===== */
 window.SB = {
   url: 'https://jrsvuwbfkdrppmhzvjtp.supabase.co',
-  anon: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc3Z1d2Jma2RycHBtaHp2anRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTM2NDgsImV4cCI6MjA2MzIyOTY0OH0.Qm5a8b3c9d0e1f2a3b4c5d6e7f8a9b0c',
+  anon: 'sb_publishable_L3Qa8jFjTI2tJm9ZwFty8g_h_UrJ57K',
   email: 'contact.smartbnb@gmail.com',
   whatsapp: '212775961740',
   logo: 'https://media.base44.com/images/public/6a0b5a847eb33c0a84ff4e82/edadd18eb_generated_image.png'
