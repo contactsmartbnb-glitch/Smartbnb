@@ -2,334 +2,302 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartBnB — Marketplace biens immobiliers Maroc</title>
-<meta name="description" content="Découvrez nos biens immobiliers sélectionnés au Maroc. Investissement locatif à Marrakech, Casablanca, Tanger, Rabat, Fès, Essaouira.">
-<link rel="stylesheet" href="css/style.css">
-<style>
-.mkt-hero{background:var(--noir);padding:5rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
-.mkt-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=1400&q=85&auto=format&fit=crop') center/cover;opacity:.15}
-.mkt-hero-content{position:relative;z-index:1}
-.mkt-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);color:var(--blanc);margin-bottom:.75rem}
-.mkt-hero h1 em{color:var(--sable);font-style:italic}
-.mkt-hero p{color:rgba(250,248,244,.6);font-size:1rem;max-width:520px;margin:0 auto 1.5rem}
-
-/* FILTERS */
-.mkt-filters{background:#fff;border-bottom:1px solid #e8e6df;padding:1rem 2rem;position:sticky;top:0;z-index:50}
-.mkt-filters-inner{max-width:1280px;margin:0 auto;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
-.mkt-filter-btn{padding:6px 14px;border-radius:100px;border:1px solid #e8e6df;background:transparent;font-size:12px;font-weight:500;color:#6B5D54;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
-.mkt-filter-btn:hover{border-color:#C9A96E;color:#1A1410}
-.mkt-filter-btn.act{background:#1A1410;color:#FAF8F4;border-color:#1A1410}
-.mkt-search{flex:1;min-width:200px;padding:7px 14px;border:1px solid #e8e6df;border-radius:100px;font-size:12px;font-family:inherit}
-.mkt-search:focus{outline:none;border-color:#C9A96E}
-.mkt-count{font-size:12px;color:#9e9690;margin-left:auto}
-
-/* GRID */
-.mkt-wrap{max-width:1280px;margin:0 auto;padding:2rem}
-.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-@media(max-width:900px){.mkt-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.mkt-grid{grid-template-columns:1fr}}
-
-/* CARD */
-.bien-card{background:#fff;border:0.5px solid #e8e6df;border-radius:16px;overflow:hidden;cursor:pointer;transition:all .25s}
-.bien-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,20,16,.1);border-color:#C9A96E}
-.bien-photo{position:relative;aspect-ratio:4/3;overflow:hidden;background:#f0ede8}
-.bien-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.bien-card:hover .bien-photo img{transform:scale(1.05)}
-.bien-badges{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-wrap:wrap}
-.bien-badge{padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700}
-.bb-exclu{background:#1A1410;color:#C9A96E}
-.bb-new{background:#C1714F;color:#fff}
-.bb-promo{background:#0F6E56;color:#fff}
-.bien-fav{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s}
-.bien-fav:hover{background:#fff;transform:scale(1.1)}
-.bien-body{padding:1rem}
-.bien-ville{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C9A96E;margin-bottom:.3rem}
-.bien-titre{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#1A1410;margin-bottom:.3rem;line-height:1.3}
-.bien-adresse{font-size:11px;color:#9e9690;margin-bottom:.75rem}
-.bien-stats{display:flex;gap:1rem;margin-bottom:.75rem}
-.bien-stat{font-size:11px;color:#6B5D54;display:flex;align-items:center;gap:3px}
-.bien-prix-row{display:flex;align-items:baseline;justify-content:space-between}
-.bien-prix{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#1A1410}
-.bien-prix small{font-size:11px;font-family:'Jost',sans-serif;color:#9e9690;font-weight:400}
-.bien-renta{background:#EAF3DE;color:#27500A;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:700}
-.bien-footer{padding:.875rem 1rem;border-top:0.5px solid #f0ede8;display:flex;gap:.5rem}
-.bien-btn-primary{flex:1;background:#1A1410;color:#FAF8F4;border:none;border-radius:100px;padding:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s}
-.bien-btn-primary:hover{background:#C1714F}
-.bien-btn-wa{width:36px;height:36px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .15s}
-.bien-btn-wa:hover{transform:scale(1.08)}
-
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:1rem}
-.modal-bg.open{display:flex}
-.modal-box{background:#fff;border-radius:18px;width:100%;max-width:700px;max-height:90vh;overflow-y:auto}
-.modal-photos{display:grid;grid-template-columns:2fr 1fr;gap:4px;border-radius:14px 14px 0 0;overflow:hidden;background:#f0ede8}
-.modal-photo-main{aspect-ratio:16/10;overflow:hidden}
-.modal-photo-main img{width:100%;height:100%;object-fit:cover}
-.modal-photos-side{display:flex;flex-direction:column;gap:4px}
-.modal-photo-small{aspect-ratio:4/3;overflow:hidden}
-.modal-photo-small img{width:100%;height:100%;object-fit:cover}
-.modal-content{padding:1.5rem}
-.modal-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
-.modal-close{width:32px;height:32px;border:1px solid #e8e6df;border-radius:50%;background:transparent;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
-.modal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem}
-.modal-stat{background:#faf8f4;border-radius:8px;padding:.75rem;text-align:center}
-.modal-stat-n{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#1A1410}
-.modal-stat-l{font-size:10px;color:#9e9690;margin-top:2px}
-.modal-desc{font-size:13px;color:#6B5D54;line-height:1.7;margin-bottom:1rem}
-.modal-prix{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#1A1410;margin-bottom:1rem}
-.modal-prix small{font-size:13px;font-family:'Jost',sans-serif;color:#9e9690;font-weight:400}
-.modal-actions{display:flex;gap:.75rem}
-.modal-btn-p{flex:1;background:#1A1410;color:#FAF8F4;border:none;border-radius:100px;padding:11px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s}
-.modal-btn-p:hover{background:#C1714F}
-.modal-btn-wa{padding:11px 20px;background:#25D366;color:#fff;border:none;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
-.empty-state{text-align:center;padding:4rem 2rem;color:#9e9690}
-.empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:.5rem;color:#1A1410}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marketplace de biens — SmartBNB</title>
+<meta name="description" content="Sélection de biens immobiliers à fort potentiel locatif au Maroc. Biens off-market, rendements estimés, filtres avancés et carte interactive.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
-<nav class="nav scrolled" id="nav">
-  <a href="index.html" class="nav-logo">SmartBNB</a>
-  <ul class="nav-links">
-    <li><a href="marketplace.html" style="color:var(--terracotta)">Biens disponibles</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="smart-invest.html">Smart Invest</a></li>
-    <li><a href="formulaire-decouverte.html" class="nav-cta">Mon profil investisseur</a></li>
-  </ul>
-  <button class="hamburger"><span></span><span></span><span></span></button>
-</nav>
+<!-- ===== HERO ===== -->
+<header class="hero-dark">
+  <div class="wrap" style="padding:60px 24px">
+    <span class="eyebrow">Marketplace</span>
+    <h1 style="margin:8px 0 10px">Des biens sélectionnés pour leur rendement</h1>
+    <p class="lead">Chaque bien est analysé par nos chasseurs. Certains sont off-market et invisibles ailleurs.</p>
+    <div style="display:flex;gap:10px;margin-top:22px;max-width:560px">
+      <input class="input" id="search" placeholder="Rechercher : ville, type, quartier…" style="background:#2a2a28;border-color:#3a3a38;color:#fff">
+      <button class="btn btn-vert" onclick="applyFilters()">Rechercher</button>
+    </div>
+  </div>
+</header>
 
-<div class="mkt-hero">
-  <div class="mkt-hero-content">
-    <span class="section-tag" style="color:var(--sable);border-color:rgba(201,169,110,.4)">Biens sélectionnés par SmartBnB</span>
-    <h1>Nos biens <em>disponibles</em></h1>
-    <p>Chaque bien est visité, vérifié et analysé par nos chasseurs. Rendement estimé inclus.</p>
+<section class="wrap section" style="padding-top:40px">
+  <div style="display:grid;grid-template-columns:280px 1fr;gap:26px" id="mkLayout">
+
+    <!-- ===== FILTRES ===== -->
+    <aside>
+      <div class="card" style="padding:20px">
+        <h3 style="font-size:1.1rem">Filtres</h3>
+
+        <div class="field" style="margin-top:14px">
+          <label>Villes</label><div class="chips" id="fCity"></div>
+        </div>
+        <div class="field">
+          <label>Type</label>
+          <select class="input" id="fType"><option value="">Tous</option><option>Studio</option><option>Appartement</option><option>Riad</option><option>Villa</option></select>
+        </div>
+        <div class="field">
+          <label>État</label>
+          <select class="input" id="fEtat"><option value="">Tous</option><option>Neuf</option><option>Bon état</option><option>À rénover</option></select>
+        </div>
+        <div class="field">
+          <label>Chambres min.</label>
+          <select class="input" id="fCh"><option value="0">Indifférent</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+        </div>
+        <div class="field">
+          <label>Budget max : <b id="fBudVal">5 000 000</b> MAD</label>
+          <input type="range" id="fBud" min="500000" max="6000000" step="100000" value="6000000">
+        </div>
+        <div class="field">
+          <label>Rendement min : <b id="fRendVal">0</b>%</label>
+          <input type="range" id="fRend" min="0" max="12" step="0.5" value="0">
+        </div>
+        <div class="field">
+          <label>Équipements</label>
+          <div id="fAmen" style="display:flex;flex-direction:column;gap:7px"></div>
+        </div>
+        <button class="btn btn-ghost btn-block" onclick="resetFilters()">Réinitialiser</button>
+      </div>
+    </aside>
+
+    <!-- ===== RESULTATS ===== -->
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+        <strong id="count">—</strong>
+        <div class="tabs">
+          <div class="chip dark active" data-view="grid" onclick="setView('grid')">Grille</div>
+          <div class="chip dark" data-view="list" onclick="setView('list')">Liste</div>
+          <div class="chip dark" data-view="map" onclick="setView('map')">Carte</div>
+        </div>
+      </div>
+      <div id="results" class="grid grid-2"></div>
+      <div id="mapWrap" class="hide" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div id="mapList" style="max-height:640px;overflow-y:auto;display:flex;flex-direction:column;gap:14px"></div>
+        <div id="map" style="height:640px;border-radius:var(--r-lg);position:sticky;top:80px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODAL ===== -->
+<div class="modal" id="modal">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
   </div>
 </div>
 
-<div class="mkt-filters">
-  <div class="mkt-filters-inner">
-    <button class="mkt-filter-btn act" onclick="setFilter('',this)">Tous</button>
-    <button class="mkt-filter-btn" onclick="setFilter('marrakech',this)">Marrakech</button>
-    <button class="mkt-filter-btn" onclick="setFilter('casablanca',this)">Casablanca</button>
-    <button class="mkt-filter-btn" onclick="setFilter('tanger',this)">Tanger</button>
-    <button class="mkt-filter-btn" onclick="setFilter('rabat',this)">Rabat</button>
-    <button class="mkt-filter-btn" onclick="setFilter('fes',this)">Fès</button>
-    <button class="mkt-filter-btn" onclick="setFilter('essaouira',this)">Essaouira</button>
-    <input class="mkt-search" type="text" placeholder="Rechercher un bien..." id="srch" oninput="render()">
-    <span class="mkt-count" id="mkt-count">— biens</span>
-  </div>
-</div>
-
-<div class="mkt-wrap">
-  <div class="mkt-grid" id="mkt-grid"></div>
-</div>
-
-<!-- MODAL DETAIL -->
-<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal-box" id="modal-box"></div>
-</div>
-
-<script src="js/main.js"></script>
-<script src="js/chatbot.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
 <script>
-// Données biens — chargées depuis localStorage (admin upload) ou démo
-let biens = [];
-let filtreVille = '';
-let favs = JSON.parse(localStorage.getItem('sbnb-favs') || '[]');
-
-const DEMO_BIENS = [
-  {
-    id:1, titre:'Appartement moderne — Guéliz', ville:'marrakech', quartier:'Guéliz',
-    type:'Appartement', surface:65, chambres:2, sdb:1, etage:'3ème',
-    prix:850000, renta:9.2, statut:'exclu',
-    desc:'Bel appartement rénové en 2024 au cœur de Guéliz. Lumineux, vue dégagée, copropriété sécurisée. Parfait pour la location courte durée — fort taux d\'occupation constaté dans ce quartier.',
-    points:['Vue dégagée côté montagne','Copropriété avec gardien','Parking privatif','Cuisine équipée neuve'],
-    photos:[
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=85&auto=format&fit=crop'
-    ]
-  },
-  {
-    id:2, titre:'Riad authentique — Médina', ville:'marrakech', quartier:'Médina',
-    type:'Riad', surface:180, chambres:4, sdb:4, etage:'RC+1',
-    prix:2200000, renta:11.5, statut:'new',
-    desc:'Riad de caractère dans la médina historique, à 5 minutes de la place Jemaa el-Fna. Patio central avec fontaine, terrasse panoramique, 4 suites indépendantes. Potentiel LCD exceptionnel.',
-    points:['Patio central + fontaine','Terrasse panoramique','4 suites indépendantes','5 min Jemaa el-Fna'],
-    photos:[
-      'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=85&auto=format&fit=crop'
-    ]
-  },
-  {
-    id:3, titre:'Studio vue mer — Malabata', ville:'tanger', quartier:'Malabata',
-    type:'Studio', surface:42, chambres:1, sdb:1, etage:'5ème',
-    prix:480000, renta:8.1, statut:'exclu',
-    desc:'Studio avec vue directe sur le détroit de Gibraltar depuis le 5ème étage. Résidence récente, piscine commune. Quartier en pleine valorisation — excellent pour un premier investissement.',
-    points:['Vue mer directe','Piscine commune','Résidence récente','Quartier en forte valorisation'],
-    photos:[
-      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=800&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&q=85&auto=format&fit=crop'
-    ]
-  },
-  {
-    id:4, titre:'Appartement T3 — Agdal', ville:'rabat', quartier:'Agdal',
-    type:'Appartement', surface:95, chambres:3, sdb:2, etage:'2ème',
-    prix:1150000, renta:5.8, statut:'',
-    desc:'Grand appartement familial dans le quartier résidentiel le plus prisé de Rabat. Proche ambassades et ministères. Cible locative: diplomates, cadres. Location longue durée recommandée.',
-    points:['Quartier ambassades','Cible cadres/diplomates','LLD recommandée','Cave et parking'],
-    photos:[
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=85&auto=format&fit=crop'
-    ]
-  },
-  {
-    id:5, titre:'Duplex de charme — Hivernage', ville:'marrakech', quartier:'Hivernage',
-    type:'Duplex', surface:120, chambres:3, sdb:2, etage:'4-5ème',
-    prix:1800000, renta:10.3, statut:'promo',
-    desc:'Duplex d\'exception dans le quartier des grands hôtels. Terrasse privative de 40m², piscine commune chauffée. Ameublement SmartDéco inclus dans le prix. Prêt à louer.',
-    points:['Terrasse privative 40m²','Piscine commune chauffée','Ameublement inclus','Prêt à louer immédiatement'],
-    photos:[
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=85&auto=format&fit=crop'
-    ]
-  },
-  {
-    id:6, titre:'Appartement vue port — Médina', ville:'essaouira', quartier:'Médina',
-    type:'Appartement', surface:55, chambres:2, sdb:1, etage:'2ème',
-    prix:650000, renta:7.8, statut:'new',
-    desc:'Appartement rénové avec vue sur le port historique et les remparts. Clientèle CSP+ en quête d\'authenticité. Essaouira séduit une clientèle européenne haut de gamme.',
-    points:['Vue port et remparts','Médina classée UNESCO','Clientèle CSP+ européenne','Rénové 2024'],
-    photos:[
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=85&auto=format&fit=crop'
-    ]
-  }
+const AMEN=['Off-market','Géré LCD','Piscine','Parking','Terrasse','Climatisation','Ascenseur','Meublé'];
+const PROPS=[
+  {id:1,titre:'Riad rénové cœur de Médina',ville:'Marrakech',type:'Riad',etat:'Bon état',prix:3200000,surface:180,chambres:4,rendement:8.9,lat:31.6312,lng:-7.9890,amenities:['Off-market','Piscine','Terrasse','Climatisation','Meublé'],img:'photo-1539020140153-e479b8c22e70',desc:"Riad authentique de 4 chambres rénové avec patio et plunge pool, à 5 min de la place Jemaa el-Fna. Idéal location courte durée premium."},
+  {id:2,titre:'Appartement vue mer standing',ville:'Tanger',type:'Appartement',etat:'Neuf',prix:1450000,surface:95,chambres:2,rendement:8.1,lat:35.7720,lng:-5.8000,amenities:['Géré LCD','Parking','Terrasse','Climatisation','Ascenseur','Meublé'],img:'photo-1502672260266-1c1ef2d93688',desc:"Appartement neuf de 2 chambres avec balcon vue mer, résidence sécurisée avec piscine commune. Forte demande estivale."},
+  {id:3,titre:'Villa contemporaine avec piscine',ville:'Marrakech',type:'Villa',etat:'Neuf',prix:5400000,surface:320,chambres:5,rendement:9.1,lat:31.6010,lng:-8.0350,amenities:['Off-market','Piscine','Parking','Terrasse','Climatisation','Meublé'],img:'photo-1613490493576-7fde63acd811',desc:"Villa moderne de 5 chambres sur la route de l'Ourika, grande piscine chauffée et jardin paysager. Bon rendement LCD sur le segment villa premium."},
+  {id:4,titre:'Studio design centre-ville',ville:'Casablanca',type:'Studio',etat:'Bon état',prix:780000,surface:38,chambres:1,rendement:6.4,lat:33.5890,lng:-7.6190,amenities:['Géré LCD','Climatisation','Ascenseur','Meublé'],img:'photo-1502672260266-1c1ef2d93688',desc:"Studio entièrement meublé en hypercentre, parfait pour la clientèle d'affaires. Occupation stable toute l'année."},
+  {id:5,titre:'Appartement haussmannien Hassan',ville:'Rabat',type:'Appartement',etat:'À rénover',prix:1100000,surface:110,chambres:3,rendement:5.8,lat:34.0150,lng:-6.8350,amenities:['Parking','Ascenseur'],img:'photo-1560448204-e02f11c3d0e2',desc:"Bel appartement de caractère à rénover, quartier Hassan. Fort potentiel de valorisation après travaux."},
+  {id:6,titre:'Riad de charme à rénover',ville:'Fès',type:'Riad',etat:'À rénover',prix:680000,surface:160,chambres:4,rendement:8.8,lat:34.0640,lng:-4.9780,amenities:['Off-market','Terrasse'],img:'photo-1505691938895-1758d7feb511',desc:"Riad traditionnel dans la médina classée UNESCO. Prix au m² imbattable, idéal projet maison d'hôtes."},
+  {id:7,titre:'Maison de pêcheur restaurée',ville:'Essaouira',type:'Appartement',etat:'Bon état',prix:920000,surface:75,chambres:2,rendement:7.4,lat:31.5120,lng:-9.7700,amenities:['Géré LCD','Terrasse','Meublé'],img:'photo-1502005229762-cf1b2da7c5d6',desc:"Maison de pêcheur restaurée dans la médina d'Essaouira, terrasse avec vue sur les remparts. Charme et rendement."},
+  {id:8,titre:'Appartement neuf Gauthier',ville:'Casablanca',type:'Appartement',etat:'Neuf',prix:1850000,surface:120,chambres:3,rendement:6.7,lat:33.5860,lng:-7.6320,amenities:['Géré LCD','Parking','Climatisation','Ascenseur','Meublé'],img:'photo-1560185007-cde436f6a4d0',desc:"Appartement neuf 3 chambres dans le quartier prisé de Gauthier, prestations haut de gamme et résidence sécurisée."},
+  {id:9,titre:'Villa balnéaire pieds dans l\'eau',ville:'Essaouira',type:'Villa',etat:'Neuf',prix:4200000,surface:260,chambres:4,rendement:8.3,lat:31.4900,lng:-9.7900,amenities:['Off-market','Piscine','Parking','Terrasse','Meublé'],img:'photo-1564013799919-ab600027ffc6',desc:"Villa contemporaine face à l'océan, 4 chambres, piscine à débordement. Destination de rêve pour la LCD haut de gamme."},
+  {id:10,titre:'Appartement moderne Malabata',ville:'Tanger',type:'Appartement',etat:'Bon état',prix:1320000,surface:88,chambres:2,rendement:7.9,lat:35.7800,lng:-5.7700,amenities:['Géré LCD','Piscine','Parking','Climatisation','Ascenseur'],img:'photo-1493809842364-78817add7ffb',desc:"Appartement lumineux 2 chambres dans la baie de Malabata, résidence avec piscine. Excellente occupation."}
 ];
 
-function loadBiens(){
-  // Charge depuis localStorage (admin) ou démo
-  const saved = localStorage.getItem('sbnb-biens');
-  biens = saved ? [...JSON.parse(saved), ...DEMO_BIENS] : DEMO_BIENS;
-  render();
+let FAV=JSON.parse(localStorage.getItem('sb_fav')||'[]');
+let state={cities:[],type:'',etat:'',ch:0,bud:6000000,rend:0,amen:[],view:'grid',q:''};
+let map,markers=[];
+
+/* ----- filter UI ----- */
+['Marrakech','Tanger','Casablanca','Rabat','Essaouira','Fès'].forEach(c=>{
+  const d=document.createElement('div');d.className='chip';d.textContent=c;
+  d.onclick=()=>{d.classList.toggle('active');
+    state.cities=d.classList.contains('active')?[...state.cities,c]:state.cities.filter(x=>x!==c);applyFilters();};
+  fCity.appendChild(d);
+});
+AMEN.forEach(a=>{
+  const l=document.createElement('label');l.className='check';
+  l.innerHTML=`<input type="checkbox" value="${a}"> ${a}`;
+  l.querySelector('input').onchange=e=>{
+    state.amen=e.target.checked?[...state.amen,a]:state.amen.filter(x=>x!==a);
+    l.classList.toggle('on',e.target.checked);applyFilters();};
+  fAmen.appendChild(l);
+});
+fType.onchange=e=>{state.type=e.target.value;applyFilters();};
+fEtat.onchange=e=>{state.etat=e.target.value;applyFilters();};
+fCh.onchange=e=>{state.ch=+e.target.value;applyFilters();};
+fBud.oninput=e=>{state.bud=+e.target.value;fBudVal.textContent=fmt(state.bud);applyFilters();};
+fRend.oninput=e=>{state.rend=+e.target.value;fRendVal.textContent=e.target.value;applyFilters();};
+search.oninput=e=>{state.q=e.target.value.toLowerCase();applyFilters();};
+
+function resetFilters(){
+  state={cities:[],type:'',etat:'',ch:0,bud:6000000,rend:0,amen:[],view:state.view,q:''};
+  document.querySelectorAll('#fCity .chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#fAmen input').forEach(c=>{c.checked=false;c.closest('.check').classList.remove('on');});
+  fType.value='';fEtat.value='';fCh.value='0';fBud.value='6000000';fRend.value='0';search.value='';
+  fBudVal.textContent='6 000 000';fRendVal.textContent='0';applyFilters();
 }
 
-function getFiltered(){
-  const q = (document.getElementById('srch')?.value||'').toLowerCase();
-  return biens.filter(b => {
-    const mv = !filtreVille || b.ville === filtreVille;
-    const mq = !q || `${b.titre} ${b.quartier} ${b.ville} ${b.type}`.toLowerCase().includes(q);
-    return mv && mq;
+function filtered(){
+  return PROPS.filter(p=>{
+    if(state.cities.length && !state.cities.includes(p.ville)) return false;
+    if(state.type && p.type!==state.type) return false;
+    if(state.etat && p.etat!==state.etat) return false;
+    if(state.ch && p.chambres<state.ch) return false;
+    if(p.prix>state.bud) return false;
+    if(p.rendement<state.rend) return false;
+    if(state.amen.length && !state.amen.every(a=>p.amenities.includes(a))) return false;
+    if(state.q && !(p.titre+' '+p.ville+' '+p.type).toLowerCase().includes(state.q)) return false;
+    return true;
   });
 }
 
-function fmt(n){return n.toLocaleString('fr-MA')+' MAD';}
-
-function render(){
-  const fil = getFiltered();
-  document.getElementById('mkt-count').textContent = `${fil.length} bien${fil.length!==1?'s':''}`;
-
-  if(!fil.length){
-    document.getElementById('mkt-grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>Aucun bien pour ce filtre</h3><p>Revenez bientôt ou contactez-nous pour accéder aux biens off-market.</p></div>`;
-    return;
-  }
-
-  document.getElementById('mkt-grid').innerHTML = fil.map(b => {
-    const isFav = favs.includes(b.id);
-    const statuts = {exclu:'bb-exclu', new:'bb-new', promo:'bb-promo'};
-    const statLabels = {exclu:'Exclusivité', new:'Nouveau', promo:'Offre spéciale'};
-    return `
-    <div class="bien-card" onclick="openModal(${b.id})">
-      <div class="bien-photo">
-        <img src="${b.photos[0]}" alt="${b.titre}" loading="lazy">
-        <div class="bien-badges">
-          ${b.statut&&statuts[b.statut]?`<span class="bien-badge ${statuts[b.statut]}">${statLabels[b.statut]}</span>`:''}
-        </div>
-        <button class="bien-fav" onclick="event.stopPropagation();toggleFav(${b.id},this)">${isFav?'❤️':'🤍'}</button>
-      </div>
-      <div class="bien-body">
-        <div class="bien-ville">${b.ville.charAt(0).toUpperCase()+b.ville.slice(1)} — ${b.quartier}</div>
-        <div class="bien-titre">${b.titre}</div>
-        <div class="bien-adresse">${b.type} · ${b.surface}m² · ${b.chambres} ch.</div>
-        <div class="bien-stats">
-          <span class="bien-stat">🛏 ${b.chambres}</span>
-          <span class="bien-stat">🚿 ${b.sdb}</span>
-          <span class="bien-stat">📐 ${b.surface}m²</span>
-        </div>
-        <div class="bien-prix-row">
-          <div class="bien-prix">${fmt(b.prix)} <small>TTC</small></div>
-          <span class="bien-renta">${b.renta}% brut</span>
-        </div>
-      </div>
-      <div class="bien-footer">
-        <button class="bien-btn-primary" onclick="event.stopPropagation();openModal(${b.id})">Voir le détail</button>
-        <a class="bien-btn-wa" href="https://wa.me/212775961740?text=Bonjour%2C%20je%20suis%20intéressé%20par%20le%20bien%20'${encodeURIComponent(b.titre)}'" onclick="event.stopPropagation()" target="_blank" title="WhatsApp">💬</a>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function toggleFav(id, btn){
-  if(favs.includes(id)){favs=favs.filter(f=>f!==id);btn.textContent='🤍';}
-  else{favs.push(id);btn.textContent='❤️';}
-  localStorage.setItem('sbnb-favs',JSON.stringify(favs));
-}
-
-function setFilter(ville, btn){
-  filtreVille = ville;
-  document.querySelectorAll('.mkt-filter-btn').forEach(b=>b.classList.remove('act'));
-  btn.classList.add('act');
-  render();
-}
-
-function openModal(id){
-  const b = biens.find(x=>x.id===id);if(!b)return;
-  document.getElementById('modal-box').innerHTML = `
-    <div class="modal-photos">
-      <div class="modal-photo-main"><img src="${b.photos[0]}" alt="${b.titre}"></div>
-      <div class="modal-photos-side">
-        ${b.photos.slice(1,3).map(p=>`<div class="modal-photo-small"><img src="${p}" alt="${b.titre}"></div>`).join('')}
-      </div>
+function cardHTML(p){
+  const fav=FAV.includes(p.id);
+  return `<div class="prop" onclick="openModal(${p.id})">
+    <div class="prop-img">
+      <img src="https://images.unsplash.com/${p.img}?w=700&q=80&auto=format&fit=crop" alt="${p.titre}">
+      <span class="prop-tag">${p.amenities.includes('Off-market')?'Off-market':p.etat}</span>
+      <button class="prop-fav" onclick="event.stopPropagation();toggleFav(${p.id},this)" title="Favori">${fav?'★':'☆'}</button>
     </div>
-    <div class="modal-content">
-      <div class="modal-hd">
-        <div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C9A96E;margin-bottom:.3rem">${b.ville.charAt(0).toUpperCase()+b.ville.slice(1)} — ${b.quartier}</div>
-          <div class="modal-title">${b.titre}</div>
-        </div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
-      </div>
-      <div class="modal-stats">
-        <div class="modal-stat"><div class="modal-stat-n">${b.surface}m²</div><div class="modal-stat-l">Surface</div></div>
-        <div class="modal-stat"><div class="modal-stat-n">${b.chambres}</div><div class="modal-stat-l">Chambres</div></div>
-        <div class="modal-stat"><div class="modal-stat-n">${b.renta}%</div><div class="modal-stat-l">Renta brute</div></div>
-        <div class="modal-stat"><div class="modal-stat-n">${b.etage}</div><div class="modal-stat-l">Étage</div></div>
-      </div>
-      <div class="modal-desc">${b.desc}</div>
-      <div style="margin-bottom:1rem">
-        ${b.points.map(p=>`<div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#6B5D54;padding:4px 0"><span style="color:#C9A96E;font-weight:700">✓</span>${p}</div>`).join('')}
-      </div>
-      <div class="modal-prix">${fmt(b.prix)} <small>TTC · Frais de notaire ~8% en sus</small></div>
-      <div class="modal-actions">
-        <button class="modal-btn-p" onclick="window.location='formulaire-decouverte.html'">Je suis intéressé →</button>
-        <a class="modal-btn-wa" href="https://wa.me/212775961740?text=Bonjour%2C%20je%20voudrais%20des%20infos%20sur%20le%20bien%20'${encodeURIComponent(b.titre)}'" target="_blank">💬 WhatsApp</a>
-      </div>
-    </div>`;
-  document.getElementById('modal').classList.add('open');
+    <div class="prop-body">
+      <span class="prop-yield">Rendement ${p.rendement}%</span>
+      <h3 style="margin:9px 0 2px;font-size:1.1rem">${p.titre}</h3>
+      <div class="muted" style="font-size:.85rem">${p.ville} · ${p.type}</div>
+      <div class="prop-meta"><span>${p.surface} m²</span><span>${p.chambres} ch.</span><span>${fmt(Math.round(p.prix/p.surface))} MAD/m²</span></div>
+      <div class="prop-price">${fmtMAD(p.prix)}</div>
+    </div>
+  </div>`;
 }
 
-function closeModal(){document.getElementById('modal').classList.remove('open');}
+function applyFilters(){
+  const list=filtered();
+  count.textContent=list.length+' bien'+(list.length>1?'s':'')+' disponible'+(list.length>1?'s':'');
+  results.innerHTML=list.length?list.map(cardHTML).join(''):'<p class="muted">Aucun bien ne correspond à ces critères.</p>';
+  mapList.innerHTML=list.map(cardHTML).join('');
+  if(state.view==='map') drawMap(list);
+}
 
-loadBiens();
+function setView(v){
+  state.view=v;
+  document.querySelectorAll('[data-view]').forEach(c=>c.classList.toggle('active',c.dataset.view===v));
+  results.className=v==='list'?'grid':'grid grid-2';
+  results.classList.toggle('hide',v==='map');
+  mapWrap.classList.toggle('hide',v!=='map');
+  if(v==='map'){ setTimeout(()=>{initMap();applyFilters();},60); }
+}
+
+function initMap(){
+  if(map) return;
+  map=L.map('map').setView([31.7,-7.5],6);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+    attribution:'© OpenStreetMap, © CARTO',maxZoom:19}).addTo(map);
+}
+function drawMap(list){
+  markers.forEach(m=>map.removeLayer(m));markers=[];
+  list.forEach(p=>{
+    const mk=L.marker([p.lat,p.lng]).addTo(map)
+      .bindPopup(`<b>${p.titre}</b><br>${p.ville} · ${fmtMAD(p.prix)}<br>Rendement ${p.rendement}%`);
+    mk.on('click',()=>openModal(p.id));markers.push(mk);
+  });
+  if(list.length) map.fitBounds(L.featureGroup(markers).getBounds().pad(0.25));
+}
+
+function toggleFav(id,btn){
+  FAV=FAV.includes(id)?FAV.filter(x=>x!==id):[...FAV,id];
+  localStorage.setItem('sb_fav',JSON.stringify(FAV));
+  if(btn) btn.textContent=FAV.includes(id)?'★':'☆';
+  toast(FAV.includes(id)?'Ajouté aux favoris':'Retiré des favoris');
+}
+
+/* ----- MODAL ----- */
+function openModal(id){
+  const p=PROPS.find(x=>x.id===id);
+  const net=(p.rendement*0.7).toFixed(1);
+  modalContent.innerHTML=`
+    <img src="https://images.unsplash.com/${p.img}?w=900&q=80&auto=format&fit=crop" alt="${p.titre}" style="height:280px;width:100%;object-fit:cover">
+    <div style="padding:26px">
+      <span class="prop-yield">Rendement brut ${p.rendement}%</span>
+      <h2 style="margin:10px 0 2px;font-size:1.7rem">${p.titre}</h2>
+      <div class="muted">${p.ville} · ${p.type} · ${p.etat}</div>
+      <div class="grid grid-4" style="margin:18px 0">
+        <div class="kpi center"><div class="v">${p.surface}</div><div class="l">m²</div></div>
+        <div class="kpi center"><div class="v">${p.chambres}</div><div class="l">Chambres</div></div>
+        <div class="kpi center"><div class="v" style="color:var(--vert)">${net}%</div><div class="l">Rendement net est.</div></div>
+        <div class="kpi center"><div class="v">${fmt(Math.round(p.prix/p.surface))}</div><div class="l">MAD / m²</div></div>
+      </div>
+      <p>${p.desc}</p>
+      <div style="font-weight:600;margin:16px 0 8px">Équipements & atouts</div>
+      <div class="tag-list">${AMEN.map(a=>`<span class="badge" style="${p.amenities.includes(a)?'background:#e7f0e0;color:var(--vert-d)':'opacity:.4'}">${p.amenities.includes(a)?'✓ ':'· '}${a}</span>`).join('')}</div>
+      <div style="font-weight:600;margin:18px 0 8px">Localisation</div>
+      <div id="miniMap" style="height:200px;border-radius:14px"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;flex-wrap:wrap;gap:12px">
+        <div class="prop-price" style="font-size:1.7rem">${fmtMAD(p.prix)}</div>
+        <button class="btn btn-vert" onclick="showInterest(${p.id})">Je suis intéressé</button>
+      </div>
+      <div id="interestForm" class="hide" style="margin-top:18px;border-top:1px solid var(--border);padding-top:18px"></div>
+    </div>`;
+  modal.classList.add('open');
+  setTimeout(()=>{
+    const mm=L.map('miniMap').setView([p.lat,p.lng],14);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© CARTO'}).addTo(mm);
+    L.marker([p.lat,p.lng]).addTo(mm);
+  },80);
+}
+function closeModal(){modal.classList.remove('open');}
+modal.onclick=e=>{if(e.target===modal)closeModal();};
+
+function showInterest(id){
+  const p=PROPS.find(x=>x.id===id);
+  const f=document.getElementById('interestForm');
+  f.classList.remove('hide');
+  f.innerHTML=`
+    <h3 style="font-size:1.15rem">Demande d'information — ${p.titre}</h3>
+    <div class="row2" style="margin-top:12px">
+      <div class="field"><label>Visite souhaitée</label>
+        <select class="input" id="iVisite"><option>Oui, sur place</option><option>Visite virtuelle</option><option>Non, plus tard</option></select></div>
+      <div class="field"><label>Besoin de financement</label>
+        <select class="input" id="iFin"><option>Oui</option><option>Non, autofinancé</option><option>Déjà financé</option></select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Délai d'achat</label>
+        <select class="input" id="iDelai"><option>Immédiat</option><option>1 à 3 mois</option><option>3 à 6 mois</option><option>+ 6 mois</option></select></div>
+      <div class="field"><label>Budget (MAD)</label><input class="input" id="iBudget" placeholder="ex : 2 000 000"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Prénom</label><input class="input" id="iNom"></div>
+      <div class="field"><label>Téléphone</label><input class="input" id="iTel"></div>
+    </div>
+    <div class="field"><label>Email</label><input class="input" id="iEmail" type="email"></div>
+    <button class="btn btn-vert btn-block" id="iSend" onclick="sendInterest(${id})">Envoyer ma demande</button>`;
+  f.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+async function sendInterest(id){
+  const p=PROPS.find(x=>x.id===id);
+  const nom=iNom.value.trim(),email=iEmail.value.trim();
+  if(!nom||!email){toast('Renseignez votre prénom et email');return;}
+  const btn=document.getElementById('iSend');
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
+  const payload={
+    full_name:nom,email:email,phone:iTel.value,city:p.ville,
+    lead_type:'marketplace',source:'marketplace',status:'nouveau',
+    message:`Intérêt pour le bien "${p.titre}" (${fmtMAD(p.prix)})`,
+    notes:`Visite: ${iVisite.value} | Financement: ${iFin.value} | Délai: ${iDelai.value} | Budget: ${iBudget.value}`
+  };
+  await submitLead(payload,'SmartBNB — Intérêt bien : '+p.titre);
+  document.getElementById('interestForm').innerHTML=
+    '<div class="notice">✓ Merci '+nom+' ! Votre demande a bien été transmise. Un conseiller SmartBNB vous recontacte sous 24h.</div>';
+}
+
+/* init */
+setView('grid');
+applyFilters();
 </script>
 </body>
 </html>

@@ -2,569 +2,269 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="SmartBNB — Chasse immobilière, gestion locative et conciergerie premium au Maroc.">
-<title>SmartBNB — Property Management & Conciergerie Maroc</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --black:#0A0A0A;
-  --black2:#1A1A1A;
-  --black3:#2A2A2A;
-  --gray1:#F9F7F4;
-  --gray2:#F2EEE8;
-  --gray3:#E8E2D9;
-  --gray4:#C4B9A8;
-  --gray5:#8C7F72;
-  --gray6:#5C5248;
-  --white:#FFFFFF;
-  --gold:#C9A96E;
-  --gold2:#B8924A;
-  --beige:#F5F0E8;
-  --beige2:#EDE5D8;
-  --green:#2D6A4F;
-  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r24:24px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer}
-
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--gray3);transition:all .3s}
-.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;height:60px;display:flex;align-items:center}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.nav-logo-mark{width:32px;height:32px;background:var(--black);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.nav-logo-text{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:var(--black);letter-spacing:-.02em}
-.nav-links{display:flex;gap:0;margin-left:auto;list-style:none}
-.nav-links a{padding:.5rem .875rem;font-size:.8rem;font-weight:500;color:var(--gray6);border-radius:var(--r8);transition:all .15s}
-.nav-links a:hover{color:var(--black);background:var(--gray1)}
-.nav-cta{background:var(--black)!important;color:var(--white)!important;border-radius:100px!important;padding:.5rem 1.25rem!important;font-weight:600!important}
-.nav-cta:hover{background:var(--black3)!important}
-.nav-login{border:1px solid var(--gray3)!important;border-radius:100px!important;color:var(--gray6)!important}
-
-/* HERO */
-.hero{padding-top:60px;min-height:100vh;background:var(--white);display:flex;align-items:center;position:relative;overflow:hidden}
-.hero-bg-shape{position:absolute;top:0;right:0;width:50%;height:100%;background:var(--beige);clip-path:polygon(8% 0,100% 0,100% 100%,0% 100%)}
-.hero-inner{max-width:1280px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1;width:100%}
-.hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gray5);margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
-.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
-.hero h1{font-family:'Fraunces',serif;font-size:clamp(3rem,5.5vw,5rem);font-weight:900;color:var(--black);line-height:1.02;letter-spacing:-.04em;margin-bottom:1.5rem}
-.hero h1 em{font-style:italic;color:var(--gold2)}
-.hero-p{font-size:1rem;color:var(--gray5);line-height:1.8;margin-bottom:2rem;max-width:420px;font-weight:400}
-.hero-btns{display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:2.5rem}
-.btn-dark{display:inline-flex;align-items:center;gap:.5rem;background:var(--black);color:var(--white);padding:.9rem 1.875rem;border-radius:100px;font-size:.875rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-dark:hover{background:var(--black3);transform:translateY(-1px)}
-.btn-outline{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--black);padding:.9rem 1.875rem;border-radius:100px;font-size:.875rem;font-weight:500;border:1.5px solid var(--gray3);cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-outline:hover{border-color:var(--black);background:var(--gray1)}
-.hero-trust{display:flex;gap:1.5rem;flex-wrap:wrap}
-.trust-item{font-size:.78rem;color:var(--gray5);display:flex;align-items:center;gap:.4rem}
-.trust-item::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0}
-
-/* HERO VISUAL */
-.hero-visual{position:relative}
-.hero-card-main{background:var(--white);border:1px solid var(--gray3);border-radius:var(--r24);overflow:hidden;box-shadow:0 24px 64px rgba(10,10,10,.1)}
-.hc-header{background:var(--black);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
-.hc-title{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.8)}
-.hc-badge{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:.65rem;padding:.2rem .625rem;border-radius:100px}
-.hc-body{padding:1.5rem}
-.hc-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.25rem}
-.hc-kpi{background:var(--gray1);border-radius:var(--r12);padding:.875rem}
-.hc-kpi-l{font-size:.65rem;font-weight:500;color:var(--gray5);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em}
-.hc-kpi-v{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:var(--black);line-height:1}
-.hc-kpi-v.gold{color:var(--gold2)}
-.hc-kpi-v.green{color:var(--green)}
-.hc-chart{background:var(--gray1);border-radius:var(--r12);padding:1rem;margin-bottom:.875rem;height:90px;position:relative;overflow:hidden}
-.hc-chart-lbl{font-size:.65rem;font-weight:500;color:var(--gray5);margin-bottom:.625rem;text-transform:uppercase;letter-spacing:.05em}
-.hc-biens{display:grid;grid-template-columns:1fr 1fr;gap:.625rem}
-.hc-bien{background:var(--gray1);border-radius:var(--r12);padding:.875rem;display:flex;gap:.75rem;align-items:center}
-.hc-bien-ic{width:36px;height:36px;border-radius:var(--r8);background:var(--black);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.hc-bien-name{font-size:.78rem;font-weight:600;color:var(--black)}
-.hc-bien-rta{font-size:.68rem;color:var(--green);margin-top:1px}
-
-/* FLOAT CARDS */
-.fc{position:absolute;background:var(--white);border-radius:var(--r16);padding:1rem 1.25rem;box-shadow:0 16px 40px rgba(10,10,10,.12);border:1px solid var(--gray3)}
-.fc1{top:-24px;right:-20px;min-width:160px;animation:f1 4s ease-in-out infinite}
-.fc2{bottom:16px;left:-20px;min-width:140px;animation:f2 5s ease-in-out infinite}
-@keyframes f1{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes f2{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-.fc-lbl{font-size:.65rem;font-weight:500;color:var(--gray5);margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.05em}
-.fc-val{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:700;color:var(--black);line-height:1}
-.fc-val.gold{color:var(--gold2)}
-.fc-val.green{color:var(--green)}
-.fc-sub{font-size:.65rem;color:var(--gray4);margin-top:.2rem}
-.fc-trend{font-size:.68rem;font-weight:600;color:var(--green);margin-top:.35rem}
-
-/* STATS */
-.stats{background:var(--black);padding:1.5rem 0}
-.stats-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:repeat(4,1fr)}
-.stat{text-align:center;padding:0 1rem;border-right:1px solid rgba(255,255,255,.08)}
-.stat:last-child{border-right:none}
-.stat-n{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;color:var(--white);line-height:1}
-.stat-n em{color:var(--gold);font-style:normal}
-.stat-l{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:.35rem;font-weight:400}
-
-/* SIMULATEUR */
-.sim{padding:6rem 0;background:var(--beige)}
-.sim-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.sec-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gray5);margin-bottom:.875rem;display:flex;align-items:center;gap:.75rem}
-.sec-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
-.sec-h2{font-family:'Fraunces',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:var(--black);line-height:1.1;letter-spacing:-.03em;margin-bottom:1rem}
-.sec-sub{font-size:.9rem;color:var(--gray5);line-height:1.8;margin-bottom:1.75rem}
-.sim-card{background:var(--white);border-radius:var(--r24);border:1px solid var(--gray3);overflow:hidden;box-shadow:0 4px 32px rgba(10,10,10,.06)}
-.sim-cols{display:grid;grid-template-columns:1fr 1fr}
-.sim-l{padding:1.75rem;border-right:1px solid var(--gray3)}
-.sim-r{padding:1.75rem;background:var(--black)}
-.sim-t{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray5);margin-bottom:1.25rem}
-.sim-t-w{color:rgba(255,255,255,.3)}
-.sf{margin-bottom:1rem}
-.sf label{display:block;font-size:.75rem;font-weight:500;color:var(--gray6);margin-bottom:.4rem}
-.chips{display:flex;gap:.35rem;flex-wrap:wrap}
-.chip{padding:.35rem .8rem;border-radius:100px;font-size:.72rem;font-weight:500;border:1.5px solid var(--gray3);background:transparent;cursor:pointer;transition:all .15s;font-family:inherit;color:var(--gray6)}
-.chip:hover{border-color:var(--black);color:var(--black)}
-.chip.on{background:var(--black);color:var(--white);border-color:var(--black)}
-.srange{width:100%;accent-color:var(--black);cursor:pointer;margin-top:.35rem}
-.srange-v{display:flex;justify-content:space-between;font-size:.65rem;color:var(--gray4);margin-top:.25rem}
-.stogs{display:flex;flex-direction:column;gap:.5rem}
-.stog{display:flex;align-items:center;justify-content:space-between;font-size:.8rem;color:var(--gray6)}
-.tsw{width:36px;height:20px;background:var(--gray3);border-radius:100px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
-.tsw.on{background:var(--black)}
-.tsw::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--white);border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
-.tsw.on::after{transform:translateX(16px)}
-.r-box{text-align:center;padding:1.5rem .875rem}
-.r-lbl{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.5rem}
-.r-val{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:900;color:var(--white);line-height:1;letter-spacing:-.04em}
-.r-unit{font-size:.8rem;color:rgba(255,255,255,.35);margin-top:.3rem}
-.r-divider{height:1px;background:rgba(255,255,255,.08);margin:1.25rem 0}
-.r-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.25rem}
-.rm{background:rgba(255,255,255,.05);border-radius:var(--r12);padding:.75rem;text-align:center}
-.rm-l{font-size:.6rem;color:rgba(255,255,255,.35);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em}
-.rm-v{font-size:1rem;font-weight:700;color:var(--white)}
-.rm-v.g{color:#5DCAA5}
-.bars{margin-bottom:1.25rem}
-.bar-lbl{font-size:.65rem;color:rgba(255,255,255,.3);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.04em}
-.bar-track{background:rgba(255,255,255,.08);border-radius:100px;height:6px;overflow:hidden;margin-bottom:.3rem}
-.bar-fill{height:100%;border-radius:100px;transition:width .4s}
-.bar-legend{display:flex;gap:.75rem;flex-wrap:wrap}
-.bleg{font-size:.65rem;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:.3rem}
-.bleg-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.r-cta{display:block;width:100%;background:var(--white);color:var(--black);border:none;border-radius:100px;padding:.8rem;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
-.r-cta:hover{background:var(--beige2)}
-
-/* SERVICES */
-.svc{padding:6rem 0;background:var(--white)}
-.svc-inner{max-width:1280px;margin:0 auto;padding:0 2rem}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray3);border:1px solid var(--gray3);border-radius:var(--r24);overflow:hidden;margin-top:3rem}
-.svc-card{background:var(--white);padding:2rem;transition:background .2s;position:relative}
-.svc-card:hover{background:var(--gray1)}
-.svc-card.feat{background:var(--black)}
-.svc-card.feat:hover{background:var(--black2)}
-.svc-num{font-family:'Fraunces',serif;font-size:.875rem;font-weight:700;color:var(--gray4);margin-bottom:1.25rem}
-.svc-card.feat .svc-num{color:rgba(255,255,255,.3)}
-.svc-icon{font-size:1.75rem;margin-bottom:1rem;display:block}
-.svc-title{font-size:1rem;font-weight:700;color:var(--black);margin-bottom:.5rem;letter-spacing:-.01em}
-.svc-card.feat .svc-title{color:var(--white)}
-.svc-desc{font-size:.82rem;color:var(--gray5);line-height:1.7;margin-bottom:1.25rem}
-.svc-card.feat .svc-desc{color:rgba(255,255,255,.5)}
-.svc-price{font-size:.82rem;font-weight:700;color:var(--black);margin-bottom:.75rem}
-.svc-card.feat .svc-price{color:var(--gold)}
-.svc-link{font-size:.78rem;font-weight:600;color:var(--gray5);display:inline-flex;align-items:center;gap:.35rem;transition:all .15s}
-.svc-link:hover{color:var(--black);gap:.625rem}
-.svc-card.feat .svc-link{color:rgba(255,255,255,.6)}
-.svc-card.feat .svc-link:hover{color:var(--white)}
-.svc-pop-badge{position:absolute;top:1.25rem;right:1.25rem;background:var(--gold);color:var(--black);font-size:.62rem;font-weight:700;padding:.2rem .6rem;border-radius:100px}
-
-/* VILLES */
-.villes{padding:6rem 0;background:var(--gray1)}
-.villes-inner{max-width:1280px;margin:0 auto;padding:0 2rem}
-.villes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
-.ville{border-radius:var(--r16);overflow:hidden;cursor:pointer;transition:transform .25s;border:1px solid var(--gray3)}
-.ville:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(10,10,10,.1)}
-.ville-ph{height:140px;background:center/cover no-repeat;position:relative}
-.ville-ph::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.75),rgba(10,10,10,.1))}
-.ville-nm{position:absolute;bottom:.875rem;left:1rem;font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--white);z-index:1}
-.ville-rt{position:absolute;top:.875rem;right:.875rem;background:var(--white);color:var(--black);font-size:.68rem;font-weight:700;padding:.25rem .75rem;border-radius:100px;z-index:1}
-.ville-bd{background:var(--white);padding:1rem}
-.ville-st{display:flex;justify-content:space-between;font-size:.75rem;padding:3px 0;border-bottom:1px solid var(--gray2)}
-.ville-st:last-child{border-bottom:none}
-.ville-st span{color:var(--gray5)}
-.ville-st b{color:var(--black);font-weight:600}
-
-/* PROCESS */
-.proc{padding:6rem 0;background:var(--white)}
-.proc-inner{max-width:1280px;margin:0 auto;padding:0 2rem}
-.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem}
-.proc-step{position:relative;padding-top:1.5rem}
-.proc-step::before{content:'';position:absolute;top:26px;left:52px;right:-2rem;height:1px;background:var(--gray3);z-index:0}
-.proc-step:last-child::before{display:none}
-.ps-num{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--black);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:var(--black);background:var(--white);position:relative;z-index:1;margin-bottom:1.25rem}
-.ps-t{font-size:.9rem;font-weight:700;color:var(--black);margin-bottom:.4rem;letter-spacing:-.01em}
-.ps-d{font-size:.8rem;color:var(--gray5);line-height:1.7}
-
-/* CTA */
-.cta{padding:6rem 0;background:var(--black)}
-.cta-inner{max-width:800px;margin:0 auto;padding:0 2rem;text-align:center}
-.cta h2{font-family:'Fraunces',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:var(--white);margin-bottom:1rem;letter-spacing:-.04em;line-height:1.05}
-.cta h2 em{font-style:italic;color:var(--gold)}
-.cta p{font-size:1rem;color:rgba(255,255,255,.5);margin-bottom:2.5rem;line-height:1.8}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-gold{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--black);padding:.9rem 2rem;border-radius:100px;font-size:.9rem;font-weight:700;border:none;cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-gold:hover{background:var(--gold2);color:var(--white);transform:translateY(-1px)}
-.btn-white-outline{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:rgba(255,255,255,.7);padding:.9rem 2rem;border-radius:100px;font-size:.9rem;font-weight:500;border:1.5px solid rgba(255,255,255,.2);cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-white-outline:hover{border-color:rgba(255,255,255,.5);color:var(--white)}
-
-/* FOOTER */
-footer{background:#050505;padding:2rem 0;border-top:1px solid rgba(255,255,255,.06)}
-.ft-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.ft-logo{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:var(--white)}
-.ft-logo em{color:var(--gold);font-style:normal}
-.ft-links{display:flex;gap:1.5rem}
-.ft-links a{font-size:.78rem;color:rgba(255,255,255,.35);transition:color .15s}
-.ft-links a:hover{color:rgba(255,255,255,.75)}
-.ft-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
-
-@media(max-width:900px){
-  .hero-inner,.sim-inner{grid-template-columns:1fr}
-  .hero-bg-shape{display:none}
-  .hero-visual{display:none}
-  .svc-grid{grid-template-columns:1fr 1fr}
-  .villes-grid{grid-template-columns:1fr 1fr}
-  .proc-grid{grid-template-columns:1fr 1fr}
-  .proc-step::before{display:none}
-  .stats-inner{grid-template-columns:repeat(2,1fr);gap:.75rem}
-  .sim-cols{grid-template-columns:1fr}
-  .sim-l{border-right:none;border-bottom:1px solid var(--gray3)}
-}
-@media(max-width:560px){
-  .svc-grid,.villes-grid,.proc-grid{grid-template-columns:1fr}
-  .cta-btns{flex-direction:column;align-items:center}
-}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SmartBNB — Chasse immobilière & gestion locative au Maroc</title>
+<meta name="description" content="SmartBNB : cabinet de chasse immobilière et gestion locative courte durée au Maroc. Investissez sans vous déplacer. Gestion 17%, rendements 6-9%.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-mark">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M12 3L3 9v12h5v-6h8v6h5V9L12 3z" fill="white"/>
-          <path d="M10 17c.8-1.2 3.2-1.2 4 0" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="nav-logo-text">SmartBNB</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="services.html">Services</a></li>
-      <li><a href="villes.html">Villes</a></li>
-      <li><a href="marketplace.html">Marketplace</a></li>
-      <li><a href="smart-invest.html">Smart Invest</a></li>
-      <li><a href="sci.html">SCI</a></li>
-      <li><a href="crm.html" class="nav-login">Connexion</a></li>
-      <li><a href="formulaire-decouverte.html" class="nav-cta">Démarrer →</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg-shape"></div>
-  <div class="hero-inner">
+<!-- ===== HERO ===== -->
+<header class="wrap hero">
+  <div class="hero-grid">
     <div>
-      <div class="hero-eyebrow">Property Management & Conciergerie · Maroc</div>
-      <h1>Investissez<br>au Maroc.<br><em>Sans y être.</em></h1>
-      <p class="hero-p">Chasse immobilière, gestion locative à 17% et conciergerie premium. Vos biens gérés par des experts locaux — vous encaissez depuis n'importe où dans le monde.</p>
-      <div class="hero-btns">
-        <a href="formulaire-decouverte.html" class="btn-dark">Démarrer mon projet →</a>
-        <a href="smart-invest.html" class="btn-outline">Simuler mon rendement</a>
+      <span class="eyebrow">Cabinet de chasse immobilière · Maroc</span>
+      <h1>Investissez dans la pierre marocaine, <span style="color:var(--vert)">sans vous déplacer.</span></h1>
+      <p class="lead">SmartBNB déniche, négocie et gère votre bien en location courte durée. De l'achat off-market au reporting mensuel, on s'occupe de tout.</p>
+      <div class="hero-cta">
+        <a href="formulaire.html" class="btn btn-primary btn-lg">Démarrer mon projet</a>
+        <a href="https://wa.me/212775961740" target="_blank" class="btn btn-wa btn-lg">Continuer sur WhatsApp</a>
       </div>
-      <div class="hero-trust">
-        <span class="trust-item">Zéro frais fixe</span>
-        <span class="trust-item">Conformité loi 80-14</span>
-        <span class="trust-item">Reporting mensuel auto</span>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div style="position:relative">
-        <div class="hero-card-main">
-          <div class="hc-header">
-            <span class="hc-title">Tableau de bord · Mai 2026</span>
-            <span class="hc-badge">3 biens actifs</span>
-          </div>
-          <div class="hc-body">
-            <div class="hc-kpis">
-              <div class="hc-kpi"><div class="hc-kpi-l">Revenus mai</div><div class="hc-kpi-v gold">24 800</div><div style="font-size:.62rem;color:var(--gray4);margin-top:2px">MAD</div></div>
-              <div class="hc-kpi"><div class="hc-kpi-l">Occupation</div><div class="hc-kpi-v green">87%</div></div>
-              <div class="hc-kpi"><div class="hc-kpi-l">Note moy.</div><div class="hc-kpi-v">4.9★</div></div>
-            </div>
-            <div class="hc-chart">
-              <div class="hc-chart-lbl">Revenus — 6 derniers mois</div>
-              <svg style="position:absolute;bottom:0;left:0;right:0;height:60px" viewBox="0 0 300 60" preserveAspectRatio="none">
-                <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A96E" stop-opacity=".2"/><stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/></linearGradient></defs>
-                <path d="M0,55 L50,45 L100,38 L150,28 L200,18 L250,10 L300,5 L300,60 L0,60Z" fill="url(#g1)"/>
-                <path d="M0,55 L50,45 L100,38 L150,28 L200,18 L250,10 L300,5" stroke="#C9A96E" stroke-width="2" fill="none" stroke-linejoin="round"/>
-                <circle cx="300" cy="5" r="3" fill="#B8924A"/>
-              </svg>
-            </div>
-            <div class="hc-biens">
-              <div class="hc-bien"><div class="hc-bien-ic">🕌</div><div><div class="hc-bien-name">Riad Médina</div><div class="hc-bien-rta">9,8% brut · Actif</div></div></div>
-              <div class="hc-bien"><div class="hc-bien-ic">🏢</div><div><div class="hc-bien-name">Appart. Guéliz</div><div class="hc-bien-rta">8,2% brut · LCD</div></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="fc fc1">
-          <div class="fc-lbl">Revenu ce mois</div>
-          <div class="fc-val gold">24 800</div>
-          <div class="fc-sub">MAD · mai 2026</div>
-          <div class="fc-trend">↑ +18% vs avril</div>
-        </div>
-        <div class="fc fc2">
-          <div class="fc-lbl">Taux d'occupation</div>
-          <div class="fc-val green">87%</div>
-          <div class="fc-sub">3 biens gérés</div>
-        </div>
+      <div class="hero-metrics">
+        <div class="hero-metric"><div class="v">17%</div><div class="l">Commission gestion, zéro frais fixe</div></div>
+        <div class="hero-metric"><div class="v">6–9%</div><div class="l">Rendement brut annuel</div></div>
+        <div class="hero-metric"><div class="v">17,4M</div><div class="l">Touristes au Maroc en 2024</div></div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats">
-  <div class="stats-inner">
-    <div class="stat"><div class="stat-n"><em>+3,1%</em></div><div class="stat-l">Transactions Maroc 2025</div></div>
-    <div class="stat"><div class="stat-n"><em>17%</em></div><div class="stat-l">Commission — la plus compétitive</div></div>
-    <div class="stat"><div class="stat-n"><em>17,4M</em></div><div class="stat-l">Touristes au Maroc 2024</div></div>
-    <div class="stat"><div class="stat-n"><em>8–12%</em></div><div class="stat-l">Rendement LCD Marrakech</div></div>
-  </div>
-</div>
-
-<!-- SIMULATEUR -->
-<section class="sim">
-  <div class="sim-inner">
     <div>
-      <div class="sec-eyebrow">Smart Invest</div>
-      <h2 class="sec-h2">Calculez votre rendement en temps réel</h2>
-      <p class="sec-sub">Estimez vos revenus mensuels selon votre ville, type de bien et standing. Résultat instantané.</p>
-      <a href="smart-invest.html" class="btn-dark" style="margin-top:.5rem">Simulateur complet →</a>
-    </div>
-    <div class="sim-card">
-      <div class="sim-cols">
-        <div class="sim-l">
-          <div class="sim-t">Vos paramètres</div>
-          <div class="sf">
-            <label>Ville</label>
-            <div class="chips">
-              <button class="chip on" data-c="marrakech" onclick="sc(this)">Marrakech</button>
-              <button class="chip" data-c="tanger" onclick="sc(this)">Tanger</button>
-              <button class="chip" data-c="casablanca" onclick="sc(this)">Casablanca</button>
-              <button class="chip" data-c="rabat" onclick="sc(this)">Rabat</button>
-            </div>
-          </div>
-          <div class="sf">
-            <label>Type de bien</label>
-            <div class="chips">
-              <button class="chip" data-t="studio" onclick="st2(this)">Studio</button>
-              <button class="chip on" data-t="appart" onclick="st2(this)">Appartement</button>
-              <button class="chip" data-t="riad" onclick="st2(this)">Riad</button>
-              <button class="chip" data-t="villa" onclick="st2(this)">Villa</button>
-            </div>
-          </div>
-          <div class="sf">
-            <label>Chambres : <strong id="nbc-v">2</strong></label>
-            <input type="range" class="srange" id="nbc" min="1" max="6" value="2" step="1" oninput="calc()">
-            <div class="srange-v"><span>1</span><span>6</span></div>
-          </div>
-          <div class="sf">
-            <label>Standing</label>
-            <div class="chips">
-              <button class="chip" data-s="standard" onclick="ss(this)">Standard</button>
-              <button class="chip on" data-s="premium" onclick="ss(this)">Premium</button>
-              <button class="chip" data-s="luxe" onclick="ss(this)">Luxe</button>
-            </div>
-          </div>
-          <div class="sf">
-            <label>Options</label>
-            <div class="stogs">
-              <div class="stog">Piscine <div class="tsw" id="tp" onclick="tog(this,'p')"></div></div>
-              <div class="stog">Parking <div class="tsw" id="tk" onclick="tog(this,'k')"></div></div>
-            </div>
-          </div>
+      <div class="mockup">
+        <div class="mockup-head">
+          <strong style="font-family:'Fraunces',serif">Riad Médina · Marrakech</strong>
+          <span class="badge" style="background:#e7f0e0;color:var(--vert-d)">● En ligne</span>
         </div>
-        <div class="sim-r">
-          <div class="sim-t sim-t-w">Estimation mensuelle</div>
-          <div class="r-box">
-            <div class="r-lbl">Revenus bruts estimés</div>
-            <div class="r-val" id="rv">24 000</div>
-            <div class="r-unit">MAD / mois</div>
-          </div>
-          <div class="r-divider"></div>
-          <div class="r-metrics">
-            <div class="rm"><div class="rm-l">Nuit</div><div class="rm-v" id="rn">800</div></div>
-            <div class="rm"><div class="rm-l">Occupation</div><div class="rm-v g" id="ro">75%</div></div>
-            <div class="rm"><div class="rm-l">Rendement</div><div class="rm-v g" id="rr">9,2%</div></div>
-          </div>
-          <div class="bars">
-            <div class="bar-lbl">Répartition canaux</div>
-            <div class="bar-track"><div class="bar-fill" style="width:60%;background:#FF5A5F"></div></div>
-            <div class="bar-track"><div class="bar-fill" style="width:25%;background:#4A90D9"></div></div>
-            <div class="bar-track"><div class="bar-fill" style="width:15%;background:#5DCAA5"></div></div>
-            <div class="bar-legend">
-              <span class="bleg"><span class="bleg-dot" style="background:#FF5A5F"></span>Airbnb 60%</span>
-              <span class="bleg"><span class="bleg-dot" style="background:#4A90D9"></span>Booking 25%</span>
-              <span class="bleg"><span class="bleg-dot" style="background:#5DCAA5"></span>Direct 15%</span>
-            </div>
-          </div>
-          <button class="r-cta" onclick="location.href='confier-mon-bien.html'">Confier mon bien →</button>
+        <div class="mockup-kpis">
+          <div class="mk green"><div class="v">22 600 MAD</div><div class="l">Revenus du mois</div></div>
+          <div class="mk"><div class="v">74%</div><div class="l">Taux d'occupation</div></div>
+          <div class="mk"><div class="v">4,8 ★</div><div class="l">Note voyageurs</div></div>
+          <div class="mk"><div class="v">22</div><div class="l">Nuits réservées</div></div>
         </div>
+        <div style="font-size:.8rem;color:var(--gris);margin-bottom:4px">Revenus · 6 derniers mois</div>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== QUICK SIMULATOR ===== -->
+<section class="section" style="padding-top:30px">
+  <div class="wrap">
+    <div class="card" style="background:var(--beige2);border:none">
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end">
+        <div style="flex:1;min-width:200px">
+          <span class="eyebrow">Simulateur express</span>
+          <h3 style="margin-top:6px">Estimez votre revenu locatif en 10 secondes</h3>
+        </div>
+        <div style="min-width:160px">
+          <label style="font-size:.85rem;font-weight:600">Type de bien</label>
+          <select class="input" id="qType">
+            <option value="studio">Studio</option>
+            <option value="appartement" selected>Appartement</option>
+            <option value="riad">Riad</option>
+            <option value="villa">Villa</option>
+          </select>
+        </div>
+        <div style="min-width:160px">
+          <label style="font-size:.85rem;font-weight:600">Ville</label>
+          <select class="input" id="qCity">
+            <option value="marrakech" selected>Marrakech</option>
+            <option value="tanger">Tanger</option>
+            <option value="casablanca">Casablanca</option>
+            <option value="rabat">Rabat</option>
+            <option value="essaouira">Essaouira</option>
+            <option value="fes">Fès</option>
+          </select>
+        </div>
+        <div style="text-align:right;min-width:180px">
+          <div style="font-size:.8rem;color:var(--gris)">Revenu mensuel estimé</div>
+          <div class="result-big" id="qResult" style="font-size:2.2rem">—</div>
+        </div>
+        <a href="simulateur.html" class="btn btn-vert">Simulateur complet</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="svc">
-  <div class="svc-inner">
-    <div class="sec-eyebrow">Nos services</div>
-    <h2 class="sec-h2" style="max-width:560px">Tout ce dont vous avez besoin, au même endroit.</h2>
-    <div class="svc-grid">
-      <div class="svc-card">
-        <div class="svc-num">01</div>
-        <span class="svc-icon">🔍</span>
-        <div class="svc-title">Chasse immobilière</div>
-        <p class="svc-desc">Sourcing off-market, visite virtuelle Matterport 3D, due diligence ANCFCC et accompagnement notaire.</p>
-        <div class="svc-price">3% du prix d'achat TTC</div>
-        <a href="services.html" class="svc-link">En savoir plus →</a>
+<!-- ===== STATS BAR ===== -->
+<section class="statbar">
+  <div class="wrap grid grid-4 center">
+    <div><div class="v">+120</div><div class="l">Biens gérés</div></div>
+    <div><div class="v">17%</div><div class="l">Commission unique</div></div>
+    <div><div class="v">6</div><div class="l">Villes couvertes</div></div>
+    <div><div class="v">4,8 ★</div><div class="l">Satisfaction propriétaires</div></div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Nos services</span>
+      <h2 style="margin-top:8px">Un cabinet, tout l'investissement locatif</h2>
+      <p class="muted">De la recherche du bien à la distribution des revenus, SmartBNB couvre chaque étape.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card card-hover"><h3 style="margin:12px 0 8px">Chasse immobilière</h3><p>Recherche off-market, visites, négociation et sécurisation juridique. <b>3% du prix d'achat.</b></p></div>
+      <div class="card card-hover"><h3 style="margin:12px 0 8px">Gestion locative LCD</h3><p>Annonces multi-plateformes, ménage, check-in, voyageurs. <b>17% du loyer brut.</b></p></div>
+      <div class="card card-hover"><h3 style="margin:12px 0 8px">Création de SCI</h3><p>Structuration patrimoniale et fiscale clé en main. <b>16 900 MAD tout compris.</b></p></div>
+      <div class="card card-hover"><h3 style="margin:12px 0 8px">SmartDéco</h3><p>Ameublement et décoration clé en main. <b>Packs de 35k à 200k MAD.</b></p></div>
+      <div class="card card-hover"><h3 style="margin:12px 0 8px">Reporting & pilotage</h3><p>Espace investisseur, KPIs en temps réel et reporting mensuel transparent.</p></div>
+      <div class="card card-hover"><h3 style="margin:12px 0 8px">Accompagnement MRE</h3><p>Montage financier en devises, mandat de chasse à distance et signature simplifiée.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CITIES TABS ===== -->
+<section class="section" style="background:var(--beige2)">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 36px">
+      <span class="eyebrow">Marchés couverts</span>
+      <h2 style="margin-top:8px">Six villes, six stratégies</h2>
+    </div>
+    <div class="tabs" id="cityTabs" style="justify-content:center;margin-bottom:26px"></div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div id="cityPanel" style="display:grid;grid-template-columns:1fr 1fr;gap:0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Comment ça marche</span>
+      <h2 style="margin-top:8px">Votre investissement en 4 étapes</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="card"><div class="step-num">1</div><h3 style="margin:14px 0 8px">Cadrage</h3><p class="muted">On cerne votre budget, vos objectifs et la ville idéale.</p></div>
+      <div class="card"><div class="step-num">2</div><h3 style="margin:14px 0 8px">Chasse & achat</h3><p class="muted">On déniche le bien, on négocie et on sécurise la transaction.</p></div>
+      <div class="card"><div class="step-num">3</div><h3 style="margin:14px 0 8px">Ameublement</h3><p class="muted">SmartDéco équipe le logement, prêt à recevoir des voyageurs.</p></div>
+      <div class="card"><div class="step-num">4</div><h3 style="margin:14px 0 8px">Gestion & revenus</h3><p class="muted">On opère la location et vous percevez vos revenus chaque mois.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section" style="background:var(--beige2)">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Ils nous font confiance</span>
+      <h2 style="margin-top:8px">Des revenus réels, des propriétaires sereins</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« J'ai acheté un riad à Marrakech depuis Paris sans jamais le visiter. SmartBNB a tout géré. Mon riad génère en moyenne <b>21 000 MAD/mois</b>. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80&auto=format&fit=crop" alt=""><div><b>Karim B.</b><div class="muted" style="font-size:.83rem">Riad · Marrakech</div></div></div>
       </div>
-      <div class="svc-card feat">
-        <div class="svc-pop-badge">Populaire</div>
-        <div class="svc-num">02</div>
-        <span class="svc-icon">🏠</span>
-        <div class="svc-title">Gestion locative LCD</div>
-        <p class="svc-desc">Multi-plateformes, tarification dynamique, check-in/out, ménage, linge, reporting mensuel. Zéro frais fixe.</p>
-        <div class="svc-price">17% du loyer brut</div>
-        <a href="confier-mon-bien.html" class="svc-link">Confier mon bien →</a>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« Gestion impeccable et reporting clair chaque mois. Mon appartement à Tanger tourne à <b>71% d'occupation</b> et me rapporte près de 11 500 MAD/mois. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80&auto=format&fit=crop" alt=""><div><b>Salma R.</b><div class="muted" style="font-size:.83rem">Appartement · Tanger</div></div></div>
       </div>
-      <div class="svc-card">
-        <div class="svc-num">03</div>
-        <span class="svc-icon">🏛️</span>
-        <div class="svc-title">Création SCI</div>
-        <p class="svc-desc">Investir à plusieurs — famille, amis ou associés. Statuts, enregistrement et conseil fiscal inclus.</p>
-        <div class="svc-price">À partir de 16 900 MAD TTC</div>
-        <a href="sci.html" class="svc-link">Créer ma SCI →</a>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« Création de SCI, achat et ameublement : tout en un seul interlocuteur. Ma villa à Essaouira génère <b>jusqu'à 27 000 MAD/mois</b> en haute saison. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80&auto=format&fit=crop" alt=""><div><b>Youssef A.</b><div class="muted" style="font-size:.83rem">Villa · Essaouira</div></div></div>
       </div>
-      <div class="svc-card">
-        <div class="svc-num">04</div>
-        <span class="svc-icon">🪑</span>
-        <div class="svc-title">Ameublement clé en main</div>
-        <p class="svc-desc">Packs SmartDéco — studio à villa. Livraison et installation incluses partout au Maroc en 15 jours.</p>
-        <div class="svc-price">35 000 → 200 000 MAD</div>
-        <a href="smartdeco.html" class="svc-link">Configurer →</a>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« Accompagnement très professionnel depuis Lyon. Mon T3 à Gauthier est loué toute l'année, autour de <b>9 800 MAD/mois nets</b>. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80&auto=format&fit=crop" alt=""><div><b>Sophie M.</b><div class="muted" style="font-size:.83rem">Appartement · Casablanca</div></div></div>
       </div>
-      <div class="svc-card">
-        <div class="svc-num">05</div>
-        <span class="svc-icon">📋</span>
-        <div class="svc-title">Pack 5 visites</div>
-        <p class="svc-desc">5 biens présélectionnés et visités pour vous. Idéal pour les MRE et investisseurs à distance.</p>
-        <div class="svc-price">Forfait fixe · Sans engagement</div>
-        <a href="services.html" class="svc-link">En savoir plus →</a>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« I bought my riad without ever visiting Morocco. The team handles everything: bookings, cleaning, guest support. <b>Around 19 000 MAD per month</b>. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&q=80&auto=format&fit=crop" alt=""><div><b>James W.</b><div class="muted" style="font-size:.83rem">Riad · Marrakech</div></div></div>
       </div>
-      <div class="svc-card">
-        <div class="svc-num">06</div>
-        <span class="svc-icon">🔐</span>
-        <div class="svc-title">Sécurisation juridique</div>
-        <p class="svc-desc">Office des Changes, conformité CNDP, loi 80-14. Investissez en règle depuis l'étranger.</p>
-        <div class="svc-price">Sur devis · Audit gratuit</div>
-        <a href="contact.html" class="svc-link">Nous contacter →</a>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« Le seul cabinet à m'avoir présenté un projet entièrement chiffré avant la signature. Mon studio à Malabata tient <b>72 % d'occupation</b>. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=120&q=80&auto=format&fit=crop" alt=""><div><b>Anne-Claire D.</b><div class="muted" style="font-size:.83rem">Studio · Tanger</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« Honest, transparent reporting every month. Yields aren't oversold — they match what was promised. <b>~£900 / month net</b> on my Casablanca apartment. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=120&q=80&auto=format&fit=crop" alt=""><div><b>David H.</b><div class="muted" style="font-size:.83rem">Appartement · Casablanca</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>« J'ai pu ouvrir ma SCI et investir à Essaouira en trois mois, tout à distance depuis Montréal. Communication parfaite. »</p>
+        <div class="testi-author"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&q=80&auto=format&fit=crop" alt=""><div><b>Camille L.</b><div class="muted" style="font-size:.83rem">Appartement · Essaouira</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VILLES -->
-<section class="villes">
-  <div class="villes-inner">
-    <div class="sec-eyebrow">Marchés couverts</div>
-    <h2 class="sec-h2">6 villes. 6 marchés.<br>1 équipe experte.</h2>
-    <div class="villes-grid">
-      <div class="ville"><div class="ville-ph" style="background-image:url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=500&q=75&auto=format&fit=crop')"><div class="ville-nm">Marrakech</div><div class="ville-rt">8–12%</div></div><div class="ville-bd"><div class="ville-st"><span>Transactions 2025</span><b>+24,1%</b></div><div class="ville-st"><span>Prix moyen m²</span><b>18 000 MAD</b></div></div></div>
-      <div class="ville"><div class="ville-ph" style="background-image:url('https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=500&q=75&auto=format&fit=crop')"><div class="ville-nm">Tanger</div><div class="ville-rt">6–9%</div></div><div class="ville-bd"><div class="ville-st"><span>Croissance 14 ans</span><b>+52%</b></div><div class="ville-st"><span>Prix moyen m²</span><b>14 000 MAD</b></div></div></div>
-      <div class="ville"><div class="ville-ph" style="background-image:url('https://images.unsplash.com/photo-1577048982768-5cb3e7ddfa23?w=500&q=75&auto=format&fit=crop')"><div class="ville-nm">Casablanca</div><div class="ville-rt">5–7%</div></div><div class="ville-bd"><div class="ville-st"><span>Transactions 2025</span><b>+3,1%</b></div><div class="ville-st"><span>Prix moyen m²</span><b>22 000 MAD</b></div></div></div>
-      <div class="ville"><div class="ville-ph" style="background-image:url('https://images.unsplash.com/photo-1611174797137-1f9d8e2e8d9a?w=500&q=75&auto=format&fit=crop')"><div class="ville-nm">Rabat</div><div class="ville-rt">4–6%</div></div><div class="ville-bd"><div class="ville-st"><span>Capitale</span><b>Stable & sécurisé</b></div><div class="ville-st"><span>Prix moyen m²</span><b>16 000 MAD</b></div></div></div>
-      <div class="ville"><div class="ville-ph" style="background-image:url('https://images.unsplash.com/photo-1590069261209-f8e9b8642343?w=500&q=75&auto=format&fit=crop')"><div class="ville-nm">Essaouira</div><div class="ville-rt">7–9%</div></div><div class="ville-bd"><div class="ville-st"><span>Clientèle</span><b>CSP+ européenne</b></div><div class="ville-st"><span>Prix moyen m²</span><b>12 000 MAD</b></div></div></div>
-      <div class="ville"><div class="ville-ph" style="background-image:url('https://images.unsplash.com/photo-1548013146-72479768bada?w=500&q=75&auto=format&fit=crop')"><div class="ville-nm">Fès</div><div class="ville-rt">5–8%</div></div><div class="ville-bd"><div class="ville-st"><span>UNESCO</span><b>Médina classée</b></div><div class="ville-st"><span>Prix moyen m²</span><b>10 000 MAD</b></div></div></div>
+<!-- ===== CTA FINAL ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="card center" style="background:var(--noir);color:#fff;border:none;padding:60px 30px">
+      <h2 style="color:#fff">Prêt à faire travailler votre capital&nbsp;?</h2>
+      <p style="color:#bdbdb8;max-width:520px;margin:12px auto 26px">Démarrons ensemble votre projet d'investissement locatif au Maroc — gratuitement et sans engagement.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="formulaire.html" class="btn btn-vert btn-lg">Démarrer mon projet</a>
+        <a href="marketplace.html" class="btn btn-ghost btn-lg" style="color:#fff;border-color:#444">Voir les biens</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="proc">
-  <div class="proc-inner">
-    <div class="sec-eyebrow">Comment ça marche</div>
-    <h2 class="sec-h2">De l'idée à la première réservation<br>en 30 jours.</h2>
-    <div class="proc-grid">
-      <div class="proc-step"><div class="ps-num">01</div><div class="ps-t">Votre profil</div><p class="ps-d">Remplissez le formulaire découverte en 3 minutes. On qualifie votre projet automatiquement.</p></div>
-      <div class="proc-step"><div class="ps-num">02</div><div class="ps-t">On trouve</div><p class="ps-d">Nos chasseurs sourcent les biens off-market correspondant exactement à votre cahier des charges.</p></div>
-      <div class="proc-step"><div class="ps-num">03</div><div class="ps-t">On aménage</div><p class="ps-d">SmartDéco livre et installe l'ameublement complet. Votre bien prêt à louer en 15 jours.</p></div>
-      <div class="proc-step"><div class="ps-num">04</div><div class="ps-t">Vous encaissez</div><p class="ps-d">On gère tout — Airbnb, Booking, check-in, ménage. Vos revenus arrivent chaque mois.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <div class="cta-inner">
-    <h2>Prêt à investir <em>intelligemment</em> ?</h2>
-    <p>Rejoignez les investisseurs MRE et étrangers qui font confiance à SmartBnB pour gérer leur patrimoine au Maroc.</p>
-    <div class="cta-btns">
-      <a href="formulaire-decouverte.html" class="btn-gold">Démarrer mon projet →</a>
-      <a href="https://wa.me/212775961740" class="btn-white-outline">💬 WhatsApp · +212 775 961 740</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="ft-inner">
-    <span class="ft-logo">Smart<em>BNB</em></span>
-    <div class="ft-links">
-      <a href="services.html">Services</a>
-      <a href="marketplace.html">Marketplace</a>
-      <a href="smart-invest.html">Smart Invest</a>
-      <a href="sci.html">SCI</a>
-      <a href="marche.html">Marché</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <span class="ft-copy">© 2026 SmartBnB · contact.smartbnb@gmail.com · +212 775 961 740</span>
-  </div>
-</footer>
-
-<script src="js/chatbot.js"></script>
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
 <script>
-const CD={marrakech:{n:800,o:.78,r:9.8},tanger:{n:550,o:.70,r:7.8},casablanca:{n:620,o:.68,r:6.5},rabat:{n:480,o:.62,r:5.2},essaouira:{n:520,o:.65,r:7.2},fes:{n:420,o:.60,r:6.0}};
-const TM={studio:.72,appart:1,riad:1.45,villa:2.2};
-const SM={standard:.82,premium:1,luxe:1.35};
-let city='marrakech',type='appart',std='premium',pis=false,park=false;
-function sc(b){document.querySelectorAll('[data-c]').forEach(x=>x.classList.remove('on'));b.classList.add('on');city=b.dataset.c;calc()}
-function st2(b){document.querySelectorAll('[data-t]').forEach(x=>x.classList.remove('on'));b.classList.add('on');type=b.dataset.t;calc()}
-function ss(b){document.querySelectorAll('[data-s]').forEach(x=>x.classList.remove('on'));b.classList.add('on');std=b.dataset.s;calc()}
-function tog(el,k){el.classList.toggle('on');if(k==='p')pis=el.classList.contains('on');else park=el.classList.contains('on');calc()}
-function calc(){
-  const d=CD[city]||CD.marrakech;
-  const nb=+document.getElementById('nbc').value;
-  document.getElementById('nbc-v').textContent=nb;
-  let n=d.n*TM[type]*SM[std]*(1+(nb-1)*.15);
-  if(pis)n*=1.2;if(park)n*=1.05;
-  const o=Math.min(.93,d.o+(pis?.03:0));
-  const tot=Math.round(n*o*30);
-  const r=d.r*TM[type]*SM[std];
-  document.getElementById('rv').textContent=Math.round(tot).toLocaleString('fr-MA');
-  document.getElementById('rn').textContent=Math.round(n).toLocaleString('fr-MA');
-  document.getElementById('ro').textContent=Math.round(o*100)+'%';
-  document.getElementById('rr').textContent=r.toFixed(1)+'%';
+const bars=document.getElementById('bars');
+[55,62,48,78,84,92].forEach(h=>{const d=document.createElement('div');d.style.height=h+'%';bars.appendChild(d);});
+
+function quick(){
+  const r=simulate({ville:qCity.value,type:qType.value,standing:'premium',surface:80,chambres:2});
+  document.getElementById('qResult').textContent=fmt(r.mensuel)+' MAD';
 }
-calc();
+qType.onchange=qCity.onchange=quick; quick();
+
+const cityImg={
+  marrakech:'photo-1597211684565-dca64d72c2c9',
+  tanger:'photo-1570191037834-c0b8c4b6cd28',
+  casablanca:'photo-1577717903315-1691ae25ab3f',
+  rabat:'photo-1592861956120-e524fc739696',
+  essaouira:'photo-1531761535209-180857e963b9',
+  fes:'photo-1518105779142-d975f22f1b0a'
+};
+const cityDesc={
+  marrakech:'La capitale touristique. Riads et villas premium, demande LCD record.',
+  tanger:'Porte de l\'Europe en plein essor, marché LCD jeune et dynamique.',
+  casablanca:'Marché locatif d\'affaires solide, valeur patrimoniale élevée.',
+  rabat:'Capitale administrative, demande stable, ticket d\'entrée accessible.',
+  essaouira:'Destination balnéaire prisée, forte saisonnalité estivale.',
+  fes:'Capitale culturelle, riads authentiques au meilleur prix au m².'
+};
+const tabs=document.getElementById('cityTabs'), panel=document.getElementById('cityPanel');
+function renderCity(k){
+  const m=MARKET[k];
+  panel.innerHTML=`
+    <div style="min-height:320px;background:#eee">
+      <img src="https://images.unsplash.com/${cityImg[k]}?w=700&q=80&auto=format&fit=crop" alt="${m.nom}" style="height:100%;width:100%;object-fit:cover">
+    </div>
+    <div style="padding:34px">
+      <h3 style="font-size:1.7rem">${m.nom}</h3>
+      <p class="muted" style="margin:8px 0 18px">${cityDesc[k]}</p>
+      <div class="grid grid-2" style="gap:14px">
+        <div class="kpi"><div class="v" style="color:var(--vert)">${m.yield}%</div><div class="l">Rendement brut</div></div>
+        <div class="kpi"><div class="v">${Math.round(m.occ*100)}%</div><div class="l">Taux d'occupation</div></div>
+        <div class="kpi"><div class="v">${fmt(m.prixm2)}</div><div class="l">Prix moyen / m²</div></div>
+        <div class="kpi"><div class="v">${m.base}</div><div class="l">Base MAD / nuit</div></div>
+      </div>
+      <a href="investir.html" class="btn btn-primary" style="margin-top:18px">Découvrir ${m.nom}</a>
+    </div>`;
+}
+Object.keys(MARKET).forEach((k,i)=>{
+  const b=document.createElement('div'); b.className='chip'+(i===0?' active':''); b.textContent=MARKET[k].nom;
+  b.onclick=()=>{document.querySelectorAll('#cityTabs .chip').forEach(c=>c.classList.remove('active'));b.classList.add('active');renderCity(k);};
+  tabs.appendChild(b);
+});
+renderCity('marrakech');
 </script>
 </body>
 </html>

@@ -1,1475 +1,272 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartBnB — Mon profil acquéreur</title>
-<meta name="description" content="Quelques questions sur votre style de vie pour savoir quelle ville et quel quartier du Maroc vous correspondent vraiment.">
-<style>
-  :root {
-    --bg: #ffffff;
-    --surface: #fafaf7;
-    --surface-2: #f1efe8;
-    --ink: #1a1a1a;
-    --ink-soft: #5f5e5a;
-    --ink-muted: #888780;
-    --border: #d3d1c7;
-    --border-soft: #e8e6df;
-    --accent: #0f6e56;
-    --accent-soft: #e1f5ee;
-    --accent-dark: #04342c;
-    --warn-bg: #fef4e6;
-    --warn-text: #6b4310;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Inter", system-ui, sans-serif;
-    color: var(--ink); background: var(--surface);
-    line-height: 1.6; -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
-  }
-  .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
-  a { color: inherit; }
-
-  header { background: #fff; border-bottom: 1px solid var(--border); }
-  .nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; max-width: 1200px; margin: 0 auto;
-  }
-  .logo {
-    font-weight: 600; font-size: 18px; letter-spacing: -0.02em;
-    color: var(--ink); text-decoration: none;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .logo-mark {
-    width: 30px; height: 30px; background: var(--ink);
-    border-radius: 7px; display: inline-flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 14px; font-weight: 600;
-  }
-
-  .wizard { max-width: 760px; margin: 40px auto; padding: 0 24px; }
-
-  .intro { text-align: center; margin-bottom: 32px; }
-  .intro-eyebrow {
-    color: var(--accent); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
-  }
-  .intro h1 {
-    font-size: clamp(28px, 4vw, 38px);
-    line-height: 1.15; letter-spacing: -0.02em;
-    font-weight: 600; margin-bottom: 12px;
-  }
-  .intro p { color: var(--ink-soft); font-size: 16px; }
-
-  .progress {
-    background: var(--surface-2);
-    height: 6px; border-radius: 3px;
-    overflow: hidden; margin-bottom: 8px;
-  }
-  .progress-bar {
-    background: var(--accent); height: 100%;
-    transition: width 0.3s ease; width: 0%;
-  }
-  .progress-label {
-    text-align: right; font-size: 12px;
-    color: var(--ink-muted); margin-bottom: 24px;
-  }
-
-  .form-card {
-    background: #fff; border: 1px solid var(--border);
-    border-radius: 16px; padding: 40px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    min-height: 460px;
-    display: flex; flex-direction: column;
-  }
-
-  .step { display: none; flex: 1; flex-direction: column; }
-  .step.active { display: flex; }
-
-  .step-num {
-    color: var(--accent); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
-  }
-  .step h2 {
-    font-size: 22px; font-weight: 600;
-    letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3;
-  }
-  .step .step-help {
-    color: var(--ink-soft); font-size: 14px; margin-bottom: 24px;
-  }
-
-  .choices {
-    display: grid; gap: 10px; margin-bottom: 24px;
-  }
-  .choices.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .choices.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 540px) {
-    .choices.cols-2, .choices.cols-3 { grid-template-columns: 1fr; }
-    .form-card { padding: 24px; }
-  }
-
-  .choice {
-    border: 1.5px solid var(--border);
-    border-radius: 10px; padding: 16px;
-    cursor: pointer; background: #fff;
-    transition: all 0.15s;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .choice:hover { border-color: var(--ink); background: var(--surface); }
-  .choice.selected { border-color: var(--accent); background: var(--accent-soft); }
-  .choice .check {
-    width: 20px; height: 20px;
-    border: 1.5px solid var(--border);
-    border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-  }
-  .choice.selected .check { background: var(--accent); border-color: var(--accent); }
-  .choice.selected .check::after { content: "✓"; color: white; font-size: 12px; font-weight: 600; }
-  .choice .icon-emoji { font-size: 22px; flex-shrink: 0; line-height: 1; }
-  .choice .label { flex: 1; font-size: 14px; font-weight: 500; }
-  .choice .sublabel {
-    font-size: 12px; color: var(--ink-muted);
-    margin-top: 2px; display: block; font-weight: 400;
-  }
-
-  /* Slider question (échelle 1-5) */
-  .slider-q {
-    margin-bottom: 28px;
-    padding: 20px;
-    background: var(--surface);
-    border-radius: 10px;
-    border: 1px solid var(--border-soft);
-  }
-  .slider-q label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .slider-q .extremes {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--ink-muted);
-    margin-bottom: 12px;
-  }
-  .slider-q input[type=range] {
-    width: 100%;
-    accent-color: var(--accent);
-  }
-  .slider-q .scale {
-    display: flex; justify-content: space-between;
-    margin-top: 4px;
-    font-size: 11px; color: var(--ink-muted);
-  }
-
-  .input-group { margin-bottom: 20px; }
-  .input-group label {
-    display: block; font-size: 13px; font-weight: 500;
-    margin-bottom: 6px; color: var(--ink);
-  }
-  .input-group input, .input-group select, .input-group textarea {
-    width: 100%; padding: 12px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px; font-size: 14px;
-    font-family: inherit; background: #fff;
-    transition: border-color 0.15s;
-  }
-  .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
-    outline: none; border-color: var(--accent);
-  }
-  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 540px) { .input-grid { grid-template-columns: 1fr; } }
-
-  .actions {
-    display: flex; justify-content: space-between;
-    margin-top: auto; padding-top: 24px;
-    border-top: 1px solid var(--border-soft);
-  }
-  .btn {
-    padding: 12px 24px; border-radius: 8px;
-    font-size: 14px; font-weight: 500;
-    cursor: pointer; border: none;
-    font-family: inherit; transition: all 0.15s;
-  }
-  .btn-prev { background: transparent; color: var(--ink-soft); }
-  .btn-prev:hover { color: var(--ink); }
-  .btn-next { background: var(--ink); color: #fff; }
-  .btn-next:hover { background: #333; }
-  .btn-next.accent { background: var(--accent); }
-  .btn-next.accent:hover { background: var(--accent-dark); }
-  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  /* Résultats */
-  .archetype-card {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-    color: white;
-    border-radius: 14px;
-    padding: 32px;
-    margin-bottom: 24px;
-    text-align: center;
-  }
-  .archetype-label {
-    font-size: 11px; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 12px;
-  }
-  .archetype-name {
-    font-size: 28px; font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
-  .archetype-desc {
-    font-size: 14px;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.6;
-    max-width: 540px;
-    margin: 0 auto;
-  }
-
-  .city-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-  .city-rank {
-    display: inline-flex;
-    align-items: center; justify-content: center;
-    width: 28px; height: 28px;
-    background: var(--ink); color: white;
-    border-radius: 50%;
-    font-size: 13px; font-weight: 600;
-    margin-bottom: 12px;
-  }
-  .city-rank.gold { background: var(--accent); }
-  .city-name {
-    font-size: 22px; font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-  .city-tagline {
-    color: var(--ink-soft);
-    font-size: 14px; margin-bottom: 16px;
-  }
-  .city-reason {
-    font-size: 14px; color: var(--ink);
-    background: var(--surface);
-    padding: 14px; border-radius: 8px;
-    margin-bottom: 16px;
-    border-left: 3px solid var(--accent);
-  }
-  .quartiers {
-    display: grid; gap: 10px;
-  }
-  .quartier {
-    display: flex; gap: 12px;
-    padding: 12px;
-    background: var(--surface); border-radius: 8px;
-    align-items: flex-start;
-  }
-  .quartier-tag {
-    background: var(--accent-soft);
-    color: var(--accent-dark);
-    padding: 4px 10px; border-radius: 6px;
-    font-size: 11px; font-weight: 600;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-  .quartier-text {
-    font-size: 13px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
-  .quartier-text strong { color: var(--ink); font-weight: 600; }
-  .price-hint {
-    margin-top: 14px; padding-top: 14px;
-    border-top: 1px dashed var(--border-soft);
-    font-size: 12px; color: var(--ink-muted);
-  }
-  .price-hint strong { color: var(--ink-soft); }
-
-  .disclaimer {
-    background: var(--warn-bg);
-    border: 1px solid #f7d99c;
-    border-radius: 10px;
-    padding: 16px 20px;
-    font-size: 13px;
-    color: var(--warn-text);
-    line-height: 1.6;
-    margin: 24px 0;
-  }
-  .disclaimer strong { color: #4a2c08; display: block; margin-bottom: 4px; font-weight: 600; }
-
-  .results-cta {
-    text-align: center;
-    padding: 28px 20px;
-    background: var(--accent-soft);
-    border-radius: 12px;
-    margin-top: 24px;
-  }
-  .results-cta h3 {
-    font-size: 18px; font-weight: 600;
-    color: var(--accent-dark); margin-bottom: 8px;
-  }
-  .results-cta p {
-    color: var(--accent-dark); opacity: 0.85;
-    font-size: 14px; margin-bottom: 16px;
-  }
-  .results-cta .btn-row {
-    display: flex; gap: 10px; justify-content: center;
-    flex-wrap: wrap;
-  }
-  .btn-cta {
-    padding: 11px 22px; border-radius: 8px;
-    font-size: 14px; font-weight: 500;
-    text-decoration: none; display: inline-block;
-  }
-  .btn-cta.primary { background: var(--accent); color: white; }
-  .btn-cta.secondary {
-    background: white; color: var(--accent-dark);
-    border: 1px solid var(--accent);
-  }
-
-  .restart {
-    text-align: center; margin-top: 16px;
-    font-size: 13px;
-  }
-  .restart button {
-    background: transparent; border: none;
-    color: var(--ink-muted); text-decoration: underline;
-    cursor: pointer; font-family: inherit; font-size: 13px;
-  }
-
-  footer {
-    text-align: center; padding: 20px;
-    color: var(--ink-muted); font-size: 12px;
-  }
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Profil acquéreur & mandat de chasse — SmartBNB</title>
+<meta name="description" content="Définissez votre profil acquéreur précis : villes, budget, rendement cible. Nos chasseurs SmartBNB dénichent pour vous le bien off-market idéal au Maroc.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
-<header>
-  <nav class="nav">
-    <a href="index.html" class="logo">
-      <span class="logo-mark">S</span>
-      <span>SmartBnB</span>
-    </a>
-  </nav>
+<!-- ===== HERO ===== -->
+<header class="wrap hero" style="padding-bottom:36px">
+  <div style="max-width:740px">
+    <span class="eyebrow">Mandat de chasse immobilière</span>
+    <h1 style="margin:16px 0 14px">Donnez à nos chasseurs le portrait-robot de <span style="color:var(--vert)">votre bien idéal.</span></h1>
+    <p class="lead">Le mandat de chasse, c'est un profil d'acquisition précis : villes, budget, surface, rendement cible et exigences. Plus vos critères sont nets, plus nos chasseurs déballent vite les bonnes opportunités — y compris off-market, jamais publiées.</p>
+  </div>
 </header>
 
-<div class="wizard">
-  <div class="intro">
-    <div class="intro-eyebrow">Mon profil acquéreur</div>
-    <h1>Quel Maroc vous ressemble vraiment ?</h1>
-    <p>Quelques questions sur votre quotidien et vos envies. En 3 minutes, nous identifions les villes et les quartiers qui correspondent à votre mode de vie.</p>
-  </div>
+<!-- ===== FORM ===== -->
+<section class="section" style="padding-top:20px">
+  <div class="wrap" style="max-width:820px">
+    <div class="card" id="formCard">
+      <h2 style="font-size:1.6rem;margin-bottom:6px">Votre profil acquéreur</h2>
+      <p class="muted" style="margin-bottom:24px">Complétez ces critères : un chasseur SmartBNB vous recontacte sous 24h ouvrées.</p>
 
-  <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
-  <div class="progress-label">
-    <span id="progress-text">Étape 1 sur 8</span>
-  </div>
+      <!-- villes -->
+      <div class="field">
+        <label>Villes recherchées <span class="muted">(sélection multiple)</span></label>
+        <div class="chips" id="villes"></div>
+      </div>
 
-  <div class="form-card">
+      <!-- types -->
+      <div class="field">
+        <label>Types de biens <span class="muted">(sélection multiple)</span></label>
+        <div class="chips" id="types"></div>
+      </div>
 
-    <!-- ÉTAPE 1 — Composition du foyer -->
-    <div class="step active" data-step="1">
-      <div class="step-num">Étape 1 sur 8 — Foyer</div>
-      <h2>Qui vivra dans le bien ?</h2>
-      <p class="step-help">Cela oriente fortement vers certains quartiers (résidentiels familiaux vs centre-ville actif).</p>
-      <div class="choices">
-        <div class="choice" data-value="solo" onclick="selectChoice(this, 'household')">
-          <div class="check"></div>
-          <span class="icon-emoji">👤</span>
-          <div class="label">Moi seul(e)<span class="sublabel">Célibataire ou en mobilité solo</span></div>
+      <div class="divider"></div>
+
+      <!-- budget -->
+      <div class="row2">
+        <div class="field">
+          <label>Budget minimum : <b id="budMinVal">800 000</b> MAD</label>
+          <input type="range" id="budMin" min="300000" max="9000000" step="100000" value="800000">
         </div>
-        <div class="choice" data-value="couple" onclick="selectChoice(this, 'household')">
-          <div class="check"></div>
-          <span class="icon-emoji">👫</span>
-          <div class="label">En couple, sans enfant<span class="sublabel">Ou enfants déjà autonomes</span></div>
-        </div>
-        <div class="choice" data-value="family" onclick="selectChoice(this, 'household')">
-          <div class="check"></div>
-          <span class="icon-emoji">👨‍👩‍👧</span>
-          <div class="label">En famille, avec enfants à charge<span class="sublabel">Scolarisation à prévoir</span></div>
-        </div>
-        <div class="choice" data-value="retired" onclick="selectChoice(this, 'household')">
-          <div class="check"></div>
-          <span class="icon-emoji">🌅</span>
-          <div class="label">Retraité(e), seul(e) ou en couple<span class="sublabel">Recherche de qualité de vie</span></div>
+        <div class="field">
+          <label>Budget maximum : <b id="budMaxVal">2 500 000</b> MAD</label>
+          <input type="range" id="budMax" min="300000" max="9000000" step="100000" value="2500000">
         </div>
       </div>
-    </div>
 
-    <!-- ÉTAPE 2 — Enfants (conditionnelle) -->
-    <div class="step" data-step="2">
-      <div class="step-num">Étape 2 — Scolarité</div>
-      <h2 id="kids-title">Vos enfants</h2>
-      <p class="step-help" id="kids-help">L'écosystème scolaire varie fortement entre les villes. Ces réponses orientent les recommandations.</p>
+      <!-- surface + chambres -->
+      <div class="row2">
+        <div class="field">
+          <label>Surface minimum (m²)</label>
+          <input class="input" id="surfMin" type="number" min="15" step="5" value="60" placeholder="ex : 60">
+        </div>
+        <div class="field">
+          <label>Chambres minimum</label>
+          <select class="input" id="chambres">
+            <option value="1">1 chambre</option>
+            <option value="2" selected>2 chambres</option>
+            <option value="3">3 chambres</option>
+            <option value="4">4 chambres</option>
+            <option value="5">5 chambres</option>
+            <option value="6">6 chambres et +</option>
+          </select>
+        </div>
+      </div>
 
-      <div class="input-group">
-        <label>Combien d'enfants seront scolarisés au Maroc ?</label>
-        <select id="numKids">
-          <option value="">— Choisissez —</option>
-          <option value="0">Aucun</option>
-          <option value="1">1 enfant</option>
-          <option value="2">2 enfants</option>
-          <option value="3+">3 ou plus</option>
+      <!-- équipements -->
+      <div class="field">
+        <label>Équipements obligatoires</label>
+        <div class="grid grid-4" id="equip" style="gap:10px"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- objectifs -->
+      <div class="field">
+        <label>Objectifs d'investissement <span class="muted">(sélection multiple)</span></label>
+        <div class="chips" id="objectifs"></div>
+      </div>
+
+      <!-- rendement -->
+      <div class="field">
+        <label>Rendement brut cible : <b id="rendVal">8</b> %</label>
+        <input type="range" id="rend" min="4" max="12" step="0.5" value="8">
+      </div>
+
+      <!-- délai -->
+      <div class="field">
+        <label>Délai d'acquisition souhaité</label>
+        <select class="input" id="delai">
+          <option value="Immédiat">Immédiat — je suis prêt à acheter</option>
+          <option value="1 à 3 mois" selected>1 à 3 mois</option>
+          <option value="3 à 6 mois">3 à 6 mois</option>
+          <option value="Plus de 6 mois">Plus de 6 mois</option>
         </select>
       </div>
 
-      <div class="input-group" id="ageGroup">
-        <label>Tranche(s) d'âge concernée(s)</label>
-        <div class="choices cols-3" style="margin-bottom:0;">
-          <div class="choice" data-value="0-6" onclick="toggleMulti(this, 'kidsAges')">
-            <div class="check"></div>
-            <div class="label">0 à 6 ans<span class="sublabel">Maternelle</span></div>
-          </div>
-          <div class="choice" data-value="6-11" onclick="toggleMulti(this, 'kidsAges')">
-            <div class="check"></div>
-            <div class="label">6 à 11 ans<span class="sublabel">Primaire</span></div>
-          </div>
-          <div class="choice" data-value="12-18" onclick="toggleMulti(this, 'kidsAges')">
-            <div class="check"></div>
-            <div class="label">12 à 18 ans<span class="sublabel">Collège / Lycée</span></div>
-          </div>
-        </div>
+      <!-- notes -->
+      <div class="field">
+        <label>Notes complémentaires</label>
+        <textarea class="input" id="notes" placeholder="Précisez vos exigences : exposition, étage, quartier précis, état du bien, contraintes de financement…"></textarea>
       </div>
 
-      <div class="input-group" id="schoolGroup">
-        <label>Type d'école visée</label>
-        <select id="schoolType">
-          <option value="">— Choisissez —</option>
-          <option value="french-aefe">École française AEFE / OSUI</option>
-          <option value="french-private">École française privée homologuée</option>
-          <option value="spanish">École espagnole (Cervantes)</option>
-          <option value="american">École américaine ou internationale anglophone</option>
-          <option value="moroccan-private">École marocaine privée bilingue</option>
-          <option value="moroccan-public">École marocaine publique</option>
-          <option value="undecided">Pas encore décidé</option>
-        </select>
+      <div class="divider"></div>
+
+      <!-- contact -->
+      <h3 style="font-size:1.15rem;margin-bottom:14px">Vos coordonnées</h3>
+      <div class="row2">
+        <div class="field"><label>Prénom *</label><input class="input" id="cNom" placeholder="Votre prénom"></div>
+        <div class="field"><label>Téléphone *</label><input class="input" id="cTel" type="tel" placeholder="+33 6 12 34 56 78"></div>
       </div>
+      <div class="field"><label>Email *</label><input class="input" id="cEmail" type="email" placeholder="vous@email.com"></div>
+
+      <div class="notice" style="margin:6px 0 18px">Votre mandat est traité confidentiellement. Nos chasseurs activent immédiatement leur réseau d'apporteurs et de biens off-market.</div>
+
+      <button class="btn btn-vert btn-block btn-lg" id="submitBtn">Envoyer mon mandat de chasse</button>
     </div>
 
-    <!-- ÉTAPE 3 — Mode de vie -->
-    <div class="step" data-step="3">
-      <div class="step-num">Étape 3 sur 8 — Mode de vie</div>
-      <h2>Votre rythme idéal au quotidien</h2>
-      <p class="step-help">Plus c'est près de votre tempérament réel, plus la reco sera juste. Pas de bonne ou mauvaise réponse.</p>
-
-      <div class="slider-q">
-        <label>Animation du quartier</label>
-        <div class="extremes">
-          <span>← J'ai besoin de calme</span>
-          <span>J'aime l'animation →</span>
-        </div>
-        <input type="range" min="1" max="5" value="3" id="animation" oninput="captureSliders()">
-        <div class="scale">
-          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-        </div>
+    <!-- SUCCESS -->
+    <div class="card hide" id="successCard" style="text-align:center">
+      <div style="font-size:3rem">✓</div>
+      <h2 style="font-size:1.7rem;margin:8px 0">Mandat de chasse enregistré&nbsp;!</h2>
+      <p class="muted" style="max-width:520px;margin:0 auto 8px">Un chasseur SmartBNB analyse votre profil et vous recontacte sous 24h ouvrées avec ses premières pistes.</p>
+      <div class="card" style="background:var(--beige2);border:none;margin:22px 0;text-align:left" id="recap"></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="marketplace.html" class="btn btn-vert">Voir les biens disponibles</a>
+        <a href="https://wa.me/212775961740" target="_blank" class="btn btn-wa">Parler à un chasseur</a>
       </div>
-
-      <div class="slider-q">
-        <label>Densité humaine</label>
-        <div class="extremes">
-          <span>← Espace, faible densité</span>
-          <span>Vie de quartier, mixité →</span>
-        </div>
-        <input type="range" min="1" max="5" value="3" id="density" oninput="captureSliders()">
-        <div class="scale">
-          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-        </div>
-      </div>
-
-      <div class="slider-q">
-        <label>Authenticité vs confort moderne</label>
-        <div class="extremes">
-          <span>← Médina authentique</span>
-          <span>Quartier moderne →</span>
-        </div>
-        <input type="range" min="1" max="5" value="3" id="authenticity" oninput="captureSliders()">
-        <div class="scale">
-          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ÉTAPE 4 — Mobilité -->
-    <div class="step" data-step="4">
-      <div class="step-num">Étape 4 sur 8 — Mobilité</div>
-      <h2>Comment vous déplacez-vous ?</h2>
-      <p class="step-help">Les villes marocaines varient énormément en accessibilité piétonne et en qualité des transports.</p>
-
-      <div class="choices">
-        <div class="choice" data-value="car" onclick="selectChoice(this, 'mobility')">
-          <div class="check"></div>
-          <span class="icon-emoji">🚗</span>
-          <div class="label">Véhiculé(e) au quotidien<span class="sublabel">Distance et stationnement importent peu</span></div>
-        </div>
-        <div class="choice" data-value="walking" onclick="selectChoice(this, 'mobility')">
-          <div class="check"></div>
-          <span class="icon-emoji">🚶</span>
-          <div class="label">Plutôt à pied<span class="sublabel">Quartier marchable indispensable</span></div>
-        </div>
-        <div class="choice" data-value="mixed" onclick="selectChoice(this, 'mobility')">
-          <div class="check"></div>
-          <span class="icon-emoji">🚕</span>
-          <div class="label">Mix taxi / VTC / piéton<span class="sublabel">Mobilité flexible</span></div>
-        </div>
-        <div class="choice" data-value="public" onclick="selectChoice(this, 'mobility')">
-          <div class="check"></div>
-          <span class="icon-emoji">🚊</span>
-          <div class="label">Tramway et transports en commun<span class="sublabel">Casablanca et Rabat principalement</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ÉTAPE 5 — Cadre et environnement -->
-    <div class="step" data-step="5">
-      <div class="step-num">Étape 5 sur 8 — Cadre</div>
-      <h2>Le décor qui vous fait rêver</h2>
-      <p class="step-help">Sélection multiple. Cela aide à choisir entre une ville côtière, intérieure ou montagne.</p>
-
-      <div class="choices cols-2">
-        <div class="choice" data-value="sea" onclick="toggleMulti(this, 'environment')">
-          <div class="check"></div>
-          <span class="icon-emoji">🌊</span>
-          <div class="label">Mer ou océan à proximité<span class="sublabel">Vue ou accès rapide</span></div>
-        </div>
-        <div class="choice" data-value="medina" onclick="toggleMulti(this, 'environment')">
-          <div class="check"></div>
-          <span class="icon-emoji">🕌</span>
-          <div class="label">Médina, patrimoine<span class="sublabel">Architecture traditionnelle</span></div>
-        </div>
-        <div class="choice" data-value="green" onclick="toggleMulti(this, 'environment')">
-          <div class="check"></div>
-          <span class="icon-emoji">🌳</span>
-          <div class="label">Verdure et jardins<span class="sublabel">Quartier arboré</span></div>
-        </div>
-        <div class="choice" data-value="modern" onclick="toggleMulti(this, 'environment')">
-          <div class="check"></div>
-          <span class="icon-emoji">🏙️</span>
-          <div class="label">Skyline et modernité<span class="sublabel">Architecture contemporaine</span></div>
-        </div>
-        <div class="choice" data-value="mountains" onclick="toggleMulti(this, 'environment')">
-          <div class="check"></div>
-          <span class="icon-emoji">⛰️</span>
-          <div class="label">Montagnes ou nature à 1h<span class="sublabel">Atlas, Rif, etc.</span></div>
-        </div>
-        <div class="choice" data-value="quiet" onclick="toggleMulti(this, 'environment')">
-          <div class="check"></div>
-          <span class="icon-emoji">🌾</span>
-          <div class="label">Campagne périurbaine<span class="sublabel">Calme absolu</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ÉTAPE 6 — Sécurité et standing -->
-    <div class="step" data-step="6">
-      <div class="step-num">Étape 6 sur 8 — Standing</div>
-      <h2>Type de bien et environnement résidentiel</h2>
-      <p class="step-help">Cela conditionne le quartier et le budget.</p>
-
-      <div class="choices">
-        <div class="choice" data-value="gated" onclick="selectChoice(this, 'standing')">
-          <div class="check"></div>
-          <span class="icon-emoji">🔒</span>
-          <div class="label">Résidence fermée gardée 24/7<span class="sublabel">Sécurité maximale, services partagés</span></div>
-        </div>
-        <div class="choice" data-value="standard" onclick="selectChoice(this, 'standing')">
-          <div class="check"></div>
-          <span class="icon-emoji">🏢</span>
-          <div class="label">Immeuble standard avec syndic<span class="sublabel">Sécurité de quartier classique</span></div>
-        </div>
-        <div class="choice" data-value="riad" onclick="selectChoice(this, 'standing')">
-          <div class="check"></div>
-          <span class="icon-emoji">🏛️</span>
-          <div class="label">Riad ou maison traditionnelle<span class="sublabel">Bien indépendant, médina</span></div>
-        </div>
-        <div class="choice" data-value="villa" onclick="selectChoice(this, 'standing')">
-          <div class="check"></div>
-          <span class="icon-emoji">🏡</span>
-          <div class="label">Villa indépendante avec jardin<span class="sublabel">Espace, vie privée</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ÉTAPE 7 — Vie sociale -->
-    <div class="step" data-step="7">
-      <div class="step-num">Étape 7 sur 8 — Vie sociale</div>
-      <h2>L'ambiance que vous recherchez</h2>
-      <p class="step-help">Important pour anticiper le quotidien : services en français, communauté, langue d'usage.</p>
-
-      <div class="choices">
-        <div class="choice" data-value="expat" onclick="selectChoice(this, 'social')">
-          <div class="check"></div>
-          <span class="icon-emoji">🌍</span>
-          <div class="label">Communauté expatriée et MRE<span class="sublabel">Tout en français, repères européens</span></div>
-        </div>
-        <div class="choice" data-value="immersion" onclick="selectChoice(this, 'social')">
-          <div class="check"></div>
-          <span class="icon-emoji">🤝</span>
-          <div class="label">Immersion locale<span class="sublabel">Vivre comme les Marocains, parler darija</span></div>
-        </div>
-        <div class="choice" data-value="mix" onclick="selectChoice(this, 'social')">
-          <div class="check"></div>
-          <span class="icon-emoji">🌐</span>
-          <div class="label">Mix cosmopolite<span class="sublabel">Quartier mixte, ouvert à tous les publics</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ÉTAPE 8 — Usage du bien -->
-    <div class="step" data-step="8">
-      <div class="step-num">Étape 8 sur 8 — Usage</div>
-      <h2>Comment allez-vous utiliser le bien ?</h2>
-      <p class="step-help">Cela impacte la rentabilité locative à privilégier ou non.</p>
-
-      <div class="choices">
-        <div class="choice" data-value="primary" onclick="selectChoice(this, 'usage')">
-          <div class="check"></div>
-          <span class="icon-emoji">🏠</span>
-          <div class="label">Résidence principale<span class="sublabel">J'y vivrai au quotidien</span></div>
-        </div>
-        <div class="choice" data-value="secondary" onclick="selectChoice(this, 'usage')">
-          <div class="check"></div>
-          <span class="icon-emoji">🏖️</span>
-          <div class="label">Résidence secondaire<span class="sublabel">Vacances, week-ends, retraite future</span></div>
-        </div>
-        <div class="choice" data-value="hybrid" onclick="selectChoice(this, 'usage')">
-          <div class="check"></div>
-          <span class="icon-emoji">🔄</span>
-          <div class="label">Hybride : occupé + loué quand absent<span class="sublabel">Utilisation partagée toute l'année</span></div>
-        </div>
-        <div class="choice" data-value="rental" onclick="selectChoice(this, 'usage')">
-          <div class="check"></div>
-          <span class="icon-emoji">💰</span>
-          <div class="label">Investissement locatif pur<span class="sublabel">Rentabilité prioritaire</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ÉTAPE 9 — Coordonnées (avant résultats) -->
-    <div class="step" data-step="9">
-      <div class="step-num">Avant le résultat — Vos coordonnées</div>
-      <h2>Recevez votre profil par email</h2>
-      <p class="step-help">Nous vous envoyons votre profil détaillé avec les villes et quartiers compatibles. Un consultant SmartBnB vous recontacte sous 24h.</p>
-
-      <form name="profil-acquereur" netlify netlify-honeypot="bot-field" method="POST" id="netlify-form" style="display:contents">
-        <input type="hidden" name="form-name" value="profil-acquereur">
-        <input type="hidden" name="bot-field" style="display:none">
-        <input type="hidden" name="profil_data" id="hidden-profil" value="">
-
-        <div class="input-grid">
-          <div class="input-group">
-            <label>Prénom *</label>
-            <input type="text" id="firstname" name="prenom" required>
-          </div>
-          <div class="input-group">
-            <label>Nom *</label>
-            <input type="text" id="lastname" name="nom" required>
-          </div>
-        </div>
-        <div class="input-group">
-          <label>Email *</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div class="input-group">
-          <label>Téléphone (avec WhatsApp)</label>
-          <input type="tel" id="phone" name="telephone" placeholder="+33 6 12 34 56 78">
-        </div>
-        <div class="input-group">
-          <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
-            <input type="checkbox" id="consent" required style="width:auto;margin-top:4px;">
-            <span style="font-size:13px;color:var(--ink-soft);">J'accepte que SmartBnB utilise ces données pour me recontacter (loi 09-08 marocaine et RGPD européen).</span>
-          </label>
-        </div>
-      </form>
-    </div>
-
-    <!-- ÉTAPE 10 — Résultats -->
-    <div class="step" data-step="10">
-      <div class="step-num">Votre résultat</div>
-      <h2 style="margin-bottom:24px;">Voici votre profil et nos recommandations.</h2>
-      
-      <div id="results-content"></div>
-      
-      <div class="disclaimer">
-        <strong>Information indicative, pas un engagement.</strong>
-        Cette analyse est fondée sur vos déclarations et notre connaissance générale du marché marocain. Elle constitue un point de départ. Les fourchettes de prix sont issues de données publiques (Bank Al-Maghrib, Mubawab, Avito) et varient selon le bien précis. Une visio avec un consultant SmartBnB validera la faisabilité de votre budget et affinera les quartiers selon votre situation.
-      </div>
-
-      <div class="results-cta">
-        <h3>Prêt à concrétiser ?</h3>
-        <p>Réservons une visio de 30 minutes pour explorer concrètement les biens disponibles dans vos quartiers compatibles.</p>
-        <div class="btn-row">
-          <a href="mailto:contact.smartbnb@gmail.com" class="btn-cta primary">Réserver une visio</a>
-          <a href="https://wa.me/212775961740" class="btn-cta secondary">WhatsApp</a>
-        </div>
-      </div>
-
-      <div class="restart">
-        <button onclick="location.reload()">↻ Recommencer le questionnaire</button>
-      </div>
-    </div>
-
-    <div class="actions" id="actions">
-      <button type="button" class="btn btn-prev" id="btn-prev" onclick="prevStep()" style="visibility:hidden;">← Précédent</button>
-      <button type="button" class="btn btn-next" id="btn-next" onclick="nextStep()">Suivant →</button>
     </div>
   </div>
-</div>
+</section>
 
-<footer>
-  © 2026 SmartBnB — Données protégées (loi 09-08 / RGPD)
-</footer>
-
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
 <script>
-const TOTAL_STEPS = 9;
+const data={villes:[],types:[],objectifs:[],equip:[]};
 
-const formData = {
-  household: null,
-  numKids: '',
-  kidsAges: [],
-  schoolType: '',
-  animation: 3,
-  density: 3,
-  authenticity: 3,
-  mobility: null,
-  environment: [],
-  standing: null,
-  social: null,
-  usage: null,
-  firstname: '',
-  lastname: '',
-  email: '',
-  phone: '',
-  consent: false
+/* chips multi */
+function chipsMulti(elId,items,key){
+  const el=document.getElementById(elId);
+  items.forEach(t=>{
+    const c=document.createElement('div'); c.className='chip'; c.textContent=t;
+    c.onclick=()=>{
+      c.classList.toggle('active');
+      data[key]=c.classList.contains('active')?[...data[key],t]:data[key].filter(x=>x!==t);
+    };
+    el.appendChild(c);
+  });
+}
+chipsMulti('villes',Object.values(MARKET).map(m=>m.nom),'villes');
+chipsMulti('types',['Studio','Appartement','Riad','Villa'],'types');
+chipsMulti('objectifs',['Revenus LCD','Patrimoine','Résidence + LCD'],'objectifs');
+
+/* équipements checkboxes */
+const EQUIP=['Piscine','Parking','Terrasse','Climatisation','Ascenseur','Meublé','Off-market'];
+const equipEl=document.getElementById('equip');
+EQUIP.forEach(e=>{
+  const lab=document.createElement('label'); lab.className='check';
+  lab.innerHTML=`<input type="checkbox" value="${e}"> ${e}`;
+  const cb=lab.querySelector('input');
+  cb.onchange=()=>{
+    lab.classList.toggle('on',cb.checked);
+    data.equip=cb.checked?[...data.equip,e]:data.equip.filter(x=>x!==e);
+  };
+  equipEl.appendChild(lab);
+});
+
+/* sliders */
+const budMin=document.getElementById('budMin'), budMax=document.getElementById('budMax'),
+      rend=document.getElementById('rend');
+budMin.oninput=()=>{
+  if(+budMin.value>+budMax.value) budMax.value=budMin.value;
+  document.getElementById('budMinVal').textContent=fmt(+budMin.value);
+  document.getElementById('budMaxVal').textContent=fmt(+budMax.value);
 };
-
-let currentStep = 1;
-
-// =====================================================================
-// UTILS
-// =====================================================================
-
-function selectChoice(el, key) {
-  el.parentElement.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  formData[key] = el.dataset.value;
-  updateNextButton();
-}
-
-function toggleMulti(el, key) {
-  el.classList.toggle('selected');
-  const val = el.dataset.value;
-  if (el.classList.contains('selected')) {
-    if (!formData[key].includes(val)) formData[key].push(val);
-  } else {
-    formData[key] = formData[key].filter(v => v !== val);
-  }
-  updateNextButton();
-}
-
-function captureSliders() {
-  formData.animation = parseInt(document.getElementById('animation').value);
-  formData.density = parseInt(document.getElementById('density').value);
-  formData.authenticity = parseInt(document.getElementById('authenticity').value);
-}
-
-function captureFreeFields() {
-  if (currentStep === 2) {
-    formData.numKids = document.getElementById('numKids').value;
-    formData.schoolType = document.getElementById('schoolType').value;
-  }
-  if (currentStep === 3) captureSliders();
-  if (currentStep === 9) {
-    formData.firstname = document.getElementById('firstname').value;
-    formData.lastname = document.getElementById('lastname').value;
-    formData.email = document.getElementById('email').value;
-    formData.phone = document.getElementById('phone').value;
-    formData.consent = document.getElementById('consent').checked;
-  }
-}
-
-function isStepValid() {
-  switch (currentStep) {
-    case 1: return formData.household !== null;
-    case 2:
-      if (formData.household !== 'family') return true; // étape sautée
-      return formData.numKids !== '' && formData.schoolType !== '';
-    case 3: return true; // sliders ont valeurs par défaut
-    case 4: return formData.mobility !== null;
-    case 5: return formData.environment.length > 0;
-    case 6: return formData.standing !== null;
-    case 7: return formData.social !== null;
-    case 8: return formData.usage !== null;
-    case 9: return formData.firstname && formData.lastname &&
-                  formData.email && formData.email.includes('@') && formData.consent;
-    default: return true;
-  }
-}
-
-function updateNextButton() {
-  const btn = document.getElementById('btn-next');
-  if ([2, 3, 9].includes(currentStep)) captureFreeFields();
-  btn.disabled = !isStepValid();
-}
-
-function showStep(n) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  const target = document.querySelector(`.step[data-step="${n}"]`);
-  if (target) target.classList.add('active');
-
-  document.getElementById('btn-prev').style.visibility = n > 1 && n < 10 ? 'visible' : 'hidden';
-
-  const nextBtn = document.getElementById('btn-next');
-  if (n === 9) {
-    nextBtn.textContent = 'Voir mon profil →';
-    nextBtn.classList.add('accent');
-  } else if (n === 10) {
-    document.getElementById('actions').style.display = 'none';
-  } else {
-    nextBtn.textContent = 'Suivant →';
-    nextBtn.classList.remove('accent');
-  }
-
-  currentStep = n;
-  updateProgress();
-  updateNextButton();
-}
-
-function updateProgress() {
-  const display = currentStep <= TOTAL_STEPS ? currentStep : TOTAL_STEPS;
-  const pct = ((display - 1) / TOTAL_STEPS) * 100;
-  document.getElementById('progress-bar').style.width = (currentStep === 10 ? 100 : pct) + '%';
-  document.getElementById('progress-text').textContent = currentStep === 10
-    ? 'Terminé'
-    : `Étape ${display} sur ${TOTAL_STEPS}`;
-}
-
-function nextStep() {
-  captureFreeFields();
-  if (!isStepValid()) return;
-  
-  // Saute l'étape 2 si pas en famille
-  if (currentStep === 1 && formData.household !== 'family') {
-    showStep(3);
-    return;
-  }
-  
-  if (currentStep === 9) {
-    // Remplir les données cachées pour Netlify
-    document.getElementById('hidden-profil').value = JSON.stringify({
-      foyer: formData.household,
-      mobilite: formData.mobility,
-      environnement: formData.environment.join(', '),
-      standing: formData.standing,
-      vie_sociale: formData.social,
-      usage: formData.usage,
-      animation: formData.animation,
-      authenticite: formData.authenticity
-    });
-    // Soumettre silencieusement puis afficher résultats
-    const form = document.getElementById('netlify-form');
-    if (form) {
-      fetch('/', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: new URLSearchParams(new FormData(form)).toString()
-      }).catch(e => console.log('Netlify submit error:', e));
-    }
-    computeAndShowResults();
-    showStep(10);
-  } else {
-    showStep(currentStep + 1);
-  }
-}
-
-function prevStep() {
-  if (currentStep === 3 && formData.household !== 'family') {
-    showStep(1);
-  } else if (currentStep > 1) {
-    showStep(currentStep - 1);
-  }
-}
-
-document.addEventListener('change', () => { captureFreeFields(); updateNextButton(); });
-document.addEventListener('input', () => { captureFreeFields(); updateNextButton(); });
-
-// =====================================================================
-// MOTEUR DE MATCHING
-// =====================================================================
-
-const VILLES = {
-  casablanca: {
-    name: 'Casablanca',
-    tagline: 'La capitale économique, cosmopolite et moderne',
-    schools: ['Lyautey', 'Léon l\'Africain', 'Massignon', 'Maupassant', 'Al Jabr', 'EFI'],
-    quartiers: {
-      'gauthier-racine': { 
-        tag: 'Gauthier / Racine', 
-        desc: '<strong>Centre-ville cosmopolite, marchable.</strong> Cafés, restaurants, vie de quartier intense. Idéal jeunes actifs et couples sans enfant. Tramway accessible.',
-        priceHint: '~ 18 000 à 28 000 MAD/m² selon ancienneté'
-      },
-      'maarif': { 
-        tag: 'Maârif', 
-        desc: '<strong>Cœur dynamique avec offre commerciale dense.</strong> Bonne mixité, transports, écoles à proximité. Bon compromis vie urbaine et services.',
-        priceHint: '~ 15 000 à 22 000 MAD/m²'
-      },
-      'anfa': { 
-        tag: 'Anfa / Val d\'Anfa', 
-        desc: '<strong>Beaux quartiers résidentiels arborés.</strong> Villas et résidences haut de gamme. Proximité Lyautey et Massignon Anfa. Calme avec services.',
-        priceHint: '~ 25 000 à 50 000 MAD/m²'
-      },
-      'cil-bourgogne': { 
-        tag: 'CIL / Bourgogne', 
-        desc: '<strong>Résidentiel arboré et plus accessible.</strong> Villas et appartements familiaux. École Bizet à proximité. Ambiance familiale.',
-        priceHint: '~ 14 000 à 20 000 MAD/m²'
-      },
-      'ain-diab-corniche': { 
-        tag: 'Aïn Diab / Corniche', 
-        desc: '<strong>Bord de mer, quartier balnéaire.</strong> Restaurants, plages, vue océan. Moins central mais cadre de vie. Locatif courte durée intéressant.',
-        priceHint: '~ 20 000 à 35 000 MAD/m²'
-      },
-      'bouskoura-ville-verte': { 
-        tag: 'Bouskoura Ville Verte', 
-        desc: '<strong>Résidences sécurisées en périphérie sud.</strong> École Massignon Bouskoura sur place. Très prisé des familles MRE/expat. Voiture indispensable.',
-        priceHint: '~ 12 000 à 18 000 MAD/m²'
-      },
-      'sidi-maarouf': {
-        tag: 'Sidi Maârouf / Californie',
-        desc: '<strong>Résidentiel récent.</strong> Bon rapport qualité-prix, résidences fermées disponibles, accessibilité autoroute.',
-        priceHint: '~ 11 000 à 16 000 MAD/m²'
-      }
-    }
-  },
-  rabat: {
-    name: 'Rabat',
-    tagline: 'La capitale administrative, calme et institutionnelle',
-    schools: ['Descartes', 'Sophie Germain', 'Jacques Chirac', 'Malraux'],
-    quartiers: {
-      'agdal': { 
-        tag: 'Agdal', 
-        desc: '<strong>Quartier étudiant et tertiaire animé.</strong> Cafés, restaurants, école Cézanne. Marchable, tramway. Idéal couples et actifs.',
-        priceHint: '~ 18 000 à 26 000 MAD/m²'
-      },
-      'souissi': { 
-        tag: 'Souissi', 
-        desc: '<strong>Quartier diplomatique et résidentiel haut de gamme.</strong> Lycée Descartes, école Malraux et GS Jacques Chirac sur place. Calme, verdure, sécurité élevée.',
-        priceHint: '~ 22 000 à 40 000 MAD/m²'
-      },
-      'hay-riad': { 
-        tag: 'Hay Riad', 
-        desc: '<strong>Quartier moderne planifié, large et vert.</strong> Mall, bureaux, École belge. Voiture indispensable mais cadre de vie excellent. Très prisé MRE.',
-        priceHint: '~ 14 000 à 22 000 MAD/m²'
-      },
-      'centre-ville': { 
-        tag: 'Centre-ville / Hassan', 
-        desc: '<strong>Patrimoine, médina à pied.</strong> Authenticité, immeubles anciens. École Camus quartier Hassan. Plus dense, charme.',
-        priceHint: '~ 14 000 à 22 000 MAD/m²'
-      },
-      'temara-plage': {
-        tag: 'Témara Plage / Harhoura',
-        desc: '<strong>Bord de mer à 15 min de Rabat.</strong> Villas et résidences avec vue océan. Cadre balnéaire avec proximité capitale.',
-        priceHint: '~ 12 000 à 22 000 MAD/m²'
-      }
-    }
-  },
-  marrakech: {
-    name: 'Marrakech',
-    tagline: 'La perle du Sud, entre tradition et art de vivre',
-    schools: ['Victor Hugo', 'Jacques Majorelle'],
-    quartiers: {
-      'gueliz': { 
-        tag: 'Guéliz', 
-        desc: '<strong>Centre-ville moderne, cosmopolite.</strong> Cafés, galeries, restaurants. Marchable, ambiance internationale. Cœur de la vie sociale expat.',
-        priceHint: '~ 13 000 à 22 000 MAD/m²'
-      },
-      'hivernage': { 
-        tag: 'Hivernage', 
-        desc: '<strong>Hôtels prestigieux et résidences haut de gamme.</strong> Architecture soignée, proximité médina, jardins. Très prisé tourisme et secondaire.',
-        priceHint: '~ 18 000 à 30 000 MAD/m²'
-      },
-      'palmeraie': { 
-        tag: 'Palmeraie', 
-        desc: '<strong>Villas et riads dans les palmiers.</strong> Cadre exceptionnel, voiture indispensable, calme absolu. Idéal résidence secondaire et locatif premium.',
-        priceHint: 'Très variable selon la villa, 15 000 à 35 000 MAD/m²'
-      },
-      'medina': { 
-        tag: 'Médina (Mouassine, Kasbah)', 
-        desc: '<strong>Riads dans le tissu historique.</strong> Authenticité maximale, charme, mais véhicule à laisser hors médina. Locatif courte durée très rentable.',
-        priceHint: 'Riads de 1 à 5 M+ MAD selon état et taille'
-      },
-      'targa-amerchich': {
-        tag: 'Targa / Amerchich',
-        desc: '<strong>Résidentiel familial moderne.</strong> Bon rapport qualité-prix, école Victor Hugo accessible, ambiance plus locale.',
-        priceHint: '~ 9 000 à 14 000 MAD/m²'
-      },
-      'agdal-marrakech': {
-        tag: 'Agdal (Marrakech)',
-        desc: '<strong>Résidentiel arboré entre Guéliz et la palmeraie.</strong> Familial, calme, accessible.',
-        priceHint: '~ 10 000 à 16 000 MAD/m²'
-      }
-    }
-  },
-  tanger: {
-    name: 'Tanger',
-    tagline: 'Détroit, énergie et ouverture méditerranéenne',
-    schools: ['Regnault', 'Le Détroit'],
-    quartiers: {
-      'malabata': { 
-        tag: 'Malabata', 
-        desc: '<strong>Front de mer moderne en pleine expansion.</strong> Résidences neuves avec vue mer, voiture nécessaire. Locatif et secondaire.',
-        priceHint: '~ 12 000 à 20 000 MAD/m²'
-      },
-      'iberia-centre': { 
-        tag: 'Iberia / Centre', 
-        desc: '<strong>Centre-ville historique cosmopolite.</strong> Marchable, cafés, vie sociale, lycée Regnault. Charme tangérois.',
-        priceHint: '~ 13 000 à 20 000 MAD/m²'
-      },
-      'california': { 
-        tag: 'California', 
-        desc: '<strong>Quartier résidentiel sur les hauteurs.</strong> Vue mer, villas, cadre privilégié. Ambiance plus calme et standing.',
-        priceHint: '~ 14 000 à 24 000 MAD/m²'
-      },
-      'cap-spartel-achakar': {
-        tag: 'Cap Spartel / Achakar',
-        desc: '<strong>Bord d\'océan, hors ville.</strong> Villas et résidences face à l\'Atlantique. Cadre nature, voiture indispensable.',
-        priceHint: '~ 15 000 à 28 000 MAD/m²'
-      },
-      'medina-tanger': {
-        tag: 'Médina (Kasbah)',
-        desc: '<strong>Centre historique avec vue détroit.</strong> Maisons traditionnelles, charme authentique, locatif Airbnb très demandé.',
-        priceHint: 'Maisons de 800 k à 4 M MAD selon état'
-      }
-    }
-  },
-  fes: {
-    name: 'Fès',
-    tagline: 'Capitale spirituelle et patrimoine UNESCO',
-    schools: ['Jean de la Fontaine (collège, dépendant Paul Valéry Meknès)'],
-    quartiers: {
-      'medina-fes': { 
-        tag: 'Médina (Fès el-Bali)', 
-        desc: '<strong>Plus grande médina vivante au monde.</strong> Riads d\'exception, patrimoine UNESCO. Ciblage marqué résidence de charme et locatif culturel.',
-        priceHint: 'Riads de 600 k à 3 M+ MAD selon taille et restauration'
-      },
-      'ville-nouvelle': { 
-        tag: 'Ville Nouvelle (Atlas, Champs de Course)', 
-        desc: '<strong>Quartiers modernes, services européens.</strong> Plus accessible voiture, vie quotidienne pratique.',
-        priceHint: '~ 8 000 à 14 000 MAD/m²'
-      },
-      'route-immouzer': {
-        tag: 'Route d\'Immouzer / Aïn Chkeff',
-        desc: '<strong>Périphérie résidentielle moderne.</strong> Villas, résidences neuves, accès rapide centre.',
-        priceHint: '~ 9 000 à 13 000 MAD/m²'
-      }
-    }
-  },
-  essaouira: {
-    name: 'Essaouira',
-    tagline: 'Mogador, vent, lumière et art de vivre océanique',
-    schools: ['Pas d\'école française AEFE/OSUI sur place'],
-    quartiers: {
-      'medina-essaouira': { 
-        tag: 'Médina', 
-        desc: '<strong>Cité fortifiée patrimoine UNESCO.</strong> Riads, ruelles bleues et blanches, ocean au pas de la porte. Locatif Airbnb très rentable.',
-        priceHint: 'Riads de 600 k à 2,5 M MAD selon état'
-      },
-      'borj-1-2': { 
-        tag: 'Borj 1 et Borj 2', 
-        desc: '<strong>Quartiers récents en bord de mer.</strong> Résidences modernes vue océan, calme, prisés des MRE et secondaires.',
-        priceHint: '~ 14 000 à 22 000 MAD/m²'
-      },
-      'diabat': {
-        tag: 'Diabat / Mogador',
-        desc: '<strong>Hors ville, cadre golf et plage.</strong> Villas et résidences haut de gamme, isolement préservé.',
-        priceHint: '~ 16 000 à 28 000 MAD/m²'
-      }
-    }
-  }
+budMax.oninput=()=>{
+  if(+budMax.value<+budMin.value) budMin.value=budMax.value;
+  document.getElementById('budMinVal').textContent=fmt(+budMin.value);
+  document.getElementById('budMaxVal').textContent=fmt(+budMax.value);
 };
+rend.oninput=()=>{ document.getElementById('rendVal').textContent=rend.value; };
 
-const ARCHETYPES = {
-  expat_family_school: {
-    name: "La famille internationale en quête d'équilibre",
-    desc: "Vous cherchez avant tout un environnement sûr, lumineux et résidentiel, à proximité d'une école française reconnue. Vos enfants doivent pouvoir aller à l'école sans trop de déplacements, et vous voulez retrouver un cadre proche de l'Europe avec des services adaptés."
-  },
-  cosmopolitan_active: {
-    name: "Le citadin cosmopolite",
-    desc: "Vous aimez la ville, l'animation, les terrasses et la vie de quartier. Vous voulez tout faire à pied ou en taxi, sans voiture. La diversité culturelle, les cafés, le mix social vous nourrissent au quotidien."
-  },
-  authentic_seeker: {
-    name: "Le chercheur d'authenticité",
-    desc: "Vous fuyez les centres commerciaux et le standing aseptisé. Vous voulez un riad ou une maison de caractère, le grain du temps, l'odeur des épices, le bruit de la médina au matin. Vous acceptez l'inconfort relatif pour le sens."
-  },
-  beach_lover: {
-    name: "Le résident océanique",
-    desc: "La mer ou l'océan ne sont pas un bonus, c'est une condition. Vous voulez voir l'eau de votre fenêtre, ou pouvoir y marcher en quelques minutes. Le sel dans l'air, le rythme des vagues : tout part de là."
-  },
-  retiree_quiet: {
-    name: "Le retraité serein",
-    desc: "Vous avez fini de courir. Vous voulez du calme, de la verdure, des services médicaux et commerciaux à proximité, et une communauté pour ne pas se sentir isolé. Sécurité et confort sont prioritaires."
-  },
-  yield_investor: {
-    name: "L'investisseur rendement",
-    desc: "Votre logique est financière. Vous cherchez le meilleur compromis entre prix d'acquisition, demande locative courte durée et liquidité à la revente. Le coup de cœur passe après les chiffres."
-  },
-  modern_family: {
-    name: "La famille résidentielle moderne",
-    desc: "Vous voulez le confort d'une résidence sécurisée, les services partagés (piscine, gardien, parking), un quartier propre et calme pour les enfants, sans renoncer à la proximité des commerces et écoles."
-  }
-};
+/* submit */
+document.getElementById('submitBtn').onclick=submit;
 
-function computeArchetype() {
-  // Famille avec scolarisation
-  if (formData.household === 'family' && (formData.schoolType === 'french-aefe' || formData.schoolType === 'french-private' || formData.schoolType === 'american' || formData.schoolType === 'spanish')) {
-    return 'expat_family_school';
-  }
-  // Famille standard
-  if (formData.household === 'family' && formData.standing === 'gated') {
-    return 'modern_family';
-  }
-  // Investissement pur
-  if (formData.usage === 'rental') {
-    return 'yield_investor';
-  }
-  // Retraités
-  if (formData.household === 'retired') {
-    return 'retiree_quiet';
-  }
-  // Authenticité forte
-  if (formData.authenticity <= 2 || formData.environment.includes('medina') || formData.standing === 'riad') {
-    return 'authentic_seeker';
-  }
-  // Cosmopolite
-  if (formData.mobility === 'walking' && formData.animation >= 4) {
-    return 'cosmopolitan_active';
-  }
-  // Mer / océan
-  if (formData.environment.includes('sea') && formData.environment.length <= 2) {
-    return 'beach_lover';
-  }
-  // Defaults
-  if (formData.household === 'family') return 'modern_family';
-  return 'cosmopolitan_active';
-}
+async function submit(){
+  const nom=document.getElementById('cNom').value.trim();
+  const email=document.getElementById('cEmail').value.trim();
+  const tel=document.getElementById('cTel').value.trim();
+  if(!data.villes.length){ toast('Sélectionnez au moins une ville'); return; }
+  if(!data.types.length){ toast('Sélectionnez au moins un type de bien'); return; }
+  if(!data.objectifs.length){ toast('Sélectionnez au moins un objectif'); return; }
+  if(!nom||!email||!tel){ toast('Renseignez prénom, email et téléphone'); return; }
 
-function computeCityScores() {
-  const scores = { casablanca: 0, rabat: 0, marrakech: 0, tanger: 0, fes: 0, essaouira: 0 };
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>';
 
-  // Scolarité française
-  const wantsFrenchSchool = formData.schoolType === 'french-aefe' || formData.schoolType === 'french-private';
-  if (wantsFrenchSchool) {
-    scores.casablanca += 30; // réseau le plus dense
-    scores.rabat += 28;
-    scores.marrakech += 18;
-    scores.tanger += 15;
-    scores.fes += 5; // collège seulement
-    scores.essaouira -= 30; // pénalité forte, pas d'école
-  }
-  if (formData.schoolType === 'spanish') {
-    scores.tanger += 20; // proximité Espagne
-    scores.casablanca += 10;
-  }
-  if (formData.schoolType === 'american') {
-    scores.casablanca += 20;
-    scores.rabat += 15;
-    scores.marrakech += 8;
-  }
+  const budMinV=+budMin.value, budMaxV=+budMax.value;
+  const surfMin=+document.getElementById('surfMin').value||0;
+  const chambres=document.getElementById('chambres').value;
+  const rendCible=document.getElementById('rend').value;
+  const delai=document.getElementById('delai').value;
+  const notes=document.getElementById('notes').value.trim();
 
-  // Mobilité piétonne
-  if (formData.mobility === 'walking') {
-    scores.marrakech += 10; // médina + Guéliz
-    scores.tanger += 10; // centre marchable
-    scores.fes += 12; // médina
-    scores.essaouira += 15; // toute la ville se fait à pied
-    scores.casablanca += 5;
-    scores.rabat += 8;
-  }
-  if (formData.mobility === 'public') {
-    scores.casablanca += 15; // tramway
-    scores.rabat += 15; // tramway
-  }
-  if (formData.mobility === 'car') {
-    scores.casablanca += 5;
-    scores.rabat += 5;
-    scores.marrakech += 5;
-  }
-
-  // Environnement
-  if (formData.environment.includes('sea')) {
-    scores.tanger += 18;
-    scores.essaouira += 18;
-    scores.casablanca += 8; // Aïn Diab
-    scores.rabat += 5; // Témara
-    scores.marrakech -= 10;
-    scores.fes -= 10;
-  }
-  if (formData.environment.includes('medina')) {
-    scores.fes += 20;
-    scores.marrakech += 15;
-    scores.tanger += 10;
-    scores.essaouira += 12;
-    scores.rabat += 5;
-  }
-  if (formData.environment.includes('green')) {
-    scores.rabat += 10;
-    scores.casablanca += 5;
-    scores.marrakech += 8;
-  }
-  if (formData.environment.includes('modern')) {
-    scores.casablanca += 12;
-    scores.rabat += 10;
-    scores.tanger += 6;
-  }
-  if (formData.environment.includes('mountains')) {
-    scores.marrakech += 12; // Atlas
-    scores.fes += 8; // Moyen Atlas
-  }
-
-  // Animation
-  if (formData.animation >= 4) {
-    scores.casablanca += 12;
-    scores.marrakech += 10;
-    scores.tanger += 8;
-  } else if (formData.animation <= 2) {
-    scores.essaouira += 10;
-    scores.fes += 5;
-    scores.rabat += 8;
-  }
-
-  // Authenticité
-  if (formData.authenticity <= 2) {
-    scores.fes += 12;
-    scores.marrakech += 10;
-    scores.essaouira += 8;
-    scores.tanger += 5;
-  } else if (formData.authenticity >= 4) {
-    scores.casablanca += 10;
-    scores.rabat += 8;
-  }
-
-  // Standing riad
-  if (formData.standing === 'riad') {
-    scores.marrakech += 15;
-    scores.fes += 18;
-    scores.essaouira += 12;
-    scores.tanger += 8;
-    scores.casablanca -= 15;
-    scores.rabat -= 10;
-  }
-  if (formData.standing === 'gated') {
-    scores.casablanca += 12;
-    scores.rabat += 10;
-    scores.marrakech += 6;
-  }
-  if (formData.standing === 'villa') {
-    scores.marrakech += 10;
-    scores.casablanca += 6;
-    scores.rabat += 6;
-  }
-
-  // Vie sociale
-  if (formData.social === 'expat') {
-    scores.casablanca += 10;
-    scores.rabat += 10;
-    scores.marrakech += 8;
-    scores.tanger += 6;
-  }
-  if (formData.social === 'immersion') {
-    scores.fes += 12;
-    scores.marrakech += 6;
-    scores.essaouira += 8;
-  }
-
-  // Usage rentabilité LCD
-  if (formData.usage === 'rental' || formData.usage === 'hybrid') {
-    scores.marrakech += 15; // marché LCD le plus mature
-    scores.essaouira += 10;
-    scores.tanger += 8;
-    scores.casablanca += 5;
-    scores.fes += 8;
-  }
-  if (formData.usage === 'primary') {
-    scores.casablanca += 8;
-    scores.rabat += 8;
-  }
-
-  // Retraite
-  if (formData.household === 'retired') {
-    scores.essaouira += 10;
-    scores.marrakech += 12;
-    scores.rabat += 8;
-    scores.tanger += 6;
-  }
-
-  return scores;
-}
-
-function getTopQuartiers(cityKey) {
-  const ville = VILLES[cityKey];
-  const allQuartiers = Object.entries(ville.quartiers);
-  
-  const scored = allQuartiers.map(([key, q]) => {
-    let score = 0;
-    const t = (q.tag + ' ' + q.desc).toLowerCase();
-
-    // Scolarité française
-    if ((formData.schoolType === 'french-aefe' || formData.schoolType === 'french-private') && t.includes('école')) {
-      score += 15;
-    }
-    
-    // Cas spécifique standing riad
-    if (formData.standing === 'riad' && (t.includes('médina') || t.includes('riad'))) score += 25;
-    if (formData.standing === 'riad' && !t.includes('médina') && !t.includes('riad')) score -= 15;
-    
-    // Standing résidence fermée
-    if (formData.standing === 'gated' && (t.includes('résidences sécurisées') || t.includes('résidences'))) score += 12;
-    if (formData.standing === 'gated' && t.includes('médina')) score -= 20;
-    
-    // Standing villa
-    if (formData.standing === 'villa' && (t.includes('villa') || t.includes('résidentiel'))) score += 12;
-    
-    // Mobilité piétonne
-    if (formData.mobility === 'walking' && (t.includes('marchable') || t.includes('cafés'))) score += 10;
-    if (formData.mobility === 'walking' && t.includes('voiture indispensable')) score -= 15;
-    if (formData.mobility === 'car' && t.includes('voiture indispensable')) score += 5;
-    
-    // Environnement
-    if (formData.environment.includes('sea') && (t.includes('mer') || t.includes('océan') || t.includes('plage'))) score += 15;
-    if (formData.environment.includes('medina') && t.includes('médina')) score += 15;
-    if (formData.environment.includes('green') && (t.includes('arboré') || t.includes('verdure') || t.includes('palmiers') || t.includes('jardin'))) score += 10;
-    
-    // Animation
-    if (formData.animation >= 4 && (t.includes('animation') || t.includes('cafés') || t.includes('vie de quartier') || t.includes('cosmopolite') || t.includes('dynamique'))) score += 10;
-    if (formData.animation <= 2 && (t.includes('calme') || t.includes('résidentiel'))) score += 10;
-    
-    // Authenticité
-    if (formData.authenticity <= 2 && (t.includes('authentique') || t.includes('médina') || t.includes('historique') || t.includes('charme'))) score += 12;
-    if (formData.authenticity >= 4 && (t.includes('moderne') || t.includes('neuves') || t.includes('contemporain'))) score += 12;
-
-    // Usage rentabilité
-    if (formData.usage === 'rental' && (t.includes('locatif') || t.includes('airbnb') || t.includes('rentable') || t.includes('rentabilité'))) score += 10;
-    
-    return { key, q, score };
+  /* Supabase mandat */
+  await sbInsert('client_mandats',{
+    client:nom,
+    villes:data.villes,
+    types:data.types,
+    budget_min:budMinV,
+    budget_max:budMaxV,
+    surface_min:surfMin,
+    objectifs:data.objectifs,
+    rendement_cible:rendCible
   });
 
-  scored.sort((a, b) => b.score - a.score);
-  return scored.slice(0, 3).map(s => s.q);
-}
-
-function computeAndShowResults() {
-  const archetypeKey = computeArchetype();
-  const archetype = ARCHETYPES[archetypeKey];
-  const cityScores = computeCityScores();
-  
-  // Top 2 villes
-  const sortedCities = Object.entries(cityScores).sort((a, b) => b[1] - a[1]);
-  const top2 = sortedCities.slice(0, 2);
-
-  let html = `
-    <div class="archetype-card">
-      <div class="archetype-label">Votre profil</div>
-      <div class="archetype-name">${archetype.name}</div>
-      <div class="archetype-desc">${archetype.desc}</div>
-    </div>
-
-    <h3 style="font-size:18px;font-weight:600;margin-bottom:14px;">Les villes qui vous correspondent le mieux</h3>
-  `;
-
-  top2.forEach(([cityKey, score], idx) => {
-    const ville = VILLES[cityKey];
-    const reason = generateCityReason(cityKey, idx);
-    const topQuartiers = getTopQuartiers(cityKey);
-
-    html += `
-      <div class="city-card">
-        <div class="city-rank ${idx === 0 ? 'gold' : ''}">${idx + 1}</div>
-        <div class="city-name">${ville.name}</div>
-        <div class="city-tagline">${ville.tagline}</div>
-        <div class="city-reason">${reason}</div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--ink-soft);">Quartiers compatibles avec votre profil</div>
-        <div class="quartiers">
-    `;
-
-    topQuartiers.forEach(q => {
-      html += `
-        <div class="quartier">
-          <span class="quartier-tag">${q.tag}</span>
-          <div class="quartier-text">${q.desc}<div class="price-hint"><strong>Ordre de grandeur :</strong> ${q.priceHint}</div></div>
-        </div>
-      `;
-    });
-
-    html += `</div></div>`;
+  /* Email détaillé */
+  await sendMail('SmartBNB — Nouveau mandat de chasse : '+nom,{
+    Prénom:nom, Email:email, Téléphone:tel,
+    'Villes recherchées':data.villes,
+    'Types de biens':data.types,
+    'Budget minimum':fmtMAD(budMinV),
+    'Budget maximum':fmtMAD(budMaxV),
+    'Surface minimum':surfMin+' m²',
+    'Chambres minimum':chambres,
+    'Équipements obligatoires':data.equip.length?data.equip:'—',
+    'Objectifs':data.objectifs,
+    'Rendement cible':rendCible+' %',
+    'Délai d\'acquisition':delai,
+    'Notes complémentaires':notes||'—'
   });
 
-  document.getElementById('results-content').innerHTML = html;
-  
-  // Log lead pour intégration future avec backend
-  console.log('PROFILE LEAD:', { ...formData, archetype: archetypeKey, top2Cities: top2.map(c => c[0]) });
+  /* Lead global */
+  await submitLead({
+    full_name:nom, email:email, phone:tel,
+    city:data.villes.join(', '),
+    lead_type:'mandat',
+    source:'profil-acquereur',
+    status:'nouveau',
+    message:`Mandat de chasse — Objectifs: ${data.objectifs.join(', ')} | Rendement cible: ${rendCible}%`,
+    notes:`Types: ${data.types.join(', ')} | Budget: ${fmt(budMinV)} – ${fmt(budMaxV)} MAD | Surface min: ${surfMin} m² | Chambres min: ${chambres} | Équipements: ${data.equip.join(', ')||'—'} | Délai: ${delai} | ${notes}`
+  },'SmartBNB — Nouveau mandat de chasse : '+nom);
+
+  /* recap */
+  document.getElementById('recap').innerHTML=`
+    <div style="font-weight:600;margin-bottom:8px">Récapitulatif de votre mandat</div>
+    <div class="res-row"><span>Villes</span><b>${data.villes.join(', ')}</b></div>
+    <div class="res-row"><span>Types de biens</span><b>${data.types.join(', ')}</b></div>
+    <div class="res-row"><span>Budget</span><b>${fmtMAD(budMinV)} – ${fmtMAD(budMaxV)}</b></div>
+    <div class="res-row"><span>Surface minimum</span><b>${surfMin} m²</b></div>
+    <div class="res-row"><span>Chambres minimum</span><b>${chambres}</b></div>
+    <div class="res-row"><span>Équipements</span><b>${data.equip.join(', ')||'—'}</b></div>
+    <div class="res-row"><span>Objectifs</span><b>${data.objectifs.join(', ')}</b></div>
+    <div class="res-row"><span>Rendement cible</span><b>${rendCible} %</b></div>
+    <div class="res-row"><span>Délai d'acquisition</span><b>${delai}</b></div>`;
+
+  document.getElementById('formCard').classList.add('hide');
+  document.getElementById('successCard').classList.remove('hide');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function generateCityReason(cityKey, rank) {
-  const reasons = [];
-  
-  if (formData.schoolType === 'french-aefe' || formData.schoolType === 'french-private') {
-    if (cityKey === 'casablanca') reasons.push('Le réseau scolaire français le plus dense au Maroc (Lyautey, Massignon, Léon l\'Africain, EFI...)');
-    if (cityKey === 'rabat') reasons.push('Lycée Descartes, Sophie Germain, Jacques Chirac, Malraux : excellent maillage AEFE');
-    if (cityKey === 'marrakech') reasons.push('Lycée Victor Hugo et Jacques Majorelle pour une scolarité française complète');
-    if (cityKey === 'tanger') reasons.push('Lycée Regnault et Le Détroit pour la scolarité française');
-    if (cityKey === 'essaouira') reasons.push('⚠ Pas d\'école française AEFE/OSUI à Essaouira — point de vigilance majeur');
-  }
-
-  if (formData.environment.includes('sea')) {
-    if (cityKey === 'tanger') reasons.push('Front de mer méditerranéen et Atlantique, Cap Spartel à 20 minutes');
-    if (cityKey === 'essaouira') reasons.push('Ville océane par excellence, vous vivez les pieds dans le sable');
-    if (cityKey === 'casablanca') reasons.push('Aïn Diab et la Corniche pour le bord d\'océan en ville');
-  }
-
-  if (formData.standing === 'riad') {
-    if (cityKey === 'marrakech') reasons.push('Capitale incontestée du riad : médina, Mouassine, Kasbah');
-    if (cityKey === 'fes') reasons.push('Plus belle médina vivante au monde, riads d\'exception');
-    if (cityKey === 'essaouira') reasons.push('Médina Patrimoine UNESCO, charme océanique unique');
-  }
-
-  if (formData.usage === 'rental' || formData.usage === 'hybrid') {
-    if (cityKey === 'marrakech') reasons.push('Marché LCD le plus mature et le plus rentable du Maroc');
-    if (cityKey === 'essaouira') reasons.push('Forte saisonnalité touristique, rentabilité Airbnb élevée');
-  }
-
-  if (formData.mobility === 'public' && (cityKey === 'casablanca' || cityKey === 'rabat')) {
-    reasons.push('Tramway opérationnel, transports publics fonctionnels');
-  }
-
-  if (formData.social === 'expat') {
-    if (cityKey === 'casablanca') reasons.push('Communauté française et MRE très importante, vie sociale dense');
-    if (cityKey === 'marrakech') reasons.push('Communauté expatriée internationale très active');
-    if (cityKey === 'rabat') reasons.push('Quartier diplomatique et beaucoup de résidents francophones');
-  }
-
-  if (reasons.length === 0) {
-    if (rank === 0) return 'Cette ville obtient le meilleur score sur l\'ensemble de vos critères : style de vie, environnement, mobilité et usage projeté.';
-    return 'Cette ville constitue une alternative solide à votre premier choix, avec des points de convergence forts sur votre profil.';
-  }
-
-  if (rank === 0) {
-    return '<strong>Pourquoi en premier choix : </strong>' + reasons.slice(0, 2).join(' · ');
-  }
-  return '<strong>Alternative pertinente : </strong>' + reasons.slice(0, 2).join(' · ');
-}
-
-// Init
-updateProgress();
-updateNextButton();
 </script>
-
-<script src="js/chatbot.js"></script>
 </body>
 </html>

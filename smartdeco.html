@@ -2,1126 +2,338 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartDéco — Ameublement clé en main au Maroc | SmartBnB</title>
-<meta name="description" content="Configurez et commandez l'ameublement complet de votre bien locatif au Maroc. Packs studio, T2, T3, villa. Livraison et installation incluses.">
-<link rel="stylesheet" href="css/style.css">
-<style>
-/* ─── HERO ─── */
-.sd-hero{
-  padding-top:80px;min-height:100vh;
-  background:#1A1410;
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;
-}
-.sd-hero-bg{
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=85&auto=format&fit=crop&crop=center') center/cover no-repeat;
-  opacity:.25;
-}
-.sd-hero-bg::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to right,rgba(26,20,16,.97) 45%,rgba(26,20,16,.4));
-}
-.sd-hero-inner{
-  position:relative;z-index:1;
-  max-width:1280px;margin:0 auto;padding:4rem 2rem;
-  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
-}
-.sd-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:#C9A96E;border:1px solid rgba(201,169,110,.3);
-  padding:5px 14px;border-radius:100px;margin-bottom:1.5rem;
-}
-.sd-eyebrow-dot{width:6px;height:6px;background:#C9A96E;border-radius:50%}
-.sd-hero h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.4rem,5vw,3.6rem);
-  font-weight:700;color:#FAF8F4;line-height:1.15;margin-bottom:1.25rem;
-}
-.sd-hero h1 em{color:#C9A96E;font-style:italic}
-.sd-hero p{
-  font-size:15px;color:rgba(250,248,244,.6);
-  margin-bottom:2rem;line-height:1.75;font-weight:300;
-}
-.sd-hero-cta{display:flex;gap:.875rem;flex-wrap:wrap}
-.sd-btn-gold{
-  display:inline-flex;align-items:center;gap:8px;
-  background:#C9A96E;color:#1A1410;
-  padding:11px 24px;border-radius:100px;
-  font-size:13px;font-weight:600;border:none;cursor:pointer;
-  text-decoration:none;font-family:inherit;transition:all .2s;
-}
-.sd-btn-gold:hover{background:#FAF8F4;transform:translateY(-1px)}
-.sd-btn-ghost{
-  display:inline-flex;align-items:center;gap:8px;
-  background:transparent;color:#FAF8F4;
-  padding:11px 24px;border-radius:100px;
-  font-size:13px;font-weight:500;
-  border:1px solid rgba(250,248,244,.25);
-  text-decoration:none;font-family:inherit;transition:all .2s;
-}
-.sd-btn-ghost:hover{border-color:#C9A96E;color:#C9A96E}
-.sd-hero-visual{display:flex;flex-direction:column;gap:.875rem}
-.sd-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
-.sd-photo{
-  border-radius:12px;overflow:hidden;
-  aspect-ratio:4/3;position:relative;
-}
-.sd-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
-.sd-photo:hover img{transform:scale(1.04)}
-.sd-photo-main{grid-column:1/-1;aspect-ratio:16/7}
-.sd-photo-tag{
-  position:absolute;bottom:10px;left:10px;
-  background:rgba(26,20,16,.75);backdrop-filter:blur(8px);
-  color:#C9A96E;font-size:10px;font-weight:600;
-  letter-spacing:.08em;text-transform:uppercase;
-  padding:4px 10px;border-radius:100px;
-}
-
-/* ─── STATS ─── */
-.sd-stats{background:#C9A96E;padding:2rem 0}
-.sd-stats-inner{
-  max-width:1280px;margin:0 auto;padding:0 2rem;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
-}
-.sd-stat{text-align:center;padding:0 1rem;border-right:1px solid rgba(26,20,16,.2)}
-.sd-stat:last-child{border-right:none}
-.sd-stat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:#1A1410;line-height:1}
-.sd-stat-l{font-size:11px;color:rgba(26,20,16,.7);margin-top:4px;font-weight:500}
-
-/* ─── SECTION GÉNÉRALE ─── */
-.sd-section{padding:6rem 0}
-.sd-inner{max-width:1280px;margin:0 auto;padding:0 2rem}
-.sd-section-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C1714F;margin-bottom:.75rem}
-.sd-section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:.875rem}
-.sd-section-sub{font-size:14px;color:#6B5D54;max-width:520px;line-height:1.75;font-weight:300}
-
-/* ─── GALLERY MOODBOARD ─── */
-.sd-gallery{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  grid-template-rows:auto auto;
-  gap:.875rem;
-  margin-top:2.5rem;
-}
-.sd-gp{border-radius:14px;overflow:hidden;position:relative;background:#E5DDD5}
-.sd-gp img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
-.sd-gp:hover img{transform:scale(1.03)}
-.sd-gp-1{grid-column:span 5;grid-row:span 2;min-height:400px}
-.sd-gp-2{grid-column:span 4;min-height:190px}
-.sd-gp-3{grid-column:span 3;min-height:190px}
-.sd-gp-4{grid-column:span 3;min-height:190px}
-.sd-gp-5{grid-column:span 4;min-height:190px}
-.sd-gp-lbl{
-  position:absolute;bottom:12px;left:12px;
-  background:rgba(26,20,16,.7);backdrop-filter:blur(8px);
-  color:#FAF8F4;font-size:10px;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;
-  padding:4px 10px;border-radius:100px;
-}
-
-/* ─── PACKS ─── */
-.sd-packs{
-  display:grid;grid-template-columns:repeat(5,1fr);
-  gap:.875rem;margin-top:2.5rem;
-}
-.sd-pack{
-  background:#fff;border:0.5px solid #E5DDD5;
-  border-radius:14px;padding:1.25rem;
-  transition:all .25s;position:relative;overflow:hidden;
-}
-.sd-pack::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--c1),var(--c2));
-}
-.sd-pack:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,20,16,.1);border-color:#C9A96E}
-.sd-pack.pop{border-color:#C9A96E;box-shadow:0 0 0 2px rgba(201,169,110,.2)}
-.sd-pack-badge{
-  position:absolute;top:14px;right:14px;
-  background:#C9A96E;color:#1A1410;
-  font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;
-}
-.sd-pack-icon{font-size:1.75rem;margin-bottom:.75rem}
-.sd-pack-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;margin-bottom:.25rem}
-.sd-pack-rooms{font-size:11px;color:#6B5D54;margin-bottom:.875rem}
-.sd-pack-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#1A1410}
-.sd-pack-price small{font-size:11px;font-family:'Jost',sans-serif;color:#6B5D54;font-weight:400}
-.sd-pack-includes{margin-top:.75rem;padding-top:.75rem;border-top:0.5px solid #F0EDE8}
-.sd-pack-item{font-size:11px;color:#6B5D54;padding:2px 0;display:flex;align-items:center;gap:5px}
-.sd-pack-item::before{content:'·';color:#C9A96E;font-weight:700}
-.sd-pack-btn{
-  display:block;width:100%;text-align:center;
-  background:#1A1410;color:#FAF8F4;border:none;
-  border-radius:100px;padding:8px;font-size:12px;font-weight:500;
-  margin-top:1rem;cursor:pointer;font-family:inherit;transition:background .2s;
-}
-.sd-pack-btn:hover{background:#C1714F}
-
-/* ─── CONFIGURATEUR ─── */
-.sd-config{background:#FAF8F4;padding:6rem 0}
-.sd-config-card{
-  background:#fff;border:0.5px solid #E5DDD5;
-  border-radius:18px;overflow:hidden;
-  box-shadow:0 4px 24px rgba(26,20,16,.06);
-  max-width:860px;margin:2.5rem auto 0;
-}
-.sd-prog{height:4px;background:#F0EDE8}
-.sd-prog-fill{height:100%;background:linear-gradient(90deg,#C9A96E,#C1714F);transition:width .4s}
-.sd-config-hdr{
-  padding:1.25rem 2rem;border-bottom:0.5px solid #F0EDE8;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.sd-step-lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#C9A96E}
-.sd-step-n{font-size:11px;color:#6B5D54}
-.sd-body{padding:2rem}
-.sd-step{display:none}.sd-step.active{display:block}
-.sd-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;margin-bottom:.3rem}
-.sd-sub{font-size:12px;color:#6B5D54;margin-bottom:1.25rem}
-
-/* OPTIONS */
-.sd-opts{display:grid;gap:8px;margin-bottom:1.25rem}
-.sd-opts-2{grid-template-columns:1fr 1fr}
-.sd-opts-3{grid-template-columns:1fr 1fr 1fr}
-.sd-opts-4{grid-template-columns:repeat(4,1fr)}
-.sd-opt{
-  background:#FAF8F4;border:1.5px solid #E5DDD5;
-  border-radius:10px;padding:.875rem 1rem;
-  cursor:pointer;text-align:left;font-family:inherit;
-  width:100%;transition:all .15s;
-  display:flex;align-items:flex-start;gap:.7rem;
-}
-.sd-opt:hover{border-color:#C9A96E;background:#fff}
-.sd-opt.sel{border-color:#C1714F;background:rgba(193,113,79,.05)}
-.sd-opt.sel .sd-ol{color:#C1714F}
-.sd-ck{
-  width:17px;height:17px;border:1.5px solid #D5CFC8;
-  border-radius:50%;flex-shrink:0;margin-top:1px;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
-.sd-opt.multi .sd-ck{border-radius:4px}
-.sd-opt.sel .sd-ck{background:#C1714F;border-color:#C1714F}
-.sd-opt.sel .sd-ck::after{content:'✓';color:#fff;font-size:9px;font-weight:700}
-.sd-em{font-size:1.2rem;flex-shrink:0;line-height:1}
-.sd-ol{font-size:13px;font-weight:500;color:#2C2420;display:block}
-.sd-os{font-size:11px;color:#6B5D54;margin-top:2px;display:block}
-.sd-op{font-size:11px;color:#C1714F;font-weight:600;margin-top:3px;display:block}
-.sd-opt-center{flex-direction:column;align-items:center;text-align:center;padding:1rem .625rem}
-.sd-opt-center .sd-ck{margin:0 auto .4rem}
-
-/* NIVEAU QUALITY */
-.sd-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:.875rem;margin-bottom:1.25rem}
-.sd-lvl{
-  background:#FAF8F4;border:1.5px solid #E5DDD5;
-  border-radius:10px;padding:1.25rem;cursor:pointer;
-  transition:all .15s;position:relative;
-}
-.sd-lvl:hover{border-color:#C9A96E}
-.sd-lvl.sel{border-color:#C1714F;background:rgba(193,113,79,.05)}
-.sd-lvl.sel .sd-lvl-name{color:#C1714F}
-.sd-lvl-badge{
-  position:absolute;top:8px;right:8px;
-  font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;
-}
-.sd-lvl-star{font-size:1rem;margin-bottom:.4rem}
-.sd-lvl-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;margin-bottom:.2rem}
-.sd-lvl-desc{font-size:11px;color:#6B5D54;line-height:1.5}
-.sd-lvl-price{font-size:11px;color:#C1714F;font-weight:600;margin-top:.4rem}
-
-/* DEVIS TEMPS REEL */
-.sd-devis{
-  background:#1A1410;border-radius:12px;
-  padding:1.5rem;margin-bottom:1.25rem;
-}
-.sd-devis-lbl{
-  font-size:10px;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;color:rgba(201,169,110,.6);margin-bottom:.5rem;
-}
-.sd-devis-total{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3rem;font-weight:700;color:#C9A96E;line-height:1;
-}
-.sd-devis-note{font-size:11px;color:rgba(250,248,244,.35);margin-top:.35rem}
-.sd-devis-lines{
-  margin-top:1rem;padding-top:1rem;
-  border-top:0.5px solid rgba(250,248,244,.1);
-}
-.sd-devis-line{
-  display:flex;justify-content:space-between;
-  font-size:12px;color:rgba(250,248,244,.5);padding:3px 0;
-}
-.sd-devis-line b{color:#C9A96E;font-weight:500}
-
-/* NAV BTNS */
-.sd-nav{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.25rem 2rem;border-top:0.5px solid #F0EDE8;
-}
-.sd-back{
-  background:transparent;border:1px solid #E5DDD5;
-  border-radius:100px;padding:7px 16px;
-  font-size:12px;font-weight:500;color:#6B5D54;
-  cursor:pointer;font-family:inherit;transition:all .15s;
-}
-.sd-back:hover{border-color:#6B5D54;color:#2C2420}
-.sd-next{
-  background:#1A1410;border:none;border-radius:100px;
-  padding:9px 22px;font-size:12px;font-weight:600;
-  color:#FAF8F4;cursor:pointer;font-family:inherit;transition:background .2s;
-}
-.sd-next:hover{background:#C1714F}
-.sd-next:disabled{background:#D5CFC8;cursor:not-allowed;color:#fff}
-.sd-next.gold{background:#C9A96E;color:#1A1410}
-.sd-next.gold:hover{background:#C1714F;color:#fff}
-
-/* CONTACT FIELDS */
-.sd-fields-2{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
-.sd-fg{margin-bottom:.875rem}
-.sd-fg label{display:block;font-size:11px;font-weight:600;color:#6B5D54;margin-bottom:.3rem;letter-spacing:.04em}
-.sd-fg input,.sd-fg select,.sd-fg textarea{
-  width:100%;padding:.7rem 1rem;
-  border:1.5px solid #E5DDD5;border-radius:8px;
-  font-size:13px;font-family:inherit;
-  background:#fff;color:#2C2420;
-  transition:border-color .15s;
-}
-.sd-fg input:focus,.sd-fg select:focus,.sd-fg textarea:focus{
-  outline:none;border-color:#C9A96E;
-  box-shadow:0 0 0 3px rgba(201,169,110,.1);
-}
-
-/* SUCCESS */
-.sd-success{text-align:center;padding:1.5rem 1rem}
-.sd-success-ic{
-  width:60px;height:60px;border-radius:50%;
-  background:rgba(201,169,110,.12);
-  border:1.5px solid #C9A96E;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;margin:0 auto 1.25rem;
-}
-.sd-success h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;margin-bottom:.625rem}
-.sd-success p{font-size:13px;color:#6B5D54;max-width:380px;margin:0 auto 1.25rem;line-height:1.65}
-.sd-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:.875rem}
-.sd-tag{background:#F0EDE8;border:0.5px solid #E5DDD5;border-radius:100px;padding:3px 10px;font-size:11px;color:#6B5D54}
-
-/* INFOBOX */
-.sd-infobox{
-  background:rgba(201,169,110,.08);
-  border-left:2px solid #C9A96E;
-  border-radius:0 8px 8px 0;
-  padding:.875rem 1rem;
-  font-size:12px;color:#6B5D54;
-  line-height:1.6;margin-bottom:1.25rem;
-}
-.sd-infobox strong{color:#2C2420}
-
-/* PROCESS */
-.sd-process{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
-.sd-proc{text-align:center;padding:1.5rem}
-.sd-proc-n{
-  width:44px;height:44px;border-radius:50%;
-  background:#1A1410;color:#C9A96E;
-  font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 1rem;
-}
-.sd-proc-title{font-weight:600;font-size:13px;margin-bottom:.3rem}
-.sd-proc-desc{font-size:12px;color:#6B5D54;line-height:1.6}
-
-/* FOOTER REDIRECT */
-.sd-redirect{
-  background:#1A1410;padding:5rem 0;text-align:center;
-}
-.sd-redirect p{color:rgba(250,248,244,.5);font-size:13px;margin-top:.875rem}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .sd-hero-inner{grid-template-columns:1fr;gap:2.5rem}
-  .sd-hero-visual{order:-1}
-  .sd-packs{grid-template-columns:repeat(2,1fr)}
-  .sd-stats-inner{grid-template-columns:repeat(2,1fr);gap:1.25rem}
-  .sd-stat{border-right:none;border-bottom:1px solid rgba(26,20,16,.15);padding-bottom:1rem}
-  .sd-gallery{grid-template-columns:1fr 1fr}
-  .sd-gp-1{grid-column:1/-1;grid-row:auto}
-  .sd-gp-2,.sd-gp-3,.sd-gp-4,.sd-gp-5{grid-column:span 1}
-}
-@media(max-width:600px){
-  .sd-packs{grid-template-columns:1fr}
-  .sd-config-hdr,.sd-body,.sd-nav{padding:1rem}
-  .sd-opts-2,.sd-opts-3,.sd-opts-4,.sd-levels,.sd-fields-2{grid-template-columns:1fr}
-  .sd-process{grid-template-columns:1fr 1fr}
-}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SmartDéco — Ameublement clé en main au Maroc | SmartBNB</title>
+<meta name="description" content="SmartDéco aménage et décore votre bien locatif au Maroc clé en main. Packs studio, appartement, riad, villa. Livraison, montage et home staging inclus.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav scrolled" id="nav">
-  <div style="max-width:1280px;margin:0 auto;padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;width:100%">
-    <a href="index.html" class="nav-logo" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#1A1410;text-decoration:none">Smart<span style="color:#C1714F">BnB</span></a>
-    <nav style="display:flex;align-items:center;gap:1.5rem">
-      <a href="services.html" style="font-size:12px;color:#6B5D54;text-decoration:none">Services</a>
-      <a href="smart-invest.html" style="font-size:12px;color:#6B5D54;text-decoration:none">Smart Invest</a>
-      <a href="#configurateur" style="font-size:12px;font-weight:600;color:#C9A96E;text-decoration:none">Configurer mon ameublement</a>
-      <a href="https://wa.me/212775961740" style="background:#1A1410;color:#FAF8F4;padding:7px 16px;border-radius:100px;font-size:12px;text-decoration:none">WhatsApp</a>
-    </nav>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="sd-hero">
-  <div class="sd-hero-bg"></div>
-  <div class="sd-hero-inner">
-    <div class="sd-hero-text">
-      <div class="sd-eyebrow"><span class="sd-eyebrow-dot"></span>SmartDéco — Partenaire SmartBnB</div>
-      <h1 class="sd-hero">Votre bien meublé,<br>livré, installé.<br><em>Clé en main.</em></h1>
-      <p>Du studio au riad, on configure votre ameublement complet selon votre budget et votre style. Livraison et installation incluses partout au Maroc.</p>
-      <div class="sd-hero-cta">
-        <a href="#configurateur" class="sd-btn-gold">Configurer mon ameublement →</a>
-        <a href="https://wa.me/212775961740?text=Bonjour%2C%20je%20voudrais%20en%20savoir%20plus%20sur%20SmartDéco" class="sd-btn-ghost">💬 WhatsApp</a>
-      </div>
-    </div>
-    <div class="sd-hero-visual">
-      <div class="sd-photo sd-photo-main">
-        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=85&auto=format&fit=crop" alt="Salon marocain contemporain">
-        <span class="sd-photo-tag">Salon — Style Fusion Maroc</span>
-      </div>
-      <div class="sd-photo-grid">
-        <div class="sd-photo">
-          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=85&auto=format&fit=crop" alt="Chambre premium Marrakech">
-          <span class="sd-photo-tag">Chambre Premium</span>
+<!-- ===== HERO ===== -->
+<header class="hero-dark">
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">SmartDéco · Ameublement clé en main</span>
+        <h1>Un bien <span style="color:var(--vert)">prêt à louer</span>, sans lever le petit doigt.</h1>
+        <p class="lead">SmartDéco équipe et décore votre logement de A à Z : mobilier, literie, électroménager, art de la table et home staging. Conçu pour maximiser le rendement en location courte durée.</p>
+        <div class="hero-cta">
+          <a href="#devis" class="btn btn-vert btn-lg">Devis gratuit</a>
+          <a href="https://wa.me/212775961740" target="_blank" class="btn btn-wa btn-lg">Continuer sur WhatsApp</a>
         </div>
-        <div class="sd-photo">
-          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&q=85&auto=format&fit=crop" alt="Salon moderne Maroc">
-          <span class="sd-photo-tag">Salon Confort</span>
+        <div class="hero-metrics">
+          <div class="hero-metric"><div class="v">35k–200k</div><div class="l">MAD selon le pack</div></div>
+          <div class="hero-metric"><div class="v">3 sem.</div><div class="l">Délai moyen d'installation</div></div>
+          <div class="hero-metric"><div class="v">100%</div><div class="l">Montage & livraison inclus</div></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="sd-stats">
-  <div class="sd-stats-inner">
-    <div class="sd-stat"><div class="sd-stat-n">35k</div><div class="sd-stat-l">MAD — Studio complet</div></div>
-    <div class="sd-stat"><div class="sd-stat-n">15j</div><div class="sd-stat-l">Livraison garantie</div></div>
-    <div class="sd-stat"><div class="sd-stat-n">100%</div><div class="sd-stat-l">Livraison + installation incluses</div></div>
-    <div class="sd-stat"><div class="sd-stat-n">3</div><div class="sd-stat-l">Niveaux de qualité</div></div>
-  </div>
-</div>
-
-<!-- GALERIE -->
-<section class="sd-section">
-  <div class="sd-inner">
-    <div class="sd-section-tag">Inspiration</div>
-    <h2 class="sd-section-title">Des intérieurs pensés<br>pour la location au Maroc</h2>
-    <p class="sd-section-sub">Chaque ameublement est sélectionné pour durer, plaire aux voyageurs et maximiser votre rendement locatif.</p>
-    <div class="sd-gallery">
-      <div class="sd-gp sd-gp-1">
-        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=700&q=85&auto=format&fit=crop" alt="Riad Marrakech ameublement">
-        <span class="sd-gp-lbl">Riad — Marrakech</span>
-      </div>
-      <div class="sd-gp sd-gp-2">
-        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=85&auto=format&fit=crop" alt="Chambre premium">
-        <span class="sd-gp-lbl">Chambre Premium</span>
-      </div>
-      <div class="sd-gp sd-gp-3">
-        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=85&auto=format&fit=crop" alt="Cuisine équipée">
-        <span class="sd-gp-lbl">Cuisine équipée</span>
-      </div>
-      <div class="sd-gp sd-gp-4">
-        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=85&auto=format&fit=crop" alt="Salon canapé">
-        <span class="sd-gp-lbl">Salon Confort</span>
-      </div>
-      <div class="sd-gp sd-gp-5">
-        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=85&auto=format&fit=crop" alt="Déco marocaine moderne">
-        <span class="sd-gp-lbl">Déco Fusion</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PACKS RAPIDES -->
-<section class="sd-section" style="background:#F2EDE6;padding:5rem 0">
-  <div class="sd-inner">
-    <div class="sd-section-tag">Packs prêts à commander</div>
-    <h2 class="sd-section-title">Choisissez votre pack<br>ou configurez à la carte</h2>
-    <p class="sd-section-sub">Packs pensés pour les investisseurs. Livraison et installation incluses dans tout le Maroc sous 15 jours.</p>
-    <div class="sd-packs">
-      <div class="sd-pack" style="--c1:#C9A96E;--c2:#C1714F">
-        <div class="sd-pack-icon">🏠</div>
-        <div class="sd-pack-name">Studio</div>
-        <div class="sd-pack-rooms">1 pièce · jusqu'à 2 personnes</div>
-        <div class="sd-pack-price">35 000 <small>MAD TTC</small></div>
-        <div class="sd-pack-includes">
-          <div class="sd-pack-item">Lit 140cm + matelas + literie</div>
-          <div class="sd-pack-item">Canapé 2 places</div>
-          <div class="sd-pack-item">Petit électro complet</div>
-          <div class="sd-pack-item">Vaisselle 2 couverts</div>
-          <div class="sd-pack-item">Déco & luminaires</div>
-        </div>
-        <button class="sd-pack-btn" onclick="startConfig('studio')">Configurer →</button>
-      </div>
-      <div class="sd-pack" style="--c1:#C9A96E;--c2:#C1714F">
-        <div class="sd-pack-icon">🛋️</div>
-        <div class="sd-pack-name">T2</div>
-        <div class="sd-pack-rooms">2 pièces · jusqu'à 4 personnes</div>
-        <div class="sd-pack-price">50 000 <small>MAD TTC</small></div>
-        <div class="sd-pack-includes">
-          <div class="sd-pack-item">1 chambre complète</div>
-          <div class="sd-pack-item">Salon + table à manger</div>
-          <div class="sd-pack-item">Gros électro essentiel</div>
-          <div class="sd-pack-item">Vaisselle 4 couverts</div>
-          <div class="sd-pack-item">Déco style marocain</div>
-        </div>
-        <button class="sd-pack-btn" onclick="startConfig('t2')">Configurer →</button>
-      </div>
-      <div class="sd-pack pop" style="--c1:#C9A96E;--c2:#C1714F">
-        <div class="sd-pack-badge">⭐ Populaire</div>
-        <div class="sd-pack-icon">🏡</div>
-        <div class="sd-pack-name">T3</div>
-        <div class="sd-pack-rooms">3 pièces · jusqu'à 6 personnes</div>
-        <div class="sd-pack-price">75 000 <small>MAD TTC</small></div>
-        <div class="sd-pack-includes">
-          <div class="sd-pack-item">2 chambres complètes</div>
-          <div class="sd-pack-item">Salon + salle à manger 6p</div>
-          <div class="sd-pack-item">Gros électro complet</div>
-          <div class="sd-pack-item">Vaisselle 6 couverts</div>
-          <div class="sd-pack-item">Déco & luminaires premium</div>
-        </div>
-        <button class="sd-pack-btn" onclick="startConfig('t3')">Configurer →</button>
-      </div>
-      <div class="sd-pack" style="--c1:#C9A96E;--c2:#C1714F">
-        <div class="sd-pack-icon">🏘️</div>
-        <div class="sd-pack-name">T4+</div>
-        <div class="sd-pack-rooms">4+ pièces · jusqu'à 8 personnes</div>
-        <div class="sd-pack-price">110 000 <small>MAD TTC</small></div>
-        <div class="sd-pack-includes">
-          <div class="sd-pack-item">3+ chambres complètes</div>
-          <div class="sd-pack-item">Grand salon + salle à manger</div>
-          <div class="sd-pack-item">Électro haut de gamme</div>
-          <div class="sd-pack-item">Vaisselle 8 couverts</div>
-          <div class="sd-pack-item">Déco marocaine signature</div>
-        </div>
-        <button class="sd-pack-btn" onclick="startConfig('t4')">Configurer →</button>
-      </div>
-      <div class="sd-pack" style="--c1:#C9A96E;--c2:#C1714F">
-        <div class="sd-pack-icon">🕌</div>
-        <div class="sd-pack-name">Riad / Villa</div>
-        <div class="sd-pack-rooms">Sur mesure · prestige</div>
-        <div class="sd-pack-price">Sur devis</div>
-        <div class="sd-pack-includes">
-          <div class="sd-pack-item">Architecture d'intérieur</div>
-          <div class="sd-pack-item">Mobilier sur mesure</div>
-          <div class="sd-pack-item">Artisanat marocain</div>
-          <div class="sd-pack-item">Électro premium</div>
-          <div class="sd-pack-item">Suivi projet complet</div>
-        </div>
-        <button class="sd-pack-btn" onclick="startConfig('riad')">Nous contacter →</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONFIGURATEUR -->
-<section class="sd-config" id="configurateur">
-  <div class="sd-inner">
-    <div class="sd-section-tag">Configurateur</div>
-    <h2 class="sd-section-title">Configurez votre ameublement<br>à la carte — devis en temps réel</h2>
-    <p class="sd-section-sub">Cochez ce dont vous avez besoin. Le prix se met à jour instantanément. Un conseiller vous confirme le devis sous 24h.</p>
-
-    <div class="sd-config-card">
-      <div class="sd-prog"><div class="sd-prog-fill" id="prog" style="width:12%"></div></div>
-      <div class="sd-config-hdr">
-        <span class="sd-step-lbl" id="slbl">Votre logement</span>
-        <span class="sd-step-n" id="scnt">Étape 1 / 8</span>
-      </div>
-      <div class="sd-body">
-
-        <!-- DEVIS FLOTTANT -->
-        <div class="sd-devis" id="devis-box" style="display:none">
-          <div class="sd-devis-lbl">Votre devis en cours</div>
-          <div class="sd-devis-total" id="devis-total">0 MAD</div>
-          <div class="sd-devis-note">Livraison + installation incluses</div>
-          <div class="sd-devis-lines" id="devis-lines"></div>
-        </div>
-
-        <!-- ÉTAPE 1 : Type de logement -->
-        <div class="sd-step active" id="s1">
-          <div class="sd-title">Quel type de logement souhaitez-vous aménager ?</div>
-          <div class="sd-sub">Le pack de base sera automatiquement adapté</div>
-          <div class="sd-opts sd-opts-3">
-            <button class="sd-opt" data-k="logement" data-v="studio" data-p="35000" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🏠</span>
-              <div><span class="sd-ol">Studio / T1</span><span class="sd-os">Jusqu'à 2 personnes</span><span class="sd-op">À partir de 35 000 MAD</span></div>
-            </button>
-            <button class="sd-opt" data-k="logement" data-v="t2" data-p="50000" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🛋️</span>
-              <div><span class="sd-ol">Appartement T2</span><span class="sd-os">Jusqu'à 4 personnes</span><span class="sd-op">À partir de 50 000 MAD</span></div>
-            </button>
-            <button class="sd-opt" data-k="logement" data-v="t3" data-p="75000" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🏡</span>
-              <div><span class="sd-ol">Appartement T3</span><span class="sd-os">Jusqu'à 6 personnes</span><span class="sd-op">À partir de 75 000 MAD</span></div>
-            </button>
-            <button class="sd-opt" data-k="logement" data-v="t4" data-p="110000" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🏘️</span>
-              <div><span class="sd-ol">Appartement T4+</span><span class="sd-os">Jusqu'à 8 personnes</span><span class="sd-op">À partir de 110 000 MAD</span></div>
-            </button>
-            <button class="sd-opt" data-k="logement" data-v="riad" data-p="150000" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🕌</span>
-              <div><span class="sd-ol">Riad / Maison de charme</span><span class="sd-os">Prestige & authenticité</span><span class="sd-op">Sur devis personnalisé</span></div>
-            </button>
-            <button class="sd-opt" data-k="logement" data-v="villa" data-p="200000" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🏰</span>
-              <div><span class="sd-ol">Villa avec piscine</span><span class="sd-os">Haut de gamme</span><span class="sd-op">Sur devis personnalisé</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 2 : Pack vaisselle & linge -->
-        <div class="sd-step" id="s2">
-          <div class="sd-title">Pack vaisselle, linge de maison & bain</div>
-          <div class="sd-sub">Plusieurs choix possibles — tout est livré et prêt à l'emploi</div>
-          <div class="sd-opts sd-opts-2">
-            <button class="sd-opt multi" data-k="vaisselle" data-v="vaisselle_2" data-p="1200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Vaisselle 2 couverts</span><span class="sd-os">Assiettes, verres, couverts, casseroles</span><span class="sd-op">+1 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="vaisselle" data-v="vaisselle_4" data-p="1800" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Vaisselle 4 couverts</span><span class="sd-os">Service complet pour 4 personnes</span><span class="sd-op">+1 800 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="vaisselle" data-v="vaisselle_6" data-p="2400" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Vaisselle 6 couverts</span><span class="sd-os">Service complet pour 6 personnes</span><span class="sd-op">+2 400 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="vaisselle" data-v="vaisselle_8" data-p="3000" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Vaisselle 8 couverts</span><span class="sd-os">Service complet pour 8 personnes</span><span class="sd-op">+3 000 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="vaisselle" data-v="linge_lit" data-p="1500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🛏️</span>
-              <div><span class="sd-ol">Pack linge de lit</span><span class="sd-os">Draps, taies, couettes, oreillers</span><span class="sd-op">+1 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="vaisselle" data-v="linge_bain" data-p="900" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🚿</span>
-              <div><span class="sd-ol">Pack linge de bain</span><span class="sd-os">Serviettes de bain, tapis de bain, peignoirs</span><span class="sd-op">+900 MAD</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 3 : Petit électro -->
-        <div class="sd-step" id="s3">
-          <div class="sd-title">Petit électroménager</div>
-          <div class="sd-sub">Cochez ce dont vous avez besoin — plusieurs choix possibles</div>
-          <div class="sd-opts sd-opts-2">
-            <button class="sd-opt multi" data-k="petit_electro" data-v="microondes" data-p="800" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">📡</span>
-              <div><span class="sd-ol">Micro-ondes</span><span class="sd-os">Indispensable pour la location</span><span class="sd-op">+800 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="petit_electro" data-v="bouilloire" data-p="250" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">☕</span>
-              <div><span class="sd-ol">Bouilloire électrique</span><span class="sd-os">Inox ou design</span><span class="sd-op">+250 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="petit_electro" data-v="grille_pain" data-p="300" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍞</span>
-              <div><span class="sd-ol">Grille-pain</span><span class="sd-os">2 à 4 tranches</span><span class="sd-op">+300 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="petit_electro" data-v="cafetiere" data-p="600" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">☕</span>
-              <div><span class="sd-ol">Cafetière / Nespresso</span><span class="sd-os">Filtre ou capsules</span><span class="sd-op">+600 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="petit_electro" data-v="mixeur" data-p="400" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🫙</span>
-              <div><span class="sd-ol">Mixeur / Blender</span><span class="sd-os">Smoothies & préparations</span><span class="sd-op">+400 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="petit_electro" data-v="aspirateur" data-p="700" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🧹</span>
-              <div><span class="sd-ol">Aspirateur</span><span class="sd-os">Balai ou robot aspirateur</span><span class="sd-op">+700 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="petit_electro" data-v="fer" data-p="350" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">👔</span>
-              <div><span class="sd-ol">Fer à repasser + table</span><span class="sd-os">Indispensable en location</span><span class="sd-op">+350 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="petit_electro" data-v="friteuse" data-p="500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍟</span>
-              <div><span class="sd-ol">Friteuse à air</span><span class="sd-os">Très apprécié des voyageurs</span><span class="sd-op">+500 MAD</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 4 : Niveau gros électro -->
-        <div class="sd-step" id="s4">
-          <div class="sd-title">Quel niveau de gros électroménager ?</div>
-          <div class="sd-sub">Choisissez votre niveau de qualité — vous sélectionnerez les appareils à l'étape suivante</div>
-          <div class="sd-levels">
-            <div class="sd-lvl" data-k="niveau_electro" data-v="classique" onclick="selLvl(this)">
-              <span class="sd-lvl-badge" style="background:#F0EDE8;color:#6B5D54">Essentiel</span>
-              <div class="sd-lvl-star">⭐</div>
-              <div class="sd-lvl-name">Classique</div>
-              <div class="sd-lvl-desc">Marques fiables, fonctionnel et durable. Idéal pour maximiser la rentabilité.</div>
-              <div class="sd-lvl-price">Entrée de gamme · Bon rapport qualité/prix</div>
-            </div>
-            <div class="sd-lvl sel" data-k="niveau_electro" data-v="confort" onclick="selLvl(this)">
-              <span class="sd-lvl-badge" style="background:#C9A96E;color:#1A1410">Recommandé</span>
-              <div class="sd-lvl-star">⭐⭐</div>
-              <div class="sd-lvl-name">Confort</div>
-              <div class="sd-lvl-desc">Marques reconnues, design soigné. Le meilleur équilibre pour la location saisonnière.</div>
-              <div class="sd-lvl-price">Milieu de gamme · Standard hôtelier</div>
-            </div>
-            <div class="sd-lvl" data-k="niveau_electro" data-v="premium" onclick="selLvl(this)">
-              <span class="sd-lvl-badge" style="background:#1A1410;color:#C9A96E">Prestige</span>
-              <div class="sd-lvl-star">⭐⭐⭐</div>
-              <div class="sd-lvl-name">Premium</div>
-              <div class="sd-lvl-desc">Grandes marques, finitions haut de gamme. Pour les riads, villas et biens premium.</div>
-              <div class="sd-lvl-price">Haut de gamme · Expérience 5 étoiles</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 5 : Gros électro -->
-        <div class="sd-step" id="s5">
-          <div class="sd-title">Gros électroménager</div>
-          <div class="sd-sub">Cochez les appareils dont vous avez besoin — plusieurs choix possibles</div>
-          <div class="sd-opts sd-opts-2">
-            <button class="sd-opt multi" data-k="gros_electro" data-v="frigo" data-p="3500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🧊</span>
-              <div><span class="sd-ol">Réfrigérateur</span><span class="sd-os">200 à 400L selon le logement</span><span class="sd-op">+3 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="linge_seul" data-p="3000" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">👕</span>
-              <div><span class="sd-ol">Lave-linge seul</span><span class="sd-os">6 à 9 kg · pose libre</span><span class="sd-op">+3 000 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="linge_sechant" data-p="5500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🫧</span>
-              <div><span class="sd-ol">Lave-linge séchant</span><span class="sd-os">2 en 1 · idéal petit espace</span><span class="sd-op">+5 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="seche_linge" data-p="4000" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">💨</span>
-              <div><span class="sd-ol">Sèche-linge seul</span><span class="sd-os">À condensation · très apprécié</span><span class="sd-op">+4 000 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="lave_vaisselle" data-p="4500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Lave-vaisselle</span><span class="sd-os">12 couverts · encastrable ou pose libre</span><span class="sd-op">+4 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="four" data-p="3500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍕</span>
-              <div><span class="sd-ol">Four encastré</span><span class="sd-os">Multifonction · pyrolyse disponible</span><span class="sd-op">+3 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="hotte" data-p="1800" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">💨</span>
-              <div><span class="sd-ol">Hotte aspirante</span><span class="sd-os">Murale ou îlot · indispensable avec four</span><span class="sd-op">+1 800 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="plaque_gaz" data-p="1200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🔥</span>
-              <div><span class="sd-ol">Plaque gaz</span><span class="sd-os">4 feux · très demandé au Maroc</span><span class="sd-op">+1 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="plaque_induction" data-p="2200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">⚡</span>
-              <div><span class="sd-ol">Plaque induction</span><span class="sd-os">4 zones · design & sécurité</span><span class="sd-op">+2 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="gros_electro" data-v="clim" data-p="4500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">❄️</span>
-              <div><span class="sd-ol">Climatiseur</span><span class="sd-os">Chaud/froid · indispensable en été</span><span class="sd-op">+4 500 MAD</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 6 : Chambres -->
-        <div class="sd-step" id="s6">
-          <div class="sd-title">Chambre(s) — lit, matelas, rangement</div>
-          <div class="sd-sub">Choisissez la qualité puis les éléments souhaités</div>
-          <div class="sd-infobox"><strong>Qualité sélectionnée :</strong> <span id="qual-label">Confort</span> — vous pouvez cocher autant d'éléments que nécessaire.</div>
-          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B5D54;margin-bottom:.625rem">Taille du lit</div>
-          <div class="sd-opts sd-opts-4" style="margin-bottom:1.25rem">
-            <button class="sd-opt sd-opt-center multi" data-k="lit_taille" data-v="lit_120" data-p="1800" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-ol" style="font-size:1rem;font-weight:700">120</span><span class="sd-os">cm · 1 personne</span><span class="sd-op">+1 800 MAD</span>
-            </button>
-            <button class="sd-opt sd-opt-center multi" data-k="lit_taille" data-v="lit_140" data-p="2400" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-ol" style="font-size:1rem;font-weight:700">140</span><span class="sd-os">cm · 2 personnes</span><span class="sd-op">+2 400 MAD</span>
-            </button>
-            <button class="sd-opt sd-opt-center multi" data-k="lit_taille" data-v="lit_160" data-p="3200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-ol" style="font-size:1rem;font-weight:700">160</span><span class="sd-os">cm · confort</span><span class="sd-op">+3 200 MAD</span>
-            </button>
-            <button class="sd-opt sd-opt-center multi" data-k="lit_taille" data-v="lit_180" data-p="4000" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-ol" style="font-size:1rem;font-weight:700">180</span><span class="sd-os">cm · king size</span><span class="sd-op">+4 000 MAD</span>
-            </button>
-          </div>
-          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B5D54;margin-bottom:.625rem">Éléments chambre</div>
-          <div class="sd-opts sd-opts-2">
-            <button class="sd-opt multi" data-k="chambre" data-v="matelas_mousse" data-p="1200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">💤</span>
-              <div><span class="sd-ol">Matelas mousse</span><span class="sd-os">Confort standard · longue durée</span><span class="sd-op">+1 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="chambre" data-v="matelas_ressorts" data-p="2200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">💤</span>
-              <div><span class="sd-ol">Matelas à ressorts ensachés</span><span class="sd-os">Confort premium · hôtel</span><span class="sd-op">+2 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="chambre" data-v="matelas_memoire" data-p="3500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">💤</span>
-              <div><span class="sd-ol">Matelas mémoire de forme</span><span class="sd-os">Expérience 5 étoiles</span><span class="sd-op">+3 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="chambre" data-v="armoire" data-p="2500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🪟</span>
-              <div><span class="sd-ol">Armoire / Dressing</span><span class="sd-os">2 à 4 portes coulissantes</span><span class="sd-op">+2 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="chambre" data-v="chevets" data-p="800" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🌙</span>
-              <div><span class="sd-ol">Tables de chevet (x2)</span><span class="sd-os">Avec lampes intégrées</span><span class="sd-op">+800 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="chambre" data-v="miroir" data-p="600" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🔲</span>
-              <div><span class="sd-ol">Miroir</span><span class="sd-os">Grand format · plein pied ou mural</span><span class="sd-op">+600 MAD</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 7 : Salon -->
-        <div class="sd-step" id="s7">
-          <div class="sd-title">Salon & salle à manger</div>
-          <div class="sd-sub">Cochez les éléments souhaités</div>
-          <div class="sd-opts sd-opts-2">
-            <button class="sd-opt multi" data-k="salon" data-v="canape_2" data-p="3500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🛋️</span>
-              <div><span class="sd-ol">Canapé 2 places</span><span class="sd-os">Tissu ou simili cuir</span><span class="sd-op">+3 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="salon" data-v="canape_3" data-p="5000" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🛋️</span>
-              <div><span class="sd-ol">Canapé 3 places</span><span class="sd-os">Tissu ou simili cuir</span><span class="sd-op">+5 000 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="salon" data-v="canape_angle" data-p="7500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🛋️</span>
-              <div><span class="sd-ol">Canapé d'angle</span><span class="sd-os">Modulable · grand confort</span><span class="sd-op">+7 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="salon" data-v="table_basse" data-p="1200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🪵</span>
-              <div><span class="sd-ol">Table basse</span><span class="sd-os">Bois, verre ou marbre</span><span class="sd-op">+1 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="salon" data-v="tv_65" data-p="4500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">📺</span>
-              <div><span class="sd-ol">TV 65" + meuble TV</span><span class="sd-os">Smart TV 4K + meuble design</span><span class="sd-op">+4 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="salon" data-v="salle_manger_4" data-p="3200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Table à manger 4 places</span><span class="sd-os">+ 4 chaises</span><span class="sd-op">+3 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="salon" data-v="salle_manger_6" data-p="4500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Table à manger 6 places</span><span class="sd-os">+ 6 chaises</span><span class="sd-op">+4 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="salon" data-v="salle_manger_8" data-p="6000" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🍽️</span>
-              <div><span class="sd-ol">Table à manger 8 places</span><span class="sd-os">+ 8 chaises</span><span class="sd-op">+6 000 MAD</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 8 : Déco & luminaires -->
-        <div class="sd-step" id="s8">
-          <div class="sd-title">Déco & luminaires</div>
-          <div class="sd-sub">La touche finale qui fait toute la différence sur les photos et les avis</div>
-          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B5D54;margin-bottom:.625rem">Style décoratif</div>
-          <div class="sd-opts sd-opts-3" style="margin-bottom:1.25rem">
-            <button class="sd-opt" data-k="style" data-v="moderne" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🏢</span>
-              <div><span class="sd-ol">Moderne</span><span class="sd-os">Lignes épurées, tons neutres</span></div>
-            </button>
-            <button class="sd-opt" data-k="style" data-v="marocain" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">🕌</span>
-              <div><span class="sd-ol">Marocain authentique</span><span class="sd-os">Zellige, bois sculpté, cuivre</span></div>
-            </button>
-            <button class="sd-opt" data-k="style" data-v="fusion" onclick="sel(this)">
-              <div class="sd-ck"></div><span class="sd-em">✨</span>
-              <div><span class="sd-ol">Fusion contemporain</span><span class="sd-os">Mix moderne & artisanat marocain</span></div>
-            </button>
-          </div>
-          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B5D54;margin-bottom:.625rem">Éléments décoratifs</div>
-          <div class="sd-opts sd-opts-2">
-            <button class="sd-opt multi" data-k="deco" data-v="lustre_marocain" data-p="1800" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🪔</span>
-              <div><span class="sd-ol">Lustre / Lanterne marocain(e)</span><span class="sd-os">Cuivre ou fer forgé · fait main</span><span class="sd-op">+1 800 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="deco" data-v="lampes_chevet" data-p="700" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">💡</span>
-              <div><span class="sd-ol">Lampes de chevet (x2)</span><span class="sd-os">Design ou artisanales</span><span class="sd-op">+700 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="deco" data-v="tapis_berbere" data-p="2500" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🟫</span>
-              <div><span class="sd-ol">Tapis berbère</span><span class="sd-os">Laine naturelle · authentique Maroc</span><span class="sd-op">+2 500 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="deco" data-v="rideaux" data-p="1200" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🪟</span>
-              <div><span class="sd-ol">Rideaux occultants</span><span class="sd-os">Sur mesure · pose incluse</span><span class="sd-op">+1 200 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="deco" data-v="tableaux" data-p="800" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🖼️</span>
-              <div><span class="sd-ol">Set de tableaux</span><span class="sd-os">Art marocain ou abstrait</span><span class="sd-op">+800 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="deco" data-v="coussins_poufs" data-p="600" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🛋️</span>
-              <div><span class="sd-ol">Coussins & poufs</span><span class="sd-os">Tissu marocain · assortis au canapé</span><span class="sd-op">+600 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="deco" data-v="plantes" data-p="400" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🌿</span>
-              <div><span class="sd-ol">Plantes artificielles</span><span class="sd-os">Entretien zéro, effet naturel</span><span class="sd-op">+400 MAD</span></div>
-            </button>
-            <button class="sd-opt multi" data-k="deco" data-v="miroir_deco" data-p="900" onclick="multi(this)">
-              <div class="sd-ck"></div><span class="sd-em">🔲</span>
-              <div><span class="sd-ol">Miroir décoratif</span><span class="sd-os">Cadre cuivré ou bois sculpté</span><span class="sd-op">+900 MAD</span></div>
-            </button>
-          </div>
-        </div>
-
-        <!-- ÉTAPE 9 : Contact -->
-        <div class="sd-step" id="s9">
-          <div class="sd-title">Votre devis personnalisé</div>
-          <div class="sd-sub">Laissez vos coordonnées — un conseiller SmartDéco vous confirme le devis et la disponibilité sous 24h.</div>
-          <div class="sd-devis" style="margin-bottom:1.25rem">
-            <div class="sd-devis-lbl">Votre estimation totale</div>
-            <div class="sd-devis-total" id="devis-final">0 MAD</div>
-            <div class="sd-devis-note">Livraison + installation incluses · Prix indicatif TTC</div>
-            <div class="sd-devis-lines" id="devis-lines-final"></div>
-          </div>
-          <form netlify name="smartdeco-configurateur" id="form-deco" style="display:contents">
-            <input type="hidden" name="form-name" value="smartdeco-configurateur">
-            <input type="hidden" name="logement" id="h-log">
-            <input type="hidden" name="selections" id="h-sel">
-            <input type="hidden" name="niveau_electro" id="h-niv">
-            <input type="hidden" name="style_deco" id="h-style">
-            <input type="hidden" name="devis_total" id="h-total">
-            <div class="sd-fields-2">
-              <div class="sd-fg"><label>Prénom *</label><input type="text" id="f-prenom" name="prenom" required placeholder="Mohamed"></div>
-              <div class="sd-fg"><label>Nom *</label><input type="text" id="f-nom" name="nom" required placeholder="Alami"></div>
-            </div>
-            <div class="sd-fg"><label>Email *</label><input type="email" id="f-email" name="email" required placeholder="votre@email.com"></div>
-            <div class="sd-fields-2">
-              <div class="sd-fg"><label>Téléphone / WhatsApp</label><input type="tel" name="telephone" placeholder="+33 6 12 34 56 78"></div>
-              <div class="sd-fg"><label>Ville du bien</label>
-                <select name="ville_bien"><option>Marrakech</option><option>Casablanca</option><option>Rabat</option><option>Tanger</option><option>Fès</option><option>Essaouira</option><option>Autre</option></select>
+      <div>
+        <div class="card" id="devis" style="color:var(--noir)">
+          <span class="eyebrow">Devis gratuit · sans engagement</span>
+          <h3 style="margin:8px 0 18px">Configurez votre projet déco</h3>
+          <form id="decoForm">
+            <div class="field">
+              <label>Type de bien</label>
+              <div class="chips" id="chipType">
+                <div class="chip active" data-v="Studio">Studio</div>
+                <div class="chip" data-v="Appartement">Appartement</div>
+                <div class="chip" data-v="Riad">Riad</div>
+                <div class="chip" data-v="Villa">Villa</div>
               </div>
             </div>
-            <div class="sd-fg"><label>Commentaire (facultatif)</label><textarea name="commentaire" rows="2" placeholder="Adresse du bien, contraintes d'accès, questions..."></textarea></div>
+            <div class="field">
+              <label>Style déco</label>
+              <div class="chips" id="chipStyle">
+                <div class="chip active" data-v="Contemporain">Contemporain</div>
+                <div class="chip" data-v="Marocain authentique">Marocain authentique</div>
+                <div class="chip" data-v="Scandinave">Scandinave</div>
+                <div class="chip" data-v="Riad chic">Riad chic</div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Budget estimé · <b id="budgetVal">80 000 MAD</b></label>
+              <input type="range" id="budget" min="35000" max="200000" step="5000" value="80000">
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label>Surface (m²)</label>
+                <input class="input" type="number" id="surface" placeholder="ex. 75" min="10">
+              </div>
+              <div class="field">
+                <label>Étage</label>
+                <input class="input" type="number" id="etage" placeholder="ex. 3" min="0">
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label>Ascenseur</label>
+                <div class="chips" id="chipAsc">
+                  <div class="chip active" data-v="Oui">Oui</div>
+                  <div class="chip" data-v="Non">Non</div>
+                </div>
+              </div>
+              <div class="field">
+                <label>Livraison & montée incluses</label>
+                <div class="chips" id="chipLiv">
+                  <div class="chip active" data-v="Oui">Oui</div>
+                  <div class="chip" data-v="Non">Non</div>
+                </div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label>Délai souhaité</label>
+                <select class="input" id="delai">
+                  <option>Au plus vite</option>
+                  <option selected>Sous 1 mois</option>
+                  <option>Sous 2 à 3 mois</option>
+                  <option>Pas encore défini</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Ville</label>
+                <select class="input" id="city"></select>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label>Prénom *</label>
+                <input class="input" id="fname" placeholder="Votre prénom">
+              </div>
+              <div class="field">
+                <label>Email *</label>
+                <input class="input" type="email" id="email" placeholder="vous@email.com">
+              </div>
+            </div>
+            <div class="field">
+              <label>Téléphone *</label>
+              <input class="input" id="phone" placeholder="+212 6 00 00 00 00">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="decoSubmit">Recevoir mon devis gratuit</button>
+            <p class="muted" style="font-size:.8rem;margin-top:10px;text-align:center">Réponse sous 24h ouvrées · aucune carte requise</p>
           </form>
-        </div>
-
-        <!-- SUCCÈS -->
-        <div class="sd-step" id="s10">
-          <div class="sd-success">
-            <div class="sd-success-ic">✓</div>
-            <h2>Votre demande est enregistrée !</h2>
-            <p>Un conseiller SmartDéco vous contacte sous <strong>24h ouvrées</strong> pour confirmer votre devis et planifier la livraison.</p>
-            <div class="sd-tags" id="stags"></div>
-            <div style="margin-top:1.5rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
-              <a href="https://wa.me/212775961740?text=Bonjour%2C%20je%20viens%20de%20remplir%20le%20configurateur%20SmartDéco" style="padding:.7rem 1.5rem;background:#C1714F;color:#fff;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none">💬 WhatsApp direct</a>
-              <a href="mailto:contact.smartbnb@gmail.com" style="padding:.7rem 1.5rem;background:transparent;border:1.5px solid #E5DDD5;color:#2C2420;border-radius:100px;font-size:13px;font-weight:500;text-decoration:none">✉ Email</a>
+          <div id="decoSuccess" class="hide">
+            <div class="notice" style="text-align:center">
+              <div style="font-size:2rem">✓</div>
+              <h3 style="margin:8px 0">Demande envoyée&nbsp;!</h3>
+              <p style="font-size:.92rem">Merci, notre équipe SmartDéco vous recontacte sous 24h ouvrées avec un devis personnalisé et un moodboard.</p>
             </div>
           </div>
         </div>
-
-      </div>
-
-      <div class="sd-nav" id="sd-nav">
-        <button class="sd-back" id="sd-back" onclick="back()" style="visibility:hidden">← Précédent</button>
-        <button class="sd-next" id="sd-next" onclick="next()" disabled>Continuer →</button>
       </div>
     </div>
   </div>
-</section>
+</header>
 
-<!-- PROCESSUS -->
-<section class="sd-section" style="background:#1A1410;padding:5rem 0">
-  <div class="sd-inner">
-    <div class="sd-section-tag" style="color:#C9A96E">Comment ça marche</div>
-    <h2 class="sd-section-title" style="color:#FAF8F4">De la configuration<br>à l'installation en 15 jours</h2>
-    <div class="sd-process">
-      <div class="sd-proc"><div class="sd-proc-n">1</div><div class="sd-proc-title" style="color:#FAF8F4">Configurez</div><div class="sd-proc-desc" style="color:rgba(250,248,244,.5)">Choisissez vos éléments en ligne. Le devis se calcule en temps réel.</div></div>
-      <div class="sd-proc"><div class="sd-proc-n">2</div><div class="sd-proc-title" style="color:#FAF8F4">Validation</div><div class="sd-proc-desc" style="color:rgba(250,248,244,.5)">Un conseiller vous confirme le devis et les disponibilités sous 24h.</div></div>
-      <div class="sd-proc"><div class="sd-proc-n">3</div><div class="sd-proc-title" style="color:#FAF8F4">Livraison</div><div class="sd-proc-desc" style="color:rgba(250,248,244,.5)">Tous vos meubles livrés en une seule fois partout au Maroc.</div></div>
-      <div class="sd-proc"><div class="sd-proc-n">4</div><div class="sd-proc-title" style="color:#FAF8F4">Installation</div><div class="sd-proc-desc" style="color:rgba(250,248,244,.5)">Notre équipe monte, installe et évacue les emballages. Votre bien est prêt.</div></div>
+<!-- ===== PACKS ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Nos packs</span>
+      <h2 style="margin-top:8px">Quatre formules, un bien prêt à louer</h2>
+      <p class="muted">Chaque pack est pensé pour optimiser le confort voyageur et le rendement en courte durée.</p>
+    </div>
+    <div class="grid grid-4">
+      <div class="card card-hover">
+        <span class="badge" style="background:#e7f0e0;color:var(--vert-d)">Pack Studio</span>
+        <div class="prop-price" style="margin:14px 0 4px">35 000 MAD</div>
+        <p class="muted" style="font-size:.86rem;margin-bottom:14px">Idéal studio jusqu'à 35 m².</p>
+        <ul style="list-style:none;font-size:.9rem;display:grid;gap:8px">
+          <li>✓ Mobilier salon compact (canapé, table basse)</li>
+          <li>✓ Literie 1 lit double premium</li>
+          <li>✓ Électroménager essentiel (frigo, plaque, micro-ondes)</li>
+          <li>✓ Art de la table pour 2 personnes</li>
+          <li>✓ Décoration & luminaires</li>
+          <li>✓ Linge de maison (1 set)</li>
+        </ul>
+      </div>
+      <div class="card card-hover">
+        <span class="badge" style="background:#e7f0e0;color:var(--vert-d)">Pack Appartement</span>
+        <div class="prop-price" style="margin:14px 0 4px">65 000 MAD</div>
+        <p class="muted" style="font-size:.86rem;margin-bottom:14px">Appartement 1 à 2 chambres.</p>
+        <ul style="list-style:none;font-size:.9rem;display:grid;gap:8px">
+          <li>✓ Mobilier salon complet + coin repas</li>
+          <li>✓ Literie 2 chambres (matelas premium)</li>
+          <li>✓ Électroménager complet (lave-linge inclus)</li>
+          <li>✓ Art de la table pour 4 à 6 personnes</li>
+          <li>✓ Décoration soignée & rideaux</li>
+          <li>✓ Linge de maison (2 sets de rotation)</li>
+        </ul>
+      </div>
+      <div class="card card-hover">
+        <span class="badge" style="background:#e7f0e0;color:var(--vert-d)">Pack Riad</span>
+        <div class="prop-price" style="margin:14px 0 4px">120 000 MAD</div>
+        <p class="muted" style="font-size:.86rem;margin-bottom:14px">Riad authentique, 3 à 5 chambres.</p>
+        <ul style="list-style:none;font-size:.9rem;display:grid;gap:8px">
+          <li>✓ Mobilier salon marocain + salon d'été</li>
+          <li>✓ Literie 3 à 5 chambres haut de gamme</li>
+          <li>✓ Électroménager complet & cuisine équipée</li>
+          <li>✓ Art de la table artisanal pour 8 à 10</li>
+          <li>✓ Décoration patrimoniale (zellige, tadelakt, artisanat)</li>
+          <li>✓ Linge de maison (3 sets de rotation)</li>
+        </ul>
+      </div>
+      <div class="card card-hover">
+        <span class="badge" style="background:var(--noir);color:#fff">Pack Villa</span>
+        <div class="prop-price" style="margin:14px 0 4px">Sur devis</div>
+        <p class="muted" style="font-size:.86rem;margin-bottom:14px">Villa & projets haut de gamme.</p>
+        <ul style="list-style:none;font-size:.9rem;display:grid;gap:8px">
+          <li>✓ Mobilier salon intérieur & extérieur sur mesure</li>
+          <li>✓ Literie illimitée, suites parentales</li>
+          <li>✓ Électroménager premium & domotique</li>
+          <li>✓ Art de la table d'exception</li>
+          <li>✓ Décoration signature & mobilier de piscine</li>
+          <li>✓ Linge de maison hôtelier (rotations multiples)</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- REDIRECT SMARTDECO -->
-<section class="sd-redirect">
-  <div class="sd-inner">
-    <div class="sd-section-tag" style="color:#C9A96E;display:block;text-align:center">SmartDéco.ma</div>
-    <h2 class="sd-section-title" style="color:#FAF8F4;text-align:center;margin-bottom:.875rem">Un projet d'ameublement<br>plus élaboré ?</h2>
-    <p class="sd-section-sub" style="text-align:center;margin:0 auto 2rem">Visitez notre site dédié pour des showrooms virtuels, des collections complètes et un accompagnement sur mesure par nos décorateurs d'intérieur.</p>
-    <div style="text-align:center">
-      <a href="https://www.smartdeco.ma" class="sd-btn-gold" style="font-size:14px;padding:13px 30px">Découvrir SmartDéco.ma →</a>
+<!-- ===== PROCESS ===== -->
+<section class="section" style="background:var(--beige2)">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Notre processus</span>
+      <h2 style="margin-top:8px">De la visite à la mise en location, en 5 étapes</h2>
     </div>
-    <p>Service partenaire SmartBnB · contact.smartbnb@gmail.com · WhatsApp +212 775 961 740</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div><h3>Visite &amp; métrage</h3><p class="muted">Nous relevons les surfaces, l'agencement et les contraintes du logement.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div><h3>Moodboard &amp; sélection</h3><p class="muted">Nos décoratrices proposent un univers visuel et une sélection mobilier adaptée à votre cible voyageur.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div><h3>Validation du devis</h3><p class="muted">Vous validez le devis détaillé, transparent et sans surprise.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div><h3>Commande &amp; logistique</h3><p class="muted">Nous commandons auprès de notre réseau et coordonnons toute la logistique de livraison.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div><h3>Installation &amp; home staging</h3><p class="muted">Montage complet, mise en scène et photos professionnelles : le bien est prêt à publier.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<script src="js/main.js"></script>
+<!-- ===== STYLES ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Styles déco</span>
+      <h2 style="margin-top:8px">Quatre univers, votre signature</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="prop">
+        <div class="prop-img"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80&auto=format&fit=crop" alt="Style contemporain"></div>
+        <div class="prop-body"><h3>Contemporain</h3><p class="muted" style="font-size:.88rem;margin-top:6px">Lignes épurées, tons neutres et matériaux nobles pour un rendu intemporel.</p></div>
+      </div>
+      <div class="prop">
+        <div class="prop-img"><img src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=700&q=80&auto=format&fit=crop" alt="Style marocain authentique"></div>
+        <div class="prop-body"><h3>Marocain authentique</h3><p class="muted" style="font-size:.88rem;margin-top:6px">Zellige, tadelakt, plâtre sculpté et fer forgé — l'artisanat marocain à l'état pur.</p></div>
+      </div>
+      <div class="prop">
+        <div class="prop-img"><img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=700&q=80&auto=format&fit=crop" alt="Style scandinave"></div>
+        <div class="prop-body"><h3>Scandinave</h3><p class="muted" style="font-size:.88rem;margin-top:6px">Bois clair, blanc cassé et lignes douces pour une atmosphère lumineuse et apaisante.</p></div>
+      </div>
+      <div class="prop">
+        <div class="prop-img"><img src="images/riad-chic.jpg" alt="Style Riad chic"></div>
+        <div class="prop-body"><h3>Riad chic</h3><p class="muted" style="font-size:.88rem;margin-top:6px">Fusion entre design contemporain et codes marocains — l'esthétique des riads premium les plus prisés.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIFFERENTIATORS ===== -->
+<section class="section" style="background:var(--beige2)">
+  <div class="wrap">
+    <div class="center" style="max-width:640px;margin:0 auto 44px">
+      <span class="eyebrow">Pourquoi SmartDéco</span>
+      <h2 style="margin-top:8px">Un ameublement pensé pour la rentabilité</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="card"><h3 style="margin:12px 0 8px">Réseau d'artisans locaux</h3><p class="muted">Menuisiers, tapissiers et artisans marocains sélectionnés pour un mobilier durable au juste prix.</p></div>
+      <div class="card"><h3 style="margin:12px 0 8px">Optimisation rendement LCD</h3><p class="muted">Chaque choix déco est calibré pour séduire les voyageurs et maximiser les réservations.</p></div>
+      <div class="card"><h3 style="margin:12px 0 8px">Livraison &amp; montage inclus</h3><p class="muted">Logistique, montée et installation gérées de bout en bout, dans les 6 villes couvertes.</p></div>
+      <div class="card"><h3 style="margin:12px 0 8px">Photos professionnelles offertes</h3><p class="muted">Un shooting pro inclus pour publier des annonces qui convertissent dès le premier jour.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="card center" style="background:var(--noir);color:#fff;border:none;padding:60px 30px">
+      <h2 style="color:#fff">Donnez à votre bien le décor qui fait la différence</h2>
+      <p style="color:#bdbdb8;max-width:520px;margin:12px auto 26px">Recevez un devis SmartDéco gratuit et un moodboard personnalisé pour votre logement.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="#devis" class="btn btn-vert btn-lg">Demander mon devis</a>
+        <a href="https://wa.me/212775961740" target="_blank" class="btn btn-wa btn-lg">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
 <script>
-const STEPS=['Votre logement','Vaisselle & linge','Petit électro','Niveau électro','Gros électro','Chambre(s)','Salon & séjour','Déco & luminaires','Vos coordonnées'];
-const TOTAL=9;
-let cur=1;
-const A={logement:null,vaisselle:[],petit_electro:[],niveau_electro:'confort',gros_electro:[],lit_taille:[],chambre:[],salon:[],style:null,deco:[]};
-let devis={};
+/* ---- city select ---- */
+const citySel=document.getElementById('city');
+Object.keys(MARKET).forEach((k,i)=>{
+  const o=document.createElement('option'); o.value=MARKET[k].nom; o.textContent=MARKET[k].nom;
+  if(i===0)o.selected=true; citySel.appendChild(o);
+});
 
-const LABELS={
-  studio:'Studio',t2:'T2',t3:'T3',t4:'T4+',riad:'Riad',villa:'Villa',
-  vaisselle_2:'Vaisselle 2p',vaisselle_4:'Vaisselle 4p',vaisselle_6:'Vaisselle 6p',vaisselle_8:'Vaisselle 8p',
-  linge_lit:'Linge de lit',linge_bain:'Linge de bain',
-  microondes:'Micro-ondes',bouilloire:'Bouilloire',grille_pain:'Grille-pain',cafetiere:'Cafetière',mixeur:'Mixeur',aspirateur:'Aspirateur',fer:'Fer à repasser',friteuse:'Friteuse à air',
-  classique:'Niveau Classique',confort:'Niveau Confort',premium:'Niveau Premium',
-  frigo:'Réfrigérateur',linge_seul:'Lave-linge',linge_sechant:'Lave-linge séchant',seche_linge:'Sèche-linge',lave_vaisselle:'Lave-vaisselle',four:'Four encastré',hotte:'Hotte',plaque_gaz:'Plaque gaz',plaque_induction:'Plaque induction',clim:'Climatiseur',
-  lit_120:'Lit 120cm',lit_140:'Lit 140cm',lit_160:'Lit 160cm',lit_180:'Lit 180cm',
-  matelas_mousse:'Matelas mousse',matelas_ressorts:'Matelas ressorts',matelas_memoire:'Matelas mémoire',armoire:'Armoire',chevets:'Tables de chevet',miroir:'Miroir',
-  canape_2:'Canapé 2p',canape_3:'Canapé 3p',canape_angle:'Canapé angle',table_basse:'Table basse',tv_65:'TV 65"',salle_manger_4:'Table 4p',salle_manger_6:'Table 6p',salle_manger_8:'Table 8p',
-  moderne:'Style Moderne',marocain:'Style Marocain',fusion:'Style Fusion',
-  lustre_marocain:'Lustre marocain',lampes_chevet:'Lampes chevet',tapis_berbere:'Tapis berbère',rideaux:'Rideaux',tableaux:'Tableaux',coussins_poufs:'Coussins & poufs',plantes:'Plantes',miroir_deco:'Miroir déco'
-};
-
-function calcDevis(){
-  let total=0;const lines=[];
-  const base={studio:35000,t2:50000,t3:75000,t4:110000,riad:150000,villa:200000};
-  if(A.logement&&base[A.logement]){
-    const b=base[A.logement];total+=b;
-    lines.push({l:'Pack de base '+LABELS[A.logement],v:b});
-  }
-  const allMulti=[...A.vaisselle,...A.petit_electro,...A.gros_electro,...A.lit_taille,...A.chambre,...A.salon,...A.deco];
-  allMulti.forEach(v=>{
-    const el=document.querySelector(`[data-v="${v}"]`);
-    if(el&&el.dataset.p){const p=parseInt(el.dataset.p);total+=p;lines.push({l:LABELS[v]||v,v:p});}
+/* ---- chip groups ---- */
+function chipGroup(id){
+  const wrap=document.getElementById(id);
+  wrap.querySelectorAll('.chip').forEach(c=>{
+    c.onclick=()=>{wrap.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');};
   });
-  const niv={classique:.9,confort:1,premium:1.25};
-  const m=niv[A.niveau_electro]||1;
-  if(m!==1&&A.gros_electro.length>0){
-    const adj=lines.filter(l=>A.gros_electro.some(v=>LABELS[v]===l.l));
-    // déjà inclus dans le prix
-  }
-  return{total,lines};
+  return ()=> (wrap.querySelector('.chip.active')||{}).dataset?.v || '';
 }
+const getType=chipGroup('chipType'), getStyle=chipGroup('chipStyle'),
+      getAsc=chipGroup('chipAsc'), getLiv=chipGroup('chipLiv');
 
-function updateDevis(){
-  const{total,lines}=calcDevis();
-  const fmt=n=>n.toLocaleString('fr-MA')+' MAD';
-  const box=document.getElementById('devis-box');
-  if(cur>1)box.style.display='block';
-  document.getElementById('devis-total').textContent=fmt(total);
-  document.getElementById('devis-lines').innerHTML=lines.map(l=>`<div class="sd-devis-line"><span>${l.l}</span><b>${l.v.toLocaleString('fr-MA')} MAD</b></div>`).join('');
-  if(document.getElementById('devis-final')){
-    document.getElementById('devis-final').textContent=fmt(total);
-    document.getElementById('devis-lines-final').innerHTML=lines.map(l=>`<div class="sd-devis-line"><span>${l.l}</span><b>${l.v.toLocaleString('fr-MA')} MAD</b></div>`).join('');
-  }
-}
+/* ---- budget slider ---- */
+const budget=document.getElementById('budget'), budgetVal=document.getElementById('budgetVal');
+budget.oninput=()=>budgetVal.textContent=fmtMAD(budget.value);
 
-function sel(el){
-  const k=el.dataset.k;
-  el.closest('.sd-opts').querySelectorAll('.sd-opt').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');
-  A[k]=el.dataset.v;
-  if(k==='style')A.style=el.dataset.v;
-  updateDevis();check();
-}
-
-function multi(el){
-  const k=el.dataset.k,v=el.dataset.v;
-  if(!A[k])A[k]=[];
-  el.classList.toggle('sel');
-  if(el.classList.contains('sel')){if(!A[k].includes(v))A[k].push(v);}
-  else{A[k]=A[k].filter(x=>x!==v);}
-  updateDevis();check();
-}
-
-function selLvl(el){
-  document.querySelectorAll('.sd-lvl').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');
-  A.niveau_electro=el.dataset.v;
-  document.getElementById('qual-label').textContent=LABELS[el.dataset.v]||el.dataset.v;
-  check();
-}
-
-function valid(){
-  if(cur===1)return!!A.logement;
-  if(cur===2)return A.vaisselle.length>0;
-  if(cur===3)return A.petit_electro.length>0;
-  if(cur===4)return!!A.niveau_electro;
-  if(cur===5)return A.gros_electro.length>0;
-  if(cur===6)return A.lit_taille.length>0;
-  if(cur===7)return A.salon.length>0;
-  if(cur===8)return!!A.style;
-  if(cur===9){
-    const p=document.getElementById('f-prenom'),n=document.getElementById('f-nom'),e=document.getElementById('f-email');
-    return p&&p.value.trim()&&n&&n.value.trim()&&e&&e.value.includes('@');
-  }
-  return true;
-}
-
-function check(){
-  const btn=document.getElementById('sd-next');
-  btn.disabled=!valid();
-  btn.textContent=cur===9?'Envoyer mon devis →':'Continuer →';
-  btn.classList.toggle('gold',cur===9);
-}
-
-function render(){
-  document.querySelectorAll('.sd-step').forEach(s=>s.classList.remove('active'));
-  document.getElementById('s'+cur).classList.add('active');
-  document.getElementById('slbl').textContent=STEPS[cur-1]||'Confirmation';
-  document.getElementById('scnt').textContent=cur<=TOTAL?`Étape ${cur} / ${TOTAL}`:'';
-  document.getElementById('prog').style.width=(cur<=TOTAL?(cur-1)/TOTAL*100:100)+'%';
-  document.getElementById('sd-back').style.visibility=cur>1&&cur<10?'visible':'hidden';
-  document.getElementById('sd-nav').style.display=cur===10?'none':'flex';
-  if(cur>1)document.getElementById('devis-box').style.display='block';
-  if(cur===9){
-    updateDevis();
-    document.addEventListener('input',check);
-    document.addEventListener('change',check);
-  }
-  check();
-  window.scrollTo({top:document.getElementById('configurateur').offsetTop-80,behavior:'smooth'});
-}
-
-function next(){
-  if(!valid())return;
-  if(cur===9){submit();return;}
-  cur++;render();
-}
-
-function back(){if(cur>1){cur--;render();}}
-
-function submit(){
-  const{total,lines}=calcDevis();
-  document.getElementById('h-log').value=A.logement||'';
-  document.getElementById('h-sel').value=JSON.stringify({vaisselle:A.vaisselle,petit_electro:A.petit_electro,gros_electro:A.gros_electro,chambre:A.chambre,salon:A.salon,deco:A.deco});
-  document.getElementById('h-niv').value=A.niveau_electro||'';
-  document.getElementById('h-style').value=A.style||'';
-  document.getElementById('h-total').value=total.toLocaleString('fr-MA')+' MAD';
-  const form=document.getElementById('form-deco');
-  if(form){fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()}).catch(()=>{});}
-  const url=localStorage.getItem('smartbnb-script-url');
-  if(url){fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({formulaire:'smartdeco-configurateur',prenom:document.getElementById('f-prenom').value,nom:document.getElementById('f-nom').value,email:document.getElementById('f-email').value,logement:A.logement,devis:total.toLocaleString('fr-MA')+' MAD'})}).catch(()=>{});}
-  const tags=[];
-  if(A.logement)tags.push(LABELS[A.logement]);
-  if(A.niveau_electro)tags.push(LABELS[A.niveau_electro]);
-  if(A.style)tags.push(LABELS[A.style]);
-  tags.push(total.toLocaleString('fr-MA')+' MAD');
-  document.getElementById('stags').innerHTML=tags.map(t=>`<span class="sd-tag">${t}</span>`).join('');
-  cur=10;render();
-}
-
-function startConfig(type){
-  A.logement=type;
-  const prices={studio:35000,t2:50000,t3:75000,t4:110000,riad:150000,villa:200000};
-  document.getElementById('configurateur').scrollIntoView({behavior:'smooth'});
-  setTimeout(()=>{
-    cur=2;
-    document.querySelector(`[data-v="${type}"]`)?.classList.add('sel');
-    updateDevis();render();
-  },600);
-}
-
-render();
+/* ---- submit ---- */
+document.getElementById('decoForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const fname=document.getElementById('fname').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  if(!fname||!email||!phone){ toast('Merci de renseigner prénom, email et téléphone.'); return; }
+  if(!/^\S+@\S+\.\S+$/.test(email)){ toast('Adresse email invalide.'); return; }
+  const btn=document.getElementById('decoSubmit');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Envoi…';
+  const notes=[
+    'Type: '+getType(), 'Style: '+getStyle(),
+    'Budget: '+fmtMAD(budget.value),
+    'Surface: '+(document.getElementById('surface').value||'—')+' m²',
+    'Étage: '+(document.getElementById('etage').value||'—'),
+    'Ascenseur: '+getAsc(), 'Livraison incluse: '+getLiv(),
+    'Délai: '+document.getElementById('delai').value
+  ].join(' | ');
+  await submitLead({
+    full_name:fname, email, phone, city:citySel.value,
+    message:'Devis SmartDéco — '+getType()+' style '+getStyle(),
+    lead_type:'smartdeco', source:'smartdeco', status:'nouveau', notes
+  }, 'SmartBNB — Devis SmartDéco : '+fname);
+  document.getElementById('decoForm').classList.add('hide');
+  document.getElementById('decoSuccess').classList.remove('hide');
+});
 </script>
-<script src="js/chatbot.js"></script>
 </body>
 </html>

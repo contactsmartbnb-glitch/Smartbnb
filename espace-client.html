@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace investisseur — SmartBNB</title>
+<meta name="description" content="Espace investisseur SmartBNB : suivez vos revenus locatifs, votre taux d'occupation, vos réservations et votre reporting mensuel en temps réel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body data-no-footer>
+
+<!-- ===== LOGIN GATE ===== -->
+<section class="wrap" id="loginGate" style="padding:70px 24px;display:flex;justify-content:center">
+  <div class="card" style="max-width:420px;width:100%">
+    <div class="center" style="margin-bottom:20px">
+      <span class="eyebrow">Espace investisseur</span>
+      <h3 style="margin-top:8px;font-size:1.5rem">Connexion à votre tableau de bord</h3>
+      <p class="muted" style="font-size:.9rem;margin-top:6px">Suivez vos revenus et vos biens en temps réel.</p>
+    </div>
+    <div class="field"><label>Email</label><input class="input" id="logEmail" type="email" placeholder="vous@exemple.com"></div>
+    <div class="field"><label>Mot de passe</label><input class="input" id="logPass" type="password" placeholder="••••••••"></div>
+    <div class="notice hide" id="logErr" style="background:#f3e0e0;border-color:#e0c4c4;color:#a04545;margin-bottom:14px"></div>
+    <button class="btn btn-primary btn-block" id="logBtn" onclick="doLogin()">Se connecter</button>
+    <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="demoLogin()">Démo — voir le tableau de bord</button>
+    <p class="center muted" style="font-size:.85rem;margin-top:16px">
+      Pas encore client ? <a href="formulaire.html" style="color:var(--vert);font-weight:600">Démarrer mon projet →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard" class="hide">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="active" data-view="board">Tableau de bord</a>
+      <a data-view="biens">Mes biens</a>
+      <a data-view="reservations">Réservations</a>
+      <a data-view="reporting">Reporting</a>
+      <a onclick="logout()" style="color:#a04545">⎋ Déconnexion</a>
+    </aside>
+    <main class="app-main">
+
+      <!-- BOARD -->
+      <section data-panel="board">
+        <span class="eyebrow">Vue d'ensemble</span>
+        <h2 style="margin:6px 0 4px">Bonjour, <span id="clientName">investisseur</span></h2>
+        <p class="muted" style="margin-bottom:24px">Voici la performance de votre portefeuille ce mois-ci.</p>
+        <div class="grid grid-4" style="margin-bottom:26px">
+          <div class="kpi"><div class="v" style="color:var(--vert)">38 400 MAD</div><div class="l">Revenus du mois</div></div>
+          <div class="kpi"><div class="v">82%</div><div class="l">Taux d'occupation</div></div>
+          <div class="kpi"><div class="v">4,9 ★</div><div class="l">Note moyenne</div></div>
+          <div class="kpi"><div class="v">2</div><div class="l">Nombre de biens</div></div>
+        </div>
+        <div class="grid grid-2" style="align-items:stretch">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <strong style="font-family:'Fraunces',serif">Revenus · 6 derniers mois</strong>
+              <span class="badge" style="background:#e7f0e0;color:var(--vert-d)">+14%</span>
+            </div>
+            <div class="bars" id="bars" style="height:140px"></div>
+            <div style="display:flex;justify-content:space-between;font-size:.74rem;color:var(--gris);margin-top:8px" id="barLabels"></div>
+          </div>
+          <div class="card">
+            <strong style="font-family:'Fraunces',serif">Répartition par plateforme</strong>
+            <div style="margin-top:16px">
+              <div class="res-row"><span>Airbnb</span><b>21 100 MAD</b></div>
+              <div class="res-row"><span>Booking.com</span><b>11 500 MAD</b></div>
+              <div class="res-row"><span>Réservations directes</span><b>5 800 MAD</b></div>
+              <div class="res-row"><span>Commission SmartBNB (17%)</span><b style="color:#a04545">− 6 528 MAD</b></div>
+              <div class="res-row"><span>Net versé</span><b style="color:var(--vert)">31 872 MAD</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESERVATIONS -->
+      <section data-panel="reservations" class="hide">
+        <span class="eyebrow">Activité</span>
+        <h2 style="margin:6px 0 20px">Réservations récentes</h2>
+        <div class="card" style="padding:8px 8px 4px;overflow-x:auto">
+          <table class="table">
+            <thead><tr><th>Bien</th><th>Voyageur</th><th>Dates</th><th>Plateforme</th><th>Montant</th><th>Statut</th></tr></thead>
+            <tbody id="resBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- BIENS -->
+      <section data-panel="biens" class="hide">
+        <span class="eyebrow">Portefeuille</span>
+        <h2 style="margin:6px 0 20px">Mes biens</h2>
+        <div class="grid grid-3" id="biensList"></div>
+      </section>
+
+      <!-- REPORTING -->
+      <section data-panel="reporting" class="hide">
+        <span class="eyebrow">Documents</span>
+        <h2 style="margin:6px 0 6px">Reporting mensuel</h2>
+        <p class="muted" style="margin-bottom:20px">Téléchargez vos relevés détaillés mois par mois.</p>
+        <div class="card" id="reportList" style="padding:8px"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
+<script>
+/* ---------- AUTH ---------- */
+function showDashboard(){
+  document.getElementById('loginGate').classList.add('hide');
+  document.getElementById('dashboard').classList.remove('hide');
+  const email = localStorage.getItem('sb_client') || 'investisseur';
+  document.getElementById('clientName').textContent = email.split('@')[0];
+  renderDashboard();
+}
+async function doLogin(){
+  const email = document.getElementById('logEmail').value.trim();
+  const pass  = document.getElementById('logPass').value.trim();
+  const err   = document.getElementById('logErr');
+  const btn   = document.getElementById('logBtn');
+  err.classList.add('hide');
+  if(!email || !pass){ err.textContent='Renseignez votre email et votre mot de passe.'; err.classList.remove('hide'); return; }
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>';
+  try{
+    const r = await fetch(`${SB.url}/auth/v1/token?grant_type=password`,{
+      method:'POST',
+      headers:{ 'apikey':SB.anon, 'Content-Type':'application/json' },
+      body: JSON.stringify({ email, password:pass })
+    });
+    if(r.ok){
+      localStorage.setItem('sb_client', email);
+      showDashboard();
+    }else{
+      err.innerHTML = 'Identifiants incorrects ou compte introuvable. '
+        + '<a href="formulaire.html" style="font-weight:600;text-decoration:underline">Pas encore client ? Démarrer mon projet</a>';
+      err.classList.remove('hide');
+    }
+  }catch(e){
+    err.innerHTML = 'Connexion impossible pour le moment. '
+      + '<a href="formulaire.html" style="font-weight:600;text-decoration:underline">Démarrer mon projet</a>';
+    err.classList.remove('hide');
+  }
+  btn.disabled=false; btn.textContent='Se connecter';
+}
+function demoLogin(){
+  localStorage.setItem('sb_client','demo@smartbnb.ma');
+  showDashboard();
+}
+function logout(){
+  localStorage.removeItem('sb_client');
+  location.reload();
+}
+
+/* ---------- DEMO DATA ---------- */
+const RESAS=[
+  {bien:'Riad Médina · Marrakech',voy:'Émilie Laurent',dates:'14 → 19 mai',plat:'Airbnb',montant:'6 200 MAD',st:'ok',lbl:'Confirmée'},
+  {bien:'Appart. Marina · Tanger',voy:'James Carter',dates:'21 → 24 mai',plat:'Booking',montant:'3 450 MAD',st:'ok',lbl:'Confirmée'},
+  {bien:'Riad Médina · Marrakech',voy:'Sofia Bianchi',dates:'27 → 31 mai',plat:'Airbnb',montant:'5 100 MAD',st:'wait',lbl:'En attente'},
+  {bien:'Appart. Marina · Tanger',voy:'Hassan El Amrani',dates:'2 → 6 juin',plat:'Direct',montant:'4 000 MAD',st:'wait',lbl:'En attente'},
+  {bien:'Riad Médina · Marrakech',voy:'Clara Schmidt',dates:'9 → 14 juin',plat:'Airbnb',montant:'6 800 MAD',st:'ok',lbl:'Confirmée'}
+];
+const BIENS=[
+  {nom:'Riad Médina',ville:'Marrakech',img:'photo-1597211684565-dca64d72c2c9',occ:'88%',rev:'24 600 MAD',st:'ok',lbl:'En ligne'},
+  {nom:'Appartement Marina',ville:'Tanger',img:'photo-1570191037834-c0b8c4b6cd28',occ:'74%',rev:'13 800 MAD',st:'ok',lbl:'En ligne'},
+  {nom:'Studio Gueliz',ville:'Marrakech',img:'photo-1502672260266-1c1ef2d93688',occ:'—',rev:'—',st:'wait',lbl:'En préparation'}
+];
+const REPORTS=['Avril 2026','Mars 2026','Février 2026','Janvier 2026'];
+
+/* ---------- RENDER ---------- */
+function renderDashboard(){
+  // bars
+  const bars=document.getElementById('bars'), lbl=document.getElementById('barLabels');
+  const vals=[58,64,71,66,79,92], months=['Déc','Jan','Fév','Mar','Avr','Mai'];
+  bars.innerHTML=''; lbl.innerHTML='';
+  vals.forEach((h,i)=>{
+    const d=document.createElement('div'); d.style.height=h+'%';
+    d.style.animationDelay=(i*0.08)+'s'; bars.appendChild(d);
+    const s=document.createElement('span'); s.style.flex='1'; s.style.textAlign='center'; s.textContent=months[i];
+    lbl.appendChild(s);
+  });
+  // reservations
+  document.getElementById('resBody').innerHTML = RESAS.map(r=>`
+    <tr><td><b>${r.bien}</b></td><td>${r.voy}</td><td>${r.dates}</td><td>${r.plat}</td>
+    <td>${r.montant}</td><td><span class="pill ${r.st}">${r.lbl}</span></td></tr>`).join('');
+  // biens
+  document.getElementById('biensList').innerHTML = BIENS.map(b=>`
+    <div class="prop">
+      <div class="prop-img"><img src="https://images.unsplash.com/${b.img}?w=700&q=80&auto=format&fit=crop" alt="${b.nom}">
+        <span class="prop-tag">${b.ville}</span></div>
+      <div class="prop-body">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="font-size:1.15rem">${b.nom}</h3>
+          <span class="pill ${b.st}">${b.lbl}</span>
+        </div>
+        <div class="prop-meta"><span>Occupation ${b.occ}</span><span>Revenu/mois ${b.rev}</span></div>
+        <button class="btn btn-ghost btn-block" onclick="toast('Détails du bien — bientôt disponible')">Voir le détail</button>
+      </div>
+    </div>`).join('');
+  // reporting
+  document.getElementById('reportList').innerHTML = REPORTS.map(m=>`
+    <div class="res-row" style="padding:14px 12px">
+      <span>Reporting mensuel — <b>${m}</b></span>
+      <button class="btn btn-vert" style="padding:9px 18px" onclick="toast('Téléchargement du reporting ${m}…')">Télécharger</button>
+    </div>`).join('');
+}
+
+/* ---------- SIDEBAR NAV ---------- */
+document.querySelectorAll('.sidebar a[data-view]').forEach(a=>{
+  a.onclick=()=>{
+    document.querySelectorAll('.sidebar a[data-view]').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active');
+    const v=a.dataset.view;
+    document.querySelectorAll('[data-panel]').forEach(p=>p.classList.toggle('hide',p.dataset.panel!==v));
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+});
+
+/* ---------- INIT ---------- */
+if(localStorage.getItem('sb_client')) showDashboard();
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mon projet — SmartBNB</title>
+<meta name="description" content="Formulaire SmartBNB en 8 étapes : recevez une analyse personnalisée et gratuite de votre projet d'investissement locatif au Maroc.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+
+<section class="wrap" style="padding:54px 24px 90px;max-width:720px">
+  <div class="center" style="margin-bottom:24px">
+    <span class="eyebrow">Mon projet · 2 minutes</span>
+    <h1 style="margin-top:8px;font-size:2.3rem">Construisons votre projet</h1>
+  </div>
+
+  <div class="card">
+    <div class="stepper" id="stepper"></div>
+
+    <!-- 1 situation -->
+    <div class="form-step active" data-step="0">
+      <h3>Quelle est votre situation ?</h3>
+      <p class="muted" style="margin-bottom:16px">Cela nous aide à adapter notre accompagnement.</p>
+      <div id="situation"></div>
+    </div>
+
+    <!-- 2 villes -->
+    <div class="form-step" data-step="1">
+      <h3>Quelles villes vous intéressent ?</h3>
+      <p class="muted" style="margin-bottom:16px">Sélection multiple possible.</p>
+      <div class="chips" id="villes"></div>
+    </div>
+
+    <!-- 3 types -->
+    <div class="form-step" data-step="2">
+      <h3>Quels types de biens ?</h3>
+      <p class="muted" style="margin-bottom:16px">Sélection multiple possible.</p>
+      <div class="chips" id="types"></div>
+    </div>
+
+    <!-- 4 budget -->
+    <div class="form-step" data-step="3">
+      <h3>Votre budget d'investissement</h3>
+      <p class="muted" style="margin-bottom:16px">Apport + financement éventuel.</p>
+      <div class="field">
+        <label>Budget : <b id="budVal">2 000 000</b> MAD</label>
+        <input type="range" id="bud" min="500000" max="8000000" step="100000" value="2000000">
+      </div>
+      <div class="card" style="background:var(--beige2);border:none">
+        <div class="muted" style="font-size:.85rem">Revenu locatif mensuel potentiel estimé</div>
+        <div class="result-big" id="budRev" style="font-size:2rem">—</div>
+        <div class="muted" style="font-size:.8rem">Estimation pour un appartement premium · données de marché Marrakech</div>
+      </div>
+    </div>
+
+    <!-- 5 financement -->
+    <div class="form-step" data-step="4">
+      <h3>Comment financez-vous ?</h3>
+      <p class="muted" style="margin-bottom:16px">&nbsp;</p>
+      <div id="financement"></div>
+      <div class="notice" style="margin-top:14px"><b>Vous êtes MRE ?</b> Les banques marocaines financent jusqu'à 100% du bien, avec un minimum de 50% de l'apport en devises. SmartBNB vous accompagne sur le montage.</div>
+    </div>
+
+    <!-- 6 objectifs -->
+    <div class="form-step" data-step="5">
+      <h3>Vos objectifs</h3>
+      <p class="muted" style="margin-bottom:16px">Sélection multiple possible.</p>
+      <div id="objectifs"></div>
+    </div>
+
+    <!-- 7 délai -->
+    <div class="form-step" data-step="6">
+      <h3>Dans quel délai souhaitez-vous investir ?</h3>
+      <p class="muted" style="margin-bottom:16px">&nbsp;</p>
+      <div id="delai"></div>
+    </div>
+
+    <!-- 8 contact -->
+    <div class="form-step" data-step="7">
+      <h3>Vos coordonnées</h3>
+      <p class="muted" style="margin-bottom:16px">Pour recevoir votre projet personnalisé.</p>
+      <div class="row2">
+        <div class="field"><label>Prénom *</label><input class="input" id="cNom"></div>
+        <div class="field"><label>Téléphone *</label><input class="input" id="cTel"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Email *</label><input class="input" id="cEmail" type="email"></div>
+        <div class="field"><label>Pays de résidence</label><input class="input" id="cPays" placeholder="ex : France"></div>
+      </div>
+    </div>
+
+    <!-- success -->
+    <div class="form-step" data-step="8">
+      <div class="center">
+        <div style="font-size:3rem">✓</div>
+        <h3 style="font-size:1.6rem;margin:8px 0">Votre projet est entre nos mains.</h3>
+        <p class="muted">Un conseiller SmartBNB vous recontacte sous 24h ouvrées.</p>
+      </div>
+      <div class="card" style="background:var(--beige2);border:none;margin-top:20px" id="recap"></div>
+      <a href="marketplace.html" class="btn btn-vert btn-block" style="margin-top:16px">Découvrir les biens disponibles</a>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;margin-top:24px" id="nav">
+      <button class="btn btn-ghost" id="btnPrev" onclick="prev()">Retour</button>
+      <button class="btn btn-primary" id="btnNext" onclick="next()">Continuer</button>
+    </div>
+  </div>
+</section>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
+<script>
+const TOTAL=8;
+let step=0;
+const data={situation:'',villes:[],types:[],budget:2000000,financement:'',objectifs:[],delai:''};
+
+/* option cards */
+function optCards(el,items,key){
+  items.forEach(it=>{
+    const c=document.createElement('div');c.className='opt-card';
+    c.innerHTML=`<b>${it.t}</b>${it.d?`<div class="muted" style="font-size:.85rem">${it.d}</div>`:''}`;
+    c.onclick=()=>{data[key]=it.t;el.querySelectorAll('.opt-card').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');};
+    el.appendChild(c);
+  });
+}
+optCards(situation,[
+  {t:'Premier investissement',d:'Je débute dans l\'immobilier locatif'},
+  {t:'Déjà propriétaire',d:'Je possède déjà un ou plusieurs biens'},
+  {t:'Simplement curieux',d:'J\'explore les opportunités'}
+],'situation');
+optCards(financement,[
+  {t:'Autofinancement',d:'J\'achète comptant'},
+  {t:'Crédit bancaire',d:'Je passe par un prêt immobilier'},
+  {t:'Mixte apport + crédit',d:'Une partie comptant, une partie financée'},
+  {t:'À définir',d:'J\'ai besoin de conseil'}
+],'financement');
+optCards(delai,[
+  {t:'Immédiat',d:'Je veux investir dès maintenant'},
+  {t:'1 à 3 mois'},{t:'3 à 6 mois'},{t:'Plus de 6 mois'}
+],'delai');
+
+/* chips multi */
+function chipsMulti(el,items,key){
+  items.forEach(t=>{
+    const c=document.createElement('div');c.className='chip';c.textContent=t;
+    c.onclick=()=>{c.classList.toggle('active');
+      data[key]=c.classList.contains('active')?[...data[key],t]:data[key].filter(x=>x!==t);};
+    el.appendChild(c);
+  });
+}
+chipsMulti(villes,['Marrakech','Tanger','Casablanca','Rabat','Essaouira','Fès'],'villes');
+chipsMulti(types,['Studio','Appartement','Riad','Villa'],'types');
+
+/* objectifs multi (cards) */
+[
+  {t:'Revenus LCD',d:'Générer des revenus locatifs réguliers'},
+  {t:'Patrimoine',d:'Constituer un patrimoine durable'},
+  {t:'Résidence + LCD',d:'Profiter du bien et le louer le reste de l\'année'},
+  {t:'Création de SCI',d:'Structurer mon investissement'}
+].forEach(it=>{
+  const c=document.createElement('div');c.className='opt-card';
+  c.innerHTML=`<b>${it.t}</b><div class="muted" style="font-size:.85rem">${it.d}</div>`;
+  c.onclick=()=>{c.classList.toggle('sel');
+    data.objectifs=c.classList.contains('sel')?[...data.objectifs,it.t]:data.objectifs.filter(x=>x!==it.t);};
+  objectifs.appendChild(c);
+});
+
+/* budget */
+bud.oninput=()=>{
+  data.budget=+bud.value;budVal.textContent=fmt(data.budget);
+  const surf=Math.max(25,Math.round(data.budget/18000));
+  const r=simulate({ville:'marrakech',type:'appartement',standing:'premium',surface:surf,chambres:2});
+  budRev.textContent=fmtMAD(r.mensuel);
+};
+bud.oninput();
+
+/* stepper */
+const stepper=document.getElementById('stepper');
+for(let i=0;i<TOTAL;i++){stepper.appendChild(document.createElement('i'));}
+function paint(){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.toggle('active',+s.dataset.step===step));
+  [...stepper.children].forEach((b,i)=>b.classList.toggle('done',i<=step));
+  btnPrev.style.visibility=step===0?'hidden':'visible';
+  btnNext.textContent=step===TOTAL-1?'Envoyer mon projet':'Continuer';
+  document.getElementById('nav').style.display=step>=TOTAL?'none':'flex';
+}
+function valid(){
+  if(step===0&&!data.situation)return 'Sélectionnez votre situation';
+  if(step===1&&!data.villes.length)return 'Choisissez au moins une ville';
+  if(step===2&&!data.types.length)return 'Choisissez au moins un type de bien';
+  if(step===4&&!data.financement)return 'Indiquez votre mode de financement';
+  if(step===5&&!data.objectifs.length)return 'Sélectionnez au moins un objectif';
+  if(step===6&&!data.delai)return 'Indiquez votre délai';
+  if(step===7){
+    if(!cNom.value.trim()||!cEmail.value.trim()||!cTel.value.trim())return 'Renseignez les champs obligatoires';
+  }
+  return null;
+}
+function next(){
+  const err=valid();if(err){toast(err);return;}
+  if(step===TOTAL-1){submit();return;}
+  step++;paint();window.scrollTo({top:0,behavior:'smooth'});
+}
+function prev(){if(step>0){step--;paint();}}
+
+async function submit(){
+  btnNext.disabled=true;btnNext.innerHTML='<span class="spin"></span>';
+  const payload={
+    full_name:cNom.value.trim(),email:cEmail.value.trim(),phone:cTel.value.trim(),
+    city:data.villes.join(', '),lead_type:'projet',source:'formulaire-decouverte',status:'nouveau',
+    message:`Situation: ${data.situation} | Objectifs: ${data.objectifs.join(', ')}`,
+    notes:`Pays: ${cPays.value} | Types: ${data.types.join(', ')} | Budget: ${fmt(data.budget)} MAD | Financement: ${data.financement} | Délai: ${data.delai}`
+  };
+  await submitLead(payload,'SmartBNB — Nouveau projet : '+payload.full_name);
+  recap.innerHTML=`
+    <div style="font-weight:600;margin-bottom:8px">Récapitulatif de votre projet</div>
+    <div class="res-row"><span>Situation</span><b>${data.situation}</b></div>
+    <div class="res-row"><span>Villes</span><b>${data.villes.join(', ')}</b></div>
+    <div class="res-row"><span>Types de biens</span><b>${data.types.join(', ')}</b></div>
+    <div class="res-row"><span>Budget</span><b>${fmtMAD(data.budget)}</b></div>
+    <div class="res-row"><span>Financement</span><b>${data.financement}</b></div>
+    <div class="res-row"><span>Objectifs</span><b>${data.objectifs.join(', ')}</b></div>
+    <div class="res-row"><span>Délai</span><b>${data.delai}</b></div>`;
+  step=TOTAL;paint();window.scrollTo({top:0,behavior:'smooth'});
+}
+paint();
+</script>
+</body>
+</html>

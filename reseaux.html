@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autopilote réseaux sociaux — SmartBNB</title>
+<meta name="description" content="Pilotage de la communication automatique de SmartBNB sur les réseaux sociaux.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+
+<header class="wrap" style="padding:54px 24px 16px">
+  <span class="eyebrow">Espace interne · Communication</span>
+  <h1 style="margin:8px 0 10px">Autopilote réseaux sociaux</h1>
+  <p class="lead">Le contenu est généré et publié automatiquement chaque jour. Cette page sert au suivi, à la génération manuelle et à la publication assistée WhatsApp / TikTok.</p>
+</header>
+
+<section class="wrap" style="padding-bottom:80px">
+
+  <!-- ===== ACTIONS ===== -->
+  <div class="card" style="margin-bottom:24px">
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+      <strong style="font-family:'Fraunces',serif;font-size:1.15rem">Générer un contenu maintenant</strong>
+      <select class="input" id="genType" style="width:auto">
+        <option value="">Type du jour (auto)</option>
+        <option value="conseil">Conseil / pédagogie</option>
+        <option value="bien">Nouveau bien</option>
+        <option value="marche">Chiffres & marché</option>
+        <option value="temoignage">Témoignage</option>
+      </select>
+      <button class="btn btn-vert" id="btnGen">Générer & publier</button>
+      <button class="btn btn-ghost" id="btnDry">Aperçu seul</button>
+    </div>
+    <div class="muted" style="font-size:.84rem;margin-top:10px">La génération automatique tourne chaque jour à 9h via le planificateur Supabase — aucune action requise.</div>
+  </div>
+
+  <!-- ===== CALENDRIER EDITORIAL ===== -->
+  <h2 style="font-size:1.5rem;margin-bottom:14px">Calendrier éditorial hebdomadaire</h2>
+  <div class="grid" style="grid-template-columns:repeat(7,1fr);margin-bottom:30px" id="calendar"></div>
+
+  <!-- ===== ETAT CONFIGURATION ===== -->
+  <h2 style="font-size:1.5rem;margin-bottom:14px">État de la connexion des réseaux</h2>
+  <div class="grid grid-3" style="margin-bottom:14px" id="netStatus"></div>
+  <div class="notice" style="margin-bottom:30px">
+    <b>Configuration unique (≈30 min).</b> Dans Supabase → Edge Functions → Secrets, ajoutez les jetons :
+    <code>META_PAGE_ID</code>, <code>META_PAGE_TOKEN</code>, <code>IG_USER_ID</code> (Instagram + Facebook),
+    <code>LINKEDIN_TOKEN</code>, <code>LINKEDIN_URN</code> (LinkedIn).
+    Tant qu'un jeton manque, le contenu reste en file d'attente, prêt à publier. WhatsApp et TikTok se publient en 1 clic ci-dessous.
+  </div>
+
+  <!-- ===== FILE D'ATTENTE ===== -->
+  <h2 style="font-size:1.5rem;margin-bottom:14px">File de contenu</h2>
+  <div id="queue" class="grid grid-2"></div>
+
+</section>
+
+<!-- ===== MODAL PUBLICATION ASSISTEE ===== -->
+<div class="modal" id="modal">
+  <div class="modal-box" id="modalBox" style="max-width:520px">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    <div id="modalContent" style="padding:26px"></div>
+  </div>
+</div>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
+<script>
+const FN = `${SB.url}/functions/v1/social-autopilot`;
+const H = { apikey: SB.anon, Authorization: 'Bearer ' + SB.anon };
+
+const PLAN = [
+  {j:'Dimanche',t:'marche'},{j:'Lundi',t:'conseil'},{j:'Mardi',t:'bien'},
+  {j:'Mercredi',t:'marche'},{j:'Jeudi',t:'temoignage'},{j:'Vendredi',t:'bien'},
+  {j:'Samedi',t:'conseil'}
+];
+const LABEL = {conseil:'Conseil / pédagogie',bien:'Nouveau bien',marche:'Chiffres & marché',temoignage:'Témoignage'};
+const NETS = [
+  {k:'instagram',n:'Instagram',auto:true},{k:'facebook',n:'Facebook',auto:true},
+  {k:'linkedin',n:'LinkedIn',auto:true},{k:'whatsapp',n:'WhatsApp',auto:false},
+  {k:'tiktok',n:'TikTok',auto:false}
+];
+
+/* calendrier */
+const today = new Date().getDay();
+document.getElementById('calendar').innerHTML = PLAN.map((d,i)=>`
+  <div class="card" style="padding:14px;text-align:center;${i===today?'border-color:var(--vert);background:#f3f5ef':''}">
+    <div style="font-size:.78rem;color:var(--gris);font-weight:600">${d.j}</div>
+    <div style="font-weight:600;font-size:.9rem;margin-top:6px">${LABEL[d.t]}</div>
+  </div>`).join('');
+
+/* état réseaux */
+document.getElementById('netStatus').innerHTML = NETS.map(net=>`
+  <div class="card" style="padding:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong>${net.n}</strong>
+      <span class="pill ${net.auto?'ok':'wait'}">${net.auto?'Auto via API':'Publication assistée'}</span>
+    </div>
+    <div class="muted" style="font-size:.83rem;margin-top:6px">
+      ${net.auto?'Publication 100% automatique une fois les jetons configurés.':'L\'API ne permet pas le 100% auto — contenu prêt, publication en 1 clic.'}
+    </div>
+  </div>`).join('');
+
+/* file d'attente */
+async function loadQueue(){
+  const q = document.getElementById('queue');
+  q.innerHTML = '<p class="muted">Chargement…</p>';
+  try{
+    const r = await fetch(`${SB.url}/rest/v1/social_posts?order=created_at.desc&limit=30`,{headers:H});
+    const rows = await r.json();
+    if(!Array.isArray(rows)||!rows.length){
+      q.innerHTML = '<p class="muted">Aucun contenu généré pour l\'instant. Cliquez sur « Générer & publier » ou attendez le passage automatique de 9h.</p>';
+      return;
+    }
+    q.innerHTML = rows.map(card).join('');
+  }catch(e){
+    q.innerHTML = '<div class="notice">Impossible de charger la file. Vérifiez que la table <code>social_posts</code> a été créée (voir supabase/schema.sql).</div>';
+  }
+}
+function card(p){
+  const st = p.status==='publie'?'ok':p.status==='erreur'?'no':'wait';
+  return `<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span class="badge">${LABEL[p.content_type]||p.content_type}</span>
+      <span class="pill ${st}">${p.status}</span>
+    </div>
+    ${p.image_url?`<img src="${p.image_url}" alt="" style="height:150px;width:100%;object-fit:cover;border-radius:12px;margin-bottom:10px">`:''}
+    <div style="font-size:.9rem;white-space:pre-line">${(p.caption||'').slice(0,260)}${(p.caption||'').length>260?'…':''}</div>
+    <div class="muted" style="font-size:.78rem;margin:8px 0">${p.hashtags||''}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:.82rem" onclick='assist(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Publier WhatsApp / TikTok</button>
+    </div>
+  </div>`;
+}
+
+/* publication assistée WhatsApp / TikTok */
+function assist(p){
+  const txt = (p.caption||'') + '\n\n' + (p.hashtags||'') + '\n' + (p.link_url||'');
+  document.getElementById('modalContent').innerHTML = `
+    <span class="eyebrow">Publication assistée</span>
+    <h3 style="margin:8px 0 12px">WhatsApp & TikTok</h3>
+    <p class="muted" style="font-size:.88rem">Le texte est prêt. Copiez-le, puis publiez sur le réseau choisi.</p>
+    <textarea class="input" id="assistTxt" style="min-height:160px;margin:12px 0">${txt}</textarea>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="navigator.clipboard.writeText(document.getElementById('assistTxt').value);toast('Texte copié')">Copier le texte</button>
+      <a class="btn btn-wa" target="_blank" href="https://wa.me/?text=${encodeURIComponent(txt)}">Diffuser sur WhatsApp</a>
+      <a class="btn btn-ghost" target="_blank" href="https://www.tiktok.com/upload">Ouvrir TikTok</a>
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+}
+document.getElementById('modal').onclick = e=>{ if(e.target.id==='modal') e.target.classList.remove('open'); };
+
+/* génération manuelle */
+async function generate(dry){
+  const type = document.getElementById('genType').value;
+  const btn = dry?document.getElementById('btnDry'):document.getElementById('btnGen');
+  const old = btn.textContent; btn.disabled=true; btn.innerHTML='<span class="spin"></span>';
+  try{
+    const u = new URL(FN);
+    if(type) u.searchParams.set('type',type);
+    if(dry) u.searchParams.set('dry','1');
+    const r = await fetch(u,{method:'POST',headers:{...H,'Content-Type':'application/json'},body:'{}'});
+    const j = await r.json();
+    if(j.ok){ toast(dry?'Aperçu généré':'Contenu généré et publié'); loadQueue(); }
+    else toast('Erreur : '+(j.error||'inconnue'));
+  }catch(e){
+    toast('Edge Function injoignable — déployez social-autopilot');
+  }
+  btn.disabled=false; btn.textContent=old;
+}
+document.getElementById('btnGen').onclick = ()=>generate(false);
+document.getElementById('btnDry').onclick = ()=>generate(true);
+
+loadQueue();
+</script>
+</body>
+</html>

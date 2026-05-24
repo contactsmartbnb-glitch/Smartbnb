@@ -1,574 +1,186 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartBnB — Créer une SCI au Maroc</title>
-<meta name="description" content="Formulaire de création de SCI au Maroc. Répondez à quelques questions pour obtenir votre devis personnalisé.">
-<style>
-  :root {
-    --bg: #ffffff;
-    --surface: #fafaf7;
-    --surface-2: #f1efe8;
-    --ink: #1a1a1a;
-    --ink-soft: #5f5e5a;
-    --ink-muted: #888780;
-    --border: #d3d1c7;
-    --border-soft: #e8e6df;
-    --accent: #0f6e56;
-    --accent-soft: #e1f5ee;
-    --accent-dark: #04342c;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Inter", system-ui, sans-serif;
-    color: var(--ink); background: var(--surface);
-    line-height: 1.6; -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
-  }
-  a { color: inherit; }
-  header { background: #fff; border-bottom: 1px solid var(--border); }
-  .nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; max-width: 1200px; margin: 0 auto;
-  }
-  .logo {
-    font-weight: 600; font-size: 18px; letter-spacing: -0.02em;
-    color: var(--ink); text-decoration: none;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .logo-mark {
-    width: 30px; height: 30px; background: var(--ink);
-    border-radius: 7px; display: inline-flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 14px; font-weight: 600;
-  }
-  .wizard { max-width: 760px; margin: 40px auto; padding: 0 24px; }
-  .intro { text-align: center; margin-bottom: 32px; }
-  .intro-eyebrow {
-    color: var(--accent); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
-  }
-  .intro h1 {
-    font-size: clamp(28px, 4vw, 38px);
-    line-height: 1.15; letter-spacing: -0.02em;
-    font-weight: 600; margin-bottom: 12px;
-  }
-  .intro p { color: var(--ink-soft); font-size: 16px; }
-  .progress { background: var(--surface-2); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
-  .progress-bar { background: var(--accent); height: 100%; transition: width 0.3s ease; width: 0%; }
-  .progress-label { text-align: right; font-size: 12px; color: var(--ink-muted); margin-bottom: 24px; }
-  .form-card {
-    background: #fff; border: 1px solid var(--border);
-    border-radius: 16px; padding: 40px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    min-height: 460px; display: flex; flex-direction: column;
-  }
-  .step { display: none; flex: 1; flex-direction: column; }
-  .step.active { display: flex; }
-  .step-num {
-    color: var(--accent); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
-  }
-  .step h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
-  .step .step-help { color: var(--ink-soft); font-size: 14px; margin-bottom: 24px; }
-  .choices { display: grid; gap: 10px; margin-bottom: 24px; }
-  .choices.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .choices.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 540px) {
-    .choices.cols-2, .choices.cols-3 { grid-template-columns: 1fr; }
-    .form-card { padding: 24px; }
-  }
-  .choice {
-    border: 1.5px solid var(--border); border-radius: 10px; padding: 16px;
-    cursor: pointer; background: #fff; transition: all 0.15s;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .choice:hover { border-color: var(--ink); background: var(--surface); }
-  .choice.selected { border-color: var(--accent); background: var(--accent-soft); }
-  .choice .check {
-    width: 20px; height: 20px; border: 1.5px solid var(--border);
-    border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center; transition: all 0.15s;
-  }
-  .choice.selected .check { background: var(--accent); border-color: var(--accent); }
-  .choice.selected .check::after { content: "✓"; color: white; font-size: 12px; font-weight: 600; }
-  .choice .icon-emoji { font-size: 22px; flex-shrink: 0; line-height: 1; }
-  .choice .label { flex: 1; font-size: 14px; font-weight: 500; }
-  .choice .sublabel { font-size: 12px; color: var(--ink-muted); margin-top: 2px; display: block; font-weight: 400; }
-  .choice.multi-choice .check { border-radius: 4px; }
-  .input-group { margin-bottom: 20px; }
-  .input-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
-  .input-group input, .input-group select, .input-group textarea {
-    width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
-    border-radius: 8px; font-size: 14px; font-family: inherit; background: #fff;
-    transition: border-color 0.15s;
-  }
-  .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
-    outline: none; border-color: var(--accent);
-  }
-  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 540px) { .input-grid { grid-template-columns: 1fr; } }
-
-  /* Prix dynamique */
-  .price-card {
-    background: var(--ink); color: white;
-    border-radius: 12px; padding: 24px; margin-bottom: 24px;
-  }
-  .price-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
-  .price-amount { font-size: 42px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
-  .price-note { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 6px; }
-  .price-lines { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.12); }
-  .price-line { display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.65); padding: 4px 0; }
-  .price-line strong { color: rgba(255,255,255,0.9); }
-
-  .infobox {
-    background: #fef9ec; border: 1px solid #f7d99c; border-left: 3px solid #c9941a;
-    border-radius: 8px; padding: 14px 16px;
-    font-size: 13px; color: #6b4310; margin-bottom: 20px; line-height: 1.6;
-  }
-  .infobox strong { display: block; font-weight: 600; color: #4a2c08; margin-bottom: 2px; }
-
-  .actions {
-    display: flex; justify-content: space-between;
-    margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-soft);
-  }
-  .btn { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; }
-  .btn-prev { background: transparent; color: var(--ink-soft); }
-  .btn-prev:hover { color: var(--ink); }
-  .btn-next { background: var(--ink); color: #fff; }
-  .btn-next:hover { background: #333; }
-  .btn-next.accent { background: var(--accent); }
-  .btn-next.accent:hover { background: var(--accent-dark); }
-  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .success { text-align: center; padding: 20px 0; }
-  .success-icon {
-    width: 60px; height: 60px; background: var(--accent-soft);
-    border: 2px solid var(--accent); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px; margin: 0 auto 20px; color: var(--accent);
-  }
-  .success h2 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
-  .success p { color: var(--ink-soft); font-size: 15px; max-width: 440px; margin: 0 auto 20px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
-  .tag {
-    background: var(--surface-2); border: 1px solid var(--border);
-    border-radius: 100px; padding: 4px 12px; font-size: 12px; color: var(--ink-soft);
-  }
-  footer { text-align: center; padding: 20px; color: var(--ink-muted); font-size: 12px; }
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Créer ma SCI — SmartBNB · Formulaire en 6 étapes</title>
+<meta name="description" content="Formulaire SmartBNB en 6 étapes pour créer votre SCI au Maroc : recevez un devis personnalisé et l'accompagnement complet pour 16 900 MAD tout compris.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
-<header>
-  <nav class="nav">
-    <a href="index.html" class="logo">
-      <span class="logo-mark">S</span>
-      <span>SmartBnB</span>
-    </a>
-    <span style="font-size:13px;color:var(--ink-muted);">Formulaire SCI</span>
-  </nav>
-</header>
-
-<div class="wizard">
-  <div class="intro">
-    <div class="intro-eyebrow">Création de SCI au Maroc</div>
-    <h1>Créer votre SCI en famille</h1>
-    <p>Quelques questions pour cadrer votre projet et vous proposer un devis adapté. Via notre partenaire comptable agréé.</p>
+<section class="wrap" style="padding:54px 24px 90px;max-width:720px">
+  <div class="center" style="margin-bottom:24px">
+    <span class="eyebrow">Création de SCI · 2 minutes</span>
+    <h1 style="margin-top:8px;font-size:2.3rem">Lançons votre projet SCI</h1>
   </div>
 
-  <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
-  <div class="progress-label"><span id="progress-text">Étape 1 sur 6</span></div>
+  <div class="card">
+    <div class="stepper" id="stepper"></div>
 
-  <div class="form-card">
+    <!-- 0 projet -->
+    <div class="form-step active" data-step="0">
+      <h3>Quel est votre projet ?</h3>
+      <p class="muted" style="margin-bottom:16px">Cela nous aide à cadrer la structure idéale.</p>
+      <div id="projet"></div>
+    </div>
 
-    <!-- Étape 1 — Motif -->
-    <div class="step active" data-step="1">
-      <div class="step-num">Étape 1 sur 6 — Votre projet</div>
-      <h2>Vous souhaitez créer une SCI pour…</h2>
-      <p class="step-help">La SCI permet d'acheter en famille ou entre associés, de protéger le patrimoine et de simplifier la transmission.</p>
-      <div class="choices">
-        <div class="choice" data-value="futur" onclick="toggleMulti(this,'motif')">
-          <div class="check" style="border-radius:4px"></div>
-          <span class="icon-emoji">🔍</span>
-          <div class="label">Un bien futur à acquérir<span class="sublabel">Vous êtes encore en phase de recherche</span></div>
-        </div>
-        <div class="choice" data-value="acquis" onclick="toggleMulti(this,'motif')">
-          <div class="check" style="border-radius:4px"></div>
-          <span class="icon-emoji">🏠</span>
-          <div class="label">Un bien déjà acquis<span class="sublabel">Vous souhaitez le transférer dans une SCI</span></div>
-        </div>
-        <div class="choice" data-value="deux" onclick="toggleMulti(this,'motif')">
-          <div class="check" style="border-radius:4px"></div>
-          <span class="icon-emoji">🏘️</span>
-          <div class="label">Les deux — bien existant + future acquisition</div>
-        </div>
+    <!-- 1 associés -->
+    <div class="form-step" data-step="1">
+      <h3>Avec qui créez-vous la SCI ?</h3>
+      <p class="muted" style="margin-bottom:16px">La composition oriente la rédaction des statuts.</p>
+      <div id="associes"></div>
+    </div>
+
+    <!-- 2 nationalité -->
+    <div class="form-step" data-step="2">
+      <h3>Quel est votre statut de résidence ?</h3>
+      <p class="muted" style="margin-bottom:16px">La SCI est accessible à tous, MRE et étrangers inclus.</p>
+      <div id="nationalite"></div>
+    </div>
+
+    <!-- 3 nombre d'associés -->
+    <div class="form-step" data-step="3">
+      <h3>Combien d'associés au total ?</h3>
+      <p class="muted" style="margin-bottom:16px">Vous-même inclus. Modulable par la suite.</p>
+      <div class="field">
+        <label>Nombre d'associés : <b id="nbVal">2</b></label>
+        <input type="range" id="nb" min="1" max="6" step="1" value="2">
+      </div>
+      <div class="notice" style="margin-top:8px">Une SCI requiert au minimum deux associés au Maroc. Si vous êtes seul, nous vous conseillons sur la meilleure option.</div>
+    </div>
+
+    <!-- 4 régime fiscal -->
+    <div class="form-step" data-step="4">
+      <h3>Quel régime fiscal envisagez-vous ?</h3>
+      <p class="muted" style="margin-bottom:16px">Notre conseiller affine le choix avec vous.</p>
+      <div id="regime"></div>
+    </div>
+
+    <!-- 5 contact -->
+    <div class="form-step" data-step="5">
+      <h3>Vos coordonnées</h3>
+      <p class="muted" style="margin-bottom:16px">Pour recevoir votre devis SCI personnalisé.</p>
+      <div class="row2">
+        <div class="field"><label>Prénom *</label><input class="input" id="cNom"></div>
+        <div class="field"><label>Téléphone *</label><input class="input" id="cTel"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Email *</label><input class="input" id="cEmail" type="email"></div>
+        <div class="field"><label>Pays de résidence</label><input class="input" id="cPays" placeholder="ex : France"></div>
       </div>
     </div>
 
-    <!-- Étape 2 — Associés -->
-    <div class="step" data-step="2">
-      <div class="step-num">Étape 2 sur 6 — Les associés</div>
-      <h2>Qui seront les associés de la SCI ?</h2>
-      <p class="step-help">La composition influe sur la rédaction des statuts et la durée du dossier.</p>
-      <div class="choices">
-        <div class="choice" data-value="couple" onclick="selectChoice(this,'associes')">
-          <div class="check"></div>
-          <span class="icon-emoji">💑</span>
-          <div class="label">En couple<span class="sublabel">Conjoints ou partenaires</span></div>
-        </div>
-        <div class="choice" data-value="famille" onclick="selectChoice(this,'associes')">
-          <div class="check"></div>
-          <span class="icon-emoji">👨‍👩‍👧‍👦</span>
-          <div class="label">En famille<span class="sublabel">Parents, enfants, fratrie</span></div>
-        </div>
-        <div class="choice" data-value="amis" onclick="selectChoice(this,'associes')">
-          <div class="check"></div>
-          <span class="icon-emoji">🤝</span>
-          <div class="label">Entre amis ou associés<span class="sublabel">Investisseurs non-apparentés</span></div>
-        </div>
-        <div class="choice" data-value="seul" onclick="selectChoice(this,'associes')">
-          <div class="check"></div>
-          <span class="icon-emoji">👤</span>
-          <div class="label">Seul — optimisation structurelle<span class="sublabel">La SCI exige min. 2 associés au Maroc → nous vous orienterons</span></div>
-        </div>
+    <!-- 6 success -->
+    <div class="form-step" data-step="6">
+      <div class="center">
+        <div style="font-size:3rem">✓</div>
+        <h3 style="font-size:1.6rem;margin:8px 0">Merci, votre demande est bien reçue !</h3>
+        <p class="muted">Un conseiller SmartBNB vous recontacte sous 24h ouvrées avec votre devis SCI.</p>
       </div>
+      <div class="card" style="background:var(--beige2);border:none;margin-top:20px" id="recap"></div>
+      <a href="services.html" class="btn btn-vert btn-block" style="margin-top:16px">Découvrir tous nos services</a>
     </div>
 
-    <!-- Étape 3 — Nationalité -->
-    <div class="step" data-step="3">
-      <div class="step-num">Étape 3 sur 6 — Nationalité</div>
-      <h2>Quelle est votre nationalité ?</h2>
-      <p class="step-help">Détermine les formalités spécifiques et la durée de traitement du dossier.</p>
-      <div class="choices">
-        <div class="choice" data-value="maro" onclick="selectChoice(this,'nat')">
-          <div class="check"></div>
-          <span class="icon-emoji">🇲🇦</span>
-          <div class="label">Marocaine uniquement</div>
-        </div>
-        <div class="choice" data-value="mre" onclick="selectChoice(this,'nat')">
-          <div class="check"></div>
-          <span class="icon-emoji">🇲🇦</span>
-          <div class="label">Marocaine — je réside à l'étranger (MRE)</div>
-        </div>
-        <div class="choice" data-value="etr" onclick="selectChoice(this,'nat')">
-          <div class="check"></div>
-          <span class="icon-emoji">🌍</span>
-          <div class="label">Étrangère (non-marocaine)<span class="sublabel">Supplément dossier non-résident</span></div>
-        </div>
-        <div class="choice" data-value="mix" onclick="selectChoice(this,'nat')">
-          <div class="check"></div>
-          <span class="icon-emoji">🤝</span>
-          <div class="label">Mixte — associés de nationalités différentes</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Étape 4 — Nb associés -->
-    <div class="step" data-step="4">
-      <div class="step-num">Étape 4 sur 6 — Nombre d'associés</div>
-      <h2>Combien d'associés dans la SCI ?</h2>
-      <p class="step-help">Au-delà de 3 associés, la rédaction des statuts est plus complexe et longue.</p>
-      <div class="choices cols-3">
-        <div class="choice" data-value="2" onclick="selectChoice(this,'nb')" style="justify-content:center;flex-direction:column;padding:20px 10px;text-align:center;">
-          <div class="check" style="margin:0 auto 8px"></div>
-          <div style="font-size:36px;font-weight:600;letter-spacing:-0.02em;">2</div>
-          <div style="font-size:13px;color:var(--ink-muted);margin-top:4px;">associés</div>
-        </div>
-        <div class="choice" data-value="3" onclick="selectChoice(this,'nb')" style="justify-content:center;flex-direction:column;padding:20px 10px;text-align:center;">
-          <div class="check" style="margin:0 auto 8px"></div>
-          <div style="font-size:36px;font-weight:600;letter-spacing:-0.02em;">3</div>
-          <div style="font-size:13px;color:var(--ink-muted);margin-top:4px;">associés</div>
-        </div>
-        <div class="choice" data-value="4+" onclick="selectChoice(this,'nb')" style="justify-content:center;flex-direction:column;padding:20px 10px;text-align:center;">
-          <div class="check" style="margin:0 auto 8px"></div>
-          <div style="font-size:36px;font-weight:600;letter-spacing:-0.02em;">4+</div>
-          <div style="font-size:13px;color:var(--ink-muted);margin-top:4px;">associés</div>
-        </div>
-      </div>
-      <div class="infobox">
-        <strong>Important</strong>
-        La SCI marocaine requiert au minimum 2 associés. Pour un projet individuel, une SARL de gestion locative peut être plus adaptée — notre équipe vous conseille gratuitement.
-      </div>
-    </div>
-
-    <!-- Étape 5 — Options + Devis -->
-    <div class="step" data-step="5">
-      <div class="step-num">Étape 5 sur 6 — Options & devis</div>
-      <h2>Votre devis personnalisé</h2>
-      <p class="step-help">Ajoutez les options dont vous avez besoin. Le prix se calcule en temps réel.</p>
-
-      <div class="price-card">
-        <div class="price-label">Estimation SmartBnB</div>
-        <div class="price-amount" id="price-display">2 800 MAD</div>
-        <div class="price-note">TTC · Via notre partenaire comptable agréé</div>
-        <div class="price-lines" id="price-lines"></div>
-      </div>
-
-      <div class="choices">
-        <div class="choice" data-value="compta" onclick="toggleOption(this,'compta')">
-          <div class="check" style="border-radius:4px"></div>
-          <span class="icon-emoji">📊</span>
-          <div class="label">Suivi comptable annuel<span class="sublabel">Bilan, déclarations fiscales, tenue des livres · +1 800 MAD/an</span></div>
-        </div>
-        <div class="choice" data-value="notaire" onclick="toggleOption(this,'notaire')">
-          <div class="check" style="border-radius:4px"></div>
-          <span class="icon-emoji">🏛️</span>
-          <div class="label">Coordination notaire lors de l'acquisition<span class="sublabel">Liaison SCI ↔ notaire · +800 MAD</span></div>
-        </div>
-        <div class="choice" data-value="office" onclick="toggleOption(this,'office')">
-          <div class="check" style="border-radius:4px"></div>
-          <span class="icon-emoji">💱</span>
-          <div class="label">Démarches Office des Changes<span class="sublabel">Déclaration investissement + garantie rapatriement · +1 200 MAD</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Étape 6 — Coordonnées -->
-    <div class="step" data-step="6">
-      <div class="step-num">Étape 6 sur 6 — Vos coordonnées</div>
-      <h2>Comment vous joindre ?</h2>
-      <p class="step-help">Un conseiller SmartBnB vous confirme le devis et lance la procédure sous 24h ouvrées.</p>
-
-      <form name="creation-sci" netlify netlify-honeypot="bot-field" id="netlify-sci" style="display:contents">
-        <input type="hidden" name="form-name" value="creation-sci">
-        <input type="hidden" name="bot-field" style="display:none">
-        <input type="hidden" name="motif" id="hid-motif" value="">
-        <input type="hidden" name="associes" id="hid-assoc" value="">
-        <input type="hidden" name="nationalite" id="hid-nat" value="">
-        <input type="hidden" name="nb_associes" id="hid-nb" value="">
-        <input type="hidden" name="options" id="hid-opts" value="">
-        <input type="hidden" name="devis_total" id="hid-prix" value="">
-
-        <div class="input-grid">
-          <div class="input-group">
-            <label>Prénom *</label>
-            <input type="text" id="firstname" name="prenom" required placeholder="Mohamed">
-          </div>
-          <div class="input-group">
-            <label>Nom *</label>
-            <input type="text" id="lastname" name="nom" required placeholder="Alami">
-          </div>
-        </div>
-        <div class="input-group">
-          <label>Email *</label>
-          <input type="email" id="email" name="email" required placeholder="votre@email.com">
-        </div>
-        <div class="input-group">
-          <label>Téléphone / WhatsApp</label>
-          <input type="tel" id="phone" name="telephone" placeholder="+33 6 12 34 56 78">
-        </div>
-        <div class="input-group">
-          <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
-            <input type="checkbox" id="consent" required style="width:auto;margin-top:4px;">
-            <span style="font-size:13px;color:var(--ink-soft);">J'accepte que SmartBnB utilise ces données pour me recontacter. Vos données ne sont pas partagées avec des tiers (loi 09-08 / RGPD).</span>
-          </label>
-        </div>
-      </form>
-    </div>
-
-    <!-- Étape 7 — Confirmation -->
-    <div class="step" data-step="7">
-      <div class="success">
-        <div class="success-icon">✓</div>
-        <h2>Demande envoyée !</h2>
-        <p>Un conseiller SmartBnB vous contacte sous <strong>24h ouvrées</strong> pour confirmer votre devis et lancer la procédure avec notre partenaire comptable agréé.</p>
-        <div class="tags" id="summary-tags"></div>
-        <div class="infobox" style="margin-top:24px;text-align:left;">
-          <strong>Prochaine étape</strong>
-          Préparez votre CIN ou passeport et ceux de vos co-associés. Notre partenaire vous guidera pour la rédaction des statuts et le dépôt au Registre du Commerce.
-        </div>
-        <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="mailto:contact.smartbnb@gmail.com" style="padding:11px 22px;background:var(--accent);color:white;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;">Envoyer un email</a>
-          <a href="https://wa.me/212775961740" style="padding:11px 22px;background:#fff;color:var(--accent-dark);border:1px solid var(--accent);border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;">WhatsApp</a>
-        </div>
-        <div style="margin-top:16px;font-size:13px;text-align:center;">
-          <button onclick="location.reload()" style="background:none;border:none;color:var(--ink-muted);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:13px;">↻ Recommencer</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="actions" id="actions">
-      <button type="button" class="btn btn-prev" id="btn-prev" onclick="prevStep()" style="visibility:hidden;">← Précédent</button>
-      <button type="button" class="btn btn-next" id="btn-next" onclick="nextStep()" disabled>Suivant →</button>
+    <div style="display:flex;justify-content:space-between;margin-top:24px" id="nav">
+      <button class="btn btn-ghost" id="btnPrev" onclick="prev()">Retour</button>
+      <button class="btn btn-primary" id="btnNext" onclick="next()">Continuer</button>
     </div>
   </div>
-</div>
+</section>
 
-<footer>© 2026 SmartBnB — Données protégées (loi 09-08 / RGPD)</footer>
-
+<script src="js/config.js?v=5"></script>
+<script src="js/app.js?v=5"></script>
 <script>
-const TOTAL_STEPS = 6;
-let currentStep = 1;
+const TOTAL=6;
+let step=0;
+const data={projet:'',associes:'',nationalite:'',nombre:2,regime:''};
 
-const formData = {
-  motif: [],
-  associes: null,
-  nat: null,
-  nb: null,
-  options: [],
-  firstname: '', lastname: '', email: '', phone: '', consent: false
-};
-
-const BASE = 2800;
-const OPTS = { compta: 1800, notaire: 800, office: 1200 };
-
-function calcDevis() {
-  let total = BASE;
-  const lines = [{ l: 'Création SCI (statuts + enregistrement)', a: BASE }];
-  if (formData.nat === 'etr' || formData.nat === 'mix') {
-    total += 600; lines.push({ l: 'Supplément dossier non-résident', a: 600 });
-  }
-  if (formData.nb === '4+') {
-    total += 400; lines.push({ l: 'Supplément 4+ associés', a: 400 });
-  }
-  formData.options.forEach(o => {
-    total += OPTS[o];
-    const labels = { compta: 'Suivi comptable annuel', notaire: 'Coordination notaire', office: 'Office des Changes' };
-    lines.push({ l: labels[o], a: OPTS[o] });
+/* option cards single-choice */
+function optCards(el,items,key){
+  items.forEach(it=>{
+    const c=document.createElement('div');c.className='opt-card';
+    c.innerHTML=`<b>${it.t}</b>${it.d?`<div class="muted" style="font-size:.85rem">${it.d}</div>`:''}`;
+    c.onclick=()=>{data[key]=it.t;el.querySelectorAll('.opt-card').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');};
+    el.appendChild(c);
   });
-  return { total, lines };
 }
+optCards(projet,[
+  {t:'SCI pour un futur achat',d:'Je prépare l\'acquisition d\'un bien'},
+  {t:'SCI pour un bien existant',d:'J\'apporte un bien que je possède déjà'},
+  {t:'Les deux',d:'Bien existant + futurs achats'}
+],'projet');
+optCards(associes,[
+  {t:'Seul',d:'Je suis le seul porteur du projet'},
+  {t:'En couple',d:'Avec mon conjoint / ma conjointe'},
+  {t:'En famille',d:'Avec mes enfants ou proches'},
+  {t:'Entre associés / amis',d:'Investissement collectif'}
+],'associes');
+optCards(nationalite,[
+  {t:'Marocain résident',d:'Je réside au Maroc'},
+  {t:'MRE (Marocain résident à l\'étranger)',d:'Je suis marocain et je vis à l\'étranger'},
+  {t:'Étranger',d:'Je suis ressortissant étranger'}
+],'nationalite');
+optCards(regime,[
+  {t:'Impôt sur le revenu (IR)',d:'Idéal pour un patrimoine familial'},
+  {t:'Impôt sur les sociétés (IS)',d:'Déduction des amortissements et charges'},
+  {t:'J\'ai besoin de conseil',d:'Je veux être orienté par un expert'}
+],'regime');
 
-function updateDevis() {
-  const { total, lines } = calcDevis();
-  document.getElementById('price-display').textContent = total.toLocaleString('fr-FR') + ' MAD';
-  document.getElementById('price-lines').innerHTML = lines.map(x =>
-    `<div class="price-line"><span>${x.l}</span><strong>${x.a.toLocaleString('fr-FR')} MAD</strong></div>`
-  ).join('');
+/* slider */
+nb.oninput=()=>{data.nombre=+nb.value;nbVal.textContent=data.nombre;};
+nb.oninput();
+
+/* stepper */
+const stepper=document.getElementById('stepper');
+for(let i=0;i<TOTAL;i++){stepper.appendChild(document.createElement('i'));}
+function paint(){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.toggle('active',+s.dataset.step===step));
+  [...stepper.children].forEach((b,i)=>b.classList.toggle('done',i<=step));
+  btnPrev.style.visibility=step===0?'hidden':'visible';
+  btnNext.textContent=step===TOTAL-1?'Envoyer ma demande':'Continuer';
+  document.getElementById('nav').style.display=step>=TOTAL?'none':'flex';
 }
-
-function selectChoice(el, key) {
-  el.parentElement.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  formData[key] = el.dataset.value;
-  if (currentStep === 3 || currentStep === 4) updateDevis();
-  updateNextButton();
-}
-
-function toggleMulti(el, key) {
-  el.classList.toggle('selected');
-  const val = el.dataset.value;
-  if (el.classList.contains('selected')) { if (!formData[key].includes(val)) formData[key].push(val); }
-  else { formData[key] = formData[key].filter(v => v !== val); }
-  updateNextButton();
-}
-
-function toggleOption(el, key) {
-  el.classList.toggle('selected');
-  if (el.classList.contains('selected')) { if (!formData.options.includes(key)) formData.options.push(key); }
-  else { formData.options = formData.options.filter(v => v !== key); }
-  updateDevis();
-  updateNextButton();
-}
-
-function isStepValid() {
-  switch (currentStep) {
-    case 1: return formData.motif.length > 0;
-    case 2: return formData.associes !== null;
-    case 3: return formData.nat !== null;
-    case 4: return formData.nb !== null;
-    case 5: return true;
-    case 6:
-      const f = document.getElementById('firstname'), l = document.getElementById('lastname'),
-            e = document.getElementById('email'), c = document.getElementById('consent');
-      return f && f.value.trim() && l && l.value.trim() && e && e.value.includes('@') && c && c.checked;
-    default: return true;
+function valid(){
+  if(step===0&&!data.projet)return 'Sélectionnez votre projet';
+  if(step===1&&!data.associes)return 'Indiquez avec qui vous créez la SCI';
+  if(step===2&&!data.nationalite)return 'Indiquez votre statut de résidence';
+  if(step===4&&!data.regime)return 'Choisissez un régime fiscal';
+  if(step===5){
+    if(!cNom.value.trim()||!cEmail.value.trim()||!cTel.value.trim())return 'Renseignez les champs obligatoires';
   }
+  return null;
 }
-
-function updateNextButton() {
-  const btn = document.getElementById('btn-next');
-  captureFreeFields();
-  btn.disabled = !isStepValid();
-  if (currentStep === 6) { btn.textContent = 'Envoyer ma demande →'; btn.classList.add('accent'); }
+function next(){
+  const err=valid();if(err){toast(err);return;}
+  if(step===TOTAL-1){submit();return;}
+  step++;paint();window.scrollTo({top:0,behavior:'smooth'});
 }
+function prev(){if(step>0){step--;paint();}}
 
-function captureFreeFields() {
-  if (currentStep === 6) {
-    const f = document.getElementById('firstname'), l = document.getElementById('lastname'),
-          e = document.getElementById('email'), p = document.getElementById('phone'),
-          c = document.getElementById('consent');
-    if (f) formData.firstname = f.value;
-    if (l) formData.lastname = l.value;
-    if (e) formData.email = e.value;
-    if (p) formData.phone = p.value;
-    if (c) formData.consent = c.checked;
-  }
+async function submit(){
+  btnNext.disabled=true;btnNext.innerHTML='<span class="spin"></span>';
+  const notes=`Projet: ${data.projet} | Associés: ${data.associes} | Statut: ${data.nationalite} | Nombre d'associés: ${data.nombre} | Régime fiscal: ${data.regime} | Pays: ${cPays.value||'—'}`;
+  const payload={
+    full_name:cNom.value.trim(),email:cEmail.value.trim(),phone:cTel.value.trim(),
+    city:'',lead_type:'sci',source:'formulaire-sci',status:'nouveau',
+    message:'Projet SCI',
+    notes:notes
+  };
+  await submitLead(payload,'SmartBNB — Demande création SCI : '+payload.full_name);
+  recap.innerHTML=`
+    <div style="font-weight:600;margin-bottom:8px">Récapitulatif de votre projet SCI</div>
+    <div class="res-row"><span>Projet</span><b>${data.projet}</b></div>
+    <div class="res-row"><span>Associés</span><b>${data.associes}</b></div>
+    <div class="res-row"><span>Statut de résidence</span><b>${data.nationalite}</b></div>
+    <div class="res-row"><span>Nombre d'associés</span><b>${data.nombre}</b></div>
+    <div class="res-row"><span>Régime fiscal</span><b>${data.regime}</b></div>`;
+  step=TOTAL;paint();window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function showStep(n) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  const t = document.querySelector(`.step[data-step="${n}"]`);
-  if (t) t.classList.add('active');
-  document.getElementById('btn-prev').style.visibility = n > 1 && n < 7 ? 'visible' : 'hidden';
-  const nextBtn = document.getElementById('btn-next');
-  if (n === 7) { document.getElementById('actions').style.display = 'none'; }
-  else if (n === 6) { nextBtn.textContent = 'Envoyer ma demande →'; nextBtn.classList.add('accent'); }
-  else { nextBtn.textContent = 'Suivant →'; nextBtn.classList.remove('accent'); }
-  if (n === 5) updateDevis();
-  currentStep = n;
-  updateProgress();
-  updateNextButton();
-}
-
-function updateProgress() {
-  const d = Math.min(currentStep, TOTAL_STEPS);
-  document.getElementById('progress-bar').style.width = (currentStep === 7 ? 100 : ((d - 1) / TOTAL_STEPS * 100)) + '%';
-  document.getElementById('progress-text').textContent = currentStep === 7 ? 'Terminé' : `Étape ${d} sur ${TOTAL_STEPS}`;
-}
-
-function nextStep() {
-  captureFreeFields();
-  if (!isStepValid()) return;
-  if (currentStep === 6) { submitAndShowConfirm(); return; }
-  showStep(currentStep + 1);
-}
-
-function prevStep() {
-  if (currentStep > 1) showStep(currentStep - 1);
-}
-
-function submitAndShowConfirm() {
-  const { total } = calcDevis();
-  // Populate hidden fields
-  document.getElementById('hid-motif').value = formData.motif.join(', ');
-  document.getElementById('hid-assoc').value = formData.associes || '';
-  document.getElementById('hid-nat').value = formData.nat || '';
-  document.getElementById('hid-nb').value = formData.nb || '';
-  document.getElementById('hid-opts').value = formData.options.join(', ');
-  document.getElementById('hid-prix').value = total.toLocaleString('fr-FR') + ' MAD';
-
-  const form = document.getElementById('netlify-sci');
-  if (form) {
-    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
-    }).catch(e => console.log('Submit error:', e));
-  }
-
-  // Build summary tags
-  const map = { futur: 'Bien futur', acquis: 'Bien acquis', deux: 'Futur + acquis',
-    couple: 'Couple', famille: 'Famille', amis: 'Associés', seul: 'Solo',
-    maro: 'Marocain', mre: 'MRE', etr: 'Étranger', mix: 'Mixte',
-    compta: 'Comptabilité', notaire: 'Notaire', office: 'Office des Changes' };
-  const tags = [];
-  formData.motif.forEach(v => tags.push(map[v] || v));
-  if (formData.associes) tags.push(map[formData.associes]);
-  if (formData.nat) tags.push(map[formData.nat]);
-  if (formData.nb) tags.push(formData.nb + ' associés');
-  formData.options.forEach(v => { if (map[v]) tags.push(map[v]); });
-  tags.push(total.toLocaleString('fr-FR') + ' MAD');
-  document.getElementById('summary-tags').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
-
-  showStep(7);
-}
-
-document.addEventListener('change', () => { captureFreeFields(); updateNextButton(); });
-document.addEventListener('input', () => { captureFreeFields(); updateNextButton(); });
-
-updateProgress();
-updateNextButton();
+paint();
 </script>
-<script src="js/chatbot.js"></script>
 </body>
 </html>
