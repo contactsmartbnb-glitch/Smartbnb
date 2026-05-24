@@ -23,6 +23,7 @@
       </a>
       <div class="nav-links">${navLinks}</div>
       <div class="nav-cta">
+        <a href="connexion.html" class="btn btn-ghost">Connexion</a>
         <a href="formulaire.html" class="btn btn-vert">Démarrer mon projet</a>
         <a href="https://wa.me/${SB.whatsapp}" target="_blank" class="btn btn-wa nav-wa">WhatsApp</a>
       </div>
@@ -32,7 +33,7 @@
     </div>
     <div class="mobile-menu" id="mobMenu">
       ${links.map(([h,t])=>`<a href="${h}">${t}</a>`).join('')}
-      <a href="espace-client.html">Espace client</a>
+      <a href="connexion.html">Connexion / Créer un compte</a>
       <a href="formulaire.html" style="color:var(--vert);font-weight:600">Démarrer mon projet →</a>
     </div>
   </nav>`;
@@ -109,46 +110,60 @@
     initChat();
   });
 
-  /* ---------- CHATBOT LOGIC ---------- */
-  const KB = [
-    {k:['gestion','17','commission','loyer','lcd'],a:"Notre gestion locative courte durée coûte 17% du loyer brut, sans aucun frais fixe. On gère tout : annonces, ménage, check-in, voyageurs et reporting mensuel."},
-    {k:['chasse','acheter','achat','3%','bien'],a:"La chasse immobilière, c'est 3% du prix d'achat. On déniche, négocie et sécurise votre bien (y compris off-market) sans que vous ayez à vous déplacer."},
-    {k:['sci','société','fiscal'],a:"La création de SCI au Maroc est à 16 900 MAD tout compris : statuts, immatriculation et accompagnement. Voir la page SCI pour le détail."},
-    {k:['déco','meuble','ameublement','smartdeco','meubler'],a:"SmartDéco aménage votre bien clé en main : packs de 35 000 MAD (studio) à 200 000 MAD (villa). Devis gratuit sur la page SmartDéco."},
-    {k:['rendement','rentabilité','yield','gagner','revenu','simul'],a:"Les rendements bruts vont de 5% à 10% selon la ville. Utilisez notre simulateur pour une estimation personnalisée en 30 secondes."},
-    {k:['mre','étranger','devises','financement','crédit'],a:"Les MRE peuvent financer jusqu'à 100% en devises (50% minimum en devises requis par les banques marocaines). On vous accompagne sur le montage."},
-    {k:['ville','marrakech','tanger','casa','rabat','essaouira','fes','fès'],a:"On opère à Marrakech, Tanger, Casablanca, Rabat, Essaouira et Fès. Marrakech offre le meilleur rendement (~9,8%). Voir la page Investir."},
-    {k:['contact','rendez','rdv','appel','téléphone','joindre'],a:"Vous pouvez nous joindre sur WhatsApp au +212 775 961 740 ou par email à contact.smartbnb@gmail.com. C'est gratuit."},
-    {k:['marketplace','vente','liste','annonce'],a:"Notre marketplace présente des biens sélectionnés avec rendement estimé. Certains sont off-market. Filtrez par ville, budget et rendement."}
-  ];
-  function botReply(txt){
-    const t = txt.toLowerCase();
-    for(const e of KB){ if(e.k.some(w=>t.includes(w))) return e.a; }
-    return "Bonne question ! Pour une réponse précise, écrivez-nous sur WhatsApp (+212 775 961 740) ou lancez votre projet. Je peux aussi vous parler de la gestion, la chasse, la SCI ou les rendements.";
+  /* ---------- CHATBOT (Claude via Edge Function) ---------- */
+  const CHAT_URL = `${SB.url}/functions/v1/chat`;
+  const history = [];   // conversation envoyée à Claude
+
+  async function askClaude(txt){
+    history.push({ role: 'user', content: txt });
+    const r = await fetch(CHAT_URL, {
+      method: 'POST',
+      headers: {
+        apikey: SB.anon,
+        Authorization: 'Bearer ' + SB.anon,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ messages: history })
+    });
+    const j = await r.json();
+    if (!j.text) throw new Error(j.error || 'Réponse vide');
+    history.push({ role: 'assistant', content: j.text });
+    return j.text;
   }
+
   function initChat(){
     const fab=document.getElementById('chatFab'), panel=document.getElementById('chatPanel'),
           body=document.getElementById('chatBody'), input=document.getElementById('chatInput'),
           quick=document.getElementById('chatQuick');
-    function add(txt,who){
+
+    function add(txt, who){
       const d=document.createElement('div'); d.className='chat-msg '+who; d.textContent=txt;
       body.appendChild(d); body.scrollTop=body.scrollHeight;
+      return d;
     }
-    function send(txt){
+
+    async function send(txt){
       txt=(txt||input.value).trim(); if(!txt) return;
       add(txt,'user'); input.value='';
-      setTimeout(()=>add(botReply(txt),'bot'),350);
+      const loading = add('…','bot');
+      try{
+        const reply = await askClaude(txt);
+        loading.textContent = reply;
+      }catch(e){
+        loading.textContent = "Je ne parviens pas à joindre l'assistant pour l'instant. Écrivez-nous sur WhatsApp au +212 775 961 740 ou par email à contact.smartbnb@gmail.com.";
+      }
     }
+
     fab.onclick=()=>{
       panel.classList.toggle('open');
       if(panel.classList.contains('open') && !body.dataset.init){
         body.dataset.init='1';
-        add("Bonjour, je suis l'assistant SmartBNB. Comment puis-je vous aider ?",'bot');
+        add("Bonjour, je suis l'assistant SmartBNB. Posez-moi votre question — investissement, gestion locative, SCI, fiscalité, financement MRE…",'bot');
       }
     };
     document.getElementById('chatSend').onclick=()=>send();
     input.addEventListener('keydown',e=>{if(e.key==='Enter')send();});
-    ['Gestion 17%','Chasse immo','Créer une SCI','Rendements'].forEach(q=>{
+    ['Comment fonctionne la gestion 17 % ?','Quels rendements à Marrakech ?','Créer une SCI au Maroc','Je suis MRE, financement ?'].forEach(q=>{
       const b=document.createElement('button'); b.textContent=q; b.onclick=()=>send(q);
       quick.appendChild(b);
     });
