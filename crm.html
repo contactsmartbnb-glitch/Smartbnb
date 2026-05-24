@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRM & Leads — SmartBNB</title>
+<meta name="description" content="Pilotage des leads SmartBNB : kanban, suivi du pipeline, qualification.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=3">
+<style>
+/* ===== CRM-specific layout ===== */
+.crm{display:grid;grid-template-columns:230px 1fr;min-height:100vh;background:var(--beige2)}
+.crm-aside{background:var(--noir);color:#fff;padding:24px 14px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.crm-aside .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;padding:4px 8px 22px}
+.crm-aside .brand img{width:34px;height:34px;border-radius:8px;object-fit:cover}
+.crm-aside .me{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:12px;background:rgba(255,255,255,.05);margin-bottom:18px}
+.crm-aside .me img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.crm-aside .me b{font-size:.88rem}
+.crm-aside .me span{font-size:.74rem;color:#a8a8a3;display:block}
+.crm-aside a{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:10px;color:#cfcfca;font-size:.9rem;font-weight:500;cursor:pointer;margin-bottom:3px;text-decoration:none}
+.crm-aside a:hover{background:rgba(255,255,255,.06);color:#fff}
+.crm-aside a.active{background:var(--vert);color:#fff}
+.crm-aside .pill{background:var(--vert);color:#fff;font-size:.7rem;padding:2px 7px;border-radius:999px;font-weight:600}
+.crm-aside .wa{position:absolute;bottom:18px;left:14px;width:46px;height:46px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:1.2rem}
+
+.crm-main{padding:24px 28px;overflow:hidden}
+.crm-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:18px}
+.crm-head h1{font-size:1.5rem;line-height:1.2}
+.crm-head .sub{color:var(--gris);font-size:.9rem}
+
+.crm-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi-mini{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:12px}
+.kpi-mini .ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--beige2);flex-shrink:0}
+.kpi-mini .v{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;line-height:1}
+.kpi-mini .l{font-size:.74rem;color:var(--gris);margin-top:3px}
+
+.crm-filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.crm-filters input{flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:var(--white);font-size:.9rem;outline:none}
+.crm-filters input:focus{border-color:var(--vert)}
+.crm-filters .chip{padding:7px 14px;font-size:.83rem}
+
+.kanban{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:flex-start}
+.col{background:rgba(255,255,255,.5);border-radius:14px;padding:8px;min-height:540px;transition:background .15s}
+.col.over{background:#f3f5ef;outline:2px dashed var(--vert)}
+.col-h{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:8px;color:#fff;font-weight:600;font-size:.84rem;margin-bottom:8px}
+.col-h .count{background:rgba(255,255,255,.25);padding:1px 8px;border-radius:999px;font-size:.74rem}
+.lead{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.04);font-size:.86rem;border-left:3px solid var(--vert)}
+.lead:active{cursor:grabbing}
+.lead.dragging{opacity:.4}
+.lead b{display:block;font-size:.92rem;margin-bottom:2px}
+.lead .city{color:var(--gris);font-size:.78rem}
+.lead .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:6px}
+.lead .badge-mini{background:var(--beige2);color:var(--noir);font-size:.7rem;padding:2px 8px;border-radius:999px;font-weight:600}
+.lead .budget{font-family:'Fraunces',serif;font-weight:600;font-size:.84rem;color:var(--vert)}
+
+/* detail drawer */
+.detail{position:fixed;top:0;right:0;width:400px;max-width:100vw;height:100vh;background:#fff;box-shadow:-10px 0 40px rgba(0,0,0,.15);transform:translateX(100%);transition:transform .25s;z-index:990;overflow-y:auto}
+.detail.open{transform:translateX(0)}
+.detail-h{padding:20px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.detail-h h2{font-size:1.25rem;line-height:1.2}
+.detail-h .x{background:none;border:none;cursor:pointer;font-size:1.3rem;padding:4px 10px;color:var(--gris)}
+.detail-body{padding:18px 22px}
+.detail-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.detail-row span:first-child{color:var(--gris)}
+.detail-row b{font-weight:600;text-align:right;max-width:60%;word-break:break-word}
+.detail-actions{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
+.detail-actions a,.detail-actions button{flex:1;min-width:120px;padding:11px;border-radius:10px;text-align:center;font-weight:600;font-size:.85rem;cursor:pointer;border:1px solid var(--border);background:var(--white);text-decoration:none;color:var(--noir)}
+.detail-actions a.wa{background:#25D366;color:#fff;border-color:#25D366}
+.detail-actions a.tel{background:var(--noir);color:#fff;border-color:var(--noir)}
+.detail-status{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:14px 0}
+.detail-status button{padding:9px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:.82rem;font-weight:600}
+.detail-status button.on{background:var(--vert);color:#fff;border-color:var(--vert)}
+.detail textarea{width:100%;min-height:90px;border:1px solid var(--border);border-radius:10px;padding:10px;font-family:inherit;font-size:.88rem;outline:none}
+.detail textarea:focus{border-color:var(--vert)}
+
+@media(max-width:980px){
+  .crm{grid-template-columns:1fr}
+  .crm-aside{position:relative;height:auto;display:flex;flex-wrap:wrap;gap:8px;padding:14px}
+  .crm-aside .brand,.crm-aside .me{display:none}
+  .crm-aside a{flex:0 0 auto;font-size:.82rem;padding:8px 12px}
+  .crm-aside .wa{display:none}
+  .kanban{grid-template-columns:repeat(5,260px);overflow-x:auto;padding-bottom:10px}
+  .crm-kpis{grid-template-columns:repeat(2,1fr)}
+  .detail{width:100%}
+}
+
+.empty{padding:24px 14px;text-align:center;color:var(--gris);font-size:.85rem}
+</style>
+</head>
+<body data-no-footer>
+
+<div class="crm">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="crm-aside">
+    <div class="brand"><img src="https://media.base44.com/images/public/6a0b5a847eb33c0a84ff4e82/edadd18eb_generated_image.png" alt="">SmartBNB</div>
+    <div class="me">
+      <img src="https://ui-avatars.com/api/?name=Youness+A&background=6B7C5E&color=fff" alt="">
+      <div><b>Youness</b><span>Fondateur · Admin</span></div>
+    </div>
+    <a class="active">CRM & Leads <span class="pill" id="navCount">—</span></a>
+    <a href="espace-chasseur.html">Biens chassés</a>
+    <a href="espace-client.html">Biens en gestion</a>
+    <a href="reseaux.html">Réseaux sociaux</a>
+    <a>Statistiques</a>
+    <a href="https://wa.me/212775961740" target="_blank" class="wa" title="WhatsApp">W</a>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="crm-main">
+    <div class="crm-head">
+      <div>
+        <h1>CRM & Leads</h1>
+        <div class="sub" id="subHead">— contacts · — nouveaux cette semaine</div>
+      </div>
+      <button class="btn btn-ghost" onclick="loadAll()" style="padding:9px 16px;font-size:.85rem">Actualiser</button>
+    </div>
+
+    <div class="crm-kpis">
+      <div class="kpi-mini"><div class="ico">▣</div><div><div class="v" id="kTotal">—</div><div class="l">Total leads</div></div></div>
+      <div class="kpi-mini"><div class="ico">↑</div><div><div class="v" id="kWeek">—</div><div class="l">Cette semaine</div></div></div>
+      <div class="kpi-mini"><div class="ico">★</div><div><div class="v" id="kQualif">—</div><div class="l">Qualifiés</div></div></div>
+      <div class="kpi-mini"><div class="ico">%</div><div><div class="v" id="kConv">—</div><div class="l">Taux conversion</div></div></div>
+    </div>
+
+    <div class="crm-filters">
+      <input id="qSearch" placeholder="Rechercher par nom, email, téléphone, ville…">
+      <div class="chip active" data-type="">Tous</div>
+      <div class="chip" data-type="projet">Projet</div>
+      <div class="chip" data-type="marketplace">Marketplace</div>
+      <div class="chip" data-type="sci">SCI</div>
+      <div class="chip" data-type="smartdeco">SmartDéco</div>
+      <div class="chip" data-type="mandat">Mandat</div>
+      <div class="chip" data-type="contact">Contact</div>
+    </div>
+
+    <div class="kanban" id="kanban"></div>
+  </main>
+</div>
+
+<!-- ===== DETAIL DRAWER ===== -->
+<aside class="detail" id="detail">
+  <div class="detail-h">
+    <div>
+      <h2 id="dName">—</h2>
+      <div class="muted" style="font-size:.83rem;margin-top:4px" id="dSub">—</div>
+    </div>
+    <button class="x" onclick="closeDetail()">✕</button>
+  </div>
+  <div class="detail-body" id="dBody"></div>
+</aside>
+
+<script src="js/config.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
+<script>
+/* ============ DATA ============ */
+const STATUSES = [
+  {k:'nouveau',  n:'Nouveau',       c:'#1A1A1A'},
+  {k:'qualifie', n:'Qualifié',      c:'#E0A93B'},
+  {k:'offre',    n:'Offre envoyée', c:'#6B7C5E'},
+  {k:'gagne',    n:'Gagné',         c:'#3E6B2C'},
+  {k:'perdu',    n:'Perdu',         c:'#A04545'}
+];
+const TYPE_LABEL = {projet:'Projet', marketplace:'Marketplace', sci:'SCI', smartdeco:'SmartDéco', mandat:'Mandat', contact:'Contact'};
+const H = { apikey: SB.anon, Authorization: 'Bearer ' + SB.anon };
+
+let LEADS = [], filterType = '', filterText = '', currentId = null;
+
+async function loadAll(){
+  try{
+    const r = await fetch(`${SB.url}/rest/v1/leads?order=created_at.desc&limit=300`, {headers:H});
+    const data = await r.json();
+    if(!Array.isArray(data)) throw new Error(JSON.stringify(data));
+    LEADS = data;
+  }catch(e){
+    LEADS = []; toast('Connexion Supabase impossible — la table leads est-elle accessible ?');
+  }
+  paint();
+}
+
+async function updateLead(id, patch){
+  await fetch(`${SB.url}/rest/v1/leads?id=eq.${id}`, {
+    method:'PATCH',
+    headers:{...H, 'Content-Type':'application/json', Prefer:'return=minimal'},
+    body: JSON.stringify(patch)
+  });
+  const i = LEADS.findIndex(l=>l.id===id);
+  if(i>=0) LEADS[i] = {...LEADS[i], ...patch};
+}
+
+/* ============ FILTERS ============ */
+document.querySelectorAll('.crm-filters .chip').forEach(c=>{
+  c.onclick = ()=>{
+    document.querySelectorAll('.crm-filters .chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    filterType = c.dataset.type;
+    paint();
+  };
+});
+document.getElementById('qSearch').oninput = e=>{ filterText = e.target.value.toLowerCase().trim(); paint(); };
+
+function visible(l){
+  if(filterType && (l.lead_type||'') !== filterType) return false;
+  if(filterText){
+    const hay = `${l.full_name||''} ${l.email||''} ${l.phone||''} ${l.city||''}`.toLowerCase();
+    if(!hay.includes(filterText)) return false;
+  }
+  return true;
+}
+
+/* ============ RENDER ============ */
+function paint(){
+  const list = LEADS.filter(visible);
+  // KPIs
+  const total = LEADS.length;
+  const weekAgo = Date.now() - 7*86400000;
+  const week = LEADS.filter(l => new Date(l.created_at).getTime() > weekAgo).length;
+  const qualif = LEADS.filter(l => ['qualifie','offre','gagne'].includes(l.status)).length;
+  const won = LEADS.filter(l => l.status==='gagne').length;
+  const conv = total ? Math.round(won/total*100) : 0;
+  kTotal.textContent = total;
+  kWeek.textContent = week;
+  kQualif.textContent = qualif;
+  kConv.textContent = conv + '%';
+  navCount.textContent = total;
+  subHead.textContent = `${total} contact${total>1?'s':''} · ${week} cette semaine`;
+
+  // Kanban
+  const kb = document.getElementById('kanban');
+  kb.innerHTML = STATUSES.map(s => {
+    const items = list.filter(l => (l.status||'nouveau') === s.k);
+    return `<div class="col" data-status="${s.k}">
+      <div class="col-h" style="background:${s.c}"><span>${s.n}</span><span class="count">${items.length}</span></div>
+      ${items.length ? items.map(leadCard).join('') : '<div class="empty">Aucun</div>'}
+    </div>`;
+  }).join('');
+
+  // wire drag & drop
+  document.querySelectorAll('.lead').forEach(el=>{
+    el.draggable = true;
+    el.addEventListener('dragstart', onDragStart);
+    el.addEventListener('dragend',   onDragEnd);
+    el.addEventListener('click',     ()=>openDetail(+el.dataset.id));
+  });
+  document.querySelectorAll('.col').forEach(col=>{
+    col.addEventListener('dragover', e=>{ e.preventDefault(); col.classList.add('over'); });
+    col.addEventListener('dragleave',()=>col.classList.remove('over'));
+    col.addEventListener('drop',     onDrop);
+  });
+}
+
+function leadCard(l){
+  const init = (l.full_name||'?').trim().charAt(0).toUpperCase();
+  const budget = (l.notes||'').match(/Budget\s*:?\s*([\d\s]+)/i);
+  return `<div class="lead" data-id="${l.id}">
+    <b>${escapeHtml(l.full_name||'Sans nom')}</b>
+    <div class="city">${escapeHtml(l.city||'—')}</div>
+    <div class="meta">
+      <span class="badge-mini">${TYPE_LABEL[l.lead_type]||l.lead_type||'—'}</span>
+      ${budget ? `<span class="budget">${budget[1].trim()} MAD</span>` : ''}
+    </div>
+  </div>`;
+}
+
+/* ============ DRAG & DROP ============ */
+let dragId = null;
+function onDragStart(e){
+  dragId = +e.currentTarget.dataset.id;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+function onDragEnd(e){
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.col.over').forEach(c=>c.classList.remove('over'));
+}
+async function onDrop(e){
+  e.preventDefault();
+  const col = e.currentTarget; col.classList.remove('over');
+  const newStatus = col.dataset.status;
+  const lead = LEADS.find(l=>l.id===dragId);
+  if(!lead || lead.status === newStatus) return;
+  await updateLead(dragId, {status: newStatus});
+  toast(`${lead.full_name} → ${STATUSES.find(s=>s.k===newStatus).n}`);
+  paint();
+  if(currentId === dragId) openDetail(dragId);
+}
+
+/* ============ DETAIL DRAWER ============ */
+function openDetail(id){
+  const l = LEADS.find(x=>x.id===id); if(!l) return;
+  currentId = id;
+  dName.textContent = l.full_name || 'Sans nom';
+  dSub.textContent = `${TYPE_LABEL[l.lead_type]||l.lead_type||''} · ${l.city||''}`;
+  const phoneClean = (l.phone||'').replace(/\D/g,'');
+  dBody.innerHTML = `
+    <div class="detail-actions">
+      ${l.email ? `<a href="mailto:${l.email}">Email</a>`:''}
+      ${phoneClean ? `<a class="tel" href="tel:+${phoneClean}">Appeler</a>`:''}
+      ${phoneClean ? `<a class="wa" target="_blank" href="https://wa.me/${phoneClean}">WhatsApp</a>`:''}
+    </div>
+
+    <div style="font-size:.78rem;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.1em;margin-top:14px">Statut</div>
+    <div class="detail-status">
+      ${STATUSES.map(s=>`<button class="${(l.status||'nouveau')===s.k?'on':''}" data-st="${s.k}">${s.n}</button>`).join('')}
+    </div>
+
+    <div style="font-size:.78rem;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.1em;margin-top:14px">Coordonnées</div>
+    <div class="detail-row"><span>Email</span><b>${l.email||'—'}</b></div>
+    <div class="detail-row"><span>Téléphone</span><b>${l.phone||'—'}</b></div>
+    <div class="detail-row"><span>Ville</span><b>${l.city||'—'}</b></div>
+    <div class="detail-row"><span>Source</span><b>${l.source||'—'}</b></div>
+    <div class="detail-row"><span>Type</span><b>${TYPE_LABEL[l.lead_type]||l.lead_type||'—'}</b></div>
+    <div class="detail-row"><span>Reçu le</span><b>${l.created_at ? new Date(l.created_at).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}) : '—'}</b></div>
+
+    ${l.message ? `<div style="font-size:.78rem;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.1em;margin-top:14px">Message</div>
+    <div style="background:var(--beige2);padding:11px 13px;border-radius:10px;font-size:.86rem;margin-top:6px;white-space:pre-line">${escapeHtml(l.message)}</div>`:''}
+
+    <div style="font-size:.78rem;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.1em;margin-top:14px">Notes internes</div>
+    <textarea id="dNotes" placeholder="Notes pour l'équipe…">${l.notes||''}</textarea>
+    <button class="btn btn-vert btn-block" style="margin-top:10px" onclick="saveNotes(${id})">Enregistrer les notes</button>
+  `;
+  // status buttons
+  dBody.querySelectorAll('.detail-status button').forEach(b=>{
+    b.onclick = async ()=>{
+      await updateLead(id, {status: b.dataset.st});
+      toast('Statut mis à jour');
+      paint(); openDetail(id);
+    };
+  });
+  detail.classList.add('open');
+}
+function closeDetail(){ detail.classList.remove('open'); currentId = null; }
+async function saveNotes(id){
+  const notes = dBody.querySelector('#dNotes').value;
+  await updateLead(id, {notes});
+  toast('Notes enregistrées');
+}
+
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+loadAll();
+</script>
+</body>
+</html>
