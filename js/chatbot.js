@@ -14,7 +14,7 @@
 
 (function () {
 
-const CHAT_API_URL = 'https://chat-smartbnb.TONPSEUDO.workers.dev';
+const CHAT_API_URL = 'https://chat-smartbnb.contact-smartbnb.workers.dev';
 
 const SUGGESTIONS = [
   "Quels sont vos tarifs de gestion ?",
