@@ -5,510 +5,430 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SmartBnB — Dashboard Admin</title>
 <style>
-:root {
-  --ink: #1a1a1a; --ink-soft: #5f5e5a; --ink-muted: #888780;
-  --bg: #f5f4f0; --surface: #ffffff; --border: #d3d1c7;
-  --accent: #0f6e56; --accent-soft: #e1f5ee; --accent-dark: #04342c;
-  --danger: #e24b4a; --warning: #ba7517; --success: #3b6d11;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif; background: var(--bg); color: var(--ink); font-size: 14px; -webkit-font-smoothing: antialiased; }
+:root{--ink:#1a1a1a;--ink2:#5f5e5a;--ink3:#888780;--ink4:#b4b2a9;--bg:#f5f4f0;--bg2:#eceae5;--white:#fff;--border:#d3d1c7;--border2:#e8e6df;--green:#0f6e56;--gbg:#e1f5ee;--amber:#854f0b;--abg:#faeeda;--blue:#0c447c;--bbg:#e6f1fb;--red:#791f1f;--rbg:#fcebeb;--purple:#3c3489;--pbg:#eeedfe;--teal:#0a6e72;--tbg:#dbf2f3;--r6:6px;--r10:10px;--r14:14px}
+*{box-sizing:border-box;margin:0;padding:0}html,body{min-height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}input,select{font-family:inherit;font-size:13px}a{color:inherit;text-decoration:none}
 
-/* LOGIN */
-.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-.login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 100%; max-width: 380px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
-.login-logo { font-weight: 600; font-size: 20px; margin-bottom: 24px; }
-.login-logo span { color: var(--accent); }
-.login-card h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
-.login-card p { color: var(--ink-soft); margin-bottom: 24px; font-size: 13px; }
-.field { margin-bottom: 16px; }
-.field label { display: block; font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-bottom: 6px; }
-.field input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: inherit; }
-.field input:focus { outline: none; border-color: var(--accent); }
-.btn-login { width: 100%; padding: 11px; background: var(--ink); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; }
-.btn-login:hover { background: var(--accent); }
-.login-error { color: var(--danger); font-size: 12px; margin-top: 8px; display: none; }
+#login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
+.lcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r14);padding:36px;width:360px}
+.llogo{font-size:18px;font-weight:600;margin-bottom:24px}.llogo em{color:var(--green);font-style:normal}
+.lcard h1{font-size:18px;font-weight:600;margin-bottom:4px}.lcard p{font-size:12px;color:var(--ink2);margin-bottom:20px}
+.lf{margin-bottom:12px}.lf label{display:block;font-size:11px;font-weight:500;color:var(--ink2);margin-bottom:4px}
+.lf input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r6);font-size:13px;background:var(--white);color:var(--ink)}
+.lf input:focus{outline:none;border-color:var(--green)}
+.lbtn{width:100%;padding:10px;background:var(--ink);color:var(--white);border:none;border-radius:var(--r6);font-size:13px;font-weight:500;margin-top:4px}
+.lbtn:hover{background:var(--green)}.lerr{color:var(--red);font-size:11px;margin-top:8px;display:none}
 
-/* DASHBOARD */
-.dashboard { display: none; min-height: 100vh; }
-.topbar {
-  background: var(--surface); border-bottom: 1px solid var(--border);
-  padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10;
-}
-.topbar-logo { font-weight: 600; font-size: 16px; }
-.topbar-logo span { color: var(--accent); }
-.topbar-right { display: flex; align-items: center; gap: 12px; }
-.btn-sm { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; font-family: inherit; }
-.btn-sm:hover { background: var(--bg); }
-.btn-accent { background: var(--accent); color: white; border-color: var(--accent); }
-.btn-accent:hover { background: var(--accent-dark); }
+#app{display:none;min-height:100vh;flex-direction:column}
+.topbar{height:48px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 22px;gap:12px;position:sticky;top:0;z-index:10}
+.tlogo{font-size:15px;font-weight:600}.tlogo em{color:var(--green);font-style:normal}
+.tlbl{font-size:11px;color:var(--ink3);font-weight:500;margin-left:6px;padding:2px 7px;background:var(--bg);border-radius:100px}
+.tright{margin-left:auto;display:flex;gap:6px}
+.tbtn{padding:5px 12px;border-radius:var(--r6);border:1px solid var(--border);background:transparent;font-size:11px;font-weight:500;color:var(--ink2)}
+.tbtn:hover{background:var(--bg)}.tbtn.pri{background:var(--green);color:var(--white);border-color:var(--green)}.tbtn.pri:hover{background:#085041}
 
-.main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.main{max-width:1280px;margin:0 auto;padding:24px;width:100%}
+.h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
+.h1sub{font-size:13px;color:var(--ink2);margin-bottom:22px}
+.sec{margin-bottom:28px}
+.sech{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.sech h2{font-size:13px;font-weight:600;color:var(--ink)}
+.sech .mu{font-size:11px;color:var(--ink3)}
 
-/* STATS */
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
-.stat-label { font-size: 11px; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-.stat-num { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
-.stat-sub { font-size: 11px; color: var(--ink-muted); margin-top: 4px; }
-.stat-accent { color: var(--accent); }
-.stat-warn { color: var(--warning); }
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.kpi{background:var(--white);border:1px solid var(--border);border-radius:var(--r10);padding:14px 16px}
+.klbl{font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.kval{font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1}.ksub{font-size:11px;color:var(--ink3);margin-top:4px}
+.cg{color:var(--green)}.ca{color:var(--amber)}.cb{color:var(--blue)}.ct{color:var(--teal)}.cp{color:var(--purple)}.cr{color:var(--red)}
 
-/* FILTERS */
-.filters { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.filter-label { font-size: 12px; font-weight: 500; color: var(--ink-soft); }
-.filter-btn { padding: 5px 12px; border-radius: 100px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); background: transparent; font-family: inherit; }
-.filter-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
-.filter-btn:hover:not(.active) { background: var(--bg); }
-.search-input { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; width: 200px; margin-left: auto; }
-.search-input:focus { outline: none; border-color: var(--accent); }
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r10);padding:16px}
+.card h3{font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:11px}
 
-/* TABLE */
-.table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-.table-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.table-title { font-size: 14px; font-weight: 500; }
-.table-count { font-size: 12px; color: var(--ink-muted); }
-table { width: 100%; border-collapse: collapse; }
-th { padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; background: #fafaf7; border-bottom: 1px solid var(--border); }
-td { padding: 12px 16px; border-bottom: 1px solid #f0ede6; vertical-align: middle; }
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: #fafaf7; }
-.lead-name { font-weight: 500; font-size: 14px; }
-.lead-email { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
-.badge { display: inline-block; padding: 3px 8px; border-radius: 100px; font-size: 11px; font-weight: 500; }
-.badge-decouverte { background: #e1f5ee; color: #085041; }
-.badge-sci { background: #faeeda; color: #633806; }
-.badge-profil { background: #eeedfe; color: #26215c; }
-.badge-qualification { background: #e6f1fb; color: #042c53; }
-.badge-nouveau { background: #fcebeb; color: #501313; }
-.badge-contact { background: #eaf3de; color: #173404; }
-.badge-traite { background: #f1efe8; color: #444441; }
-.action-btns { display: flex; gap: 6px; }
-.btn-icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-.btn-icon:hover { background: var(--bg); }
-.btn-icon.green:hover { background: var(--accent-soft); border-color: var(--accent); }
-.btn-icon.red:hover { background: #fcebeb; border-color: var(--danger); }
+/* Funnel */
+.funnel{display:flex;flex-direction:column;gap:5px;padding:4px 0}
+.fstep{display:flex;align-items:center;gap:11px}
+.fbar{flex:1;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;color:var(--white);font-weight:600;font-size:12px;transition:width .35s}
+.fbar.s1{background:var(--blue)}.fbar.s2{background:var(--purple)}.fbar.s3{background:var(--teal)}.fbar.s4{background:var(--green)}
+.flbl{font-size:11px;color:var(--ink2);min-width:130px}
+.fcnt{font-size:11px;font-weight:700;opacity:.9}.fpct{font-size:10px;font-weight:500;opacity:.8;margin-left:6px}
 
-/* MODAL */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.open { display: flex; }
-.modal { background: var(--surface); border-radius: 14px; width: 100%; max-width: 580px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-.modal-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--surface); }
-.modal-head h2 { font-size: 16px; font-weight: 600; }
-.modal-close { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: transparent; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-.modal-body { padding: 20px 24px; }
-.detail-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0ede6; font-size: 13px; }
-.detail-row:last-child { border-bottom: none; }
-.detail-key { color: var(--ink-muted); min-width: 140px; }
-.detail-val { color: var(--ink); font-weight: 500; flex: 1; }
-.modal-actions { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+/* Bars */
+.brow{margin-bottom:7px}.btop{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;color:var(--ink2)}
+.btrack{background:var(--bg2);border-radius:3px;height:6px;overflow:hidden}
+.bfill{background:var(--green);height:100%;border-radius:3px;transition:width .3s}
+.bfill.bb{background:var(--blue)}.bfill.bp{background:var(--purple)}.bfill.ba{background:var(--amber)}
 
-/* TOAST */
-.toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: white; padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.3s; z-index: 200; pointer-events: none; }
-.toast.show { opacity: 1; }
+/* Activity */
+.evlist{display:flex;flex-direction:column;gap:0}
+.ev{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2);align-items:center}
+.ev:last-child{border-bottom:none}
+.evdot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.evdot.b{background:var(--blue)}.evdot.p{background:var(--purple)}.evdot.a{background:var(--amber)}.evdot.t{background:var(--teal)}
+.evmain{flex:1;min-width:0}
+.evname{font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.evsub{font-size:11px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.evtime{font-size:10px;color:var(--ink3);flex-shrink:0}
+.evbadge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:100px;flex-shrink:0}
+.evbadge.l{background:var(--gbg);color:var(--green)}
+.evbadge.a{background:var(--pbg);color:var(--purple)}
+.evbadge.t{background:var(--bbg);color:var(--blue)}
 
-.empty-state { text-align: center; padding: 60px 20px; color: var(--ink-muted); }
-.empty-state-icon { font-size: 40px; margin-bottom: 12px; }
-.empty-state p { font-size: 14px; }
+/* Alerts */
+.alist{display:flex;flex-direction:column;gap:8px}
+.alert{display:flex;gap:11px;padding:10px 12px;background:var(--bg);border-left:3px solid var(--amber);border-radius:0 var(--r6) var(--r6) 0;align-items:flex-start}
+.alert.warn{border-left-color:var(--amber);background:var(--abg)}
+.alert.danger{border-left-color:var(--red);background:var(--rbg)}
+.alert.ok{border-left-color:var(--green);background:var(--gbg)}
+.alico{font-size:14px;flex-shrink:0}
+.alabel{font-size:12px;font-weight:600;margin-bottom:2px}
+.adesc{font-size:11px;color:var(--ink2);line-height:1.5}
+.alink{color:var(--green);font-weight:600;font-size:11px;margin-top:3px;display:inline-block}
 
-@media (max-width: 768px) {
-  .stats { grid-template-columns: 1fr 1fr; }
-  th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5) { display: none; }
-}
+/* Quick actions */
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.qa{background:var(--white);border:1px solid var(--border);border-radius:var(--r10);padding:14px;text-align:left;font-size:12px;font-weight:500;color:var(--ink);display:flex;flex-direction:column;gap:4px;transition:all .15s}
+.qa:hover{border-color:var(--green);background:var(--gbg);transform:translateY(-1px)}
+.qaico{font-size:18px}
+.qaname{font-weight:600}.qasub{font-size:10px;color:var(--ink3);font-weight:400}
+
+.empty{text-align:center;padding:24px 12px;color:var(--ink3);font-size:12px}
+.toast{position:fixed;bottom:16px;right:16px;background:var(--ink);color:var(--white);padding:7px 13px;border-radius:var(--r6);font-size:12px;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+
+@media(max-width:900px){.kpis,.qgrid{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="login-wrap" id="login-screen">
-  <div class="login-card">
-    <div class="login-logo">Smart<span>BnB</span></div>
-    <h1>Accès admin</h1>
-    <p>Connectez-vous pour gérer vos leads.</p>
-    <div class="field">
-      <label>Email</label>
-      <input type="email" id="login-email" placeholder="contact.smartbnb@gmail.com" value="contact.smartbnb@gmail.com">
-    </div>
-    <div class="field">
-      <label>Mot de passe</label>
-      <input type="password" id="login-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-    <div class="login-error" id="login-error">Email ou mot de passe incorrect.</div>
-    <button class="btn-login" onclick="doLogin()">Se connecter →</button>
+<div id="login">
+  <div class="lcard">
+    <div class="llogo">Smart<em>BnB</em></div>
+    <h1>Dashboard Admin</h1><p>Vue d'ensemble du pipeline et des chantiers.</p>
+    <div class="lf"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"></div>
+    <div class="lerr" id="lerr">Mot de passe incorrect.</div>
+    <button class="lbtn" onclick="login()">Se connecter →</button>
+    <p style="font-size:11px;color:var(--ink3);margin-top:14px;text-align:center">Même mot de passe que <a href="crm.html" style="color:var(--green);font-weight:500">crm.html</a></p>
   </div>
 </div>
 
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
+<div id="app">
   <div class="topbar">
-    <div class="topbar-logo">Smart<span>BnB</span> <span style="font-size:11px;font-weight:400;color:var(--ink-muted);margin-left:6px">Dashboard leads</span></div>
-    <div class="topbar-right">
-      <button class="btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
-      <button class="btn-sm" onclick="doLogout()">Déconnexion</button>
+    <div class="tlogo">Smart<em>BnB</em> <span class="tlbl">Dashboard Admin</span></div>
+    <div class="tright">
+      <a class="tbtn pri" href="crm.html">→ Ouvrir le CRM</a>
+      <button class="tbtn" onclick="refresh()">↻ Actualiser</button>
+      <button class="tbtn" onclick="logout()">Déconnexion</button>
     </div>
   </div>
 
   <div class="main">
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-label">Total leads</div>
-        <div class="stat-num stat-accent" id="stat-total">—</div>
-        <div class="stat-sub">Tous formulaires</div>
+    <div class="h1">Tableau de bord</div>
+    <div class="h1sub" id="lastupd">—</div>
+
+    <!-- KPIs principaux -->
+    <div class="sec">
+      <div class="kpis">
+        <div class="kpi"><div class="klbl">Total leads</div><div class="kval cg" id="kpiLeads">0</div><div class="ksub" id="kpiLeadsSub">—</div></div>
+        <div class="kpi"><div class="klbl">Acquéreurs actifs</div><div class="kval cp" id="kpiAcq">0</div><div class="ksub" id="kpiAcqSub">—</div></div>
+        <div class="kpi"><div class="klbl">Chantiers en cours</div><div class="kval cb" id="kpiTrv">0</div><div class="ksub" id="kpiTrvSub">—</div></div>
+        <div class="kpi"><div class="klbl">Volume pipeline</div><div class="kval ct" id="kpiVol">0 MAD</div><div class="ksub">Budgets acquéreurs cumulés</div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">Nouveaux</div>
-        <div class="stat-num stat-warn" id="stat-new">—</div>
-        <div class="stat-sub">Non traités</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Cette semaine</div>
-        <div class="stat-num" id="stat-week">—</div>
-        <div class="stat-sub">7 derniers jours</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Taux traitement</div>
-        <div class="stat-num" id="stat-rate">—</div>
-        <div class="stat-sub">Traités / total</div>
+      <div class="kpis">
+        <div class="kpi"><div class="klbl">Nouveaux cette semaine</div><div class="kval ca" id="kpiWeek">0</div><div class="ksub">Leads reçus 7j</div></div>
+        <div class="kpi"><div class="klbl">Taux de conversion</div><div class="kval" id="kpiConv">0%</div><div class="ksub">Leads gagnés / total</div></div>
+        <div class="kpi"><div class="klbl">Actes signés</div><div class="kval cg" id="kpiActe">0</div><div class="ksub">Acquisitions finalisées</div></div>
+        <div class="kpi"><div class="klbl">Volume travaux</div><div class="kval" id="kpiTrvVol">0 MAD</div><div class="ksub">Budgets chantiers cumulés</div></div>
       </div>
     </div>
 
-    <!-- Filters -->
-    <div class="filters">
-      <span class="filter-label">Formulaire :</span>
-      <button class="filter-btn active" onclick="setFilter('tous',this)">Tous</button>
-      <button class="filter-btn" onclick="setFilter('decouverte',this)">Découverte</button>
-      <button class="filter-btn" onclick="setFilter('profil',this)">Profil acquéreur</button>
-      <button class="filter-btn" onclick="setFilter('sci',this)">SCI</button>
-      <button class="filter-btn" onclick="setFilter('qualification',this)">Qualification</button>
-      <span class="filter-label" style="margin-left:8px">Statut :</span>
-      <button class="filter-btn active" id="f-statut-tous" onclick="setStatutFilter('tous',this)">Tous</button>
-      <button class="filter-btn" onclick="setStatutFilter('nouveau',this)">Nouveaux</button>
-      <button class="filter-btn" onclick="setStatutFilter('contact',this)">Contactés</button>
-      <button class="filter-btn" onclick="setStatutFilter('traite',this)">Traités</button>
-      <input class="search-input" type="text" placeholder="Rechercher..." oninput="setSearch(this.value)" id="search-input">
-    </div>
-
-    <!-- Table -->
-    <div class="table-wrap">
-      <div class="table-header">
-        <div class="table-title">Leads</div>
-        <div class="table-count" id="table-count">— résultats</div>
+    <!-- Pipeline funnel + Activité -->
+    <div class="sec grid2">
+      <div class="card">
+        <h3>Entonnoir de conversion</h3>
+        <div class="funnel" id="funnel"></div>
+        <p style="font-size:11px;color:var(--ink3);margin-top:11px">Du premier contact à l'acte authentique. Chaque pourcentage indique le taux de passage à l'étape précédente.</p>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Contact</th>
-            <th>Formulaire</th>
-            <th>Statut</th>
-            <th>Ville ciblée</th>
-            <th>Reçu le</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="leads-tbody">
-          <tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">⏳</div><p>Chargement des leads...</p></div></td></tr>
-        </tbody>
-      </table>
+      <div class="card">
+        <h3>Activité récente</h3>
+        <div class="evlist" id="evlist"></div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- DETAIL MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <div class="modal-head">
-      <h2 id="modal-title">Détail du lead</h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+    <!-- Charts -->
+    <div class="sec">
+      <div class="sech"><h2>Répartition des leads</h2><span class="mu">basé sur le pipeline actif</span></div>
+      <div class="grid3">
+        <div class="card"><h3>Par ville</h3><div id="chVille"></div></div>
+        <div class="card"><h3>Par formulaire</h3><div id="chForm"></div></div>
+        <div class="card"><h3>Par statut</h3><div id="chStatut"></div></div>
+      </div>
     </div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-actions">
-      <button class="btn-sm btn-accent" onclick="updateStatus('contact')">Marquer contacté</button>
-      <button class="btn-sm btn-accent" style="background:var(--success);border-color:var(--success)" onclick="updateStatus('traite')">Marquer traité ✓</button>
-      <button class="btn-sm" style="color:var(--danger);border-color:var(--danger)" onclick="deleteLead()">Supprimer</button>
-      <button class="btn-sm" style="margin-left:auto" onclick="closeModal()">Fermer</button>
+
+    <!-- Alertes -->
+    <div class="sec">
+      <div class="sech"><h2>Alertes</h2><span class="mu">éléments qui nécessitent une action</span></div>
+      <div class="alist" id="alerts"></div>
     </div>
+
+    <!-- Actions rapides -->
+    <div class="sec">
+      <div class="sech"><h2>Accès rapide</h2><span class="mu">vers le CRM</span></div>
+      <div class="qgrid">
+        <a class="qa" href="crm.html"><div class="qaico">📋</div><div class="qaname">Leads</div><div class="qasub">Voir tous les leads</div></a>
+        <a class="qa" href="crm.html#acquereurs"><div class="qaico">🤝</div><div class="qaname">Acquéreurs</div><div class="qasub">Suivi transactionnel</div></a>
+        <a class="qa" href="crm.html#travaux"><div class="qaico">🔧</div><div class="qaname">Chantiers</div><div class="qasub">Suivi travaux</div></a>
+        <a class="qa" href="crm.html#kanban"><div class="qaico">🗂️</div><div class="qaname">Kanban</div><div class="qasub">Vue drag &amp; drop</div></a>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ════════════════════════════════════════
-// CONFIGURATION — À personnaliser
-// ════════════════════════════════════════
-const CONFIG = {
-  // Mot de passe admin (simple, côté client)
-  // Pour une vraie sécurité, remplacer par Supabase Auth
-  password: 'smartbnb2026',
+const DP = 'smartbnb2026';
+const SL = {nouveau:'Nouveau',contact:'Contacté',rdv:'RDV planifié',offre:'Offre faite',gagne:'Gagné',perdu:'Perdu'};
+const ASL = {biens_select:'Biens sélectionnés',visites:'Visites planifiées',offre_envoyee:'Offre envoyée',offre_acceptee:'Offre acceptée',compromis:'Compromis signé',acte:'Acte authentique',abandon:'Abandon'};
+const TSL = {devis_cours:'Devis en cours',devis_signe:'Devis signé',devis_ameub:'Devis ameublement validé',travaux_cours:'Travaux en cours',reception:'Réception travaux + meubles',en_location:'En location'};
+const FL = {decouverte:'Découverte',profil:'Profil acquéreur',sci:'SCI',qualification:'Qualification'};
 
-  // Supabase (remplir après création du projet sur supabase.com)
-  supabaseUrl: 'https://VOTRE_PROJECT_ID.supabase.co',
-  supabaseKey: 'VOTRE_ANON_KEY',
-};
-// ════════════════════════════════════════
+const ls = (k, v) => { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v)); };
+const lsj = k => { try { return JSON.parse(ls(k) || 'null'); } catch { return null; } };
 
-// État
-let allLeads = [];
-let currentFilter = 'tous';
-let currentStatut = 'tous';
-let currentSearch = '';
-let currentLeadId = null;
-let useDemo = true; // Passe à false quand Supabase est configuré
+let leads = [], acquereurs = [], travaux = [];
 
-// ── LOGIN ──
-function doLogin() {
-  const pwd = document.getElementById('login-pwd').value;
-  if (pwd === CONFIG.password) {
-    sessionStorage.setItem('smartbnb_admin', '1');
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    loadLeads();
+function login() {
+  const p = document.getElementById('lp').value;
+  if (p === (ls('crm-pwd') || DP)) {
+    ls('crm-auth', '1');
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    refresh();
   } else {
-    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('lerr').style.display = 'block';
   }
 }
 
-function doLogout() {
-  sessionStorage.removeItem('smartbnb_admin');
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('dashboard').style.display = 'none';
+function logout() { ls('crm-auth', ''); location.reload(); }
+
+if (ls('crm-auth') === '1') {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
 }
 
-// Auto-login si session active
-if (sessionStorage.getItem('smartbnb_admin')) {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'block';
+function refresh() {
+  leads = lsj('crm-leads') || [];
+  acquereurs = lsj('crm-acquereurs') || [];
+  travaux = lsj('crm-travaux') || [];
+  renderKpis();
+  renderFunnel();
+  renderActivity();
+  renderCharts();
+  renderAlerts();
+  document.getElementById('lastupd').textContent = 'Dernière actualisation : ' + new Date().toLocaleString('fr-FR', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
 }
 
-// ── DONNÉES DEMO ──
-const DEMO_LEADS = [
-  { id:1, prenom:'Mohamed', nom:'Alami', email:'m.alami@gmail.com', telephone:'+33 6 12 34 56 78', pays:'France', formulaire:'decouverte', ville:'Marrakech', budget:'1m_2m', statut:'nouveau', created_at:'2026-05-18T10:23:00', data:{ experience:'1er investissement', type_bien:'Studio, Appartement', emplacement:'Vue mer, Plein centre', horizon:'Urgent', rentabilite:'Élevée', financement:'Prêt', gestion:'SmartBnB', motivation:'Croit au potentiel' } },
-  { id:2, prenom:'Fatima', nom:'Benali', email:'f.benali@outlook.fr', telephone:'+32 4 78 90 12 34', pays:'Belgique', formulaire:'sci', ville:'Casablanca', budget:'2m_3m', statut:'contact', created_at:'2026-05-17T14:45:00', data:{ motif:'Bien futur', associes:'En famille', nationalite:'MRE', nb_associes:'3', options:'Comptabilité, Notaire', devis_total:'4 400 MAD' } },
-  { id:3, prenom:'Karim', nom:'Essafi', email:'k.essafi@gmail.com', telephone:'+33 7 65 43 21 09', pays:'France', formulaire:'profil', ville:'Tanger', budget:'500k_1m', statut:'nouveau', created_at:'2026-05-17T09:12:00', data:{ foyer:'Couple', mobilite:'Véhiculé', environnement:'Vue mer, Modernité', standing:'Confort', usage:'Louer uniquement', animation:'Calme' } },
-  { id:4, prenom:'Sarah', nom:'Chraibi', email:'s.chraibi@yahoo.fr', telephone:'+34 6 12 34 56 78', pays:'Espagne', formulaire:'qualification', ville:'Rabat', budget:'m500k', statut:'traite', created_at:'2026-05-16T16:30:00', data:{ projet:'Investissement LCD', pays_residence:'Espagne', villes:'Rabat', budget:'500k_1m', financement:'Fonds propres', horizon:'À l\'écoute' } },
-  { id:5, prenom:'Youssef', nom:'Tahiri', email:'y.tahiri@gmail.com', telephone:'+1 514 123 4567', pays:'Canada', formulaire:'decouverte', ville:'Marrakech', budget:'p3m', statut:'nouveau', created_at:'2026-05-16T11:00:00', data:{ experience:'Multi-biens', type_bien:'Villa, Riad', emplacement:'Chaâbi authentique', horizon:'À l\'écoute', rentabilite:'Élevée', financement:'Fonds propres', motivation:'C\'est mon pays' } },
-  { id:6, prenom:'Leila', nom:'Moussaoui', email:'l.moussaoui@gmail.com', telephone:'+33 6 98 76 54 32', pays:'France', formulaire:'sci', ville:'Essaouira', budget:'1m_2m', statut:'contact', created_at:'2026-05-15T13:20:00', data:{ motif:'Bien futur, Bien acquis', associes:'Couple', nationalite:'Marocaine', nb_associes:'2', options:'Aucune', devis_total:'2 800 MAD' } },
-  { id:7, prenom:'Omar', nom:'Belkadi', email:'o.belkadi@hotmail.fr', telephone:'+33 6 11 22 33 44', pays:'France', formulaire:'profil', ville:'Fès', budget:'500k_1m', statut:'traite', created_at:'2026-05-14T09:45:00', data:{ foyer:'Famille', mobilite:'Sans voiture', environnement:'Médina, Authenticité', standing:'Standard', usage:'Usage personnel + location', animation:'Animé' } },
-];
+const fmtMAD = n => (Number(n) || 0).toLocaleString('fr-FR') + ' MAD';
+const fmtMADshort = n => {
+  n = Number(n) || 0;
+  if (n >= 1e9) return (n / 1e9).toFixed(1).replace('.0','') + ' Md MAD';
+  if (n >= 1e6) return (n / 1e6).toFixed(1).replace('.0','') + ' M MAD';
+  if (n >= 1e3) return (n / 1e3).toFixed(0) + ' k MAD';
+  return n + ' MAD';
+};
 
-// ── LOAD LEADS ──
-async function loadLeads() {
-  if (useDemo || !CONFIG.supabaseUrl.includes('supabase.co')) {
-    allLeads = DEMO_LEADS;
-    renderAll();
-    return;
-  }
-  try {
-    const res = await fetch(`${CONFIG.supabaseUrl}/rest/v1/leads?order=created_at.desc`, {
-      headers: { 'apikey': CONFIG.supabaseKey, 'Authorization': `Bearer ${CONFIG.supabaseKey}` }
-    });
-    allLeads = await res.json();
-    renderAll();
-  } catch(e) {
-    allLeads = DEMO_LEADS;
-    renderAll();
-    showToast('Mode démo — Supabase non configuré');
-  }
+const budgetMid = code => ({m500k:300000,'500k_1m':750000,'1m_2m':1500000,'2m_3m':2500000,p3m:3500000})[code] || 0;
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
 }
 
-// ── RENDER ──
-function getFiltered() {
-  return allLeads.filter(l => {
-    const matchF = currentFilter === 'tous' || l.formulaire === currentFilter;
-    const matchS = currentStatut === 'tous' || l.statut === currentStatut;
-    const q = currentSearch.toLowerCase();
-    const matchQ = !q || `${l.prenom} ${l.nom} ${l.email} ${l.ville || ''}`.toLowerCase().includes(q);
-    return matchF && matchS && matchQ;
-  });
+function relTime(d) {
+  if (!d) return '—';
+  const t = new Date(d).getTime();
+  const diff = Date.now() - t;
+  const day = 864e5;
+  if (diff < day) return 'aujourd\'hui';
+  if (diff < 2 * day) return 'hier';
+  if (diff < 7 * day) return Math.floor(diff / day) + 'j';
+  if (diff < 30 * day) return Math.floor(diff / (7 * day)) + 'sem.';
+  return Math.floor(diff / 30 / day) + 'mois';
 }
 
-function renderAll() {
-  updateStats();
-  renderTable();
+function renderKpis() {
+  const now = Date.now();
+  const weekAgo = now - 7 * 864e5;
+
+  document.getElementById('kpiLeads').textContent = leads.length;
+  const nouveau = leads.filter(l => l.statut === 'nouveau').length;
+  document.getElementById('kpiLeadsSub').textContent = nouveau + ' à traiter';
+
+  const acqActifs = acquereurs.filter(a => !['abandon','acte'].includes(a.statut)).length;
+  document.getElementById('kpiAcq').textContent = acqActifs;
+  document.getElementById('kpiAcqSub').textContent = acquereurs.length + ' au total';
+
+  const trvActifs = travaux.filter(t => t.statut !== 'en_location').length;
+  document.getElementById('kpiTrv').textContent = trvActifs;
+  document.getElementById('kpiTrvSub').textContent = travaux.length + ' au total';
+
+  const volAcq = acquereurs.filter(a => !['abandon'].includes(a.statut)).reduce((s, a) => s + (Number(a.budget) || 0), 0);
+  document.getElementById('kpiVol').textContent = fmtMADshort(volAcq);
+
+  document.getElementById('kpiWeek').textContent = leads.filter(l => l.date && new Date(l.date).getTime() > weekAgo).length;
+
+  const gn = leads.filter(l => l.statut === 'gagne').length;
+  document.getElementById('kpiConv').textContent = leads.length ? Math.round(gn / leads.length * 100) + '%' : '0%';
+
+  document.getElementById('kpiActe').textContent = acquereurs.filter(a => a.statut === 'acte').length;
+
+  const volTrv = travaux.reduce((s, t) => s + (Number(t.budget) || 0), 0);
+  document.getElementById('kpiTrvVol').textContent = fmtMADshort(volTrv);
 }
 
-function updateStats() {
-  const total = allLeads.length;
-  const nouveau = allLeads.filter(l => l.statut === 'nouveau').length;
-  const week = allLeads.filter(l => {
-    const d = new Date(l.created_at);
-    return (Date.now() - d) < 7 * 24 * 3600 * 1000;
-  }).length;
-  const traite = allLeads.filter(l => l.statut === 'traite').length;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-new').textContent = nouveau;
-  document.getElementById('stat-week').textContent = week;
-  document.getElementById('stat-rate').textContent = total ? Math.round(traite / total * 100) + '%' : '—';
-}
+function renderFunnel() {
+  const totalLeads = leads.length;
+  const inPipe = leads.filter(l => !['perdu'].includes(l.statut)).length;
+  const won = leads.filter(l => l.statut === 'gagne').length;
+  const totalAcq = acquereurs.length;
+  const compromis = acquereurs.filter(a => a.statut === 'compromis' || a.statut === 'acte').length;
+  const actes = acquereurs.filter(a => a.statut === 'acte').length;
 
-const FORM_LABELS = { decouverte:'Découverte', sci:'SCI', profil:'Profil acquéreur', qualification:'Qualification' };
-const STATUT_LABELS = { nouveau:'Nouveau', contact:'Contacté', traite:'Traité' };
-
-function renderTable() {
-  const filtered = getFiltered();
-  document.getElementById('table-count').textContent = `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''}`;
-
-  if (!filtered.length) {
-    document.getElementById('leads-tbody').innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">📭</div><p>Aucun lead pour ces filtres.</p></div></td></tr>`;
-    return;
-  }
-
-  document.getElementById('leads-tbody').innerHTML = filtered.map(l => `
-    <tr>
-      <td>
-        <div class="lead-name">${l.prenom} ${l.nom}</div>
-        <div class="lead-email">${l.email}</div>
-      </td>
-      <td><span class="badge badge-${l.formulaire}">${FORM_LABELS[l.formulaire] || l.formulaire}</span></td>
-      <td><span class="badge badge-${l.statut}">${STATUT_LABELS[l.statut] || l.statut}</span></td>
-      <td style="color:var(--ink-soft)">${l.ville || '—'}</td>
-      <td style="color:var(--ink-muted);font-size:12px">${formatDate(l.created_at)}</td>
-      <td>
-        <div class="action-btns">
-          <button class="btn-icon" title="Voir détail" onclick="openModal(${l.id})">👁</button>
-          <a href="mailto:${l.email}" class="btn-icon" title="Envoyer email" style="text-decoration:none;display:flex;align-items:center;justify-content:center">✉️</a>
-          ${l.telephone ? `<a href="https://wa.me/${l.telephone.replace(/[^0-9]/g,'')}" class="btn-icon green" title="WhatsApp" target="_blank" style="text-decoration:none;display:flex;align-items:center;justify-content:center">💬</a>` : ''}
-        </div>
-      </td>
-    </tr>
-  `).join('');
-}
-
-function formatDate(str) {
-  const d = new Date(str);
-  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
-}
-
-// ── FILTERS ──
-function setFilter(val, btn) {
-  currentFilter = val;
-  document.querySelectorAll('.filters .filter-btn').forEach(b => {
-    if (['tous','decouverte','profil','sci','qualification'].includes(b.textContent.toLowerCase().replace('é','e').replace('è','e').trim()) || b === btn) {
-      if (b === btn) b.classList.add('active');
-    }
-  });
-  // Simpler: just toggle the clicked button group
-  btn.closest('.filters').querySelectorAll('.filter-btn').forEach(b => {
-    const vals = ['tous','decouverte','profil','sci','qualification','nouveau','contact','traite'];
-    if (vals.includes(b.onclick?.toString().match(/'([^']+)'/)?.[1])) return;
-  });
-  document.querySelectorAll('.filters .filter-btn').forEach(b => {
-    const v = b.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
-    if (['tous','decouverte','profil','sci','qualification'].includes(v)) {
-      b.classList.toggle('active', v === val);
-    }
-  });
-  renderTable();
-}
-
-function setStatutFilter(val, btn) {
-  currentStatut = val;
-  document.querySelectorAll('.filters .filter-btn').forEach(b => {
-    const v = b.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
-    if (['tous','nouveau','contact','traite'].includes(v)) {
-      b.classList.toggle('active', v === val);
-    }
-  });
-  renderTable();
-}
-
-function setSearch(val) { currentSearch = val; renderTable(); }
-
-// ── MODAL ──
-function openModal(id) {
-  currentLeadId = id;
-  const l = allLeads.find(x => x.id === id);
-  if (!l) return;
-  document.getElementById('modal-title').textContent = `${l.prenom} ${l.nom} — ${FORM_LABELS[l.formulaire] || l.formulaire}`;
-
-  const rows = [
-    ['Email', `<a href="mailto:${l.email}" style="color:var(--accent)">${l.email}</a>`],
-    ['Téléphone', l.telephone ? `<a href="https://wa.me/${l.telephone.replace(/[^0-9]/g,'')}" style="color:var(--accent)" target="_blank">${l.telephone} 💬</a>` : '—'],
-    ['Pays', l.pays || '—'],
-    ['Ville ciblée', l.ville || '—'],
-    ['Budget', l.budget || '—'],
-    ['Statut', `<span class="badge badge-${l.statut}">${STATUT_LABELS[l.statut]}</span>`],
-    ['Reçu le', formatDate(l.created_at)],
+  const stages = [
+    { label: 'Leads reçus', count: totalLeads, max: totalLeads || 1, cls: 's1' },
+    { label: 'Pipeline actif', count: inPipe, max: totalLeads || 1, cls: 's1' },
+    { label: 'Gagnés (leads)', count: won, max: totalLeads || 1, cls: 's2' },
+    { label: 'Acquéreurs créés', count: totalAcq, max: totalLeads || 1, cls: 's2' },
+    { label: 'Compromis ou +', count: compromis, max: totalLeads || 1, cls: 's3' },
+    { label: 'Actes signés', count: actes, max: totalLeads || 1, cls: 's4' },
   ];
 
-  if (l.data) {
-    rows.push(['──────', '<span style="color:var(--ink-muted);font-size:11px">RÉPONSES DU FORMULAIRE</span>']);
-    Object.entries(l.data).forEach(([k, v]) => {
-      const label = k.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
-      rows.push([label, v || '—']);
-    });
+  const el = document.getElementById('funnel');
+  el.innerHTML = stages.map((s, i) => {
+    const w = Math.max(8, Math.round(s.count / s.max * 100));
+    const pct = i > 0 && stages[i - 1].count ? Math.round(s.count / stages[i - 1].count * 100) + '%' : '';
+    return `
+      <div class="fstep">
+        <div class="flbl">${s.label}</div>
+        <div class="fbar ${s.cls}" style="width:${w}%">
+          <span class="fcnt">${s.count}</span>
+          ${pct ? `<span class="fpct">${pct}</span>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderActivity() {
+  const all = [
+    ...leads.map(l => ({ ...l, _board: 'leads', _name: `${l.prenom||''} ${l.nom||''}`, _sub: `${SL[l.statut]||l.statut} · ${l.ville||'—'}` })),
+    ...acquereurs.map(a => ({ ...a, _board: 'acquereurs', _name: `${a.prenom||''} ${a.nom||''}`, _sub: `${ASL[a.statut]||a.statut} · ${a.bienCible||a.ville||'—'}` })),
+    ...travaux.map(t => ({ ...t, _board: 'travaux', _name: `${t.prenom||''} ${t.nom||''}`, _sub: `${TSL[t.statut]||t.statut} · ${t.bien||t.ville||'—'}` })),
+  ];
+  all.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+  const top = all.slice(0, 10);
+
+  const el = document.getElementById('evlist');
+  if (!top.length) { el.innerHTML = `<div class="empty">Aucune activité. Va sur <a href="crm.html" style="color:var(--green)">le CRM</a> pour créer des leads.</div>`; return; }
+
+  const dotCls = b => b === 'leads' ? '' : b === 'acquereurs' ? 'p' : 'b';
+  const badgeCls = b => b === 'leads' ? 'l' : b === 'acquereurs' ? 'a' : 't';
+  const badgeLbl = b => b === 'leads' ? 'Lead' : b === 'acquereurs' ? 'Acq.' : 'Trav.';
+
+  el.innerHTML = top.map(it => `
+    <div class="ev">
+      <div class="evdot ${dotCls(it._board)}"></div>
+      <div class="evmain">
+        <div class="evname">${escapeHtml(it._name)}</div>
+        <div class="evsub">${escapeHtml(it._sub)}</div>
+      </div>
+      <span class="evbadge ${badgeCls(it._board)}">${badgeLbl(it._board)}</span>
+      <span class="evtime">${relTime(it.date)}</span>
+    </div>`).join('');
+}
+
+function bar(obj, lmap, cls = '') {
+  const total = Object.values(obj).reduce((a, b) => a + b, 0) || 1;
+  const sorted = Object.entries(obj).sort((a, b) => b[1] - a[1]);
+  if (!sorted.length) return `<div class="empty">Pas de données</div>`;
+  return sorted.map(([k, v]) => `
+    <div class="brow">
+      <div class="btop"><span>${escapeHtml(lmap[k] || k)}</span><span>${v}</span></div>
+      <div class="btrack"><div class="bfill ${cls}" style="width:${Math.round(v/total*100)}%"></div></div>
+    </div>`).join('');
+}
+
+function renderCharts() {
+  const byV = {}, byF = {}, byS = {};
+  leads.forEach(l => {
+    if (l.ville) byV[l.ville] = (byV[l.ville] || 0) + 1;
+    if (l.formulaire) byF[l.formulaire] = (byF[l.formulaire] || 0) + 1;
+    if (l.statut) byS[l.statut] = (byS[l.statut] || 0) + 1;
+  });
+  document.getElementById('chVille').innerHTML = bar(byV, {});
+  document.getElementById('chForm').innerHTML = bar(byF, FL, 'bp');
+  document.getElementById('chStatut').innerHTML = bar(byS, SL, 'ba');
+}
+
+function renderAlerts() {
+  const now = Date.now();
+  const day = 864e5;
+  const alerts = [];
+
+  const oldCompromis = acquereurs.filter(a => a.statut === 'compromis' && a.date && now - new Date(a.date) > 60 * day);
+  if (oldCompromis.length) alerts.push({
+    type: 'warn', ico: '⏳',
+    label: `${oldCompromis.length} compromis en attente depuis +60 jours`,
+    desc: oldCompromis.map(a => `${a.prenom} ${a.nom} – ${a.bienCible || a.ville}`).slice(0, 3).join(' · ') + (oldCompromis.length > 3 ? '…' : ''),
+  });
+
+  const stagDevis = travaux.filter(t => t.statut === 'devis_cours' && t.date && now - new Date(t.date) > 14 * day);
+  if (stagDevis.length) alerts.push({
+    type: 'warn', ico: '📄',
+    label: `${stagDevis.length} devis en cours depuis +14 jours`,
+    desc: stagDevis.map(t => `${t.prenom} ${t.nom} – ${t.bien}`).slice(0, 3).join(' · ') + (stagDevis.length > 3 ? '…' : ''),
+  });
+
+  const stagOffre = acquereurs.filter(a => a.statut === 'offre_envoyee' && a.date && now - new Date(a.date) > 30 * day);
+  if (stagOffre.length) alerts.push({
+    type: 'danger', ico: '⚠️',
+    label: `${stagOffre.length} offre(s) sans réponse depuis +30 jours`,
+    desc: stagOffre.map(a => `${a.prenom} ${a.nom} – ${a.bienCible}`).slice(0, 3).join(' · ') + (stagOffre.length > 3 ? '…' : ''),
+  });
+
+  const nouveauOld = leads.filter(l => l.statut === 'nouveau' && l.date && now - new Date(l.date) > 3 * day);
+  if (nouveauOld.length) alerts.push({
+    type: 'warn', ico: '🔴',
+    label: `${nouveauOld.length} lead(s) "Nouveau" non contactés depuis +3 jours`,
+    desc: nouveauOld.map(l => `${l.prenom} ${l.nom}`).slice(0, 3).join(' · ') + (nouveauOld.length > 3 ? '…' : ''),
+  });
+
+  if (!alerts.length) {
+    alerts.push({ type: 'ok', ico: '✅', label: 'Aucune alerte', desc: 'Tout est sous contrôle, rien ne stagne. Beau travail.' });
   }
 
-  document.getElementById('modal-body').innerHTML = rows.map(([k,v]) =>
-    k === '──────' ? `<div style="padding:8px 0;font-size:11px;color:var(--ink-muted);letter-spacing:.06em">${v}</div>` :
-    `<div class="detail-row"><div class="detail-key">${k}</div><div class="detail-val">${v}</div></div>`
-  ).join('');
-
-  document.getElementById('modal').classList.add('open');
+  document.getElementById('alerts').innerHTML = alerts.map(a => `
+    <div class="alert ${a.type}">
+      <div class="alico">${a.ico}</div>
+      <div>
+        <div class="alabel">${escapeHtml(a.label)}</div>
+        <div class="adesc">${escapeHtml(a.desc)}</div>
+        ${a.type !== 'ok' ? `<a class="alink" href="crm.html">→ Ouvrir le CRM</a>` : ''}
+      </div>
+    </div>`).join('');
 }
 
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  currentLeadId = null;
-}
-
-function updateStatus(status) {
-  if (!currentLeadId) return;
-  const lead = allLeads.find(l => l.id === currentLeadId);
-  if (lead) {
-    lead.statut = status;
-    renderAll();
-    closeModal();
-    showToast(`Statut mis à jour : ${STATUT_LABELS[status]}`);
-    // Supabase update
-    if (!useDemo) {
-      fetch(`${CONFIG.supabaseUrl}/rest/v1/leads?id=eq.${currentLeadId}`, {
-        method: 'PATCH',
-        headers: { 'apikey': CONFIG.supabaseKey, 'Authorization': `Bearer ${CONFIG.supabaseKey}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ statut: status })
-      });
-    }
-  }
-}
-
-function deleteLead() {
-  if (!currentLeadId || !confirm('Supprimer ce lead ?')) return;
-  allLeads = allLeads.filter(l => l.id !== currentLeadId);
-  renderAll();
-  closeModal();
-  showToast('Lead supprimé');
-}
-
-// ── EXPORT CSV ──
-function exportCSV() {
-  const filtered = getFiltered();
-  const cols = ['prenom','nom','email','telephone','pays','formulaire','ville','budget','statut','created_at'];
-  const header = cols.join(';');
-  const rows = filtered.map(l => cols.map(c => `"${(l[c]||'').toString().replace(/"/g,'""')}"`).join(';'));
-  const csv = [header, ...rows].join('\n');
-  const blob = new Blob(['\uFEFF'+csv], { type:'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = `smartbnb-leads-${new Date().toISOString().slice(0,10)}.csv`;
-  a.click(); URL.revokeObjectURL(url);
-  showToast(`${filtered.length} leads exportés`);
-}
-
-// ── TOAST ──
-function showToast(msg) {
+function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// Close modal on overlay click
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-// Auto-login check
-if (sessionStorage.getItem('smartbnb_admin')) loadLeads();
+if (ls('crm-auth') === '1') refresh();
 </script>
 </body>
 </html>
