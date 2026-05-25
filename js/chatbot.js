@@ -1,31 +1,20 @@
 // SmartBnB Chatbot — Propulsé par Claude (Anthropic)
-// Inclure ce fichier dans toutes les pages : <script src="js/chatbot.js"></script>
-// La clé API est injectée côté serveur via Cloudflare Workers (voir guide)
+// Inclure dans toutes les pages : <script src="js/chatbot.js"></script>
+//
+// =============================================================
+//   CONFIG — URL DU WORKER CLOUDFLARE
+// =============================================================
+// Après avoir déployé js/worker.js sur Cloudflare Workers,
+// remplace l'URL ci-dessous par celle de TON Worker.
+// Tant que c'est l'URL placeholder, le chatbot tourne en mode
+// hors-ligne (réponses pré-définies, pas d'IA).
+//
+// Voir GUIDE-DEPLOIEMENT.html phase 4 pour la procédure complète.
+// =============================================================
 
-(function() {
+(function () {
 
-const SYSTEM_PROMPT = `Tu es Sami, le conseiller virtuel de SmartBnB — cabinet immobilier spécialisé au Maroc.
-Tu réponds en français, de façon chaleureuse, professionnelle et concise.
-Tu connais parfaitement :
-- Les services SmartBnB : chasse immobilière (commission 3%), gestion locative LCD à 17%, pack 5 visites, home staging, ameublement, création SCI, sécurisation
-- Les 6 villes couvertes : Marrakech, Casablanca, Rabat, Tanger, Fès, Essaouira
-- Les données marché : IPAI +3.1% en 2025, Marrakech +24.1% transactions, 17.4M touristes 2024, taux directeur BAM 2.5%
-- La fiscalité : IR sur loyers (15% après abattement 40%), TPI 20% ou 3% forfaitaire, avantages SCI
-- Les rendements LCD : Marrakech 8-12%, Tanger 6-9%, Casablanca 5-7%, Rabat 4-6%
-- La gestion locative SmartBnB : 17% du loyer brut, conformité loi 80-14, zéro frais fixe
-- Office des Changes : déclaration investissement étranger, garantie rapatriement
-- SmartDéco : ameublement clé en main, packs 35k-200k MAD, livraison 15 jours
-- Contact : +212775961740 (WhatsApp) / contact.smartbnb@gmail.com
-
-Règles importantes :
-- Réponds en 2-3 phrases maximum sauf si on te demande plus de détail
-- Si quelqu'un veut investir, propose-lui le formulaire découverte (/formulaire-decouverte.html)
-- Si quelqu'un veut confier un bien, renvoie vers /confier-mon-bien.html
-- Si quelqu'un veut une SCI, renvoie vers /formulaire-sci.html
-- Si quelqu'un veut simuler un rendement, renvoie vers /smart-invest.html
-- Pour tout RDV, donne le WhatsApp +212775961740
-- Ne dis jamais que tu es Claude ou une IA d'Anthropic — tu es Sami de SmartBnB
-- Si tu ne sais pas, dis "Je vais vous mettre en contact avec un conseiller SmartBnB"`;
+const CHAT_API_URL = 'https://chat-smartbnb.TONPSEUDO.workers.dev';
 
 const SUGGESTIONS = [
   "Quels sont vos tarifs de gestion ?",
@@ -33,7 +22,7 @@ const SUGGESTIONS = [
   "Comment créer une SCI au Maroc ?",
   "Vous couvrez quelle ville ?",
   "Je veux confier mon bien",
-  "Comment investir depuis la France ?"
+  "Comment investir depuis la France ?",
 ];
 
 const CSS = `
@@ -59,7 +48,7 @@ const CSS = `
 .sbnb-msg.bot{align-self:flex-start}
 .sbnb-msg.user{align-self:flex-end;flex-direction:row-reverse}
 .sbnb-msg-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#C9A96E,#C1714F);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
-.sbnb-bubble{padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.55}
+.sbnb-bubble{padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.55;white-space:pre-wrap;word-wrap:break-word}
 .bot .sbnb-bubble{background:#fff;border:0.5px solid #E8E6DF;color:#2C2420;border-bottom-left-radius:4px}
 .user .sbnb-bubble{background:#1A1714;color:#FAF8F4;border-bottom-right-radius:4px}
 .sbnb-time{font-size:10px;color:#B4B2A9;margin-top:3px;text-align:right}
@@ -100,7 +89,7 @@ const HTML = `
   <div id="sbnb-msgs"></div>
   <div id="sbnb-sugg"></div>
   <div id="sbnb-input-row">
-    <input id="sbnb-input" type="text" placeholder="Posez votre question..." autocomplete="off">
+    <input id="sbnb-input" type="text" placeholder="Posez votre question..." autocomplete="off" maxlength="500">
     <button id="sbnb-send" aria-label="Envoyer">
       <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -110,21 +99,17 @@ const HTML = `
 </div>
 `;
 
-// Inject CSS
 const style = document.createElement('style');
 style.textContent = CSS;
 document.head.appendChild(style);
 
-// Inject HTML
 const div = document.createElement('div');
 div.innerHTML = HTML;
 document.body.appendChild(div);
 
-// State
 let isOpen = false;
 let isTyping = false;
-let messages = [];
-let showedSugg = true;
+let history = [];
 
 const fab = document.getElementById('sbnb-fab');
 const win = document.getElementById('sbnb-win');
@@ -134,13 +119,15 @@ const send = document.getElementById('sbnb-send');
 const sugg = document.getElementById('sbnb-sugg');
 const notif = document.getElementById('sbnb-notif');
 
+const isWorkerConfigured = !CHAT_API_URL.includes('TONPSEUDO');
+
 function toggle() {
   isOpen = !isOpen;
   fab.classList.toggle('open', isOpen);
   win.classList.toggle('open', isOpen);
   notif.style.display = 'none';
   if (isOpen && msgs.children.length === 0) {
-    addMsg('bot', 'Bonjour ! Je suis Sami, votre conseiller SmartBnB 👋\n\nComment puis-je vous aider ? Investissement, gestion locative, création SCI, ameublement...', true);
+    addMsg('assistant', 'Bonjour ! Je suis Sami, votre conseiller SmartBnB 👋\n\nComment puis-je vous aider ? Investissement, gestion locative, création SCI, ameublement...', true);
     showSuggestions();
   }
   if (isOpen) setTimeout(() => input.focus(), 300);
@@ -152,12 +139,24 @@ function now() {
 
 function addMsg(role, text, animate = false) {
   const row = document.createElement('div');
-  row.className = `sbnb-msg ${role}`;
-  const t = now();
-  if (role === 'bot') {
-    row.innerHTML = `<div class="sbnb-msg-av">🏠</div><div><div class="sbnb-bubble"></div><div class="sbnb-time">${t}</div></div>`;
+  row.className = `sbnb-msg ${role === 'assistant' ? 'bot' : 'user'}`;
+  const wrap = document.createElement('div');
+  const bubble = document.createElement('div');
+  bubble.className = 'sbnb-bubble';
+  const time = document.createElement('div');
+  time.className = 'sbnb-time';
+  time.textContent = now();
+
+  if (role === 'assistant') {
+    const av = document.createElement('div');
+    av.className = 'sbnb-msg-av';
+    av.textContent = '🏠';
+    row.appendChild(av);
+    wrap.appendChild(bubble);
+    wrap.appendChild(time);
+    row.appendChild(wrap);
     msgs.appendChild(row);
-    const bubble = row.querySelector('.sbnb-bubble');
+
     if (animate) {
       let i = 0;
       const interval = setInterval(() => {
@@ -169,10 +168,14 @@ function addMsg(role, text, animate = false) {
       bubble.textContent = text;
     }
   } else {
-    row.innerHTML = `<div><div class="sbnb-bubble">${text}</div><div class="sbnb-time">${t}</div></div>`;
+    bubble.textContent = text;
+    wrap.appendChild(bubble);
+    wrap.appendChild(time);
+    row.appendChild(wrap);
     msgs.appendChild(row);
   }
-  messages.push({ role, content: text });
+
+  history.push({ role, content: text });
   msgs.scrollTop = msgs.scrollHeight;
 }
 
@@ -191,49 +194,52 @@ function removeTyping() {
 }
 
 function showSuggestions() {
-  const shown = SUGGESTIONS.sort(() => Math.random() - 0.5).slice(0, 3);
-  sugg.innerHTML = shown.map(s => `<button class="sbnb-pill" onclick="window._sbnbSend('${s}')">${s}</button>`).join('');
+  const shown = [...SUGGESTIONS].sort(() => Math.random() - 0.5).slice(0, 3);
+  sugg.innerHTML = '';
+  for (const text of shown) {
+    const btn = document.createElement('button');
+    btn.className = 'sbnb-pill';
+    btn.textContent = text;
+    btn.addEventListener('click', () => {
+      sugg.innerHTML = '';
+      sendMessage(text);
+    });
+    sugg.appendChild(btn);
+  }
 }
 
-window._sbnbSend = function(text) {
-  sugg.innerHTML = '';
-  sendMessage(text);
-};
-
 async function sendMessage(text) {
-  if (!text.trim() || isTyping) return;
-  addMsg('user', text);
+  const clean = (text || '').trim().slice(0, 500);
+  if (!clean || isTyping) return;
+  addMsg('user', clean);
   input.value = '';
   isTyping = true;
   showTyping();
 
-  try {
-    // Appel à l'API Claude via Cloudflare Worker
-    // Configure ton Worker à l'adresse : https://chat.smartbnb.ma/api
-    // Le Worker injecte la clé API et appelle Anthropic
-    const apiMessages = messages.slice(-10).map(m => ({
-      role: m.role === 'bot' ? 'assistant' : 'user',
-      content: m.content
-    }));
-
-    const res = await fetch('https://chat-smartbnb.TONPSEUDO.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: apiMessages })
-    });
-
-    if (!res.ok) throw new Error('API error');
-    const data = await res.json();
-    removeTyping();
-    addMsg('bot', data.content || "Je n'ai pas pu traiter votre demande. Contactez-nous sur WhatsApp : +212775961740", true);
-
-  } catch (e) {
-    // Fallback hors ligne — réponses pré-définies
-    removeTyping();
-    const reply = getFallback(text);
-    addMsg('bot', reply, true);
+  let reply;
+  if (isWorkerConfigured) {
+    try {
+      const apiMessages = history.slice(-10).map(m => ({
+        role: m.role,
+        content: m.content,
+      }));
+      const res = await fetch(CHAT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: apiMessages }),
+      });
+      if (!res.ok) throw new Error('API ' + res.status);
+      const data = await res.json();
+      reply = data.content;
+    } catch (e) {
+      reply = getFallback(clean);
+    }
+  } else {
+    reply = getFallback(clean);
   }
 
+  removeTyping();
+  addMsg('assistant', reply || getFallback(clean), true);
   isTyping = false;
   showSuggestions();
 }
@@ -241,35 +247,31 @@ async function sendMessage(text) {
 function getFallback(q) {
   const lq = q.toLowerCase();
   if (lq.includes('tarif') || lq.includes('prix') || lq.includes('commission') || lq.includes('17'))
-    return 'Notre commission de gestion locative est de 17% du loyer brut, sans frais fixe. C\'est l\'un des tarifs les plus compétitifs du marché marocain. Vous ne payez que quand le bien est loué.';
-  if (lq.includes('marrakech') || lq.includes('rendement') || lq.includes('rentabilité'))
-    return 'À Marrakech en location courte durée, le rendement brut est de 8 à 12% selon l\'emplacement et la qualité du bien. C\'est le meilleur ratio du Maroc. Simulez votre rendement sur notre page Smart Invest.';
-  if (lq.includes('sci') || lq.includes('société'))
-    return 'La SCI au Maroc permet d\'acheter en famille, protéger le patrimoine et optimiser la fiscalité. Notre partenaire comptable agréé crée votre SCI à partir de 2 800 MAD. Remplissez notre formulaire pour un devis.';
-  if (lq.includes('confier') || lq.includes('gérer') || lq.includes('gestion'))
-    return 'SmartBnB gère votre bien en location courte durée : 17% du loyer brut, conformité loi 80-14, check-in/out, ménage, maintenance et reporting mensuel. Aucun frais fixe. Remplissez le formulaire "Confier mon bien" pour commencer.';
-  if (lq.includes('france') || lq.includes('étranger') || lq.includes('mre') || lq.includes('belgique'))
-    return 'On travaille principalement avec des investisseurs MRE. Vous gérez tout à distance — visite virtuelle, signature électronique, gestion déléguée. Notre équipe sur place s\'occupe de tout. WhatsApp : +212775961740';
+    return "Notre commission de gestion locative est de 17% du loyer brut, sans frais fixe. C'est l'un des tarifs les plus compétitifs du marché marocain. Vous ne payez que quand le bien est loué.";
+  if (lq.includes('marrakech') || lq.includes('rendement') || lq.includes('rentabilit'))
+    return "À Marrakech en location courte durée, le rendement brut est de 8 à 12% selon l'emplacement et la qualité du bien. C'est le meilleur ratio du Maroc. Simulez votre rendement sur notre page Smart Invest.";
+  if (lq.includes('sci') || lq.includes('société') || lq.includes('societe'))
+    return "La SCI au Maroc permet d'acheter en famille, protéger le patrimoine et optimiser la fiscalité. Notre partenaire comptable agréé crée votre SCI à partir de 2 800 MAD. Remplissez notre formulaire pour un devis.";
+  if (lq.includes('confier') || lq.includes('gérer') || lq.includes('gerer') || lq.includes('gestion'))
+    return "SmartBnB gère votre bien en location courte durée : 17% du loyer brut, conformité loi 80-14, check-in/out, ménage, maintenance et reporting mensuel. Aucun frais fixe. Remplissez le formulaire \"Confier mon bien\" pour commencer.";
+  if (lq.includes('france') || lq.includes('étranger') || lq.includes('etranger') || lq.includes('mre') || lq.includes('belgique'))
+    return "On travaille principalement avec des investisseurs MRE. Vous gérez tout à distance — visite virtuelle, signature électronique, gestion déléguée. Notre équipe sur place s'occupe de tout. WhatsApp : +212 775 961 740";
   if (lq.includes('tanger'))
-    return 'Tanger est notre deuxième marché fort — rendement 6 à 9%, croissance des prix +52% en 14 ans. Idéal pour un premier investissement avec un budget accessible.';
+    return "Tanger est notre deuxième marché fort — rendement 6 à 9%, croissance des prix +52% en 14 ans. Idéal pour un premier investissement avec un budget accessible.";
   if (lq.includes('ameublement') || lq.includes('meuble') || lq.includes('deco'))
-    return 'Notre service SmartDéco propose des packs complets de 35 000 à 200 000 MAD selon la taille du bien. Livraison et installation incluses partout au Maroc en 15 jours. Configurez votre pack sur smartdeco.ma';
+    return "Notre service SmartDéco propose des packs complets de 35 000 à 200 000 MAD selon la taille du bien. Livraison et installation incluses partout au Maroc en 15 jours. Configurez votre pack sur smartdeco.ma";
   if (lq.includes('contact') || lq.includes('rdv') || lq.includes('rappel'))
-    return 'Pour un RDV ou un rappel, contactez-nous directement :\n📱 WhatsApp : +212 775 961 740\n✉️ contact.smartbnb@gmail.com\nNous répondons sous 24h ouvrées.';
-  return 'Bonne question ! Pour vous donner une réponse précise et personnalisée, je vous invite à contacter directement un conseiller SmartBnB :\n📱 WhatsApp : +212 775 961 740\nOu remplissez notre formulaire — on vous rappelle sous 24h.';
+    return "Pour un RDV ou un rappel, contactez-nous directement :\n📱 WhatsApp : +212 775 961 740\n✉️ contact.smartbnb@gmail.com\nNous répondons sous 24h ouvrées.";
+  return "Bonne question ! Pour vous donner une réponse précise et personnalisée, je vous invite à contacter directement un conseiller SmartBnB :\n📱 WhatsApp : +212 775 961 740\nOu remplissez notre formulaire — on vous rappelle sous 24h.";
 }
 
-// Events
 fab.addEventListener('click', toggle);
 send.addEventListener('click', () => sendMessage(input.value));
 input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(input.value); });
 
-// Auto-popup après 25 secondes (première visite seulement)
 if (!sessionStorage.getItem('sbnb-chat-seen')) {
   setTimeout(() => {
-    if (!isOpen) {
-      notif.style.display = 'flex';
-    }
+    if (!isOpen) notif.style.display = 'flex';
   }, 25000);
   sessionStorage.setItem('sbnb-chat-seen', '1');
 }

@@ -41,7 +41,7 @@ code{background:#f1efe8;border:1px solid #d3d1c7;border-radius:4px;padding:1px 5
 <header><span class="logo">Smart<em>BnB</em></span><span style="color:#666;font-size:12px">Guide déploiement v2</span></header>
 <div class="wrap">
 <h1>Mettre SmartBnB en ligne</h1>
-<p class="subtitle">3 phases · ~45 minutes · coût total : <strong>0 €/mois</strong> <span class="free">GRATUIT</span></p>
+<p class="subtitle">4 phases · ~55 minutes · coût total : <strong>~0–5 €/mois</strong> <span class="free">chatbot inclus</span></p>
 
 <!-- PHASE 1 -->
 <div class="phase">
@@ -112,14 +112,61 @@ CNAME  www           smartbnb.pages.dev</div>
 </div>
 </div>
 
+<!-- PHASE 4 -->
+<div class="phase">
+<div class="ph">
+  <div class="pn">4</div>
+  <div><div class="pt">Chatbot Claude — Cloudflare Worker</div><div class="ps">Le bot "Sami" branché sur Claude Haiku 4.5 · ~0–5 €/mois selon le trafic</div></div>
+  <span class="dur">10 min</span>
+</div>
+<div class="pb">
+
+  <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:0 0 10px">A · Récupérer une clef API Anthropic</p>
+  <div class="step"><div class="sn">1</div><div class="sc">Va sur <a href="https://console.anthropic.com" target="_blank"><strong>console.anthropic.com</strong></a> → crée un compte → <strong>Settings → API Keys → Create key</strong> → nomme-la <code>smartbnb-prod</code>.</div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Copie la clef</strong> (commence par <code>sk-ant-...</code>) et garde-la en lieu sûr — elle ne s'affichera plus jamais.
+    <div class="warn"><strong>Crédite ~5 €</strong> sur ton compte Anthropic (Billing → Add credits). Avec Haiku 4.5 + prompt caching, ça paie ~5 000 conversations.</div>
+  </div></div>
+
+  <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:14px 0 10px">B · Déployer le Worker Cloudflare</p>
+  <div class="step"><div class="sn">3</div><div class="sc">Sur <a href="https://dash.cloudflare.com" target="_blank"><strong>dash.cloudflare.com</strong></a> → <strong>Workers &amp; Pages</strong> → <strong>Create</strong> → <strong>Create Worker</strong> → nomme-le <code>chat-smartbnb</code> → <strong>Deploy</strong> (laisse le code par défaut pour l'instant).</div></div>
+  <div class="step"><div class="sn">4</div><div class="sc">Une fois créé → <strong>Edit code</strong> → supprime tout → <strong>copie-colle l'intégralité</strong> de <code>js/worker.js</code> → <strong>Save and deploy</strong>.</div></div>
+  <div class="step"><div class="sn">5</div><div class="sc">Onglet <strong>Settings → Variables and Secrets → Add</strong> :
+    <div class="cb">Type    : Secret
+Name    : ANTHROPIC_API_KEY
+Value   : sk-ant-... (ta clef de l'étape 2)</div>
+    Puis <strong>Save</strong> et <strong>redéploie</strong> le Worker.
+    <div class="danger"><strong>Choisis bien "Secret" et pas "Text".</strong> Un Text serait visible en clair par toute personne ayant accès au tableau de bord.</div>
+  </div></div>
+  <div class="step"><div class="sn">6</div><div class="sc"><strong>Copie l'URL du Worker</strong> (Settings → Triggers, ou tout en haut de la page Worker). Format : <code>https://chat-smartbnb.TON-PSEUDO.workers.dev</code></div></div>
+
+  <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:14px 0 10px">C · Brancher le widget sur le Worker</p>
+  <div class="step"><div class="sn">7</div><div class="sc">Ouvre <code>js/chatbot.js</code> → repère la ligne <code>const CHAT_API_URL = ...</code> tout en haut → remplace l'URL placeholder par celle de ton Worker.
+    <div class="cb"><span class="cm">// AVANT :</span>
+const CHAT_API_URL = 'https://chat-smartbnb.TONPSEUDO.workers.dev';
+
+<span class="cm">// APRÈS (exemple) :</span>
+const CHAT_API_URL = 'https://chat-smartbnb.youness-akhalouf.workers.dev';</div>
+  </div></div>
+  <div class="step"><div class="sn">8</div><div class="sc">Si tu as déjà déployé en phase 2 → <strong>re-upload le ZIP</strong> sur Cloudflare Pages pour pousser la nouvelle version. Sinon, fais-le après l'étape phase 2.</div></div>
+
+  <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:14px 0 10px">D · Tester le chatbot</p>
+  <div class="step"><div class="sn">9</div><div class="sc">Ouvre <code>smartbnb.ma</code> → clique sur le bouton chat en bas à droite → pose une question type "Quel rendement à Marrakech ?". La réponse doit être <strong>variée et personnalisée</strong> (Claude), pas toujours la même phrase (fallback).
+    <div class="tip"><strong>Comment savoir si Claude répond vraiment ?</strong> Pose 2 questions très différentes — si les réponses sont vivantes et naturelles, c'est Claude. Si c'est toujours la même réponse pour le même mot-clef, c'est le fallback hors-ligne (donc le Worker n'est pas joignable).</div>
+  </div></div>
+  <div class="step"><div class="sn">10</div><div class="sc"><strong>Surveille la facture :</strong> dans console.anthropic.com → Usage, tu vois la conso en temps réel. Haiku 4.5 + prompt caching : ~0,0005 € par conversation. 5 € de crédit = plusieurs milliers d'échanges.</div></div>
+</div>
+</div>
+
 <!-- SUMMARY -->
 <div class="sum">
   <h2>Ce que tu as maintenant</h2>
   <div class="sg">
-    <div class="si"><div class="sl">Site public</div><div class="sv">10 pages · 4 formulaires<br>Responsive · Design pro</div></div>
+    <div class="si"><div class="sl">Site public</div><div class="sv">15+ pages · formulaires<br>Responsive · Design pro</div></div>
     <div class="si"><div class="sl">CRM admin</div><div class="sv">smartbnb.ma/crm.html<br>Leads · Pipeline · Stats · CSV</div></div>
     <div class="si"><div class="sl">Google Sheets</div><div class="sv">Leads centralisés<br>Email notif à chaque envoi</div></div>
-    <div class="si"><div class="sl">Coût mensuel</div><div class="sv" style="font-size:22px;font-weight:600;color:#5dcaa5">0 €</div></div>
+    <div class="si"><div class="sl">Chatbot IA</div><div class="sv">Sami · Claude Haiku 4.5<br>24/7 · ~5€ pour ~5 000 conv.</div></div>
+    <div class="si"><div class="sl">Coût mensuel</div><div class="sv" style="font-size:22px;font-weight:600;color:#5dcaa5">0–5 €</div></div>
+    <div class="si"><div class="sl">Hébergement</div><div class="sv">Cloudflare Pages<br>CDN mondial · HTTPS auto</div></div>
   </div>
   <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-family:monospace;font-size:12px;color:#9fe1cb;line-height:2">
     smartbnb.ma → Site principal<br>
