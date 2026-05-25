@@ -532,6 +532,17 @@ function jsonOK(payload) {
 // ═══════════════════════════════════════════════════════════════════
 //   TESTS — à lancer depuis l'éditeur
 // ═══════════════════════════════════════════════════════════════════
+
+// À LANCER EN PREMIER (une seule fois) pour donner au script l'accès à
+// la Sheet et à Gmail. Cette fonction ne fait rien d'utile : elle force
+// Apps Script à demander les permissions via la popup d'autorisation.
+function authorize() {
+  const name = SpreadsheetApp.openById(SPREADSHEET_ID).getName();
+  const aliases = GmailApp.getAliases();
+  Logger.log('OK — Sheet ouverte : ' + name);
+  Logger.log('OK — Gmail aliases : ' + aliases.join(', '));
+}
+
 function testLeadCreate() {
   const fakeEvent = { postData: { contents: JSON.stringify({
     type: 'create',
