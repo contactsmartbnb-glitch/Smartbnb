@@ -17,9 +17,12 @@
 // ═══════════════════════════════════════════════════════════════════
 
 // ─── CONFIG ─────────────────────────────────────────────────────────
-const ADMIN_EMAIL = 'contact.smartbnb@gmail.com';
-const FROM_NAME   = 'SmartBnB';
-const CRM_URL     = 'https://smartbnb.ma/crm.html';
+const ADMIN_EMAIL    = 'contact.smartbnb@gmail.com';
+const FROM_NAME      = 'SmartBnB';
+const CRM_URL        = 'https://smartbnb.ma/crm.html';
+// ID de la Google Sheet "SmartBnB CRM" (récupéré dans l'URL entre /d/ et /edit)
+// → ce script tourne en standalone et écrit dans cette feuille via son ID.
+const SPREADSHEET_ID = '1MHZ6GJ63h9Huhcd0yobZVHme1ok7QtwgCwVlcK8QsTk';
 
 const SHEET_LEADS = 'Leads';
 const SHEET_ACQ   = 'Acquéreurs';
@@ -433,7 +436,7 @@ function handleLegacyForm(data) {
 //   SHEETS HELPERS
 // ═══════════════════════════════════════════════════════════════════
 function ensureSheet(schema) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = ss.getSheetByName(schema.sheet);
   if (!sheet) sheet = ss.insertSheet(schema.sheet);
   if (sheet.getLastRow() === 0) {
@@ -473,7 +476,7 @@ function updateRowById(schema, item, newStatus) {
 }
 
 function ensureLogSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = ss.getSheetByName(SHEET_LOG);
   if (!sheet) sheet = ss.insertSheet(SHEET_LOG);
   if (sheet.getLastRow() === 0) {
