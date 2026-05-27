@@ -10,15 +10,20 @@
 body{font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
 button{font-family:inherit;cursor:pointer}input,select,textarea{font-family:inherit;font-size:13px}a{color:inherit;text-decoration:none}
 
-#login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
-.lcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r14);padding:36px;width:360px}
+#login,#signup{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;overflow-y:auto;padding:20px 0}
+.lcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r14);padding:36px;width:360px;max-height:96vh;overflow-y:auto}
 .llogo{font-size:18px;font-weight:600;margin-bottom:24px}.llogo em{color:var(--green);font-style:normal}
 .lcard h1{font-size:18px;font-weight:600;margin-bottom:4px}.lcard p{font-size:12px;color:var(--ink2);margin-bottom:20px}
 .lf{margin-bottom:12px}.lf label{display:block;font-size:11px;font-weight:500;color:var(--ink2);margin-bottom:4px}
 .lf input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r6);font-size:13px;background:var(--white);color:var(--ink)}
 .lf input:focus{outline:none;border-color:var(--green)}
 .lbtn{width:100%;padding:10px;background:var(--ink);color:var(--white);border:none;border-radius:var(--r6);font-size:13px;font-weight:500;margin-top:4px}
-.lbtn:hover{background:var(--green)}.lerr{color:var(--red);font-size:11px;margin-top:8px;display:none}
+.lbtn:hover{background:var(--green)}
+.lbtn:disabled{opacity:.6;cursor:not-allowed}
+.lerr{color:var(--red);font-size:11px;margin-top:8px;display:none}
+.lok{background:#d4edda;border:1px solid #b8e0c4;color:#1d6e3a;padding:10px 12px;border-radius:var(--r6);font-size:12px;margin-bottom:12px;display:none;line-height:1.5}
+.lswitch{text-align:center;font-size:12px;margin-top:14px;color:var(--ink2)}
+.lswitch a{color:var(--green);font-weight:500;cursor:pointer}
 
 #app{height:100vh;display:none;flex-direction:column}
 .topbar{height:48px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:0;flex-shrink:0}
@@ -170,10 +175,28 @@ code{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padd
   <div class="lcard">
     <div class="llogo">Smart<em>BnB</em></div>
     <h1>Accès à mon espace personnel</h1><p>Connectez-vous pour continuer.</p>
-    <div class="lf"><label>Email</label><input type="email" id="le" placeholder="contact.smartbnb@gmail.com"></div>
+    <div class="lf"><label>Email</label><input type="email" id="le" placeholder="votre.email@example.com"></div>
     <div class="lf"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"></div>
     <div class="lerr" id="lerr">Identifiants incorrects.</div>
-    <button class="lbtn" onclick="login()">Se connecter →</button>
+    <button class="lbtn" id="lbtn" onclick="login()">Se connecter →</button>
+    <p class="lswitch">Première connexion ? <a onclick="showSignup()">Créer mon compte</a></p>
+  </div>
+</div>
+
+<div id="signup" style="display:none">
+  <div class="lcard">
+    <div class="llogo">Smart<em>BnB</em></div>
+    <h1>Créer mon compte</h1><p>Accédez à votre espace personnel pour suivre votre projet immobilier au Maroc.</p>
+    <div class="lok" id="sok"></div>
+    <div class="lf"><label>Prénom</label><input type="text" id="sp" placeholder="Pierre"></div>
+    <div class="lf"><label>Nom</label><input type="text" id="sn" placeholder="Dupont"></div>
+    <div class="lf"><label>Email</label><input type="email" id="se" placeholder="pierre.dupont@example.com"></div>
+    <div class="lf"><label>Téléphone (optionnel)</label><input type="tel" id="st" placeholder="+33 6 12 34 56 78"></div>
+    <div class="lf"><label>Mot de passe</label><input type="password" id="sw" placeholder="Minimum 6 caractères"></div>
+    <div class="lf"><label>Confirmer le mot de passe</label><input type="password" id="sw2" placeholder="••••••••" onkeydown="if(event.key==='Enter')signup()"></div>
+    <div class="lerr" id="serr"></div>
+    <button class="lbtn" id="sbtn" onclick="signup()">Créer mon compte →</button>
+    <p class="lswitch"><a onclick="showLogin()">← Retour à la connexion</a></p>
   </div>
 </div>
 
@@ -454,22 +477,186 @@ const lsj = k => { try { return JSON.parse(ls(k) || 'null'); } catch { return nu
 // =====================================================================
 //   AUTH
 // =====================================================================
-function login() {
-  const p = document.getElementById('lp').value;
-  if (p === (ls('crm-pwd') || DP)) {
-    ls('crm-auth', '1');
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    init();
+let currentUser = null;
+
+async function apiCall(payload) {
+  const url = ls('smartbnb-script-url');
+  if (!url) throw new Error('Script URL non configurée');
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    redirect: 'follow',
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return await res.json();
+}
+
+function showSignup() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('signup').style.display = 'flex';
+  document.getElementById('lerr').style.display = 'none';
+}
+
+function showLogin() {
+  document.getElementById('signup').style.display = 'none';
+  document.getElementById('login').style.display = 'flex';
+  document.getElementById('serr').style.display = 'none';
+  document.getElementById('sok').style.display = 'none';
+}
+
+function setBtnLoading(btnId, loading, label) {
+  const b = document.getElementById(btnId);
+  if (!b) return;
+  if (loading) {
+    b.dataset.label = b.textContent;
+    b.disabled = true;
+    b.textContent = label || 'Patientez…';
   } else {
-    document.getElementById('lerr').style.display = 'block';
+    b.disabled = false;
+    b.textContent = b.dataset.label || b.textContent;
   }
 }
-function logout() { ls('crm-auth', ''); location.reload(); }
-if (ls('crm-auth') === '1') {
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('app').style.display = 'flex';
+
+async function login() {
+  const email = document.getElementById('le').value.trim();
+  const password = document.getElementById('lp').value;
+  const errEl = document.getElementById('lerr');
+  errEl.style.display = 'none';
+
+  if (!email || !password) {
+    errEl.textContent = 'Email et mot de passe requis.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // FALLBACK : si Apps Script pas configuré, vieux login local (admin seul)
+  if (!ls('smartbnb-script-url')) {
+    if (password === (ls('crm-pwd') || DP)) {
+      currentUser = { id: 'ADMIN', prenom: 'Admin', nom: 'SmartBnB', email: email, userType: 'admin', token: 'local-admin' };
+      ls('crm-user', currentUser);
+      onLoginSuccess();
+    } else {
+      errEl.textContent = 'Mot de passe incorrect (mode local). Configurez le serveur Apps Script pour activer la création de comptes.';
+      errEl.style.display = 'block';
+    }
+    return;
+  }
+
+  setBtnLoading('lbtn', true, 'Connexion…');
+  try {
+    const result = await apiCall({ type: 'login', email, password });
+    setBtnLoading('lbtn', false);
+    if (!result.success) {
+      errEl.textContent = result.error || 'Identifiants incorrects.';
+      errEl.style.display = 'block';
+      return;
+    }
+    currentUser = result.user;
+    ls('crm-user', currentUser);
+    onLoginSuccess();
+  } catch (e) {
+    setBtnLoading('lbtn', false);
+    errEl.textContent = 'Connexion serveur impossible. Réessayez ou contactez +212 775 961 740.';
+    errEl.style.display = 'block';
+  }
 }
+
+async function signup() {
+  const prenom = document.getElementById('sp').value.trim();
+  const nom = document.getElementById('sn').value.trim();
+  const email = document.getElementById('se').value.trim();
+  const telephone = document.getElementById('st').value.trim();
+  const password = document.getElementById('sw').value;
+  const password2 = document.getElementById('sw2').value;
+  const errEl = document.getElementById('serr');
+  const okEl = document.getElementById('sok');
+  errEl.style.display = 'none';
+  okEl.style.display = 'none';
+
+  if (!prenom || !nom || !email || !password) {
+    errEl.textContent = 'Prénom, nom, email et mot de passe sont requis.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (password.length < 6) {
+    errEl.textContent = 'Le mot de passe doit faire au moins 6 caractères.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (password !== password2) {
+    errEl.textContent = 'Les deux mots de passe ne correspondent pas.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (!ls('smartbnb-script-url')) {
+    errEl.textContent = 'Inscription indisponible : le serveur n\'est pas configuré. Contactez WhatsApp +212 775 961 740.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  setBtnLoading('sbtn', true, 'Création…');
+  try {
+    const result = await apiCall({ type: 'signup', prenom, nom, email, telephone, password });
+    setBtnLoading('sbtn', false);
+    if (!result.success) {
+      errEl.textContent = result.error || 'Erreur lors de la création du compte.';
+      errEl.style.display = 'block';
+      return;
+    }
+    okEl.textContent = result.message || 'Compte créé ! Vous recevrez un email dès validation par un conseiller.';
+    okEl.style.display = 'block';
+    document.querySelectorAll('#signup input').forEach(i => i.value = '');
+  } catch (e) {
+    setBtnLoading('sbtn', false);
+    errEl.textContent = 'Erreur réseau. Réessayez ou contactez +212 775 961 740.';
+    errEl.style.display = 'block';
+  }
+}
+
+function onLoginSuccess() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('signup').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  init();
+}
+
+function logout() { ls('crm-user', ''); ls('crm-auth', ''); currentUser = null; location.reload(); }
+
+async function tryAutoLogin() {
+  // Compat ancien système : crm-auth='1' sans currentUser
+  if (ls('crm-auth') === '1' && !lsj('crm-user')) {
+    currentUser = { id: 'ADMIN', prenom: 'Admin', nom: 'SmartBnB', email: ADMIN_EMAIL_LOCAL, userType: 'admin', token: 'local-admin' };
+    ls('crm-user', currentUser);
+    onLoginSuccess();
+    return;
+  }
+  const saved = lsj('crm-user');
+  if (!saved || !saved.token) return;
+  currentUser = saved;
+
+  const url = ls('smartbnb-script-url');
+  if (!url || saved.token === 'local-admin' || saved.token.startsWith('admin-')) {
+    onLoginSuccess();
+    return;
+  }
+  try {
+    const result = await apiCall({ type: 'verify_session', token: saved.token });
+    if (result.success) {
+      currentUser = result.user;
+      ls('crm-user', currentUser);
+      onLoginSuccess();
+    } else {
+      ls('crm-user', '');
+    }
+  } catch (e) {
+    // Réseau cassé : on garde la session locale plutôt que de bloquer
+    onLoginSuccess();
+  }
+}
+
+const ADMIN_EMAIL_LOCAL = 'contact.smartbnb@gmail.com';
+tryAutoLogin();
 
 // =====================================================================
 //   INIT

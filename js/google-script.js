@@ -28,6 +28,12 @@ const SHEET_LEADS = 'Leads';
 const SHEET_ACQ   = 'Acquéreurs';
 const SHEET_TRV   = 'Chantiers';
 const SHEET_LOG   = 'Événements';
+const SHEET_CMP   = 'Comptes';
+
+// Authentification : mot de passe maître admin (à changer si compromis)
+// + durée de validité d'une session en jours
+const ADMIN_PASSWORD = 'smartbnb2026';
+const SESSION_DAYS   = 30;
 
 // ─── LIBELLÉS DES STATUTS (doivent matcher ceux du CRM) ─────────────
 const SL  = {nouveau:'Nouveau',contact:'Contacté',rdv:'RDV planifié',offre:'Offre faite',gagne:'Gagné',perdu:'Perdu'};
@@ -102,6 +108,30 @@ const SCHEMA = {
       it.notes || ''
     ],
     rowColor: () => '#e6f1fb',
+  },
+  comptes: {
+    sheet: SHEET_CMP,
+    cols: ['ID','Date création','Prénom','Nom','Email','Téléphone','Salt','Hash MdP','Type','Statut','Lié à','Session token','Session expire','Dernière connexion','Notes'],
+    headerColor: '#2D5F3F',
+    statusCol: 10,
+    map: it => [
+      it.id || '',
+      it.date || new Date().toISOString().slice(0,10),
+      it.prenom || '',
+      it.nom || '',
+      (it.email || '').toLowerCase(),
+      it.telephone || '',
+      it.salt || '',
+      it.hash || '',
+      it.userType || 'client',
+      it.statut || 'en_attente',
+      it.lieA || '',
+      it.token || '',
+      it.tokenExpire || '',
+      it.derniereConnexion || '',
+      it.notes || ''
+    ],
+    rowColor: it => ({en_attente:'#fff8d6', actif:'#d4edda', refuse:'#f8d7da', desactive:'#e9ecef'}[it.statut] || '#ffffff'),
   },
 };
 
@@ -354,6 +384,55 @@ Propriétaire : ${it.prenom} ${it.nom}
 
 → ${CRM_URL}`,
   }),
+
+  // ─── COMPTES CLIENTS ───
+  'comptes:signup': it => ({
+    subject: `🆕 Nouvelle demande de compte — ${it.prenom} ${it.nom}`,
+    to: ['admin'],
+    body: `Une nouvelle personne vient de créer un compte sur smartbnb.ma. Le compte est en attente de validation.
+
+CONTACT
+Nom       : ${it.prenom} ${it.nom}
+Email     : ${it.email}
+Téléphone : ${it.telephone || '—'}
+
+→ Va dans ton espace admin → onglet "Comptes" pour valider ou refuser cet accès.
+${CRM_URL}`,
+  }),
+
+  'comptes:activated': it => ({
+    subject: `✅ Votre espace SmartBnB est activé`,
+    to: ['client'],
+    body: `Bonjour ${it.prenom},
+
+Votre compte sur smartbnb.ma vient d'être validé par un conseiller SmartBnB. Vous pouvez désormais accéder à votre espace personnel.
+
+Email de connexion : ${it.email}
+URL                : ${CRM_URL}
+
+Dans votre espace personnel, vous pourrez :
+- Suivre l'avancement de votre projet immobilier au Maroc
+- Échanger directement avec votre conseiller
+- Consulter vos devis, contrats et documents
+
+À très vite,
+L'équipe SmartBnB
+WhatsApp : +212 775 961 740`,
+  }),
+
+  'comptes:refused': it => ({
+    subject: `Votre demande d'accès SmartBnB`,
+    to: ['client'],
+    body: `Bonjour ${it.prenom},
+
+Suite à votre demande d'accès à un espace personnel sur smartbnb.ma, nous vous invitons à nous contacter directement par WhatsApp pour qu'un conseiller comprenne mieux votre projet et personnalise votre accompagnement.
+
+WhatsApp : +212 775 961 740
+Email    : contact.smartbnb@gmail.com
+
+À très vite,
+L'équipe SmartBnB`,
+  }),
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -369,6 +448,13 @@ function doPost(e) {
     if (data.type === 'status_change') {
       return handleStatusChange(data.board, data.item, data.oldStatus, data.newStatus);
     }
+    // Comptes / authentification
+    if (data.type === 'signup')           return handleSignup(data);
+    if (data.type === 'login')            return handleLogin(data);
+    if (data.type === 'verify_session')   return handleVerifySession(data);
+    if (data.type === 'list_accounts')    return handleListAccounts(data);
+    if (data.type === 'validate_account') return handleValidateAccount(data);
+    if (data.type === 'reject_account')   return handleRejectAccount(data);
     // Sinon : payload d'un formulaire du site (compat legacy)
     return handleLegacyForm(data);
 
@@ -433,6 +519,309 @@ function handleLegacyForm(data) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+//   COMPTES & AUTHENTIFICATION
+// ═══════════════════════════════════════════════════════════════════
+
+// ─── SIGNUP : création d'un compte client ───────────────────────────
+function handleSignup(data) {
+  const email = String(data.email || '').trim().toLowerCase();
+  const password = String(data.password || '');
+  const prenom = String(data.prenom || '').trim();
+  const nom = String(data.nom || '').trim();
+
+  if (!email || !password || !prenom || !nom) {
+    return jsonOK({ success: false, error: 'Tous les champs sont requis.' });
+  }
+  if (password.length < 6) {
+    return jsonOK({ success: false, error: 'Le mot de passe doit faire au moins 6 caractères.' });
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return jsonOK({ success: false, error: 'Email invalide.' });
+  }
+
+  ensureSheet(SCHEMA.comptes);
+
+  if (findUserByEmail(email)) {
+    return jsonOK({ success: false, error: 'Un compte existe déjà avec cet email.' });
+  }
+
+  const salt = Utilities.getUuid();
+  const hash = hashPassword(password, salt);
+  const item = {
+    id: 'CMP-' + Date.now(),
+    date: new Date().toISOString().slice(0, 10),
+    prenom: prenom,
+    nom: nom,
+    email: email,
+    telephone: data.telephone || '',
+    salt: salt,
+    hash: hash,
+    userType: 'client',
+    statut: 'en_attente',
+    lieA: '',
+    token: '',
+    tokenExpire: '',
+    derniereConnexion: '',
+    notes: '',
+  };
+  appendRow(SCHEMA.comptes, item);
+  logEvent('signup', 'comptes', item, '', 'en_attente');
+
+  const tpl = EMAIL_TEMPLATES['comptes:signup'](item);
+  if (tpl) sendTemplate(tpl, item);
+
+  return jsonOK({
+    success: true,
+    message: 'Compte créé ! Un conseiller SmartBnB validera votre accès sous 24h, puis vous recevrez un email de confirmation.',
+  });
+}
+
+// ─── LOGIN : vérification + génération token de session ─────────────
+function handleLogin(data) {
+  const email = String(data.email || '').trim().toLowerCase();
+  const password = String(data.password || '');
+
+  if (!email || !password) {
+    return jsonOK({ success: false, error: 'Email et mot de passe requis.' });
+  }
+
+  // Admin hardcoded : court-circuit sans toucher au sheet Comptes
+  if (email === ADMIN_EMAIL.toLowerCase() && password === ADMIN_PASSWORD) {
+    return jsonOK({
+      success: true,
+      user: {
+        id: 'ADMIN',
+        prenom: 'Admin',
+        nom: 'SmartBnB',
+        email: ADMIN_EMAIL,
+        userType: 'admin',
+        token: 'admin-' + Utilities.getUuid().replace(/-/g, ''),
+      },
+    });
+  }
+
+  const sheet = ensureSheet(SCHEMA.comptes);
+  const rows = sheet.getDataRange().getValues();
+  if (rows.length < 2) {
+    return jsonOK({ success: false, error: 'Email ou mot de passe incorrect.' });
+  }
+
+  const cols = SCHEMA.comptes.cols;
+  const I = name => cols.indexOf(name);
+
+  for (let i = 1; i < rows.length; i++) {
+    if (String(rows[i][I('Email')]).toLowerCase() !== email) continue;
+
+    const salt = String(rows[i][I('Salt')] || '');
+    const expected = String(rows[i][I('Hash MdP')] || '');
+    if (hashPassword(password, salt) !== expected) {
+      return jsonOK({ success: false, error: 'Email ou mot de passe incorrect.' });
+    }
+
+    const statut = String(rows[i][I('Statut')]);
+    if (statut === 'en_attente') {
+      return jsonOK({ success: false, error: 'Votre compte est en attente de validation. Vous recevrez un email dès qu\'il sera actif.' });
+    }
+    if (statut === 'refuse' || statut === 'desactive') {
+      return jsonOK({ success: false, error: 'Compte désactivé. Contactez le +212 775 961 740.' });
+    }
+
+    const token = 'cli-' + Utilities.getUuid().replace(/-/g, '');
+    const expire = new Date(Date.now() + SESSION_DAYS * 86400000).toISOString();
+    sheet.getRange(i + 1, I('Session token') + 1).setValue(token);
+    sheet.getRange(i + 1, I('Session expire') + 1).setValue(expire);
+    sheet.getRange(i + 1, I('Dernière connexion') + 1).setValue(new Date().toISOString());
+
+    return jsonOK({
+      success: true,
+      user: {
+        id: String(rows[i][I('ID')]),
+        prenom: String(rows[i][I('Prénom')]),
+        nom: String(rows[i][I('Nom')]),
+        email: String(rows[i][I('Email')]),
+        userType: String(rows[i][I('Type')] || 'client'),
+        lieA: String(rows[i][I('Lié à')] || ''),
+        token: token,
+      },
+    });
+  }
+
+  return jsonOK({ success: false, error: 'Email ou mot de passe incorrect.' });
+}
+
+// ─── VERIFY SESSION : reconnexion auto avec un token ────────────────
+function handleVerifySession(data) {
+  const token = String(data.token || '').trim();
+  if (!token) return jsonOK({ success: false, error: 'Token manquant.' });
+
+  // Tokens admin (préfixe admin-) : pas de DB, on les accepte tels quels.
+  // Compromis : pas de révocation côté serveur, mais sessions courtes par défaut.
+  if (token.startsWith('admin-')) {
+    return jsonOK({
+      success: true,
+      user: {
+        id: 'ADMIN', prenom: 'Admin', nom: 'SmartBnB',
+        email: ADMIN_EMAIL, userType: 'admin', token: token,
+      },
+    });
+  }
+
+  const sheet = ensureSheet(SCHEMA.comptes);
+  const rows = sheet.getDataRange().getValues();
+  if (rows.length < 2) return jsonOK({ success: false, error: 'Session invalide.' });
+
+  const cols = SCHEMA.comptes.cols;
+  const I = name => cols.indexOf(name);
+
+  for (let i = 1; i < rows.length; i++) {
+    if (String(rows[i][I('Session token')]) !== token) continue;
+
+    const expireRaw = rows[i][I('Session expire')];
+    const expire = expireRaw instanceof Date ? expireRaw : new Date(String(expireRaw));
+    if (isNaN(expire.getTime()) || expire < new Date()) {
+      return jsonOK({ success: false, error: 'Session expirée, reconnectez-vous.' });
+    }
+    if (String(rows[i][I('Statut')]) !== 'actif') {
+      return jsonOK({ success: false, error: 'Compte désactivé.' });
+    }
+    return jsonOK({
+      success: true,
+      user: {
+        id: String(rows[i][I('ID')]),
+        prenom: String(rows[i][I('Prénom')]),
+        nom: String(rows[i][I('Nom')]),
+        email: String(rows[i][I('Email')]),
+        userType: String(rows[i][I('Type')] || 'client'),
+        lieA: String(rows[i][I('Lié à')] || ''),
+        token: token,
+      },
+    });
+  }
+
+  return jsonOK({ success: false, error: 'Session invalide.' });
+}
+
+// ─── ADMIN : liste des comptes ──────────────────────────────────────
+function handleListAccounts(data) {
+  if (!isAdminToken(data.adminToken)) {
+    return jsonOK({ success: false, error: 'Accès non autorisé.' });
+  }
+  const filter = data.filter || 'all';
+
+  const sheet = ensureSheet(SCHEMA.comptes);
+  const rows = sheet.getDataRange().getValues();
+  if (rows.length < 2) return jsonOK({ success: true, accounts: [] });
+
+  const cols = SCHEMA.comptes.cols;
+  const I = name => cols.indexOf(name);
+  const out = [];
+  for (let i = 1; i < rows.length; i++) {
+    const statut = String(rows[i][I('Statut')]);
+    if (filter !== 'all' && statut !== filter) continue;
+    out.push({
+      id: String(rows[i][I('ID')]),
+      date: String(rows[i][I('Date création')]),
+      prenom: String(rows[i][I('Prénom')]),
+      nom: String(rows[i][I('Nom')]),
+      email: String(rows[i][I('Email')]),
+      telephone: String(rows[i][I('Téléphone')]),
+      userType: String(rows[i][I('Type')]),
+      statut: statut,
+      lieA: String(rows[i][I('Lié à')]),
+      derniereConnexion: String(rows[i][I('Dernière connexion')] || ''),
+    });
+  }
+  return jsonOK({ success: true, accounts: out });
+}
+
+// ─── ADMIN : valider un compte ──────────────────────────────────────
+function handleValidateAccount(data) {
+  if (!isAdminToken(data.adminToken)) {
+    return jsonOK({ success: false, error: 'Accès non autorisé.' });
+  }
+  const id = String(data.accountId || '');
+  if (!id) return jsonOK({ success: false, error: 'ID compte manquant.' });
+
+  const sheet = ensureSheet(SCHEMA.comptes);
+  const rows = sheet.getDataRange().getValues();
+  const cols = SCHEMA.comptes.cols;
+  const I = name => cols.indexOf(name);
+
+  for (let i = 1; i < rows.length; i++) {
+    if (String(rows[i][I('ID')]) !== id) continue;
+    sheet.getRange(i + 1, I('Statut') + 1).setValue('actif');
+    if (data.lieA !== undefined) {
+      sheet.getRange(i + 1, I('Lié à') + 1).setValue(data.lieA);
+    }
+    const item = {
+      prenom: String(rows[i][I('Prénom')]),
+      nom: String(rows[i][I('Nom')]),
+      email: String(rows[i][I('Email')]),
+    };
+    const tpl = EMAIL_TEMPLATES['comptes:activated'](item);
+    if (tpl) sendTemplate(tpl, item);
+    logEvent('account_validated', 'comptes', { id, ...item, statut: 'actif' }, 'en_attente', 'actif');
+    return jsonOK({ success: true, message: 'Compte activé.' });
+  }
+  return jsonOK({ success: false, error: 'Compte introuvable.' });
+}
+
+// ─── ADMIN : refuser un compte ──────────────────────────────────────
+function handleRejectAccount(data) {
+  if (!isAdminToken(data.adminToken)) {
+    return jsonOK({ success: false, error: 'Accès non autorisé.' });
+  }
+  const id = String(data.accountId || '');
+  if (!id) return jsonOK({ success: false, error: 'ID compte manquant.' });
+
+  const sheet = ensureSheet(SCHEMA.comptes);
+  const rows = sheet.getDataRange().getValues();
+  const cols = SCHEMA.comptes.cols;
+  const I = name => cols.indexOf(name);
+
+  for (let i = 1; i < rows.length; i++) {
+    if (String(rows[i][I('ID')]) !== id) continue;
+    sheet.getRange(i + 1, I('Statut') + 1).setValue('refuse');
+    const item = {
+      prenom: String(rows[i][I('Prénom')]),
+      nom: String(rows[i][I('Nom')]),
+      email: String(rows[i][I('Email')]),
+    };
+    const tpl = EMAIL_TEMPLATES['comptes:refused'](item);
+    if (tpl) sendTemplate(tpl, item);
+    logEvent('account_rejected', 'comptes', { id, ...item, statut: 'refuse' }, 'en_attente', 'refuse');
+    return jsonOK({ success: true, message: 'Compte refusé.' });
+  }
+  return jsonOK({ success: false, error: 'Compte introuvable.' });
+}
+
+// ─── HELPERS AUTH ───────────────────────────────────────────────────
+function isAdminToken(token) {
+  return typeof token === 'string' && token.startsWith('admin-');
+}
+
+function findUserByEmail(email) {
+  if (!email) return null;
+  const sheet = ensureSheet(SCHEMA.comptes);
+  const rows = sheet.getDataRange().getValues();
+  if (rows.length < 2) return null;
+  const cols = SCHEMA.comptes.cols;
+  const emailIdx = cols.indexOf('Email');
+  for (let i = 1; i < rows.length; i++) {
+    if (String(rows[i][emailIdx]).toLowerCase() === String(email).toLowerCase()) {
+      return { row: i + 1, data: rows[i] };
+    }
+  }
+  return null;
+}
+
+function hashPassword(password, salt) {
+  const raw = String(salt || '') + ':' + String(password || '');
+  const bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, raw, Utilities.Charset.UTF_8);
+  return bytes.map(b => ((b < 0 ? b + 256 : b)).toString(16).padStart(2, '0')).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //   SHEETS HELPERS
 // ═══════════════════════════════════════════════════════════════════
 function ensureSheet(schema) {
@@ -489,7 +878,8 @@ function ensureLogSheet() {
 
 function logEvent(type, board, item, oldStatus, newStatus) {
   const sheet = ensureLogSheet();
-  const labels = board === 'leads' ? SL : board === 'acquereurs' ? ASL : TSL;
+  const labelMap = { leads: SL, acquereurs: ASL, travaux: TSL };
+  const labels = labelMap[board] || {};
   sheet.appendRow([
     new Date(),
     type,
@@ -580,6 +970,31 @@ function testLegacyForm() {
     telephone: '+33611111111', pays: 'France',
     formulaire: 'decouverte', ville: 'Marrakech', budget: '500k_1m',
     reponses: 'Test format ancien',
+  }) } };
+  Logger.log(doPost(fakeEvent).getContent());
+}
+
+function testSignup() {
+  const fakeEvent = { postData: { contents: JSON.stringify({
+    type: 'signup',
+    prenom: 'Test', nom: 'Client', email: 'test-client@example.com',
+    telephone: '+212600000000', password: 'monMotDePasse123',
+  }) } };
+  Logger.log(doPost(fakeEvent).getContent());
+}
+
+function testLoginAdmin() {
+  const fakeEvent = { postData: { contents: JSON.stringify({
+    type: 'login',
+    email: ADMIN_EMAIL, password: ADMIN_PASSWORD,
+  }) } };
+  Logger.log(doPost(fakeEvent).getContent());
+}
+
+function testLoginClient() {
+  const fakeEvent = { postData: { contents: JSON.stringify({
+    type: 'login',
+    email: 'test-client@example.com', password: 'monMotDePasse123',
   }) } };
   Logger.log(doPost(fakeEvent).getContent());
 }
