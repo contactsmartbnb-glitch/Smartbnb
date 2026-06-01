@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 72" width="360" height="72" role="img" aria-label="Expert Réno et Expert Travaux">
+  <!-- Bloc symbole -->
+  <rect x="0" y="8" width="56" height="56" rx="14" fill="#0F2A47"/>
+  <text x="28" y="46" text-anchor="middle" font-family="Georgia, 'DejaVu Serif', serif" font-size="30" font-weight="700" fill="#FFFFFF">E</text>
+  <circle cx="42" cy="20" r="5" fill="#C8842D"/>
+  <!-- Bloc texte : deux marques -->
+  <text x="72" y="34" font-family="Georgia, 'DejaVu Serif', serif" font-size="24" font-weight="700" fill="#0F2A47">Expert Réno</text>
+  <text x="72" y="56" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="12" font-weight="600" letter-spacing="0.5" fill="#A66B1F">+ EXPERT TRAVAUX · TOUS CORPS D’ÉTAT</text>
+</svg>
