@@ -1,0 +1,20 @@
+# Dépendances
+node_modules/
+
+# Build de production
+dist/
+.output/
+
+# Cache Astro
+.astro/
+
+# Variables d'environnement (NE JAMAIS committer le vrai .env)
+.env
+.env.production
+.env.local
+
+# Système
+.DS_Store
+*.log
+.vercel/
+.wrangler/

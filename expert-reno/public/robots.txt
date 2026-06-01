@@ -1,0 +1,6 @@
+# Site indexable par défaut — aucune restriction.
+User-agent: *
+Allow: /
+
+# Le sitemap est généré automatiquement au build par @astrojs/sitemap.
+Sitemap: https://www.expertreno.fr/sitemap-index.xml

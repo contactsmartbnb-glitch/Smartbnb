@@ -1,0 +1,43 @@
+---
+// Section d'accroche de la page d'accueil.
+import { site, marques } from '../data/site';
+import BookingButton from './BookingButton.astro';
+---
+
+<section class="relative overflow-hidden bg-marine text-white">
+  <div class="mx-auto grid max-w-content items-center gap-10 px-5 py-20 lg:grid-cols-2 lg:py-28">
+    <div>
+      <p class="mb-4 inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-ocre-light">
+        {site.experience} d’expérience · {site.zones[0]}, {site.zones[1]} & toute la France
+      </p>
+      <h1 class="font-serif text-4xl font-bold leading-[1.1] sm:text-5xl lg:text-6xl">
+        Votre rénovation, pilotée de A à Z par un seul interlocuteur
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-white/80">
+        {marques.reno.nom} vous conseille et défend vos intérêts ; {marques.travaux.nom},
+        entreprise générale tous corps d’état, réalise et coordonne l’ensemble des
+        travaux. Budget maîtrisé, délais tenus, zéro mauvaise surprise.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <BookingButton label="Réserver un créneau" />
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center rounded-full border border-white/30 px-7 py-3.5 font-semibold text-white transition-colors hover:bg-white/10"
+        >
+          Demander un devis
+        </a>
+      </div>
+    </div>
+
+    <!-- 📷 PLACEHOLDER : remplacez par une vraie photo de chantier (voir /public/images) -->
+    <div class="relative">
+      <div
+        class="flex aspect-[4/3] items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-center text-sm text-white/50"
+      >
+        Photo de chantier
+        <br />
+        (à insérer)
+      </div>
+    </div>
+  </div>
+</section>
