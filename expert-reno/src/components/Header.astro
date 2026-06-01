@@ -10,11 +10,23 @@ const isActive = (lien: string) =>
 
 <header class="sticky top-0 z-50 border-b border-brume bg-white/95 backdrop-blur">
   <div class="mx-auto flex h-20 max-w-content items-center gap-4 px-5">
-    <!-- Logo : les deux marques affichées (Expert Réno + Expert Travaux) -->
-    <a href="/" class="flex flex-col leading-tight" aria-label="Expert Réno — accueil">
-      <span class="font-serif text-xl font-bold text-marine">Expert Réno</span>
-      <span class="text-[11px] font-semibold uppercase tracking-wide text-ocre">
-        + Expert Travaux · tous corps d’état
+    <!-- Logo : monogramme ER + les deux marques (Expert Réno + Expert Travaux) -->
+    <!-- 💡 Pour utiliser VOTRE logo : remplacez le <svg> ci-dessous par
+         <img src="/logo.svg" alt="Expert Réno" class="h-11 w-auto" /> après avoir
+         déposé votre fichier dans public/ (logo.svg ou logo.png). -->
+    <a href="/" class="flex items-center gap-3" aria-label="Expert Réno — accueil">
+      <svg viewBox="0 0 64 64" class="h-11 w-11 shrink-0" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#EAF0E7" />
+        <circle cx="32" cy="32" r="23" fill="none" stroke="#2B2B2B" stroke-width="4.5"
+                stroke-linecap="round" stroke-dasharray="116 30" transform="rotate(125 32 32)" />
+        <text x="17" y="42" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#5DA86A">E</text>
+        <text x="31" y="44" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#163D2A">R</text>
+      </svg>
+      <span class="flex flex-col leading-tight">
+        <span class="font-serif text-xl font-bold text-foret">Expert Réno</span>
+        <span class="text-[11px] font-semibold uppercase tracking-wide text-ocre-dark">
+          + Expert Travaux · tous corps d’état
+        </span>
       </span>
     </a>
 
@@ -28,8 +40,8 @@ const isActive = (lien: string) =>
             class:list={[
               'rounded-full px-4 py-2 text-sm font-medium transition-colors',
               isActive(item.lien)
-                ? 'bg-brume text-marine'
-                : 'text-ardoise hover:text-marine',
+                ? 'bg-brume text-foret'
+                : 'text-ardoise hover:text-foret',
             ]}
           >
             {item.libelle}
@@ -45,7 +57,7 @@ const isActive = (lien: string) =>
     <!-- Bouton menu mobile -->
     <button
       id="burger"
-      class="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-lg text-marine lg:hidden"
+      class="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-lg text-foret lg:hidden"
       aria-label="Ouvrir le menu"
       aria-expanded="false"
       aria-controls="mobile-menu"
@@ -73,7 +85,7 @@ const isActive = (lien: string) =>
               aria-current={isActive(item.lien) ? 'page' : undefined}
               class:list={[
                 'block rounded-lg px-4 py-3 text-base font-medium',
-                isActive(item.lien) ? 'bg-brume text-marine' : 'text-ardoise',
+                isActive(item.lien) ? 'bg-brume text-foret' : 'text-ardoise',
               ]}
             >
               {item.libelle}

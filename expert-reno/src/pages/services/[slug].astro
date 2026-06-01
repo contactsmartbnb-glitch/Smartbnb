@@ -36,11 +36,11 @@ const nomMarque = marques[data.marque].nom;
           {
             data.points.length > 0 && (
               <div class="rounded-2xl border border-brume bg-sable p-6">
-                <h2 class="font-serif text-lg font-bold text-marine">Ce que ça comprend</h2>
+                <h2 class="font-serif text-lg font-bold text-foret">Ce que ça comprend</h2>
                 <ul class="mt-4 space-y-3">
                   {data.points.map((point) => (
                     <li class="flex gap-3 text-sm text-encre">
-                      <span class="mt-1 text-ocre">✓</span>
+                      <span class="mt-1 text-ocre-dark">✓</span>
                       <span>{point}</span>
                     </li>
                   ))}
@@ -48,12 +48,12 @@ const nomMarque = marques[data.marque].nom;
               </div>
             )
           }
-          <div class="rounded-2xl bg-marine p-6 text-center text-white">
-            <p class="font-serif text-lg font-bold">Intéressé ?</p>
-            <p class="mt-2 text-sm text-white/80">Échangeons sur votre projet.</p>
+          <div class="rounded-2xl border border-brume bg-sable p-6 text-center">
+            <p class="font-serif text-lg font-bold text-foret">Intéressé ?</p>
+            <p class="mt-2 text-sm text-ardoise">Échangeons sur votre projet.</p>
             <div class="mt-4 flex flex-col gap-3">
               <BookingButton label="Réserver un créneau" />
-              <a href="/contact" class="text-sm font-semibold text-ocre-light hover:underline">Ou nous écrire →</a>
+              <a href="/contact" class="text-sm font-semibold text-ocre-dark hover:underline">Ou nous écrire →</a>
             </div>
           </div>
         </div>
@@ -68,14 +68,14 @@ const nomMarque = marques[data.marque].nom;
     font-family: 'Fraunces', serif;
     font-size: 1.6rem;
     font-weight: 700;
-    color: #0f2a47;
+    color: #163d2a;
     margin: 1.75rem 0 0.75rem;
   }
   .prose-style :global(h3) {
     font-family: 'Fraunces', serif;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #0f2a47;
+    color: #163d2a;
     margin: 1.25rem 0 0.5rem;
   }
   .prose-style :global(p) {

@@ -25,12 +25,12 @@ const description =
   <section class="bg-white">
     <div class="mx-auto max-w-content px-5 py-16 sm:py-20">
       <div class="mx-auto max-w-2xl text-center">
-        <p class="text-sm font-semibold uppercase tracking-widest text-ocre">Deux expertises complémentaires</p>
-        <h2 class="mt-3 font-serif text-3xl font-bold text-marine sm:text-4xl">Le conseil et la réalisation, sous le même toit</h2>
+        <p class="text-sm font-semibold uppercase tracking-widest text-ocre-dark">Deux expertises complémentaires</p>
+        <h2 class="mt-3 font-serif text-3xl font-bold text-foret sm:text-4xl">Le conseil et la réalisation, sous le même toit</h2>
       </div>
       <div class="mt-12 grid gap-6 md:grid-cols-2">
         <div class="rounded-2xl border border-brume bg-white p-8 shadow-card">
-          <p class="font-serif text-2xl font-bold text-marine">{marques.reno.nom}</p>
+          <p class="font-serif text-2xl font-bold text-foret">{marques.reno.nom}</p>
           <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-ardoise">{marques.reno.role}</p>
           <p class="mt-4 text-ardoise">{marques.reno.accroche}</p>
         </div>
@@ -50,8 +50,8 @@ const description =
     <div class="mx-auto max-w-content px-5 py-16 sm:py-20">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p class="text-sm font-semibold uppercase tracking-widest text-ocre">Nos services</p>
-          <h2 class="mt-3 font-serif text-3xl font-bold text-marine sm:text-4xl">Tout ce dont votre projet a besoin</h2>
+          <p class="text-sm font-semibold uppercase tracking-widest text-ocre-dark">Nos services</p>
+          <h2 class="mt-3 font-serif text-3xl font-bold text-foret sm:text-4xl">Tout ce dont votre projet a besoin</h2>
         </div>
         <a href="/services" class="text-sm font-semibold text-ocre-dark hover:underline">Voir tous les services →</a>
       </div>
@@ -76,20 +76,20 @@ const description =
     <div class="mx-auto max-w-content px-5 py-16 sm:py-20">
       <div class="grid gap-6 md:grid-cols-2">
         <div class="rounded-2xl bg-white p-8 shadow-card">
-          <h3 class="font-serif text-2xl font-bold text-marine">Vous êtes un particulier</h3>
+          <h3 class="font-serif text-2xl font-bold text-foret">Vous êtes un particulier</h3>
           <p class="mt-3 text-ardoise">
             Rénovation de votre logement, optimisation du budget, obtention des aides
             (MaPrimeRénov’, éco-PTZ…) : on vous accompagne du premier plan à la remise des clés.
           </p>
           <a href="/services" class="mt-5 inline-flex font-semibold text-ocre-dark hover:underline">Découvrir nos services →</a>
         </div>
-        <div class="rounded-2xl bg-marine p-8 text-white shadow-card">
-          <h3 class="font-serif text-2xl font-bold">Vous êtes un professionnel</h3>
-          <p class="mt-3 text-white/80">
+        <div class="rounded-2xl border border-foret/15 bg-foret/5 p-8 shadow-card">
+          <h3 class="font-serif text-2xl font-bold text-foret">Vous êtes un professionnel</h3>
+          <p class="mt-3 text-ardoise">
             Assurances et syndics : un interlocuteur unique pour vos sinistres et vos travaux
             de copropriété, avec des devis conformes et des délais tenus.
           </p>
-          <a href="/professionnels" class="mt-5 inline-flex font-semibold text-ocre-light hover:underline">Espace professionnels →</a>
+          <a href="/professionnels" class="mt-5 inline-flex font-semibold text-ocre-dark hover:underline">Espace professionnels →</a>
         </div>
       </div>
     </div>
@@ -99,14 +99,14 @@ const description =
   <section class="bg-white">
     <div class="mx-auto max-w-content px-5 py-16 sm:py-20">
       <div class="mx-auto max-w-2xl text-center">
-        <p class="text-sm font-semibold uppercase tracking-widest text-ocre">Pourquoi nous faire confiance</p>
-        <h2 class="mt-3 font-serif text-3xl font-bold text-marine sm:text-4xl">Des engagements concrets</h2>
+        <p class="text-sm font-semibold uppercase tracking-widest text-ocre-dark">Pourquoi nous faire confiance</p>
+        <h2 class="mt-3 font-serif text-3xl font-bold text-foret sm:text-4xl">Des engagements concrets</h2>
       </div>
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           engagements.map((e) => (
             <div class="rounded-2xl border border-brume bg-white p-6">
-              <h3 class="font-serif text-lg font-bold text-marine">{e.titre}</h3>
+              <h3 class="font-serif text-lg font-bold text-foret">{e.titre}</h3>
               <p class="mt-2 text-sm text-ardoise">{e.texte}</p>
             </div>
           ))
@@ -120,8 +120,8 @@ const description =
     <div class="mx-auto max-w-content px-5 py-16 sm:py-20">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p class="text-sm font-semibold uppercase tracking-widest text-ocre">Nos réalisations</p>
-          <h2 class="mt-3 font-serif text-3xl font-bold text-marine sm:text-4xl">Des projets concrets, chiffrés</h2>
+          <p class="text-sm font-semibold uppercase tracking-widest text-ocre-dark">Nos réalisations</p>
+          <h2 class="mt-3 font-serif text-3xl font-bold text-foret sm:text-4xl">Des projets concrets, chiffrés</h2>
         </div>
         <a href="/projets" class="text-sm font-semibold text-ocre-dark hover:underline">Voir tous les projets →</a>
       </div>
@@ -144,15 +144,15 @@ const description =
   </section>
 
   <!-- APPEL À L'ACTION FINAL -->
-  <section class="bg-marine">
+  <section class="border-t border-brume bg-sable">
     <div class="mx-auto max-w-content px-5 py-16 text-center sm:py-20">
-      <h2 class="font-serif text-3xl font-bold text-white sm:text-4xl">Parlons de votre projet</h2>
-      <p class="mx-auto mt-4 max-w-xl text-white/80">
+      <h2 class="font-serif text-3xl font-bold text-foret sm:text-4xl">Parlons de votre projet</h2>
+      <p class="mx-auto mt-4 max-w-xl text-ardoise">
         Un échange gratuit pour faire le point et vous dire, en toute transparence, comment sécuriser votre rénovation.
       </p>
       <div class="mt-8 flex flex-wrap justify-center gap-4">
         <BookingButton label="Réserver un créneau" />
-        <a href="/contact" class="inline-flex items-center justify-center rounded-full border border-white/30 px-7 py-3.5 font-semibold text-white transition-colors hover:bg-white/10">
+        <a href="/contact" class="inline-flex items-center justify-center rounded-full border border-foret/30 px-7 py-3.5 font-semibold text-foret transition-colors hover:bg-foret/5">
           Nous écrire
         </a>
       </div>

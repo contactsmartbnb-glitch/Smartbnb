@@ -11,6 +11,13 @@ optimisé pour le référencement (SEO), notamment local à Toulouse.
 > 💡 Ce guide est écrit pour une personne **non-développeuse**. Suivez les étapes
 > dans l'ordre, en copiant-collant les commandes.
 
+> 📦 **Vous voulez ce site dans son propre dépôt GitHub** (séparé de Smartbnb) ?
+> Suivez le guide **[`CREER-DEPOT-SEPARE.md`](./CREER-DEPOT-SEPARE.md)**.
+
+> 🟢 **Identité visuelle** : palette vert forêt + accent ocre, reprise du logo.
+> Couleurs modifiables dans `tailwind.config.mjs`. Pour mettre **votre logo**,
+> voir la section [Ajouter vos photos](#6-ajouter-vos-photos).
+
 ---
 
 ## 📑 Sommaire
@@ -189,6 +196,18 @@ script de suivi n'est chargé (aucun cookie).
 
 Tant qu'une photo n'est pas présente, un cadre « Photo à insérer » s'affiche.
 Voir le fichier `public/images/README.md` pour le détail.
+
+### Mettre votre logo
+
+Un logo provisoire (monogramme « ER » façon enso, aux couleurs de votre logo) est
+affiché. Pour utiliser **votre fichier** :
+
+1. Déposez votre logo dans `public/` (par ex. `public/logo.svg` ou `public/logo.png`),
+   idéalement avec un **fond transparent**.
+2. Dans `src/components/Header.astro`, remplacez le bloc `<svg>…</svg>` du logo par :
+   `<img src="/logo.svg" alt="Expert Réno" class="h-11 w-auto" />`
+   (un commentaire à cet endroit vous le rappelle).
+3. Remplacez aussi `public/favicon.svg` par votre icône si vous le souhaitez.
 
 ---
 

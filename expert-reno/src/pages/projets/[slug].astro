@@ -31,18 +31,18 @@ const description = `${data.resume} Budget : ${data.budget}${data.ameublement ? 
       <div class="grid gap-4 sm:grid-cols-3">
         <div class="rounded-2xl border border-brume bg-sable p-6">
           <p class="text-xs uppercase tracking-wide text-ardoise">Budget travaux</p>
-          <p class="mt-1 font-serif text-2xl font-bold text-marine">{data.budget}</p>
+          <p class="mt-1 font-serif text-2xl font-bold text-foret">{data.budget}</p>
           {data.ameublement && <p class="mt-1 text-sm text-ardoise">+ {data.ameublement}</p>}
         </div>
         <div class="rounded-2xl border border-brume bg-sable p-6">
           <p class="text-xs uppercase tracking-wide text-ardoise">Délai de réalisation</p>
-          <p class="mt-1 font-serif text-2xl font-bold text-marine">{data.delaiTravaux}</p>
+          <p class="mt-1 font-serif text-2xl font-bold text-foret">{data.delaiTravaux}</p>
         </div>
         {
           data.delaiPrepa && (
             <div class="rounded-2xl border border-brume bg-sable p-6">
               <p class="text-xs uppercase tracking-wide text-ardoise">Préparation</p>
-              <p class="mt-1 font-serif text-2xl font-bold text-marine">{data.delaiPrepa}</p>
+              <p class="mt-1 font-serif text-2xl font-bold text-foret">{data.delaiPrepa}</p>
             </div>
           )
         }
@@ -57,12 +57,12 @@ const description = `${data.resume} Budget : ${data.budget}${data.ameublement ? 
         </div>
         <aside>
           <div class="rounded-2xl border border-brume bg-white p-6">
-            <h2 class="font-serif text-lg font-bold text-marine">Travaux réalisés</h2>
+            <h2 class="font-serif text-lg font-bold text-foret">Travaux réalisés</h2>
             <ul class="mt-4 space-y-3">
               {
                 data.travaux.map((t) => (
                   <li class="flex gap-3 text-sm text-encre">
-                    <span class="mt-1 text-ocre">✓</span>
+                    <span class="mt-1 text-ocre-dark">✓</span>
                     <span>{t}</span>
                   </li>
                 ))
@@ -74,16 +74,16 @@ const description = `${data.resume} Budget : ${data.budget}${data.ameublement ? 
 
       <!-- Galerie photo -->
       <div class="mt-12">
-        <h2 class="mb-6 font-serif text-2xl font-bold text-marine">Galerie</h2>
+        <h2 class="mb-6 font-serif text-2xl font-bold text-foret">Galerie</h2>
         <Gallery images={data.galerie} />
       </div>
     </div>
   </section>
 
-  <section class="bg-marine">
+  <section class="border-t border-brume bg-sable">
     <div class="mx-auto max-w-content px-5 py-14 text-center">
-      <h2 class="font-serif text-2xl font-bold text-white sm:text-3xl">Un projet similaire ?</h2>
-      <p class="mx-auto mt-3 max-w-xl text-white/80">Parlons budget, délais et faisabilité.</p>
+      <h2 class="font-serif text-2xl font-bold text-foret sm:text-3xl">Un projet similaire ?</h2>
+      <p class="mx-auto mt-3 max-w-xl text-ardoise">Parlons budget, délais et faisabilité.</p>
       <div class="mt-7 flex justify-center"><BookingButton label="Réserver un créneau" /></div>
     </div>
   </section>

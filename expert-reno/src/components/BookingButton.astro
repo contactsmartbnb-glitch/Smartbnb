@@ -5,17 +5,18 @@
 interface Props {
   small?: boolean;
   label?: string;
-  variant?: 'ocre' | 'marine' | 'blanc';
+  variant?: 'ocre' | 'foret' | 'blanc';
 }
-const { small = false, label = 'Réserver un créneau', variant = 'ocre' } = Astro.props;
+// Variante par défaut : "foret" (vert) = excellent contraste sur fond clair.
+const { small = false, label = 'Réserver un créneau', variant = 'foret' } = Astro.props;
 
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || '/contact';
 const external = bookingUrl.startsWith('http');
 
 const variants = {
   ocre: 'bg-ocre text-white hover:bg-ocre-dark',
-  marine: 'bg-marine text-white hover:bg-marine-light',
-  blanc: 'bg-white text-marine hover:bg-brume',
+  foret: 'bg-foret text-white hover:bg-foret-light',
+  blanc: 'bg-white text-foret hover:bg-brume',
 };
 ---
 

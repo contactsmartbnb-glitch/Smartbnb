@@ -27,7 +27,7 @@ const valeurs = [
     <div class="mx-auto max-w-content px-5 py-16">
       <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
         <div class="space-y-5 text-ardoise leading-relaxed">
-          <h2 class="font-serif text-2xl font-bold text-marine">Mon parcours</h2>
+          <h2 class="font-serif text-2xl font-bold text-foret">Mon parcours</h2>
           <p>
             Pendant <strong>{site.experience}</strong>, j’ai travaillé sur le terrain dans
             l’ensemble des corps d’état du bâtiment : du gros œuvre aux finitions, en passant par la
@@ -55,7 +55,7 @@ const valeurs = [
 
       <!-- Approche -->
       <div class="mt-16 rounded-2xl bg-sable p-8 sm:p-12">
-        <h2 class="font-serif text-2xl font-bold text-marine">Mon approche</h2>
+        <h2 class="font-serif text-2xl font-bold text-foret">Mon approche</h2>
         <p class="mt-4 max-w-3xl text-ardoise leading-relaxed">
           Trop de chantiers dérapent par manque de pilotage : budgets dépassés, délais qui
           s’allongent, litiges. Mon rôle est d’<strong>anticiper</strong> ces risques. Je définis un
@@ -69,7 +69,7 @@ const valeurs = [
         {
           valeurs.map((v) => (
             <div class="rounded-2xl border border-brume p-6">
-              <h3 class="font-serif text-lg font-bold text-marine">{v.titre}</h3>
+              <h3 class="font-serif text-lg font-bold text-foret">{v.titre}</h3>
               <p class="mt-2 text-sm text-ardoise">{v.texte}</p>
             </div>
           ))
@@ -78,10 +78,10 @@ const valeurs = [
     </div>
   </section>
 
-  <section class="bg-marine">
+  <section class="border-t border-brume bg-sable">
     <div class="mx-auto max-w-content px-5 py-14 text-center">
-      <h2 class="font-serif text-2xl font-bold text-white sm:text-3xl">Faisons connaissance</h2>
-      <p class="mx-auto mt-3 max-w-xl text-white/80">Un premier échange, sans engagement, pour parler de votre projet.</p>
+      <h2 class="font-serif text-2xl font-bold text-foret sm:text-3xl">Faisons connaissance</h2>
+      <p class="mx-auto mt-3 max-w-xl text-ardoise">Un premier échange, sans engagement, pour parler de votre projet.</p>
       <div class="mt-7 flex justify-center"><BookingButton label="Réserver un créneau" /></div>
     </div>
   </section>
