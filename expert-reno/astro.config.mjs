@@ -14,6 +14,6 @@ export default defineConfig({
   // On exclut la page privée /admin (CRM) du sitemap public.
   integrations: [
     tailwind(),
-    sitemap({ filter: (page) => !page.includes('/admin') }),
+    sitemap({ filter: (page) => !page.includes('/admin') && !page.includes('/espace-client') }),
   ],
 });
