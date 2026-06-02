@@ -7,9 +7,10 @@ interface Props {
   title: string;
   description: string;
   image?: string; // chemin de l'image de partage, ex. /images/og-expertreno.jpg
+  noindex?: boolean; // true = page privée non référencée (ex. tableau de bord admin)
 }
 
-const { title, description, image = '/images/og-expertreno.jpg' } = Astro.props;
+const { title, description, image = '/images/og-expertreno.jpg', noindex = false } = Astro.props;
 
 // URL canonique et URL absolue de l'image (basées sur "site" défini dans astro.config.mjs)
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -19,8 +20,13 @@ const imageURL = new URL(image, Astro.site);
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
-<!-- Indexation explicitement autorisée -->
-<meta name="robots" content="index, follow" />
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    <meta name="robots" content="index, follow" />
+  )
+}
 
 <!-- Open Graph (Facebook, LinkedIn, WhatsApp…) -->
 <meta property="og:type" content="website" />

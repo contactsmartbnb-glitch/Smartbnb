@@ -11,5 +11,9 @@ const SITE_URL = process.env.PUBLIC_SITE_URL || 'https://www.expertreno.fr';
 export default defineConfig({
   site: SITE_URL,
   // Intégrations : Tailwind CSS (styles) + Sitemap (génère sitemap-index.xml).
-  integrations: [tailwind(), sitemap()],
+  // On exclut la page privée /admin (CRM) du sitemap public.
+  integrations: [
+    tailwind(),
+    sitemap({ filter: (page) => !page.includes('/admin') }),
+  ],
 });

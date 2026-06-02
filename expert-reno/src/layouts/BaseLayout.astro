@@ -12,8 +12,9 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  noindex?: boolean; // true pour les pages privées (ex. /admin)
 }
-const { title, description, image } = Astro.props;
+const { title, description, image, noindex = false } = Astro.props;
 
 // Données structurées Schema.org pour le référencement local (Google).
 // Type "GeneralContractor" = entreprise générale de bâtiment, avec zone Toulouse.
@@ -52,7 +53,7 @@ const jsonLd = {
       rel="stylesheet"
     />
 
-    <Seo title={title} description={description} image={image} />
+    <Seo title={title} description={description} image={image} noindex={noindex} />
 
     <!-- Données structurées Schema.org (LocalBusiness / entreprise générale) -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

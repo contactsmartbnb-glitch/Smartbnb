@@ -1,9 +1,14 @@
 ---
 // Formulaire de contact.
-// L'envoi pointe vers la variable d'environnement PUBLIC_FORM_ENDPOINT
-// (voir .env.example et le README pour brancher HubSpot / Brevo / Formspree).
-// Aucune clé API n'est présente dans le code.
+// Ordre de priorité pour l'envoi des demandes :
+//   1. Supabase (CRM)  → si PUBLIC_SUPABASE_URL + PUBLIC_SUPABASE_ANON_KEY définis
+//   2. PUBLIC_FORM_ENDPOINT (Formspree / Brevo / HubSpot…) sinon
+//   3. Message au visiteur si rien n'est configuré
+// Aucune clé secrète n'est présente : la clé "anon" Supabase est publique et
+// protégée par les règles RLS (voir supabase/schema.sql).
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || '';
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
 ---
 
 <form id="contact-form" class="space-y-5" novalidate>
@@ -81,7 +86,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
   <p id="form-status" role="status" aria-live="polite" class="text-sm"></p>
 </form>
 
-<script define:vars={{ endpoint }}>
+<script define:vars={{ endpoint, supabaseUrl, supabaseKey }}>
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
   const bouton = form.querySelector('button[type="submit"]');
@@ -115,8 +120,8 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
       return;
     }
 
-    // Si aucun endpoint n'est configuré, on prévient (le site n'est pas encore branché).
-    if (!endpoint) {
+    // Si rien n'est configuré (ni Supabase, ni endpoint), on prévient le visiteur.
+    if (!supabaseUrl && !endpoint) {
       setStatus(
         "Le formulaire n'est pas encore relié à un service d'envoi. Contactez-nous par téléphone ou WhatsApp en attendant.",
         false
@@ -124,19 +129,47 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
       return;
     }
 
-    // Envoi vers l'endpoint configuré (HubSpot / Brevo / Formspree / webhook)
     const donnees = Object.fromEntries(new FormData(form).entries());
     delete donnees._gotcha;
 
     bouton.disabled = true;
     bouton.textContent = 'Envoi en cours…';
     try {
-      const reponse = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(donnees),
-      });
-      if (reponse.ok) {
+      let ok = false;
+      if (supabaseUrl && supabaseKey) {
+        // 1) Envoi vers le CRM Supabase (table « leads »)
+        const reponse = await fetch(`${supabaseUrl}/rest/v1/leads`, {
+          method: 'POST',
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+            'Content-Type': 'application/json',
+            Prefer: 'return=minimal',
+          },
+          body: JSON.stringify({
+            prenom: donnees.prenom || '',
+            nom: donnees.nom || '',
+            email: donnees.email || '',
+            telephone: donnees.telephone || '',
+            type_projet: donnees.type_projet || '',
+            budget: donnees.budget || '',
+            message: donnees.message || '',
+            statut: 'nouveau',
+            source: 'site',
+          }),
+        });
+        ok = reponse.ok;
+      } else {
+        // 2) Sinon, envoi vers l'endpoint configuré (Formspree / Brevo / HubSpot…)
+        const reponse = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(donnees),
+        });
+        ok = reponse.ok;
+      }
+
+      if (ok) {
         form.reset();
         setStatus('Merci ! Votre demande a bien été envoyée. Nous vous recontactons rapidement.', true);
       } else {

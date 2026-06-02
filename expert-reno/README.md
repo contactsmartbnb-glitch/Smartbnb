@@ -14,6 +14,10 @@ optimisé pour le référencement (SEO), notamment local à Toulouse.
 > 📦 **Vous voulez ce site dans son propre dépôt GitHub** (séparé de Smartbnb) ?
 > Suivez le guide **[`CREER-DEPOT-SEPARE.md`](./CREER-DEPOT-SEPARE.md)**.
 
+> 🗂️ **CRM (suivi des demandes)** : le formulaire enregistre les contacts dans une
+> base Supabase, consultables sur la page privée **`/admin`** (pipeline + notes +
+> email d'alerte). Installation pas-à-pas : **[`CRM-SUPABASE.md`](./CRM-SUPABASE.md)**.
+
 > 🟢 **Identité visuelle** : palette vert forêt + accent ocre, reprise du logo.
 > Couleurs modifiables dans `tailwind.config.mjs`. Pour mettre **votre logo**,
 > voir la section [Ajouter vos photos](#6-ajouter-vos-photos).
