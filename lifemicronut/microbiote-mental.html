@@ -148,6 +148,35 @@ strong{color:var(--ink)}
 .cta-success{display:none;padding:14px;background:rgba(31,176,127,.18);border:1px solid var(--green-br);border-radius:10px;color:#fff;margin-bottom:12px}
 .cta-success.show{display:block}
 
+/* ── Tip jar : encourager le projet ─────────────────────── */
+.tipjar{margin-top:24px;background:linear-gradient(135deg,var(--mint) 0%,var(--bg-soft) 100%);border:1px solid var(--mint-d);border-radius:var(--r-xl);padding:34px 30px;text-align:center}
+.tipjar .tj-eyebrow{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-d);margin-bottom:10px;background:#fff;padding:5px 11px;border-radius:20px;border:1px solid var(--mint-d)}
+.tipjar h3{font-size:1.35rem;margin-bottom:10px;color:var(--ink)}
+.tipjar h3 em{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--green-d)}
+.tipjar p.tj-lead{font-size:.97rem;color:var(--ink-2);max-width:520px;margin:0 auto 24px;line-height:1.6}
+.tj-amount{font-family:'Fraunces',serif;font-size:3rem;font-weight:600;color:var(--green-d);line-height:1;margin-bottom:4px;letter-spacing:-.03em}
+.tj-amount .tj-cur{font-size:1.6rem;font-weight:500;vertical-align:super;margin-left:4px}
+.tj-msg{font-size:.84rem;color:var(--ink-3);min-height:20px;margin-bottom:18px;font-style:italic}
+.tj-slider-wrap{max-width:440px;margin:0 auto 18px;padding:0 6px}
+.tj-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--green) 0%,var(--green) var(--p,5%),var(--mint-d) var(--p,5%),var(--mint-d) 100%);outline:none;cursor:pointer}
+.tj-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:var(--green);cursor:pointer;border:3px solid #fff;box-shadow:0 2px 8px rgba(18,147,106,.4)}
+.tj-slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--green);cursor:pointer;border:3px solid #fff;box-shadow:0 2px 8px rgba(18,147,106,.4)}
+.tj-range-labels{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-3);margin-top:6px}
+.tj-presets{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tj-preset{padding:7px 14px;background:#fff;border:1.5px solid var(--mint-d);border-radius:20px;font-size:.86rem;font-weight:600;color:var(--ink-2);cursor:pointer;transition:all .15s;font-family:inherit}
+.tj-preset:hover{border-color:var(--green);color:var(--green-d)}
+.tj-preset.active{background:var(--green);border-color:var(--green);color:#fff}
+.tj-custom{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--mint-d);border-radius:20px;padding:4px 10px 4px 14px;font-size:.86rem}
+.tj-custom label{font-weight:600;color:var(--ink-2)}
+.tj-custom input{width:62px;border:0;outline:none;font-family:inherit;font-size:.92rem;font-weight:700;color:var(--green-d);text-align:right;padding:3px 0;background:transparent}
+.tj-custom span{color:var(--ink-3)}
+.tj-cta{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;background:var(--green);color:#fff;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 6px 16px -6px rgba(18,147,106,.5);border:0;cursor:pointer;font-family:inherit}
+.tj-cta:hover{background:var(--green-d);transform:translateY(-2px)}
+.tj-cta .heart{font-size:.95rem}
+.tj-tiny{font-size:.78rem;color:var(--ink-3);margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.tj-tiny .sep{opacity:.5}
+@media(max-width:520px){.tj-amount{font-size:2.4rem}.tipjar{padding:26px 20px}.tj-presets{gap:6px}.tj-preset{padding:6px 11px;font-size:.8rem}}
+
 @media(max-width:600px){.analyses{grid-template-columns:1fr}.axis-row{grid-template-columns:1fr 1.4fr 40px;gap:8px;padding:9px 11px}.axis-name{font-size:.82rem}.scale .opt{min-width:0;padding:10px 3px}.s-org{flex-direction:column}}
 </style>
 </head>
@@ -290,6 +319,41 @@ strong{color:var(--ink)}
       <a href="contact.html" class="cta-rdv">Prendre RDV avec une pharmacienne →</a>
 
       <p class="cta-tiny">RGPD : votre email n'est utilisé que pour vous envoyer votre bilan et nos conseils en micronutrition. Désinscription en 1 clic.</p>
+    </div>
+
+    <div class="tipjar">
+      <span class="tj-eyebrow">🌱 Une bonne action en amène une autre</span>
+      <h3>Ce bilan vous a été <em>utile</em> ?</h3>
+      <p class="tj-lead">Ce questionnaire, ces axes d'analyse, ce plan d'action en phases — c'est <strong>des années de formation, de recherche et de pratique clinique</strong> condensées en quelques minutes. Je vous l'offre gratuitement, et ce sera toujours le cas. Si vous souhaitez <strong>encourager LifeMicroNut</strong> pour continuer à créer ces ressources libres et accessibles à tous, un petit geste fait toute la différence.</p>
+
+      <div class="tj-amount"><span id="tjVal">5</span><span class="tj-cur">€</span></div>
+      <div class="tj-msg" id="tjMsg">Merci, vraiment.</div>
+
+      <div class="tj-slider-wrap">
+        <input type="range" min="1" max="1000" value="5" step="1" class="tj-slider" id="tjSlider" style="--p:0.5%">
+        <div class="tj-range-labels"><span>1 €</span><span>100 €</span><span>500 €</span><span>1 000 €</span></div>
+      </div>
+
+      <div class="tj-presets">
+        <button type="button" class="tj-preset" data-amount="3">3 €</button>
+        <button type="button" class="tj-preset active" data-amount="5">5 €</button>
+        <button type="button" class="tj-preset" data-amount="10">10 €</button>
+        <button type="button" class="tj-preset" data-amount="20">20 €</button>
+        <button type="button" class="tj-preset" data-amount="50">50 €</button>
+        <span class="tj-custom"><label for="tjCustom">Autre :</label><input type="number" id="tjCustom" min="1" max="1000" step="1" placeholder="..."><span>€</span></span>
+      </div>
+
+      <a href="#" class="tj-cta" id="tjCta" target="_blank" rel="noopener">
+        <span class="heart">❤</span> <span>Soutenir LifeMicroNut avec <span id="tjCtaVal">5</span> €</span>
+      </a>
+
+      <p class="tj-tiny">
+        <span>Paiement sécurisé via PayPal</span>
+        <span class="sep">·</span>
+        <span>Aucune obligation</span>
+        <span class="sep">·</span>
+        <span>100% volontaire</span>
+      </p>
     </div>
 
     <div style="margin-top:20px;text-align:center">
@@ -782,6 +846,53 @@ if($leadForm){
       .catch(function(){alert('Une erreur est survenue. Merci de réessayer.');});
   });
 }
+
+/* ── TIP JAR — Slider + Presets + PayPal ────────────────────
+   ⚙ CONFIGURATION : remplacez 'lifemicronut' par votre identifiant
+   PayPal.Me (créez-le sur paypal.com/paypalme si pas encore fait).
+   ──────────────────────────────────────────────────────────── */
+var PAYPAL_USERNAME='lifemicronut';
+
+var $tjSlider=document.getElementById('tjSlider');
+var $tjVal=document.getElementById('tjVal');
+var $tjMsg=document.getElementById('tjMsg');
+var $tjCustom=document.getElementById('tjCustom');
+var $tjCta=document.getElementById('tjCta');
+var $tjCtaVal=document.getElementById('tjCtaVal');
+var $tjPresets=document.querySelectorAll('.tj-preset');
+
+function tjMessage(v){
+  if(v<=2) return 'Merci, vraiment.';
+  if(v<=5) return 'Vous offrez un café — ça compte plus que vous ne croyez.';
+  if(v<=10) return 'Une vraie marque de soutien. Merci 🌱';
+  if(v<=20) return 'Ça permet de continuer à créer librement.';
+  if(v<=50) return 'Un engagement fort — merci pour cette confiance.';
+  if(v<=100) return 'Vous croyez vraiment au projet. Profondément touchée.';
+  if(v<=300) return 'Un geste précieux qui finance des semaines de travail.';
+  return 'Un soutien exceptionnel. Merci infiniment 💚';
+}
+
+function tjUpdate(v,fromSlider){
+  v=Math.max(1,Math.min(1000,parseInt(v)||1));
+  $tjVal.textContent=v;
+  $tjCtaVal.textContent=v;
+  $tjMsg.textContent=tjMessage(v);
+  /* Position visuelle du slider (gradient de remplissage) */
+  var p=((v-1)/999)*100;
+  $tjSlider.style.setProperty('--p',p+'%');
+  if(fromSlider!=='slider') $tjSlider.value=v;
+  if(fromSlider!=='custom') $tjCustom.value='';
+  /* État actif des presets */
+  $tjPresets.forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.amount)===v);});
+  /* Lien PayPal.me avec montant pré-rempli */
+  $tjCta.href='https://www.paypal.com/paypalme/'+PAYPAL_USERNAME+'/'+v+'EUR';
+}
+
+$tjSlider.addEventListener('input',function(){tjUpdate(this.value,'slider');});
+$tjPresets.forEach(function(b){b.addEventListener('click',function(){tjUpdate(b.dataset.amount,'preset');});});
+$tjCustom.addEventListener('input',function(){if(this.value)tjUpdate(this.value,'custom');});
+tjUpdate(5,'init');
+
 render();
 </script>
 </body>
