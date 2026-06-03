@@ -6,6 +6,7 @@
 <title>LifeMicroNut · Bilan Microbiote &amp; Santé Mentale — Le ventre, ce deuxième cerveau</title>
 <meta name="description" content="Bilan d'exploration du lien microbiote–cerveau par LifeMicroNut. Une approche pharmacienne, scientifique et personnalisée de la micronutrition.">
 <link rel="canonical" href="https://lifemicronut.com/microbiote-mental">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fff;--bg-soft:#F1F7F3;--mint:#E3F1E9;--mint-d:#CFE7DA;--ink:#16211C;--ink-2:#4C574F;--ink-3:#76837A;--green:#12936A;--green-d:#0B6E4F;--green-br:#1FB07F;--purple:#7A4C9C;--purple-d:#5C347A;--line:#E3E9E4;--alert:#B0383C;--alert-bg:#FBEBEC;--warn:#C97A1A;--warn-bg:#FBF1E0;--sh:0 4px 10px rgba(20,40,30,.05),0 20px 40px -16px rgba(20,40,30,.16);--r:14px;--r-l:20px;--r-xl:28px}
@@ -129,6 +130,24 @@ strong{color:var(--ink)}
 
 .disclaim{margin-top:26px;padding:16px;background:#fff;border:1px solid var(--line);border-radius:var(--r);font-size:.91rem;color:var(--ink-2)}
 
+.cta-final{margin-top:30px;background:linear-gradient(135deg,var(--ink) 0%,#1f3329 100%);color:#fff;border-radius:var(--r-xl);padding:36px 30px;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;width:420px;height:420px;border-radius:50%;background:var(--green);filter:blur(140px);opacity:.28;top:-200px;right:-150px;z-index:0}
+.cta-final > *{position:relative;z-index:1}
+.cta-final h3{color:#fff;font-size:1.45rem;margin-bottom:8px}
+.cta-final p.cta-lead{color:rgba(255,255,255,.78);font-size:1rem;max-width:520px;margin:0 auto 22px;line-height:1.55}
+.cta-form{display:flex;gap:8px;max-width:460px;margin:0 auto 16px;flex-wrap:wrap}
+.cta-form input{flex:1;min-width:200px;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-family:inherit;font-size:.95rem;outline:none;transition:border-color .15s}
+.cta-form input::placeholder{color:rgba(255,255,255,.5)}
+.cta-form input:focus{border-color:var(--green-br)}
+.cta-form button{padding:13px 22px;border-radius:10px;border:0;background:var(--green-br);color:var(--ink);font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .15s,background .15s}
+.cta-form button:hover{background:#fff;transform:translateY(-1px)}
+.cta-or{font-size:.84rem;color:rgba(255,255,255,.55);margin:8px 0 14px;letter-spacing:.05em}
+.cta-rdv{display:inline-block;padding:13px 24px;background:transparent;border:1.5px solid rgba(255,255,255,.4);border-radius:10px;color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;transition:all .15s}
+.cta-rdv:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.cta-tiny{font-size:.76rem;color:rgba(255,255,255,.5);margin-top:14px}
+.cta-success{display:none;padding:14px;background:rgba(31,176,127,.18);border:1px solid var(--green-br);border-radius:10px;color:#fff;margin-bottom:12px}
+.cta-success.show{display:block}
+
 @media(max-width:600px){.analyses{grid-template-columns:1fr}.axis-row{grid-template-columns:1fr 1.4fr 40px;gap:8px;padding:9px 11px}.axis-name{font-size:.82rem}.scale .opt{min-width:0;padding:10px 3px}.s-org{flex-direction:column}}
 </style>
 </head>
@@ -137,7 +156,11 @@ strong{color:var(--ink)}
 <header class="hdr">
   <div class="wrap">
     <a href="index.html" class="brand" style="text-decoration:none;color:var(--ink)">LifeMicroNut</a>
-    <span style="font-size:.84rem;color:var(--ink-2)">Microbiote &amp; Santé Mentale</span>
+    <nav style="display:flex;align-items:center;gap:22px">
+      <a href="microbiote-mental.html" style="font-size:.93rem;font-weight:500;color:var(--green-d);text-decoration:none">Bilans</a>
+      <a href="about.html" style="font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none">À propos</a>
+      <a href="contact.html" style="background:var(--green);color:#fff;padding:7px 14px;border-radius:8px;font-size:.9rem;font-weight:600;text-decoration:none">Prendre RDV</a>
+    </nav>
   </div>
 </header>
 
@@ -245,6 +268,28 @@ strong{color:var(--ink)}
 
     <div class="disclaim">
       <strong>Important :</strong> Ce bilan est un outil d'orientation, pas un diagnostic. La dépression et l'anxiété restent des troubles médicaux qui nécessitent un suivi par un professionnel de santé mentale. La micronutrition est un <strong>levier complémentaire puissant</strong>, pas un substitut. Si vous prenez déjà un traitement, <strong>ne l'arrêtez jamais sans avis médical</strong>. En cas de pensées noires : contactez le <strong>3114</strong> (gratuit, 24h/24).
+    </div>
+
+    <div class="cta-final">
+      <h3>Et maintenant, on agit ensemble ?</h3>
+      <p class="cta-lead">Ce bilan ouvre des pistes — mais la vraie transformation passe par un <strong style="color:#fff">accompagnement personnalisé</strong>. Recevez votre bilan complet par email avec les recommandations détaillées, ou prenez RDV directement avec une pharmacienne micronutritionniste.</p>
+
+      <div class="cta-success" id="ctaSuccess">
+        ✓ Merci ! Votre bilan complet arrive dans votre boîte mail sous quelques minutes.
+      </div>
+
+      <form class="cta-form" id="leadForm" name="bilan-microbiote-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="bilan-microbiote-lead">
+        <p style="display:none"><label>Ne pas remplir : <input name="bot-field"></label></p>
+        <input type="email" name="email" placeholder="votre@email.com" required>
+        <button type="submit">Recevoir mon bilan →</button>
+      </form>
+
+      <p class="cta-or">— ou —</p>
+
+      <a href="contact.html" class="cta-rdv">Prendre RDV avec une pharmacienne →</a>
+
+      <p class="cta-tiny">RGPD : votre email n'est utilisé que pour vous envoyer votre bilan et nos conseils en micronutrition. Désinscription en 1 clic.</p>
     </div>
 
     <div style="margin-top:20px;text-align:center">
@@ -725,6 +770,18 @@ function show(){
 $next.addEventListener('click',()=>{if(!validate())return;var list=activeQ();if(idx===list.length-1){show();return}idx++;render();window.scrollTo({top:0,behavior:'smooth'});});
 $prev.addEventListener('click',()=>{if(idx>0){idx--;render()}});
 $restart.addEventListener('click',()=>{ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:0,behavior:'smooth'});});
+
+/* Capture email — Netlify Forms en AJAX (pas de redirection) */
+var $leadForm=document.getElementById('leadForm');
+if($leadForm){
+  $leadForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    var fd=new FormData($leadForm);
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(fd).toString()})
+      .then(function(){document.getElementById('ctaSuccess').classList.add('show');$leadForm.style.display='none';})
+      .catch(function(){alert('Une erreur est survenue. Merci de réessayer.');});
+  });
+}
 render();
 </script>
 </body>
