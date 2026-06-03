@@ -307,7 +307,7 @@ footer .copy a{color:var(--green-d);text-decoration:none}
       <p class="cta-lead">Ce bilan ouvre des pistes — mais la vraie analyse pharmacienne se fait <strong style="color:#fff">avec votre dossier complet</strong>. Recevez votre rapport détaillé par email, ou prenez RDV pour une consultation de conciliation médicamenteuse personnalisée.</p>
 
       <div class="cta-success" id="ctaSuccess">
-        ✓ Merci ! Votre bilan complet arrive dans votre boîte mail sous quelques minutes.
+        ✓ Merci ! Le Dr Lapothicaire reçoit votre demande et vous adresse votre rapport personnalisé sous 24-48h. Vous pouvez aussi prendre RDV directement.
       </div>
 
       <form class="cta-form" id="leadForm" method="POST" action="https://api.web3forms.com/submit">
@@ -321,7 +321,7 @@ footer .copy a{color:var(--green-d);text-decoration:none}
 
       <p class="cta-or">— ou —</p>
 
-      <a href="contact.html" class="cta-rdv">Prendre RDV avec une pharmacienne →</a>
+      <a href="contact.html" class="cta-rdv">Prendre RDV avec le Dr Lapothicaire →</a>
 
       <p class="cta-tiny">RGPD : votre email ne sert qu'à vous envoyer votre bilan et nos conseils. Désinscription en 1 clic.</p>
     </div>
@@ -1049,11 +1049,11 @@ function show(){
   }
   ub.innerHTML=u;
 
-  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:0,behavior:'smooth'});
+  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'});
 }
-$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:0,behavior:'smooth'});});
+$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'});});
 $prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
-$restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:0,behavior:'smooth'});});
+$restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'});});
 
 /* Capture email — Web3Forms AJAX */
 var $leadForm=document.getElementById('leadForm');

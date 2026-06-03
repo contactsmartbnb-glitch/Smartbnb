@@ -249,7 +249,7 @@ footer .copy a{color:var(--green-d);text-decoration:none}
     <div class="cta-final">
       <h3>Et maintenant, on construit votre plan ?</h3>
       <p class="cta-lead">Ce bilan met en lumière vos leviers — mais la <strong style="color:#fff">vraie transformation</strong> passe par un plan personnalisé, hiérarchisé, et adapté à votre vie. Recevez votre rapport détaillé par email, ou prenez RDV pour une consultation individualisée.</p>
-      <div class="cta-success" id="ctaSuccess">✓ Merci ! Votre bilan complet arrive dans votre boîte mail sous quelques minutes.</div>
+      <div class="cta-success" id="ctaSuccess">✓ Merci ! Le Dr Lapothicaire reçoit votre demande et vous adresse votre rapport personnalisé sous 24-48h. Vous pouvez aussi prendre RDV directement.</div>
       <form class="cta-form" id="leadForm" method="POST" action="https://api.web3forms.com/submit">
         <input type="hidden" name="access_key" value="57726177-ef80-4817-bcf9-e1a59d4d0131">
         <input type="hidden" name="subject" value="Nouveau lead — Bilan Surpoids (LifeMicroNut)">
@@ -259,7 +259,7 @@ footer .copy a{color:var(--green-d);text-decoration:none}
         <button type="submit">Recevoir mon bilan →</button>
       </form>
       <p class="cta-or">— ou —</p>
-      <a href="contact.html" class="cta-rdv">Prendre RDV avec une pharmacienne →</a>
+      <a href="contact.html" class="cta-rdv">Prendre RDV avec le Dr Lapothicaire →</a>
       <p class="cta-tiny">RGPD : votre email ne sert qu'à vous envoyer votre bilan et nos conseils. Désinscription en 1 clic.</p>
     </div>
 
@@ -519,11 +519,11 @@ function show(){
   var ph=phases(ans,s);var pb=document.getElementById('phasesBlock');pb.innerHTML='';ph.forEach(function(p){var d=document.createElement('div');d.className='phase-box';var h='<span class="phase-tag">'+p.tag+'</span><h4>'+p.title+'</h4><ul>';p.items.forEach(function(it){h+='<li>'+it+'</li>'});h+='</ul>';d.innerHTML=h;pb.appendChild(d)});
   var anls=analyses(ans,s);var anb=document.getElementById('analysesBlock');anb.innerHTML='';anls.forEach(function(a,i){var d=document.createElement('div');d.className='an';var b=a.priority===1?' <span class="badge-pri">PRIORITÉ</span>':'';d.innerHTML='<span class="an-num">'+(i+1)+'</span><div><strong>'+a.name+b+'</strong><span class="why">'+a.why+'</span></div>';anb.appendChild(d)});
   document.getElementById('statCount').textContent=anls.length;
-  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:0,behavior:'smooth'})
+  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'})
 }
-$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:0,behavior:'smooth'})});
+$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
 $prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
-$restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:0,behavior:'smooth'})});
+$restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
 
 var $leadForm=document.getElementById('leadForm');
 if($leadForm){$leadForm.addEventListener('submit',function(e){e.preventDefault();var fd=new FormData($leadForm);fetch($leadForm.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){return r.json()}).then(function(d){if(d.success){document.getElementById('ctaSuccess').classList.add('show');$leadForm.style.display='none'}else{alert('Erreur : '+(d.message||'réessayez.'))}}).catch(function(){alert('Une erreur est survenue. Merci de réessayer.')})})}
