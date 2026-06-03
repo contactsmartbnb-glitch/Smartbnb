@@ -1,0 +1,11 @@
+# Cloudflare Pages — Redirections
+# Doc : https://developers.cloudflare.com/pages/configuration/redirects/
+
+# URLs propres : on enlève le .html
+/microbiote-mental.html                              /microbiote-mental                  301
+/polymedication.html                                 /polymedication                     301
+/about.html                                          /about                              301
+/contact.html                                        /contact                            301
+
+# Anciens chemins → URL canonique du bilan
+/LifeMicroNut-Bilan-Microbiote-SanteMentale.html     /microbiote-mental                  301

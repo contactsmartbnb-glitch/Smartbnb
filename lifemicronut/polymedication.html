@@ -310,9 +310,11 @@ footer .copy a{color:var(--green-d);text-decoration:none}
         ✓ Merci ! Votre bilan complet arrive dans votre boîte mail sous quelques minutes.
       </div>
 
-      <form class="cta-form" id="leadForm" name="bilan-polymedication-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="bilan-polymedication-lead">
-        <p style="display:none"><label>Ne pas remplir : <input name="bot-field"></label></p>
+      <form class="cta-form" id="leadForm" method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="access_key" value="VOTRE_ACCESS_KEY_WEB3FORMS">
+        <input type="hidden" name="subject" value="Nouveau lead — Bilan Polymédication (LifeMicroNut)">
+        <input type="hidden" name="from_name" value="LifeMicroNut · Bilan Polymédication">
+        <input type="hidden" name="botcheck">
         <input type="email" name="email" placeholder="votre@email.com" required>
         <button type="submit">Recevoir mon bilan →</button>
       </form>
@@ -1053,14 +1055,15 @@ $next.addEventListener('click',function(){if(!validate())return;if(idx===Q.lengt
 $prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
 $restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:0,behavior:'smooth'});});
 
-/* Capture email */
+/* Capture email — Web3Forms AJAX */
 var $leadForm=document.getElementById('leadForm');
 if($leadForm){
   $leadForm.addEventListener('submit',function(e){
     e.preventDefault();
     var fd=new FormData($leadForm);
-    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(fd).toString()})
-      .then(function(){document.getElementById('ctaSuccess').classList.add('show');$leadForm.style.display='none';})
+    fetch($leadForm.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+      .then(function(r){return r.json()})
+      .then(function(d){if(d.success){document.getElementById('ctaSuccess').classList.add('show');$leadForm.style.display='none';}else{alert('Erreur : '+(d.message||'réessayez.'));}})
       .catch(function(){alert('Une erreur est survenue. Merci de réessayer.');});
   });
 }
