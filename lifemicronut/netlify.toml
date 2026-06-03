@@ -1,0 +1,53 @@
+## Configuration Netlify — LifeMicroNut
+## Documentation : https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  publish = "."
+
+## URLs propres : on enlève le .html visible
+[[redirects]]
+  from = "/microbiote-mental.html"
+  to = "/microbiote-mental"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/polymedication.html"
+  to = "/polymedication"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+## Anciens chemins éventuels → nouvelle URL canonique
+[[redirects]]
+  from = "/LifeMicroNut-Bilan-Microbiote-SanteMentale.html"
+  to = "/microbiote-mental"
+  status = 301
+  force = true
+
+## Headers sécurité (HSTS, anti-clickjacking, anti-MIME-sniffing)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+## Cache long pour le SVG (favicon)
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, immutable"
