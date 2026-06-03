@@ -330,17 +330,17 @@ strong{color:var(--ink)}
       <div class="tj-msg" id="tjMsg">Merci, vraiment.</div>
 
       <div class="tj-slider-wrap">
-        <input type="range" min="1" max="1000" value="5" step="1" class="tj-slider" id="tjSlider" style="--p:0.5%">
-        <div class="tj-range-labels"><span>1 €</span><span>100 €</span><span>500 €</span><span>1 000 €</span></div>
+        <input type="range" min="5" max="1000" value="5" step="1" class="tj-slider" id="tjSlider" style="--p:0%">
+        <div class="tj-range-labels"><span>5 €</span><span>100 €</span><span>500 €</span><span>1 000 €</span></div>
       </div>
 
       <div class="tj-presets">
-        <button type="button" class="tj-preset" data-amount="3">3 €</button>
         <button type="button" class="tj-preset active" data-amount="5">5 €</button>
         <button type="button" class="tj-preset" data-amount="10">10 €</button>
         <button type="button" class="tj-preset" data-amount="20">20 €</button>
         <button type="button" class="tj-preset" data-amount="50">50 €</button>
-        <span class="tj-custom"><label for="tjCustom">Autre :</label><input type="number" id="tjCustom" min="1" max="1000" step="1" placeholder="..."><span>€</span></span>
+        <button type="button" class="tj-preset" data-amount="100">100 €</button>
+        <span class="tj-custom"><label for="tjCustom">Montant libre :</label><input type="number" id="tjCustom" min="5" max="1000" step="1" placeholder="..."><span>€</span></span>
       </div>
 
       <a href="#" class="tj-cta" id="tjCta" target="_blank" rel="noopener">
@@ -862,7 +862,6 @@ var $tjCtaVal=document.getElementById('tjCtaVal');
 var $tjPresets=document.querySelectorAll('.tj-preset');
 
 function tjMessage(v){
-  if(v<=2) return 'Merci, vraiment.';
   if(v<=5) return 'Vous offrez un café — ça compte plus que vous ne croyez.';
   if(v<=10) return 'Une vraie marque de soutien. Merci 🌱';
   if(v<=20) return 'Ça permet de continuer à créer librement.';
@@ -873,12 +872,12 @@ function tjMessage(v){
 }
 
 function tjUpdate(v,fromSlider){
-  v=Math.max(1,Math.min(1000,parseInt(v)||1));
+  v=Math.max(5,Math.min(1000,parseInt(v)||5));
   $tjVal.textContent=v;
   $tjCtaVal.textContent=v;
   $tjMsg.textContent=tjMessage(v);
-  /* Position visuelle du slider (gradient de remplissage) */
-  var p=((v-1)/999)*100;
+  /* Position visuelle du slider (gradient de remplissage, base 5€) */
+  var p=((v-5)/995)*100;
   $tjSlider.style.setProperty('--p',p+'%');
   if(fromSlider!=='slider') $tjSlider.value=v;
   if(fromSlider!=='custom') $tjCustom.value='';
