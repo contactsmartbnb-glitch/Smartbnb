@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vos mitochondries, ces moteurs invisibles de votre énergie · LifeMicroNut</title>
+<meta name="description" content="Les mitochondries produisent 90 kg d'ATP par jour dans votre corps. Quand elles défaillent, c'est la fatigue chronique. Comprendre et soutenir vos mitochondries selon la micronutrition fonctionnelle.">
+<link rel="canonical" href="https://lifemicronut.com/blog/mitochondries">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-soft:#F1F7F3;--mint:#E3F1E9;--mint-d:#CFE7DA;--ink:#16211C;--ink-2:#4C574F;--ink-3:#76837A;--green:#12936A;--green-d:#0B6E4F;--green-br:#1FB07F;--purple:#7A4C9C;--line:#E3E9E4;--alert:#B0383C;--alert-bg:#FBEBEC;--warn:#C97A1A;--warn-bg:#FBF1E0;--sh:0 4px 10px rgba(20,40,30,.05),0 20px 40px -16px rgba(20,40,30,.16);--r:14px;--r-l:20px;--r-xl:28px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:800;line-height:1.2;letter-spacing:-.025em;color:var(--ink)}
+h1{font-size:clamp(2rem,4.5vw,3rem);line-height:1.15}
+h1 em{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--green-d)}
+h2{font-size:clamp(1.5rem,2.8vw,1.9rem);margin:48px 0 14px}
+h3{font-size:1.2rem;margin:30px 0 10px}
+p{color:var(--ink-2);font-size:1.06rem;margin-bottom:18px}
+strong{color:var(--ink)}a{color:var(--green-d)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.article-wrap{max-width:720px;margin:0 auto;padding:0 22px}
+.hdr{padding:16px 0;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:8px;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--green);display:inline-block}
+.nav-main{display:flex;align-items:center;gap:22px}
+.nav-main a{font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none}
+.nav-main a:hover,.nav-main a.active{color:var(--green-d)}
+.nav-main .btn-nav{background:var(--green);color:#fff;padding:7px 14px;border-radius:8px;font-weight:600;font-size:.9rem}
+.nav-main .btn-nav:hover{background:var(--green-d);color:#fff}
+@media(max-width:880px){.nav-main{gap:14px}.nav-main a:not(.btn-nav):not(.active){display:none}}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-d);margin-bottom:14px}
+.eyebrow::before{content:'';width:22px;height:2px;background:var(--green);border-radius:2px}
+.article-hero{padding:60px 0 36px;background:linear-gradient(180deg,var(--bg-soft) 0%,#fff 100%);text-align:center}
+.article-hero .tags{margin-bottom:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.article-hero .tag{background:#fff;border:1px solid var(--mint-d);color:var(--green-d);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:20px}
+.article-hero h1{max-width:760px;margin:0 auto 22px}
+.article-hero .meta{font-size:.92rem;color:var(--ink-2)}
+.article{padding:36px 0 60px}
+.article p.lead{font-size:1.18rem;color:var(--ink);line-height:1.6;margin-bottom:30px;border-left:3px solid var(--green);padding-left:22px}
+.article ul,.article ol{margin:0 0 22px;padding-left:24px}
+.article ul li,.article ol li{margin-bottom:9px;color:var(--ink-2);font-size:1.05rem;line-height:1.65}
+.article ul li strong,.article ol li strong{color:var(--ink)}
+.callout{background:var(--mint);border-left:4px solid var(--green);border-radius:8px;padding:22px 26px;margin:28px 0;font-size:1rem}
+.callout strong{color:var(--green-d)}
+.callout.warn{background:var(--warn-bg);border-left-color:var(--warn)}
+.callout.warn strong{color:#7a4a0e}
+.quote{margin:36px 0;padding:30px 28px;background:var(--bg-soft);border-radius:var(--r-l);border-left:5px solid var(--green-d)}
+.quote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.25rem;color:var(--ink);line-height:1.45;margin-bottom:8px}
+.quote .author{font-size:.86rem;color:var(--ink-3);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px 0}
+.stat{background:var(--bg-soft);border:1px solid var(--mint-d);border-radius:var(--r);padding:22px;text-align:center}
+.stat-n{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;color:var(--green-d);line-height:1;display:block;margin-bottom:6px}
+.stat-l{font-size:.86rem;color:var(--ink-2);line-height:1.4}
+@media(max-width:680px){.stats{grid-template-columns:1fr}}
+.bio{margin:60px 0 0;padding:28px;background:var(--bg-soft);border-radius:var(--r-l);display:flex;gap:20px;align-items:center}
+.bio .av{flex-shrink:0;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-d));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:1.7rem;font-weight:600}
+.bio h4{font-size:1.02rem;margin-bottom:4px}
+.bio p{font-size:.92rem;margin-bottom:0;color:var(--ink-2)}
+.related{padding:50px 0;background:var(--bg-soft);border-top:1px solid var(--line)}
+.related h2{text-align:center;margin-bottom:30px;font-size:1.4rem}
+.related .grid{max-width:920px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 22px}
+.related .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;text-decoration:none;color:inherit;display:block;transition:transform .15s}
+.related .card:hover{transform:translateY(-2px);box-shadow:var(--sh)}
+.related .card h3{font-size:1rem;line-height:1.35;margin-bottom:8px}
+.related .card p{font-size:.84rem;margin-bottom:0;line-height:1.5}
+@media(max-width:760px){.related .grid{grid-template-columns:1fr}}
+.cta-final{padding:60px 0;text-align:center;background:#fff;border-top:1px solid var(--line)}
+.cta-final h2{margin-bottom:14px;font-size:1.6rem}
+.cta-final p{max-width:560px;margin:0 auto 24px;font-size:1.04rem}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-weight:600;font-size:.98rem;padding:13px 26px;border-radius:10px;text-decoration:none;transition:all .2s}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 16px -6px rgba(18,147,106,.5)}
+.btn-primary:hover{background:var(--green-d);transform:translateY(-2px)}
+footer{border-top:1px solid var(--line);background:var(--bg-soft);padding:38px 0}
+footer .wrap{max-width:820px;text-align:center}
+footer .brand{justify-content:center;margin-bottom:10px}
+footer p{font-size:.9rem;color:var(--ink-2);max-width:520px;margin:0 auto 14px}
+footer .copy{font-size:.78rem;color:var(--ink-3);letter-spacing:.02em}
+footer .copy a{color:var(--green-d);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap">
+    <a href="../index.html" class="brand">LifeMicroNut</a>
+    <nav class="nav-main">
+      <a href="../comprendre.html">Comprendre</a>
+      <a href="../microbiote-mental.html">Bilans</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="../about.html">À propos</a>
+      <a href="../contact.html" class="btn-nav">Prendre RDV</a>
+    </nav>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="article-wrap">
+    <div class="tags"><span class="tag">Pilier 2 · Énergie</span><span class="tag">Science cellulaire</span></div>
+    <h1>Vos <em>mitochondries</em>, ces moteurs invisibles de votre énergie</h1>
+    <div class="meta">⏱ 8 min de lecture · Par le Dr Lapothicaire</div>
+  </div>
+</section>
+
+<article class="article">
+  <div class="article-wrap">
+
+    <p class="lead">Chaque cellule de votre corps abrite des centaines de minuscules usines énergétiques : les mitochondries. Elles produisent l'ATP — la « monnaie d'énergie » du vivant. Quand elles fatiguent, vous fatiguez. Quand elles dysfonctionnent, c'est le terrain de très nombreuses pathologies modernes. Et la médecine standard ne les mesure presque jamais.</p>
+
+    <h2>Qu'est-ce qu'une mitochondrie ?</h2>
+
+    <p>Imaginez une petite usine en forme de haricot, présente par centaines voire milliers dans chacune de vos cellules. Sa mission : transformer ce que vous mangez et l'oxygène que vous respirez en <strong>ATP</strong> (adénosine triphosphate), la molécule qui alimente <em>tout</em> ce que votre corps fait — battre votre cœur, contracter vos muscles, penser, digérer, vous défendre, vous réparer.</p>
+
+    <div class="stats">
+      <div class="stat"><span class="stat-n">10¹⁷</span><span class="stat-l">Mitochondries dans votre corps (cent millions de milliards)</span></div>
+      <div class="stat"><span class="stat-n">90 kg</span><span class="stat-l">D'ATP fabriqués et recyclés chaque jour</span></div>
+      <div class="stat"><span class="stat-n">10%</span><span class="stat-l">Du poids du corps représenté par les mitochondries</span></div>
+    </div>
+
+    <p>Elles sont concentrées dans les tissus à haute demande énergétique : <strong>cœur, cerveau, muscles, foie, ovaires</strong>. Une cellule cardiaque contient jusqu'à <strong>5 000 mitochondries</strong>. Un neurone : plusieurs centaines. Sans elles, rien ne tourne.</p>
+
+    <h2>Une origine fascinante : la symbiose primordiale</h2>
+
+    <p>Les mitochondries ont une particularité extraordinaire : elles possèdent <strong>leur propre ADN</strong>, distinct de celui de votre noyau cellulaire. Cet ADN est transmis <em>uniquement par la mère</em>. Chaque femme transmet ses mitochondries à ses enfants — mais seules ses filles les passeront ensuite.</p>
+
+    <p>Pourquoi ? Parce que les mitochondries sont, à l'origine, d'anciennes bactéries qui ont fusionné avec nos cellules il y a environ <strong>1,5 milliard d'années</strong>. Cette symbiose ancestrale fait des mitochondries des « invitées permanentes » de nos cellules — qu'il faut nourrir et entretenir comme telles.</p>
+
+    <div class="quote">
+      <p>« Sans mitochondries fonctionnelles, pas d'énergie. Sans énergie, pas de pensée, pas de mouvement, pas d'immunité, pas de réparation. La mitochondrie est la <em>condition</em> de tout. »</p>
+      <div class="author">— Pr V. Castronovo, Pilier 2 — Énergie / Mitochondrie, DU MAPS</div>
+    </div>
+
+    <h2>Quand les mitochondries défaillent</h2>
+
+    <p>Une mitochondrie en mauvaise santé produit moins d'ATP <em>et</em> davantage de <strong>ROS</strong> (espèces réactives de l'oxygène) — les fameux radicaux libres. Résultat : moins d'énergie disponible, plus de stress oxydant, accélération du vieillissement cellulaire.</p>
+
+    <p>Les tableaux cliniques associés à une <strong>dysfonction mitochondriale</strong> sont nombreux :</p>
+
+    <ul>
+      <li><strong>Fatigue chronique inexpliquée</strong>, sensation d'épuisement même au repos</li>
+      <li><strong>Intolérance à l'effort</strong> : essoufflement disproportionné, récupération lente</li>
+      <li><strong>Brouillard mental</strong>, troubles de concentration et de mémoire</li>
+      <li><strong>Douleurs musculaires diffuses</strong> (fibromyalgie, myalgies sous statines)</li>
+      <li><strong>Sommeil non réparateur</strong> malgré la durée correcte</li>
+      <li><strong>Dépression résistante</strong> aux traitements classiques</li>
+      <li><strong>COVID long</strong>, post-EBV, post-infection en général</li>
+      <li><strong>Vieillissement accéléré</strong> (peau, cheveux, énergie, motivation)</li>
+    </ul>
+
+    <p>Tous ces tableaux ont une chose en commun : la <em>fatigue mitochondriale</em>. Les analyses classiques ne la mesurent pas — la médecine fonctionnelle, si.</p>
+
+    <h2>Les biomarqueurs accessibles</h2>
+
+    <p>Même si l'évaluation directe de la fonction mitochondriale reste complexe, plusieurs <strong>biomarqueurs indirects</strong> peuvent orienter le diagnostic :</p>
+
+    <ul>
+      <li><strong>CoQ10 plasmatique</strong> — cofacteur essentiel de la chaîne respiratoire</li>
+      <li><strong>Carnitine plasmatique</strong> — transporteur des acides gras dans la mitochondrie</li>
+      <li><strong>Lactate de repos</strong> &gt; 2 mmol/L — évoque une dysfonction</li>
+      <li><strong>Homocystéine</strong> — reflet de la méthylation (carnitine, CoQ10)</li>
+      <li><strong>Magnésium érythrocytaire</strong> — cofacteur de 300+ enzymes mitochondriales</li>
+      <li><strong>8-OHdG urinaire</strong> — marqueur de stress oxydant ADN</li>
+      <li><strong>Index oméga-3 érythrocytaire</strong> — fluidité des membranes mitochondriales</li>
+    </ul>
+
+    <h2>Les leviers de la micronutrition mitochondriale</h2>
+
+    <p>Soigner ses mitochondries, c'est leur fournir les <strong>cofacteurs</strong> dont elles ont besoin, et limiter les <strong>agresseurs</strong>. Voici les piliers d'action selon le DU MAPS :</p>
+
+    <h3>1. Les cofacteurs du cycle de Krebs et de la chaîne respiratoire</h3>
+    <ul>
+      <li><strong>Vitamines B</strong> : B1 (thiamine), B2 (riboflavine), B3 (niacine → NAD+), B5 (CoA), B6, B9, B12. Souvent en complexe, formes méthylées si polymorphisme MTHFR.</li>
+      <li><strong>Magnésium bisglycinate</strong> 300-400 mg/j — cofacteur omniprésent.</li>
+      <li><strong>L-Carnitine</strong> 1-2 g/j — transport des acides gras longs.</li>
+    </ul>
+
+    <h3>2. Les transporteurs et protecteurs d'électrons</h3>
+    <ul>
+      <li><strong>CoQ10 (ubiquinol)</strong> 100-200 mg/j — surtout après 60 ans ou sous statine.</li>
+      <li><strong>Acide alpha-lipoïque</strong> (ALA) 300-600 mg/j — antioxydant universel.</li>
+      <li><strong>Oméga-3 EPA/DHA</strong> 1-2 g/j — fluidité membranaire.</li>
+    </ul>
+
+    <h3>3. Les antioxydants endogènes et exogènes</h3>
+    <ul>
+      <li><strong>Glutathion</strong> (via NAC 600-1 200 mg/j) — la « mère » des antioxydants.</li>
+      <li><strong>Sélénium</strong> 50-100 µg/j (1-2 noix du Brésil) — cofacteur GPx.</li>
+      <li><strong>Vitamine C</strong> 500 mg × 3/j — antioxydant hydrosoluble.</li>
+      <li><strong>Polyphénols</strong> : curcumine, resvératrol, EGCG, quercétine, OPC.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Cas concret — Statine + douleurs musculaires :</strong> les statines bloquent la voie du mévalonate, ce qui réduit la synthèse endogène de CoQ10 et explique les myalgies chez 10-30 % des patients. La supplémentation à 100-200 mg/j d'ubiquinol améliore les symptômes chez la majorité. À discuter avec votre médecin <em>avant</em> d'arrêter une statine. <em>(Banach et al., Mayo Clin Proc 2015)</em>
+    </div>
+
+    <h2>Les stimulateurs naturels de la biogenèse mitochondriale</h2>
+
+    <p>Au-delà de la supplémentation, plusieurs <strong>signaux de vie</strong> stimulent la création de nouvelles mitochondries (biogenèse via PGC-1α) :</p>
+
+    <ul>
+      <li><strong>Exercice physique</strong>, surtout intermittent intense (HIIT) — le plus puissant stimulus connu</li>
+      <li><strong>Jeûne intermittent</strong> (16:8) — active l'autophagie et la mitophagie</li>
+      <li><strong>Exposition au froid modéré</strong> — douche froide progressive, immersion</li>
+      <li><strong>Restriction calorique modérée</strong> sans dénutrition</li>
+      <li><strong>Polyphénols végétaux</strong> — resvératrol, OPC, EGCG</li>
+      <li><strong>Hormones thyroïdiennes</strong> (T3) — d'où l'importance de la thyroïde</li>
+    </ul>
+
+    <h2>Ce qu'il faut éviter</h2>
+
+    <p>Les agresseurs mitochondriaux les plus documentés :</p>
+    <ul>
+      <li><strong>Sucres rapides en excès</strong> et hyperinsulinisme chronique</li>
+      <li><strong>Métaux lourds</strong> (mercure, plomb, aluminium)</li>
+      <li><strong>Pesticides organochlorés</strong>, glyphosate</li>
+      <li><strong>Tabac, alcool excessif</strong></li>
+      <li><strong>Inflammation chronique</strong> non résolue</li>
+      <li><strong>Stress oxydant</strong> non compensé (pollution, UV, sport extrême)</li>
+      <li><strong>Carences chroniques</strong> en cofacteurs (Mg, B-vitamines, sélénium…)</li>
+    </ul>
+
+    <div class="callout warn">
+      <strong>Important :</strong> La supplémentation mitochondriale n'est pas anodine. Excès de fer = catalyseur de Fenton (ROS). Excès de sélénium = toxicité. Excès de vitamine E (alpha seule) = pro-oxydant. Une vraie démarche micronutritionnelle est <em>individualisée et progressive</em>, jamais standardisée.
+    </div>
+
+    <h2>Ce qu'il faut retenir</h2>
+
+    <p>Vos mitochondries sont les <strong>chefs d'orchestre invisibles</strong> de votre énergie, de votre humeur, de votre immunité, de votre vieillissement. Les soigner, ce n'est pas une mode : c'est un fondement biologique majeur que la micronutrition fonctionnelle met au cœur de sa pratique.</p>
+
+    <p>Si vous vivez avec une fatigue chronique inexpliquée, si vous avez des douleurs musculaires sous statine, si vous récupérez mal après une infection — pensez à explorer ce versant. Un bilan biologique ciblé et un protocole micronutritionnel progressif peuvent changer la donne.</p>
+
+    <div class="bio">
+      <div class="av">L</div>
+      <div>
+        <h4>Dr Lapothicaire</h4>
+        <p>Docteure en Pharmacie diplômée de Paul Sabatier (Toulouse), rédactrice médicale et scientifique, spécialisée en micronutrition fonctionnelle (DU MAPS — Pr V. Castronovo). LifeMicroNut.</p>
+      </div>
+    </div>
+
+  </div>
+</article>
+
+<section class="related">
+  <h2>Pour aller plus loin</h2>
+  <div class="grid">
+    <a href="errance-medicale.html" class="card">
+      <h3>L'errance médicale : pourquoi vos analyses sont « normales »</h3>
+      <p>5 ans de délai diagnostic, 70% des femmes consultent 3 médecins. Décryptage.</p>
+    </a>
+    <a href="microbiote-cerveau.html" class="card">
+      <h3>Le microbiote intestinal, votre second cerveau</h3>
+      <p>500 millions de neurones dans votre tube digestif. 90% de la sérotonine.</p>
+    </a>
+    <a href="medicaments-deplete.html" class="card">
+      <h3>Ces médicaments qui épuisent vos micronutriments en silence</h3>
+      <p>IPP, statines, metformine, pilule — la iatrogénie qu'on ne vous explique pas.</p>
+    </a>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Prêt(e) à explorer votre énergie ?</h2>
+    <p>Le bilan Polymédication & Personnes âgées explore les dysfonctions mitochondriales liées aux médicaments.</p>
+    <a href="../polymedication.html" class="btn btn-primary">Commencer le bilan Polymédication →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">LifeMicroNut</div>
+    <p>La micronutrition appliquée à la vraie vie. Une approche <strong>pharmacienne, scientifique et personnalisée</strong>, pour des résultats durables.</p>
+    <p class="copy">© <span id="year"></span> LifeMicroNut · Tous droits réservés · <a href="https://lifemicronut.com">lifemicronut.com</a></p>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script defer src="../wa.js"></script>
+</body>
+</html>

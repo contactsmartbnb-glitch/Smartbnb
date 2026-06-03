@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprendre la micronutrition · LifeMicroNut — Errance médicale, mitochondries, cellules</title>
+<meta name="description" content="L'errance médicale en chiffres, la micronutrition fonctionnelle, les mitochondries, le terrain cellulaire, les 7 piliers Castronovo. Comprendre pourquoi vos analyses sont 'normales' alors que vous n'allez pas bien.">
+<link rel="canonical" href="https://lifemicronut.com/comprendre">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-soft:#F1F7F3;--mint:#E3F1E9;--mint-d:#CFE7DA;--ink:#16211C;--ink-2:#4C574F;--ink-3:#76837A;--green:#12936A;--green-d:#0B6E4F;--green-br:#1FB07F;--purple:#7A4C9C;--purple-d:#5C347A;--line:#E3E9E4;--alert:#B0383C;--alert-bg:#FBEBEC;--warn:#C97A1A;--warn-bg:#FBF1E0;--sh:0 4px 10px rgba(20,40,30,.05),0 20px 40px -16px rgba(20,40,30,.16);--r:14px;--r-l:20px;--r-xl:28px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-weight:800;line-height:1.2;letter-spacing:-.025em;color:var(--ink)}
+h1{font-size:clamp(2rem,5vw,3.4rem)}
+h1 em,h2 em{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--green-d)}
+h2{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:14px}
+h3{font-size:1.25rem;margin-bottom:10px}
+h4{font-size:1.05rem;margin-bottom:6px}
+p{color:var(--ink-2);font-size:1.02rem;margin-bottom:14px}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink)}
+a{color:var(--green-d)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.wrap-narrow{max-width:760px}
+
+.hdr{padding:16px 0;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:8px;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--green);display:inline-block}
+.nav-main{display:flex;align-items:center;gap:22px}
+.nav-main a{font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none}
+.nav-main a:hover,.nav-main a.active{color:var(--green-d)}
+.nav-main .btn-nav{background:var(--green);color:#fff;padding:7px 14px;border-radius:8px;font-weight:600;font-size:.9rem}
+.nav-main .btn-nav:hover{background:var(--green-d);color:#fff}
+@media(max-width:880px){.nav-main{gap:14px}.nav-main a:not(.btn-nav):not(.active){display:none}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-d);margin-bottom:14px}
+.eyebrow::before{content:'';width:22px;height:2px;background:var(--green);border-radius:2px}
+
+.hero{padding:80px 0 50px;background:linear-gradient(180deg,var(--bg-soft) 0%,#fff 100%);text-align:center}
+.hero .wrap{max-width:880px}
+.hero h1{margin-bottom:22px;line-height:1.1}
+.hero p.lead{font-size:1.15rem;color:var(--ink-2);max-width:680px;margin:0 auto 32px}
+.hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:inherit;font-weight:600;font-size:1rem;padding:13px 26px;border-radius:10px;text-decoration:none;transition:all .2s;border:1.5px solid transparent;cursor:pointer}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 16px -6px rgba(18,147,106,.5)}
+.btn-primary:hover{background:var(--green-d);transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green-d)}
+
+/* Sections */
+.section{padding:70px 0}
+.section + .section{border-top:1px solid var(--line)}
+.section-soft{background:var(--bg-soft)}
+.section h2{margin-bottom:16px}
+.section .lead{font-size:1.1rem;color:var(--ink-2);margin-bottom:28px}
+
+/* Errance médicale */
+.errance .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:32px 0}
+.errance .stat{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:24px;text-align:center}
+.errance .stat-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:600;color:var(--alert);line-height:1;letter-spacing:-.03em;display:block;margin-bottom:8px}
+.errance .stat-lbl{font-size:.92rem;color:var(--ink-2);line-height:1.5}
+.errance .stat-lbl strong{color:var(--ink)}
+@media(max-width:680px){.errance .stats{grid-template-columns:1fr}}
+
+.symptomes-list{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:30px;margin-top:14px}
+.symptomes-list h4{font-size:1rem;font-weight:700;margin-bottom:16px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em;font-size:.85rem}
+.symptomes-list ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:9px 24px}
+.symptomes-list li{display:flex;align-items:start;gap:10px;font-size:.96rem;color:var(--ink)}
+.symptomes-list li::before{content:'·';color:var(--alert);font-weight:900;font-size:1.4rem;line-height:1;margin-top:2px}
+@media(max-width:680px){.symptomes-list ul{grid-template-columns:1fr}}
+
+/* Solution micronutrition */
+.solution .pillars{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}
+.solution .pillar{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:28px;position:relative}
+.solution .pillar h3{display:flex;align-items:center;gap:12px}
+.solution .pillar h3 .num{flex-shrink:0;width:32px;height:32px;background:var(--mint);color:var(--green-d);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Fraunces',serif;font-size:1rem}
+.solution .pillar p{margin-bottom:0;font-size:.96rem}
+@media(max-width:760px){.solution .pillars{grid-template-columns:1fr}}
+
+/* Mitochondrie zoom */
+.mito{background:linear-gradient(135deg,var(--ink) 0%,#1f3329 100%);color:#fff;position:relative;overflow:hidden}
+.mito::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:var(--green);filter:blur(180px);opacity:.25;top:-300px;right:-200px}
+.mito::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:var(--purple);filter:blur(170px);opacity:.22;bottom:-250px;left:-150px}
+.mito .wrap{position:relative;z-index:1}
+.mito h2{color:#fff;margin-bottom:14px}
+.mito h2 em{color:var(--green-br)}
+.mito .lead{color:rgba(255,255,255,.78)}
+.mito-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.mito-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-l);padding:26px}
+.mito-card h4{color:#fff;margin-bottom:8px;font-size:1.05rem}
+.mito-card p{color:rgba(255,255,255,.78);font-size:.93rem;line-height:1.6;margin-bottom:0}
+.mito-card .label{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:600;color:var(--green-br);line-height:1;display:block;margin-bottom:12px}
+@media(max-width:760px){.mito-flow{grid-template-columns:1fr}}
+
+/* 7 piliers */
+.piliers .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.piliers .p{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 16px}
+.piliers .p .n{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;color:var(--green-d);line-height:1;display:block;margin-bottom:8px}
+.piliers .p h4{font-size:.96rem;margin-bottom:4px}
+.piliers .p p{font-size:.85rem;line-height:1.5;margin-bottom:0;color:var(--ink-2)}
+@media(max-width:880px){.piliers .grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.piliers .grid{grid-template-columns:1fr}}
+
+/* CTA final */
+.cta-final{padding:72px 0;background:linear-gradient(135deg,var(--ink) 0%,#1f3329 100%);color:#fff;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:var(--green);filter:blur(150px);opacity:.3;top:-200px;right:-100px}
+.cta-final .wrap{position:relative;z-index:1;max-width:680px}
+.cta-final h2{color:#fff;margin-bottom:16px}
+.cta-final p{color:rgba(255,255,255,.78);font-size:1.08rem;margin-bottom:30px}
+.cta-final .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-final .btn-primary{background:var(--green-br);color:var(--ink)}
+.cta-final .btn-primary:hover{background:#fff;transform:translateY(-2px)}
+.cta-final .btn-ghost{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+.cta-final .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+
+footer{border-top:1px solid var(--line);background:var(--bg-soft);padding:38px 0}
+footer .wrap{max-width:820px;text-align:center}
+footer .brand{justify-content:center;margin-bottom:10px}
+footer p{font-size:.9rem;color:var(--ink-2);max-width:520px;margin:0 auto 14px}
+footer .copy{font-size:.78rem;color:var(--ink-3);letter-spacing:.02em}
+footer .copy a{color:var(--green-d);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap">
+    <a href="index.html" class="brand">LifeMicroNut</a>
+    <nav class="nav-main">
+      <a href="comprendre.html" class="active">Comprendre</a>
+      <a href="microbiote-mental.html">Bilans</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">À propos</a>
+      <a href="contact.html" class="btn-nav">Prendre RDV</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Comprendre la micronutrition</span>
+    <h1>Et si vos analyses étaient <em>normales</em>… mais que vous n'alliez pas <em>bien</em> ?</h1>
+    <p class="lead">Fatigue, brouillard mental, anxiété, chute de cheveux, troubles digestifs, kilos résistants… Des millions de personnes vivent avec des symptômes <strong>bien réels</strong>, sans diagnostic clair. C'est ce qu'on appelle l'<strong>errance médicale</strong>. La micronutrition fonctionnelle propose une autre lecture : celle du <strong>terrain biologique</strong>, des <strong>mitochondries</strong>, et de la cellule.</p>
+    <div class="ctas">
+      <a href="microbiote-mental.html" class="btn btn-primary">Faire un premier bilan →</a>
+      <a href="blog.html" class="btn btn-ghost">Lire le blog</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ERRANCE MÉDICALE ─────────────────────────────────── -->
+<section class="section errance">
+  <div class="wrap wrap-narrow">
+    <span class="eyebrow">Le problème</span>
+    <h2>L'errance médicale : un drame silencieux</h2>
+    <p class="lead">Vous décrivez vos symptômes à votre médecin. Il prescrit un bilan sanguin. Tout revient « normal ». On vous dit que c'est le stress, l'âge, ou « dans votre tête ». Pourtant, vous savez que quelque chose ne va pas. Vous n'êtes pas seul(e).</p>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">5 ans</span>
+        <span class="stat-lbl">de délai moyen pour obtenir un <strong>diagnostic</strong> de maladie chronique en France</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">70%</span>
+        <span class="stat-lbl">des femmes consultent au moins <strong>3 médecins différents</strong> avant un diagnostic correct</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">1 sur 3</span>
+        <span class="stat-lbl">français vit avec des symptômes chroniques <strong>sans diagnostic clair</strong></span>
+      </div>
+    </div>
+
+    <p>Le problème n'est pas la compétence des médecins. C'est que la médecine conventionnelle est conçue pour <strong>traiter la maladie déclarée</strong>, pas pour explorer le <strong>terrain qui la précède</strong>. Les analyses standards mesurent des <em>seuils de pathologie</em>, pas des <em>cibles de fonctionnement optimal</em>.</p>
+
+    <p>Exemple concret : votre <strong>TSH est à 3,8 mUI/L</strong>. Norme labo : 0,4 à 4,5. Résultat : « normal ». Pourtant, la cible <strong>fonctionnelle</strong> selon la micronutrition est <strong>&lt; 2 mUI/L</strong>. Entre 2 et 4 : zone d'hypothyroïdie infraclinique — qui explique fatigue, prise de poids, frilosité, chute de cheveux, dépression. <em>Invisible</em> sur l'ordonnance habituelle.</p>
+
+    <div class="symptomes-list">
+      <h4>Symptômes typiques de l'errance médicale</h4>
+      <ul>
+        <li>Fatigue chronique sans cause apparente</li>
+        <li>Brouillard mental, troubles de concentration</li>
+        <li>Anxiété, irritabilité, troubles du sommeil</li>
+        <li>Chute de cheveux, ongles cassants</li>
+        <li>Troubles digestifs, ballonnements</li>
+        <li>Kilos résistants malgré les efforts</li>
+        <li>Douleurs articulaires diffuses</li>
+        <li>Frilosité, mains/pieds froids</li>
+        <li>Infections à répétition</li>
+        <li>Cycles irréguliers, SPM marqué</li>
+        <li>Allergies / intolérances qui se multiplient</li>
+        <li>Baisse de la libido, démotivation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOLUTION : MICRONUTRITION ─────────────────────────── -->
+<section class="section section-soft solution">
+  <div class="wrap wrap-narrow">
+    <span class="eyebrow">La solution</span>
+    <h2>La micronutrition fonctionnelle, <em>autrement</em></h2>
+    <p class="lead">La micronutrition ne soigne pas la maladie — elle explore le <strong>terrain</strong>, les déséquilibres <strong>invisibles</strong> aux examens standards, et propose des leviers <strong>concrets et personnalisés</strong> pour rétablir un fonctionnement optimal.</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <h3><span class="num">1</span> Explorer le terrain</h3>
+        <p>Bilan biologique <strong>élargi</strong> et <strong>fonctionnel</strong> (au-delà des normes pathologiques). Recherche des carences subcliniques, marqueurs d'inflammation chronique, statut micronutritionnel, profil hormonal nuancé.</p>
+      </div>
+      <div class="pillar">
+        <h3><span class="num">2</span> Lire en finesse</h3>
+        <p>Interprétation des analyses sous l'angle de la <strong>cible optimale</strong> et non du seuil pathologique. Repérage des interactions médicamenteuses qui épuisent silencieusement les micronutriments.</p>
+      </div>
+      <div class="pillar">
+        <h3><span class="num">3</span> Hiérarchiser les leviers</h3>
+        <p>Pas tout en même temps. La micronutrition identifie le <strong>levier prioritaire</strong> (intestin, mitochondries, hormones, inflammation, déficit en cofacteurs) et bâtit un plan par phases.</p>
+      </div>
+      <div class="pillar">
+        <h3><span class="num">4</span> Personnaliser</h3>
+        <p>Vos symptômes, vos analyses, votre histoire, votre rythme de vie. Aucun protocole standard. Une supplémentation ciblée, ajustée, réévaluée — jamais figée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ZOOM MITOCHONDRIES ───────────────────────────────── -->
+<section class="mito section">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--green-br)">Zoom science</span>
+    <h2>Vos <em>mitochondries</em>, ces moteurs invisibles</h2>
+    <p class="lead">Chaque cellule de votre corps contient des centaines de petites usines énergétiques : les <strong>mitochondries</strong>. Elles produisent l'ATP, la « monnaie d'énergie » du vivant. Quand elles fatiguent, <em>tout</em> fatigue : muscles, cerveau, cœur, immunité, humeur.</p>
+
+    <div class="mito-flow">
+      <div class="mito-card">
+        <span class="label">10¹⁷</span>
+        <h4>Mitochondries dans votre corps</h4>
+        <p>Soit cent millions de milliards. Concentrées surtout dans le cœur, le cerveau, les muscles, le foie. Elles représentent <strong>10% du poids du corps</strong>.</p>
+      </div>
+      <div class="mito-card">
+        <span class="label">90 kg</span>
+        <h4>D'ATP produits par jour</h4>
+        <p>Vous fabriquez et recyclez chaque jour votre propre poids en ATP — la molécule qui fait battre votre cœur, contracter vos muscles, penser votre cerveau.</p>
+      </div>
+      <div class="mito-card">
+        <span class="label">∿</span>
+        <h4>Origine bactérienne</h4>
+        <p>Les mitochondries ont leur <strong>propre ADN</strong>, hérité maternellement. Vestige d'une ancienne symbiose. Soigner ses mitochondries, c'est soigner sa lignée.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:46px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-xl);padding:36px;max-width:760px;margin-left:auto;margin-right:auto">
+      <h3 style="color:#fff;font-size:1.3rem;margin-bottom:14px">Quand les mitochondries défaillent…</h3>
+      <p style="color:rgba(255,255,255,.82);margin-bottom:14px">La <strong style="color:#fff">fatigue chronique</strong>, la <strong style="color:#fff">fibromyalgie</strong>, le COVID long, la dépression résistante, les douleurs musculaires sous statine — tous ces tableaux ont un point commun : une <em>dysfonction mitochondriale</em>. Les analyses classiques ne la mesurent pas. La micronutrition, oui.</p>
+      <p style="color:rgba(255,255,255,.82);margin-bottom:0"><strong style="color:#fff">Les leviers</strong> : Coenzyme Q10 (ubiquinol), L-carnitine, acide alpha-lipoïque, magnésium bisglycinate, B-vitamines, oméga-3, antioxydants ciblés. Et bien sûr : sommeil, exercice doux, exposition au froid modéré, jeûne intermittent — tous des stimulateurs naturels de la <strong style="color:#fff">biogenèse mitochondriale</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 7 PILIERS DU MAPS ─────────────────────────────────── -->
+<section class="section piliers">
+  <div class="wrap">
+    <div style="text-align:center;max-width:680px;margin:0 auto">
+      <span class="eyebrow">Notre référentiel</span>
+      <h2>Les <em>7 piliers</em> de la micronutrition fonctionnelle</h2>
+      <p class="lead">Cadre conceptuel issu du <strong>DU MAPS</strong> (Pr V. Castronovo, Université de Liège), référence européenne en médecine nutritionnelle. Chaque pilier interagit avec les autres — la santé est un <em>réseau</em>.</p>
+    </div>
+    <div class="grid">
+      <div class="p"><span class="n">1</span><h4>Tube digestif &amp; microbiote</h4><p>Barrière intestinale, dysbiose, axe intestin-cerveau, leaky gut.</p></div>
+      <div class="p"><span class="n">2</span><h4>Mitochondrie &amp; énergie</h4><p>Production d'ATP, stress oxydant, cofacteurs, antioxydants.</p></div>
+      <div class="p"><span class="n">3</span><h4>Acides gras</h4><p>Équilibre oméga-3 / oméga-6, membranes cellulaires, inflammation.</p></div>
+      <div class="p"><span class="n">4</span><h4>Foie &amp; détoxication</h4><p>Phases I / II / III, méthylation, charge en métaux lourds.</p></div>
+      <div class="p"><span class="n">5</span><h4>Immunité &amp; inflammation</h4><p>Inflammation chronique silencieuse, résolution, immunomodulation.</p></div>
+      <div class="p"><span class="n">6</span><h4>Glucose &amp; insuline</h4><p>Insulinorésistance, signalisation, syndrome métabolique.</p></div>
+      <div class="p"><span class="n">7</span><h4>Vitamines &amp; minéraux</h4><p>Fer, zinc, magnésium, B-vitamines, vitamine D, sélénium, iode…</p></div>
+      <div class="p" style="background:linear-gradient(135deg,var(--mint),var(--bg-soft));border-color:var(--mint-d)"><span class="n">+</span><h4>Hormones &amp; endocrinologie</h4><p>Thyroïde, surrénales, hormones féminines — module complémentaire essentiel.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA FINAL ────────────────────────────────────────── -->
+<section class="cta-final">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--green-br)">Et maintenant ?</span>
+    <h2>Cessez d'errer. <em style="color:var(--green-br)">Explorez votre terrain.</em></h2>
+    <p>Nos bilans en ligne — gratuits, anonymes, scientifiquement construits — sont un premier pas. Ils ne remplacent pas une consultation médicale, mais ils vous offrent un éclairage <strong style="color:#fff">précis</strong> sur votre profil micronutritionnel et un plan d'action concret.</p>
+    <div class="ctas">
+      <a href="microbiote-mental.html" class="btn btn-primary">Bilan Microbiote &amp; santé mentale →</a>
+      <a href="contact.html" class="btn btn-ghost">Prendre RDV avec le Dr Lapothicaire</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">LifeMicroNut</div>
+    <p>La micronutrition appliquée à la vraie vie. Une approche <strong>pharmacienne, scientifique et personnalisée</strong>, pour des résultats durables.</p>
+    <p class="copy">© <span id="year"></span> LifeMicroNut · Tous droits réservés · <a href="https://lifemicronut.com">lifemicronut.com</a></p>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script defer src="wa.js"></script>
+</body>
+</html>
