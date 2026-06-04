@@ -262,11 +262,11 @@ footer .copy a{color:var(--green-d);text-decoration:none}
 
 <script defer src="wa.js"></script>
 <script>
-document.getElementById('year').textContent=new Date.getFullYear;
+document.getElementById('year').textContent=new Date().getFullYear();
 
 var $form=document.getElementById('rdvForm');
 $form.addEventListener('submit',function(e){
- e.preventDefault;
+ e.preventDefault();
  var fd=new FormData($form);
  fetch($form.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
  .then(function(r){return r.json})

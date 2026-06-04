@@ -240,8 +240,8 @@ footer .copy a{color:var(--green-d);text-decoration:none}
 </footer>
 
 <script>
-document.getElementById('year').textContent=new Date.getFullYear;
-document.getElementById('lastUpd').textContent=new Date.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+document.getElementById('year').textContent=new Date().getFullYear();
+document.getElementById('lastUpd').textContent=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
 </script>
 <script defer src="wa.js"></script>
 </body>
