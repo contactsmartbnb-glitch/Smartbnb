@@ -3,10 +3,6 @@
 
 # Pages principales — URLs propres sans .html
 /microbiote-mental.html                              /microbiote-mental                  301
-/polymedication.html                                 /polymedication                     301
-/surpoids.html                                       /surpoids                           301
-/cheveux.html                                        /cheveux                            301
-/energie.html                                        /energie                            301
 /hormones.html                                       /hormones                           301
 /comprendre.html                                     /comprendre                         301
 /about.html                                          /about                              301
@@ -25,3 +21,9 @@
 
 # Ancien chemin du bilan microbiote → URL canonique
 /LifeMicroNut-Bilan-Microbiote-SanteMentale.html     /microbiote-mental                  301
+
+# Redirections temporaires (questionnaires en réserve) → home
+/polymedication                                      /                                   302
+/surpoids                                            /                                   302
+/cheveux                                             /                                   302
+/energie                                             /                                   302
