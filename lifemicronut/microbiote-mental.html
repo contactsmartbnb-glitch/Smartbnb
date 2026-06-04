@@ -186,6 +186,7 @@ strong{color:var(--ink)}
   <div class="wrap">
     <a href="index.html" class="brand" style="text-decoration:none;color:var(--ink)">LifeMicroNut</a>
     <nav style="display:flex;align-items:center;gap:18px">
+      <a href="index.html" style="font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none">Accueil</a>
       <a href="microbiote-mental.html" style="font-size:.93rem;font-weight:500;color:var(--green-d);text-decoration:none">Microbiote</a>
       <a href="polymedication.html" style="font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none">Polymédication</a>
       <a href="about.html" style="font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none">À propos</a>
@@ -215,6 +216,7 @@ strong{color:var(--ink)}
     <h2 class="q-title" id="qTitle">—</h2>
     <p class="q-hint" id="qHint"></p>
     <div class="q-fact" id="qFact" style="display:none"></div>
+    <div class="q-media" id="qMedia" style="display:none"></div>
     <div id="qBody"></div>
     <div class="nav">
       <button class="btn btn-ghost hidden" id="btnPrev">← Précédent</button>
@@ -395,7 +397,57 @@ var Q = [
     {v:'diarrhee',l:'Diarrhées fréquentes'},
     {v:'alterne',l:'Alterne constipation / diarrhée'}
   ]},
-  {id:'bristol',type:'single',sec:'Votre intestin',q:'À quoi ressemblent vos selles habituellement ?',hint:'Échelle de Bristol — référence clinique standard.',o:[
+  {id:'bristol',type:'single',sec:'Votre intestin',q:'À quoi ressemblent vos selles habituellement ?',hint:'Échelle de Bristol — référence clinique standard utilisée en gastro-entérologie.',
+    media:'<div style="background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;padding:18px 14px;margin:14px 0">'+
+      '<div style="text-align:center;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green-d);margin-bottom:14px">Échelle de Bristol</div>'+
+      '<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:460px;margin:0 auto;height:auto">'+
+        /* Type 1 : 6 petites boules dures séparées */
+        '<text x="0" y="28" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#16211C">Type 1</text>'+
+        '<text x="0" y="42" font-family="Inter,sans-serif" font-size="9" fill="#76837A">Boules dures</text>'+
+        '<g transform="translate(110,18)">'+
+          '<circle cx="0" cy="10" r="9" fill="#7a5538"/><circle cx="22" cy="10" r="9" fill="#7a5538"/><circle cx="44" cy="10" r="9" fill="#7a5538"/><circle cx="66" cy="10" r="9" fill="#7a5538"/><circle cx="88" cy="10" r="9" fill="#7a5538"/><circle cx="110" cy="10" r="9" fill="#7a5538"/>'+
+        '</g>'+
+        /* Type 2 : saucisse grumeleuse */
+        '<text x="0" y="82" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#16211C">Type 2</text>'+
+        '<text x="0" y="96" font-family="Inter,sans-serif" font-size="9" fill="#76837A">Grumeleuse</text>'+
+        '<g transform="translate(110,68)">'+
+          '<path d="M 0 14 Q 5 4 18 6 Q 32 2 50 8 Q 74 4 96 10 Q 120 6 150 12 Q 165 16 168 18 Q 160 26 145 24 Q 120 28 95 22 Q 70 28 45 22 Q 22 28 8 24 Q -4 22 0 14 Z" fill="#7a5538"/>'+
+        '</g>'+
+        /* Type 3 : saucisse avec craquelures */
+        '<text x="0" y="138" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#16211C">Type 3</text>'+
+        '<text x="0" y="152" font-family="Inter,sans-serif" font-size="9" fill="#76837A">Craquelures</text>'+
+        '<g transform="translate(110,124)">'+
+          '<path d="M 0 14 Q 80 -2 168 14 Q 168 28 130 30 Q 80 32 30 28 Q -4 26 0 14 Z" fill="#7a5538"/>'+
+          '<path d="M 30 12 L 30 24 M 55 10 L 55 26 M 85 10 L 85 26 M 115 11 L 115 25 M 140 12 L 140 24" stroke="#5a3d28" stroke-width="1.4" stroke-linecap="round" fill="none"/>'+
+        '</g>'+
+        /* Type 4 : saucisse lisse IDÉAL */
+        '<text x="0" y="194" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#0B6E4F">Type 4</text>'+
+        '<text x="0" y="208" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#0B6E4F">IDÉAL ✓</text>'+
+        '<g transform="translate(110,180)">'+
+          '<path d="M 0 14 Q 80 0 168 14 Q 168 28 84 28 Q 0 28 0 14 Z" fill="#7a5538"/>'+
+        '</g>'+
+        /* Type 5 : morceaux mous nets */
+        '<text x="0" y="252" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#16211C">Type 5</text>'+
+        '<text x="0" y="266" font-family="Inter,sans-serif" font-size="9" fill="#76837A">Morceaux mous</text>'+
+        '<g transform="translate(110,236)">'+
+          '<ellipse cx="22" cy="14" rx="20" ry="11" fill="#7a5538"/><ellipse cx="74" cy="14" rx="22" ry="12" fill="#7a5538"/><ellipse cx="128" cy="14" rx="20" ry="11" fill="#7a5538"/>'+
+        '</g>'+
+        /* Type 6 : bouillie pâteuse */
+        '<text x="0" y="306" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#16211C">Type 6</text>'+
+        '<text x="0" y="320" font-family="Inter,sans-serif" font-size="9" fill="#76837A">Pâteuse</text>'+
+        '<g transform="translate(110,292)">'+
+          '<path d="M 0 18 Q 8 6 24 10 Q 38 4 52 12 Q 70 6 84 14 Q 102 8 118 14 Q 140 8 158 18 Q 168 26 150 28 Q 130 32 110 26 Q 88 32 64 26 Q 40 32 22 26 Q 4 28 0 18 Z" fill="#946846" opacity="0.85"/>'+
+        '</g>'+
+        /* Type 7 : liquide */
+        '<text x="0" y="354" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#16211C">Type 7</text>'+
+        '<text x="0" y="368" font-family="Inter,sans-serif" font-size="9" fill="#76837A">Liquide</text>'+
+        '<g transform="translate(110,340)">'+
+          '<path d="M 0 16 Q 30 8 60 14 Q 90 18 120 12 Q 150 8 168 16 L 168 22 Q 140 26 110 22 Q 80 18 50 24 Q 20 26 0 22 Z" fill="#b58860" opacity="0.7"/>'+
+        '</g>'+
+      '</svg>'+
+      '<div style="text-align:center;font-size:.78rem;color:var(--ink-3);margin-top:14px;font-style:italic">Types 3 et 4 = transit normal · Types 1-2 = constipation · Types 5-7 = transit accéléré / diarrhée</div>'+
+    '</div>',
+    o:[
     {v:'1',l:'Type 1 — Petites boules dures (constipation sévère)'},
     {v:'2',l:'Type 2 — Saucisse grumeleuse (constipation)'},
     {v:'3',l:'Type 3 — Saucisse avec craquelures (normal mais sec)'},
@@ -787,7 +839,7 @@ function analyses(a,s){
 }
 
 var idx=0,ans={};
-var $card=document.getElementById('quizCard'),$result=document.getElementById('resultCard'),$bar=document.getElementById('progressBar'),$meta=document.getElementById('meta'),$qT=document.getElementById('qTitle'),$qH=document.getElementById('qHint'),$qF=document.getElementById('qFact'),$qB=document.getElementById('qBody'),$prev=document.getElementById('btnPrev'),$next=document.getElementById('btnNext'),$restart=document.getElementById('btnRestart');
+var $card=document.getElementById('quizCard'),$result=document.getElementById('resultCard'),$bar=document.getElementById('progressBar'),$meta=document.getElementById('meta'),$qT=document.getElementById('qTitle'),$qH=document.getElementById('qHint'),$qF=document.getElementById('qFact'),$qM=document.getElementById('qMedia'),$qB=document.getElementById('qBody'),$prev=document.getElementById('btnPrev'),$next=document.getElementById('btnNext'),$restart=document.getElementById('btnRestart');
 function activeQ(){return Q.filter(q=>!q.showIf||q.showIf(ans))}
 function render(){
   var list=activeQ();if(idx>=list.length)idx=list.length-1;var q=list[idx];
@@ -796,6 +848,7 @@ function render(){
   $qT.textContent=q.q;
   $qH.textContent=q.hint||'';$qH.style.display=q.hint?'block':'none';
   if(q.fact){$qF.innerHTML='💡 '+q.fact;$qF.style.display='block';}else{$qF.style.display='none';}
+  if(q.media){$qM.innerHTML=q.media;$qM.style.display='block';}else{$qM.style.display='none';}
   $qB.innerHTML='';
   $prev.classList.toggle('hidden',idx===0);
   $next.textContent=(idx===list.length-1)?'Voir mon bilan →':'Continuer →';
