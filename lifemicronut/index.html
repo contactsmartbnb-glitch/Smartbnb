@@ -43,7 +43,9 @@ a{color:var(--green-d)}
 .nav-main a:hover,.nav-main a.active{color:var(--green-d)}
 .nav-main .btn-nav{background:var(--green);color:#fff;padding:8px 16px;border-radius:8px;font-weight:600}
 .nav-main .btn-nav:hover{background:var(--green-d);color:#fff}
-@media(max-width:680px){.nav-main{gap:14px}.nav-main a:not(.btn-nav){display:none}}
+@media(max-width:680px){.nav-main{gap:12px;flex-wrap:wrap;justify-content:flex-end}.nav-main a:not(.nav-keep):not(.btn-nav){display:none}.nav-main .nav-keep{font-size:.88rem}}
+#cards-pages{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:920px;margin:0 auto}
+@media(max-width:680px){#cards-pages{grid-template-columns:1fr}}
 
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-d);margin-bottom:14px}
 .eyebrow::before{content:'';width:22px;height:2px;background:var(--green);border-radius:2px}
@@ -95,13 +97,14 @@ footer .copy a{color:var(--green-d);text-decoration:none}
   <div class="wrap">
     <a href="index.html" class="brand">LifeMicroNut</a>
     <nav class="nav-main">
-      <a href="index.html">Accueil</a>
+      <a href="index.html" class="nav-keep">Accueil</a>
+      <a href="#questionnaires" class="nav-keep">Questionnaires</a>
       <a href="comprendre.html">Comprendre</a>
-      <a href="microbiote-mental.html">Bilans</a>
       <a href="blog.html">Blog</a>
       <a href="tarifs.html">Tarifs</a>
       <a href="faq.html">FAQ</a>
       <a href="about.html">À propos</a>
+      <a href="mentions-legales.html">Mentions légales</a>
       <a href="contact.html" class="btn-nav">Prendre RDV</a>
     </nav>
   </div>
@@ -142,11 +145,11 @@ footer .copy a{color:var(--green-d);text-decoration:none}
   </div>
 </section>
 
-<section class="bilans">
+<section class="bilans" id="questionnaires">
   <div class="wrap">
-    <span class="eyebrow" style="display:block;text-align:center;margin-bottom:8px">Bilans d'exploration</span>
+    <span class="eyebrow" style="display:block;text-align:center;margin-bottom:8px">Questionnaires d'exploration</span>
     <h2>Commencez par comprendre où vous en êtes</h2>
-    <p class="sub">Nos bilans guidés explorent en profondeur un terrain micronutritionnel précis. Gratuits, confidentiels, scientifiquement construits.</p>
+    <p class="sub">Nos questionnaires guidés explorent en profondeur un terrain micronutritionnel précis. Gratuits, confidentiels, scientifiquement construits.</p>
     <div class="bilan-card">
       <div>
         <span class="tag-new">Disponible</span>
@@ -215,7 +218,7 @@ footer .copy a{color:var(--green-d);text-decoration:none}
     <h2 style="text-align:center;margin-bottom:8px">La connaissance, le premier traitement</h2>
     <p class="sub" style="text-align:center;max-width:560px;margin:0 auto 36px;color:var(--ink-2)">Avant les bilans, avant les compléments : comprendre. Voici deux ressources pour explorer la micronutrition à votre rythme.</p>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:920px;margin:0 auto" id="cards-pages">
+    <div id="cards-pages">
       <a href="comprendre.html" style="background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--r-xl);padding:30px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;display:block" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='var(--sh)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
         <span style="display:inline-block;background:var(--mint);color:var(--green-d);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:14px">Page de fond</span>
         <h3 style="font-size:1.25rem;margin-bottom:8px">Comprendre la micronutrition</h3>
@@ -230,7 +233,6 @@ footer .copy a{color:var(--green-d);text-decoration:none}
         <span style="color:var(--green-d);font-weight:700;font-size:.92rem">Lire le journal →</span>
       </a>
     </div>
-    @media(max-width:680px){#cards-pages{grid-template-columns:1fr !important}}
   </div>
 </section>
 
@@ -248,13 +250,13 @@ footer .copy a{color:var(--green-d);text-decoration:none}
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:18px;font-size:.88rem">
       <a href="index.html" style="color:var(--ink-2);text-decoration:none">Accueil</a>
       <a href="comprendre.html" style="color:var(--ink-2);text-decoration:none">Comprendre</a>
-      <a href="microbiote-mental.html" style="color:var(--ink-2);text-decoration:none">Bilans</a>
+      <a href="#questionnaires" style="color:var(--ink-2);text-decoration:none">Questionnaires</a>
       <a href="blog.html" style="color:var(--ink-2);text-decoration:none">Blog</a>
       <a href="tarifs.html" style="color:var(--ink-2);text-decoration:none">Tarifs</a>
       <a href="faq.html" style="color:var(--ink-2);text-decoration:none">FAQ</a>
       <a href="about.html" style="color:var(--ink-2);text-decoration:none">À propos</a>
       <a href="contact.html" style="color:var(--ink-2);text-decoration:none">Contact</a>
-      <a href="mentions-legales.html" style="color:var(--ink-2);text-decoration:none">Mentions légales</a>
+      <a href="mentions-legales.html" style="color:var(--green-d);text-decoration:none;font-weight:600">Mentions légales</a>
     </div>
 <p>La micronutrition appliquée à la vraie vie. Une approche <strong>pharmacienne, scientifique et personnalisée</strong>, pour des résultats durables.</p>
     <p class="copy">© <span id="year"></span> LifeMicroNut · Tous droits réservés · <a href="https://lifemicronut.com">lifemicronut.com</a></p>
