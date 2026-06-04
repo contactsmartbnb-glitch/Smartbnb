@@ -37,7 +37,7 @@ p{color:var(--ink-2);font-size:1.06rem;margin-bottom:18px}strong{color:var(--ink
 .nav-main a:hover,.nav-main a.active{color:var(--green-d)}
 .nav-main .btn-nav{background:var(--green);color:#fff;padding:7px 14px;border-radius:8px;font-weight:600;font-size:.9rem}
 .nav-main .btn-nav:hover{background:var(--green-d);color:#fff}
-@media(max-width:880px){.nav-main{gap:14px}.nav-main a:not(.btn-nav):not(.active){display:none}}
+@media(max-width:880px){.nav-main{gap:12px;flex-wrap:wrap;justify-content:flex-end}.nav-main a:not(.nav-keep):not(.btn-nav):not(.active){display:none}.nav-main .nav-keep{font-size:.88rem}}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-d);margin-bottom:14px}
 .eyebrow::before{content:'';width:22px;height:2px;background:var(--green);border-radius:2px}
 .article-hero{padding:60px 0 36px;background:linear-gradient(180deg,var(--bg-soft) 0%,#fff 100%);text-align:center}
@@ -85,13 +85,14 @@ footer .copy{font-size:.78rem;color:var(--ink-3);letter-spacing:.02em}footer .co
   <div class="wrap">
     <a href="../index.html" class="brand">LifeMicroNut</a>
     <nav class="nav-main">
-      <a href="../index.html">Accueil</a>
+      <a href="../index.html" class="nav-keep">Accueil</a>
+      <a href="../index.html#questionnaires" class="nav-keep">Questionnaires</a>
       <a href="../comprendre.html">Comprendre</a>
-      <a href="../microbiote-mental.html">Bilans</a>
       <a href="../blog.html" class="active">Blog</a>
       <a href="../tarifs.html">Tarifs</a>
       <a href="../faq.html">FAQ</a>
       <a href="../about.html">À propos</a>
+      <a href="../mentions-legales.html">Mentions légales</a>
       <a href="../contact.html" class="btn-nav">Prendre RDV</a>
     </nav>
   </div>
