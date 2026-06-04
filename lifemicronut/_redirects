@@ -10,6 +10,9 @@
 /about.html                                          /about                              301
 /contact.html                                        /contact                            301
 /blog.html                                           /blog                               301
+/faq.html                                            /faq                                301
+/tarifs.html                                         /tarifs                             301
+/mentions-legales.html                               /mentions-legales                   301
 
 # Articles de blog — URLs propres
 /blog/errance-medicale.html                          /blog/errance-medicale              301
@@ -17,6 +20,7 @@
 /blog/microbiote-cerveau.html                        /blog/microbiote-cerveau            301
 /blog/medicaments-deplete.html                       /blog/medicaments-deplete           301
 /blog/qu-est-ce-que-la-micronutrition.html           /blog/qu-est-ce-que-la-micronutrition  301
+/blog/comment-se-deroule-une-consultation.html       /blog/comment-se-deroule-une-consultation  301
 
 # Ancien chemin du bilan microbiote → URL canonique
 /LifeMicroNut-Bilan-Microbiote-SanteMentale.html     /microbiote-mental                  301
