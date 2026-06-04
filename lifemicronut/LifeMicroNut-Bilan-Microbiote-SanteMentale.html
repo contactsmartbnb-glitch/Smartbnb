@@ -200,7 +200,7 @@ strong{color:var(--ink)}
     <h2 id="gateTitle" style="font-size:1.5rem;margin-bottom:12px;color:#16211C;font-weight:800;letter-spacing:-.025em">Accès au questionnaire</h2>
     <p id="gateDisclaimer" style="margin-bottom:26px;color:#4C574F;line-height:1.55;font-size:.98rem">
       Ce questionnaire est réservé aux <strong>personnes invitées au séminaire</strong>.<br>
-      Accès valable jusqu'au <strong>lundi 8 juin 2026 à 09h00</strong>.
+      Accès valable jusqu'au <strong>jeudi 4 juin 2026 à 20h45</strong>.
     </p>
     <div id="gateForm">
       <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off" autofocus
@@ -219,7 +219,7 @@ strong{color:var(--ink)}
 <script>
 (function(){
   var VALID = 'lafrançaise2026';
-  var EXPIRES_AT = new Date('2026-06-08T09:00:00+02:00');
+  var EXPIRES_AT = new Date('2026-06-04T20:45:00+02:00');
   function norm(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim(); }
   function isExpired(){ return new Date() >= EXPIRES_AT; }
   function showExpired(){
