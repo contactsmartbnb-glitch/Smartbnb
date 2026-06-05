@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeMicroNut · Bilan Peau — Psoriasis, Eczéma, Acné, Urticaire</title>
+<meta name="description" content="Bilan d'exploration des troubles cutanés modernes (psoriasis, eczéma, acné, urticaire) par l'angle micronutrition : axe intestin-peau, inflammation, histamine, détox, carences, hormones.">
+<link rel="canonical" href="https://lifemicronut.com/peau-psoriasis-eczema">
+<meta property="og:title" content="LifeMicroNut · Bilan Peau — Psoriasis, Eczéma, Acné">
+<meta property="og:description" content="Comprendre vraiment l'origine de vos troubles cutanés. Tout part de l'intestin. La science micronutritionnelle décrypte votre terrain.">
+<meta property="og:url" content="https://lifemicronut.com/peau-psoriasis-eczema">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LifeMicroNut">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://lifemicronut.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@lifemicronut">
+<meta name="theme-color" content="#12936A">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-soft:#F1F7F3;--mint:#E3F1E9;--mint-d:#CFE7DA;--ink:#16211C;--ink-2:#4C574F;--ink-3:#76837A;--green:#12936A;--green-d:#0B6E4F;--green-br:#1FB07F;--purple:#7A4C9C;--purple-d:#5C347A;--line:#E3E9E4;--alert:#B0383C;--alert-bg:#FBEBEC;--warn:#C97A1A;--warn-bg:#FBF1E0;--sh:0 4px 10px rgba(20,40,30,.05),0 20px 40px -16px rgba(20,40,30,.16);--r:14px;--r-l:20px;--r-xl:28px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-weight:800;line-height:1.15;letter-spacing:-.025em;color:var(--ink)}
+h1{font-size:clamp(1.8rem,4.5vw,2.8rem)}
+h1 em{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--green-d)}
+h2{font-size:clamp(1.4rem,2.6vw,2rem)}
+h3{font-size:1.15rem}
+p{color:var(--ink-2);font-size:1.02rem}
+strong{color:var(--ink)}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+.hdr{padding:16px 0;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;max-width:1100px;gap:18px}
+.brand{font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:8px;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--green);display:inline-block}
+.nav-main{display:flex;align-items:center;gap:18px}
+.nav-main a{font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none}
+.nav-main a.active,.nav-main a:hover{color:var(--green-d)}
+.nav-main .btn-nav{background:var(--green);color:#fff;padding:7px 14px;border-radius:8px;font-weight:600;font-size:.9rem}
+.nav-main .btn-nav:hover{background:var(--green-d);color:#fff}
+@media(max-width:780px){.nav-main{gap:12px}.nav-main a:not(.btn-nav):not(.active){display:none}}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-d)}
+.eyebrow::before{content:'';width:22px;height:2px;background:var(--green);border-radius:2px}
+.lead{font-size:1.08rem;color:var(--ink-2)}
+.intro{text-align:center;padding:40px 0 22px}
+.intro h1{margin:8px 0 14px}
+.intro p{max-width:680px;margin:0 auto}
+.fact-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:820px;margin:30px auto 0;padding:0 22px}
+.fact{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--r);padding:18px;text-align:center}
+.fact-num{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:600;color:var(--green-d);line-height:1;letter-spacing:-.03em;display:block;margin-bottom:6px}
+.fact-lbl{font-size:.82rem;color:var(--ink-2);line-height:1.4}
+@media(max-width:600px){.fact-strip{grid-template-columns:1fr;gap:10px}}
+.card{background:#fff;border-radius:var(--r-xl);box-shadow:var(--sh);border:1px solid var(--line);padding:clamp(22px,3vw,34px);margin:18px auto 60px}
+.progress{height:7px;background:var(--bg-soft);border-radius:999px;overflow:hidden;margin-bottom:9px}
+.progress-bar{height:100%;background:var(--green);width:0;transition:width .35s cubic-bezier(.22,.61,.36,1);border-radius:999px}
+.meta{font-size:.78rem;color:var(--green-d);font-weight:700;letter-spacing:.04em;margin-bottom:16px;text-transform:uppercase}
+.q-title{font-size:1.28rem;font-weight:800;margin-bottom:6px;line-height:1.3}
+.q-hint{font-size:.9rem;color:var(--ink-2);margin-bottom:18px;font-style:italic}
+.q-fact{background:linear-gradient(135deg,var(--mint),var(--bg-soft));border-left:3px solid var(--green);padding:11px 14px;border-radius:8px;font-size:.85rem;color:var(--ink-2);margin-bottom:16px;line-height:1.5}
+.q-fact strong{color:var(--green-d)}
+.opt-list{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:13px;padding:13px 16px;border:1.5px solid var(--line);border-radius:var(--r);cursor:pointer;transition:all .15s;background:#fff;font-size:.95rem;font-weight:500;user-select:none}
+.opt:hover{border-color:var(--green);background:var(--bg-soft)}
+.opt.selected{border-color:var(--green);background:var(--mint)}
+.opt-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;transition:all .15s;margin-top:1px}
+.opt-check.square{border-radius:6px}
+.opt.selected .opt-check{border-color:var(--green);background:var(--green)}
+.opt-text{display:flex;flex-direction:column;flex:1}
+.opt-text strong{font-weight:600;font-size:.95rem}
+.opt-text span.sub{font-size:.82rem;color:var(--ink-3);margin-top:2px}
+.scale{display:flex;gap:7px;flex-wrap:wrap}
+.scale .opt{flex:1;min-width:90px;flex-direction:column;text-align:center;padding:11px 5px;gap:4px;align-items:center}
+.scale-num{font-size:1.35rem;font-weight:800;color:var(--green-d)}
+.scale-lbl{font-size:.78rem;color:var(--ink-2)}
+.nav{display:flex;justify-content:space-between;margin-top:24px;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;font-size:.94rem;padding:12px 22px;border-radius:10px;border:1.5px solid transparent;cursor:pointer;transition:all .2s;text-decoration:none}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 16px -6px rgba(18,147,106,.5)}
+.btn-primary:hover{background:var(--green-d);transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green-d)}
+.btn.hidden{visibility:hidden}
+.result{display:none}.result.active{display:block}
+.severity-box{background:linear-gradient(135deg,var(--bg-soft),var(--mint));border:1px solid var(--line);border-radius:var(--r-xl);padding:24px;margin-bottom:24px;text-align:center}
+.sev-score{font-size:3rem;font-weight:900;color:var(--green-d);line-height:1;margin-bottom:6px}
+.sev-label{font-weight:700;font-size:1.05rem;margin-bottom:4px}
+.sev-desc{font-size:.92rem;color:var(--ink-2)}
+.profile-box{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:22px;margin-bottom:22px}
+.profile-box p{font-size:1rem;color:var(--ink);margin-bottom:8px}
+.profile-box p:last-child{margin-bottom:0}
+.profile-box em{color:var(--green-d);font-style:normal;font-weight:600}
+.axes{display:flex;flex-direction:column;gap:9px;margin:14px 0 24px}
+.axis-row{display:grid;grid-template-columns:1.6fr 2.4fr 60px;align-items:center;gap:14px;padding:13px 16px;background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--r)}
+.axis-name{font-size:.96rem;font-weight:700}
+.axis-name small{display:block;font-weight:500;font-size:.78rem;color:var(--ink-3);margin-top:1px}
+.axis-meter{height:11px;background:rgba(0,0,0,.05);border-radius:999px;overflow:hidden}
+.axis-meter i{display:block;height:100%;border-radius:999px;transition:width .6s ease-out}
+.axis-val{text-align:right;font-weight:800;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
+.axis-val.l-critic{color:var(--alert)}
+.axis-val.l-high{color:#A65500}
+.axis-val.l-mod{color:var(--green-d)}
+.axis-val.l-low{color:var(--ink-3)}
+.phase-box{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:22px;margin-bottom:14px}
+.phase-tag{display:inline-block;background:var(--mint);color:var(--green-d);font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:6px;margin-bottom:8px}
+.phase-box h4{margin-bottom:10px;font-size:1.1rem}
+.phase-box ul{padding-left:20px;margin-top:6px}
+.phase-box ul li{margin-bottom:6px;font-size:.94rem;color:var(--ink-2)}
+.phase-box ul li strong{color:var(--ink)}
+.analyses{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.an{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.an-num{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--mint);color:var(--green-d);font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.an strong{font-size:.91rem;display:block;margin-bottom:2px}
+.an span.why{font-size:.81rem;color:var(--ink-2);line-height:1.5;display:block}
+.badge-pri{background:var(--green-d);color:#fff;padding:2px 8px;border-radius:10px;font-size:.68rem;margin-left:6px;font-weight:600;vertical-align:middle}
+.alert-box{background:var(--alert-bg);border:2px solid var(--alert);border-radius:var(--r);padding:16px 18px;margin-bottom:18px;color:var(--alert)}
+.alert-box strong{color:var(--alert)}
+.warn-box{background:var(--warn-bg);border:2px solid var(--warn);border-radius:var(--r);padding:16px 18px;margin-bottom:18px;color:#7a4a0e}
+.warn-box strong{color:#5c3805}
+.biblio{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--r-l);padding:24px;margin-top:30px}
+.biblio h3{margin-bottom:8px;font-size:1.15rem}
+.biblio p.subtitle{font-size:.88rem;color:var(--ink-2);margin-bottom:16px;font-style:italic}
+.bib-fact{background:#fff;border-left:3px solid var(--green-br);padding:13px 16px;border-radius:8px;margin-bottom:10px;font-size:.92rem;line-height:1.55}
+.bib-fact strong{color:var(--green-d)}
+.disclaim{margin-top:26px;padding:16px;background:#fff;border:1px solid var(--line);border-radius:var(--r);font-size:.91rem;color:var(--ink-2)}
+.cta-final{margin-top:30px;background:linear-gradient(135deg,var(--ink) 0%,#1f3329 100%);color:#fff;border-radius:var(--r-xl);padding:36px 30px;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;width:420px;height:420px;border-radius:50%;background:var(--green);filter:blur(140px);opacity:.28;top:-200px;right:-150px;z-index:0}
+.cta-final > *{position:relative;z-index:1}
+.cta-final h3{color:#fff;font-size:1.45rem;margin-bottom:8px}
+.cta-final p.cta-lead{color:rgba(255,255,255,.78);font-size:1rem;max-width:520px;margin:0 auto 22px;line-height:1.55}
+.cta-form{display:flex;gap:8px;max-width:460px;margin:0 auto 16px;flex-wrap:wrap}
+.cta-form input{flex:1;min-width:200px;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-family:inherit;font-size:.95rem;outline:none}
+.cta-form input::placeholder{color:rgba(255,255,255,.5)}
+.cta-form input:focus{border-color:var(--green-br)}
+.cta-form button{padding:13px 22px;border-radius:10px;border:0;background:var(--green-br);color:var(--ink);font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .15s,background .15s}
+.cta-form button:hover{background:#fff;transform:translateY(-1px)}
+.cta-or{font-size:.84rem;color:rgba(255,255,255,.55);margin:8px 0 14px;letter-spacing:.05em}
+.cta-rdv{display:inline-block;padding:13px 24px;background:transparent;border:1.5px solid rgba(255,255,255,.4);border-radius:10px;color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;transition:all .15s}
+.cta-rdv:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.cta-tiny{font-size:.76rem;color:rgba(255,255,255,.5);margin-top:14px}
+.cta-success{display:none;padding:14px;background:rgba(31,176,127,.18);border:1px solid var(--green-br);border-radius:10px;color:#fff;margin-bottom:12px}
+.cta-success.show{display:block}
+footer{border-top:1px solid var(--line);background:var(--bg-soft);padding:34px 0;margin-top:40px}
+footer .wrap{max-width:820px;text-align:center}
+footer .brand{justify-content:center;margin-bottom:10px}
+footer p{font-size:.9rem;color:var(--ink-2);max-width:520px;margin:0 auto 14px}
+footer .copy{font-size:.78rem;color:var(--ink-3);letter-spacing:.02em}
+footer .copy a{color:var(--green-d);text-decoration:none}
+@media(max-width:600px){.analyses{grid-template-columns:1fr}.axis-row{grid-template-columns:1fr 1.4fr 50px;gap:8px;padding:10px 12px}.axis-name{font-size:.84rem}.scale .opt{min-width:0;padding:10px 3px}}
+</style>
+</head>
+<body>
+<!-- ─── GATE D'ACCÈS — code + expiration ───────────────────── -->
+<div id="accessGate" style="position:fixed;inset:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
+  <div style="max-width:460px;width:100%;text-align:center">
+    <div style="width:48px;height:48px;border-radius:50%;background:#E3F1E9;color:#0B6E4F;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 18px;font-weight:800;font-family:'Fraunces',serif">℞</div>
+    <h2 id="gateTitle" style="font-size:1.5rem;margin-bottom:12px;color:#16211C;font-weight:800;letter-spacing:-.025em">Accès au questionnaire</h2>
+    <p id="gateDisclaimer" style="margin-bottom:26px;color:#4C574F;line-height:1.55;font-size:.98rem">
+      Ce questionnaire est réservé aux <strong>personnes invitées au séminaire</strong>.<br>
+      Accès valable jusqu'au <strong>dimanche 7 juin 2026 à 18h00</strong>.
+    </p>
+    <div id="gateForm">
+      <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off" autofocus
+        style="padding:14px 16px;width:100%;border:2px solid #E3E9E4;border-radius:10px;font-size:1.05rem;text-align:center;margin-bottom:14px;font-family:inherit;outline:none;color:#16211C">
+      <button onclick="checkCode()" style="background:#12936A;color:#fff;border:0;padding:14px 32px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:1rem;font-family:inherit;transition:background .15s">Accéder au questionnaire →</button>
+      <p id="accessError" style="color:#B0383C;margin-top:14px;display:none;font-size:.92rem">Code incorrect.</p>
+    </div>
+    <div id="gateExpired" style="display:none">
+      <p style="color:#4C574F;font-size:1.02rem;line-height:1.55;margin-bottom:8px"><strong>L'accès à ce questionnaire est terminé.</strong></p>
+      <p style="color:#76837A;font-size:.92rem;margin-bottom:24px">Merci de votre participation au séminaire.</p>
+      <a href="contact.html" style="display:inline-block;background:#12936A;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:.95rem">Prendre RDV avec le Dr Lapothicaire →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var VALID = '1234';
+  var EXPIRES_AT = new Date('2026-06-07T18:00:00+02:00');
+  function norm(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim(); }
+  function isExpired(){ return new Date() >= EXPIRES_AT; }
+  function showExpired(){
+    document.getElementById('gateForm').style.display='none';
+    document.getElementById('gateExpired').style.display='block';
+    document.getElementById('gateTitle').textContent='Accès terminé';
+    document.getElementById('gateDisclaimer').style.display='none';
+  }
+  window.checkCode = function(){
+    if(isExpired()){ showExpired(); return; }
+    var input = document.getElementById('accessCode').value;
+    if(norm(input) === norm(VALID)){
+      sessionStorage.setItem('lmn_access','1');
+      document.getElementById('accessGate').style.display='none';
+    } else {
+      document.getElementById('accessError').style.display='block';
+    }
+  };
+  document.addEventListener('DOMContentLoaded', function(){
+    if(isExpired()){
+      sessionStorage.removeItem('lmn_access');
+      showExpired();
+    } else if(sessionStorage.getItem('lmn_access')==='1'){
+      document.getElementById('accessGate').style.display='none';
+    }
+    var inp = document.getElementById('accessCode');
+    if(inp){
+      inp.addEventListener('keypress', function(e){ if(e.key==='Enter') window.checkCode(); });
+    }
+  });
+})();
+</script>
+<!-- ─── FIN GATE ───────────────────────────────────────────────── -->
+
+<header class="hdr">
+  <div class="wrap">
+    <a href="index.html" class="brand">LifeMicroNut</a>
+    <nav class="nav-main">
+      <a href="index.html" class="nav-keep">Accueil</a>
+      <a href="index.html#questionnaires" class="nav-keep active">Questionnaires</a>
+      <a href="comprendre.html">Comprendre</a>
+      <a href="blog.html">Blog</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">À propos</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="contact.html" class="btn-nav">Prendre RDV</a>
+    </nav>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <span class="eyebrow">Bilan d'exploration · 7-9 minutes</span>
+    <h1>Votre <em>peau</em> raconte ce que votre intestin n'arrive plus à digérer.</h1>
+    <p class="lead">Psoriasis, eczéma, acné adulte, urticaire chronique : <strong>80% des troubles cutanés modernes</strong> ont une origine commune et silencieuse — un déséquilibre intestinal, une inflammation de bas grade, des carences ciblées. Ce bilan explore les <strong>vrais leviers</strong> de votre tableau cutané et trace un plan d'action concret.</p>
+  </div>
+</section>
+
+<div class="fact-strip">
+  <div class="fact"><span class="fact-num">80 %</span><span class="fact-lbl">des patients <strong>psoriasis</strong> présentent une hyperperméabilité intestinale.</span></div>
+  <div class="fact"><span class="fact-num">3/4</span><span class="fact-lbl">des <strong>eczémas atopiques</strong> sont liés à une dysbiose du microbiote.</span></div>
+  <div class="fact"><span class="fact-num">2-3 mois</span><span class="fact-lbl">délai moyen pour une <strong>amélioration nette</strong> avec un protocole ciblé.</span></div>
+</div>
+
+<div class="wrap">
+  <div id="quizCard" class="card">
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="meta" id="meta">—</div>
+    <h2 class="q-title" id="qTitle">—</h2>
+    <p class="q-hint" id="qHint"></p>
+    <div class="q-fact" id="qFact" style="display:none"></div>
+    <div id="qBody"></div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="btnPrev">← Précédent</button>
+      <button class="btn btn-primary" id="btnNext">Continuer →</button>
+    </div>
+  </div>
+
+  <div id="resultCard" class="result card">
+    <div class="severity-box">
+      <span class="meta">Cohérence du terrain</span>
+      <div class="sev-score" id="sevScore">—</div>
+      <div class="sev-label" id="sevLabel">—</div>
+      <div class="sev-desc" id="sevDesc">—</div>
+    </div>
+
+    <div id="urgencyBlock"></div>
+
+    <h3 style="margin-bottom:10px">Votre profil cutané</h3>
+    <div class="profile-box" id="profileBlock"></div>
+
+    <h3 style="margin:26px 0 6px">⚙ Vos axes à explorer</h3>
+    <p style="font-size:.9rem;color:var(--ink-2);margin-bottom:8px">Plus la barre est longue, plus cet axe est <strong>impliqué</strong> dans votre tableau et mérite d'être travaillé en priorité.</p>
+    <div class="axes" id="axesBlock"></div>
+
+    <h3 style="margin:26px 0 8px">Plan d'action en 4 phases</h3>
+    <div id="phasesBlock"></div>
+
+    <h3 style="margin:26px 0 4px">Les <span id="statCount">…</span> analyses à demander à votre médecin</h3>
+    <p style="font-size:.9rem;color:var(--ink-2);margin-bottom:8px">Celles marquées <strong>PRIORITÉ</strong> méritent d'être dosées en premier.</p>
+    <div class="analyses" id="analysesBlock"></div>
+
+    <div class="biblio">
+      <h3>📚 Le saviez-vous ?</h3>
+      <p class="subtitle">Synthèse scientifique : axe intestin-peau, inflammation, immunité, micronutriments</p>
+      <div class="bib-fact"><strong>L'axe intestin-peau (gut-skin axis) n'est plus une hypothèse</strong> — c'est une réalité physiologique démontrée. Quand la barrière intestinale fuit, les <em>lipopolysaccharides</em> (LPS) bactériens passent dans le sang, activent les récepteurs TLR4, déclenchent NF-κB et inondent l'organisme de cytokines pro-inflammatoires. La peau, organe-cible, exprime cette inflammation.</div>
+      <div class="bib-fact"><strong>Psoriasis = maladie Th17.</strong> Les biothérapies modernes (anti-IL17, anti-IL23) ciblent exactement les cytokines surproduites. Or ces cytokines sont aussi régulées par <em>le microbiote intestinal</em>, la vitamine D, le statut en zinc, le ratio oméga-3/oméga-6 et les pics insuliniques. La micronutrition agit en amont.</div>
+      <div class="bib-fact"><strong>Eczéma atopique = déficit de la barrière cutanée + microbiote dysbiotique.</strong> Le <em>Staphylococcus aureus</em> colonise 90% des lésions actives. La filaggrine (gène FLG) construit la barrière — ses précurseurs (histidine, acides aminés) viennent de l'assiette. Restaurer la barrière commence par l'intestin.</div>
+      <div class="bib-fact"><strong>Acné adulte = signature insuline / IGF-1.</strong> Le sucre rapide et les produits laitiers (caséine surtout, IGF-1 bovin) activent la voie mTOR → sébum + Th17 → comédons + inflammation. <em>Le lait écrémé est pire que le lait entier</em>, paradoxalement (densité protéique plus élevée).</div>
+      <div class="bib-fact"><strong>Le gluten et le psoriasis</strong> : 14% des psoriasiques ont des anticorps anti-gliadine élevés (sans cœliaque). Chez eux, un régime sans gluten 3 mois améliore significativement les plaques. À tester avant de conclure « ça ne marche pas pour moi ».</div>
+      <div class="bib-fact"><strong>Histamine et eczéma / urticaire</strong> : 1-3% de la population présente une intolérance à l'histamine par déficit en DAO (diamine oxydase). Aliments fermentés, vin, fromages affinés, charcuterie, tomate, conserves, restes du frigo — autant de déclencheurs ignorés.</div>
+      <div class="bib-fact"><strong>Vitamine D = immunomodulateur Th17.</strong> Carence quasi systématique chez les psoriasiques (et 70% des Français en hiver). Cible : <em>30-50 ng/mL</em>, à doser et corriger. Pas de supplémentation à l'aveugle — surdose toxique.</div>
+      <div class="bib-fact"><strong>Oméga-3 EPA/DHA</strong> : précurseurs des <em>résolvines</em> (E1, D1), molécules qui éteignent activement l'inflammation. Le ratio occidental moyen oméga-6/oméga-3 est de 20/1 (cible : 4/1). Sans poissons gras 2-3×/semaine ou supplémentation rTG, impossible d'y arriver.</div>
+      <div class="bib-fact"><strong>Carence en zinc = 30-50% des acnéiques.</strong> Le zinc régule la 5α-réductase (conversion testostérone → DHT), contrôle le sébum, soutient la barrière épithéliale. La gluconate de zinc à 30 mg/j a fait l'objet d'études comparables au minocycline dans l'acné inflammatoire.</div>
+      <div class="bib-fact"><strong>Stress et axe HPA</strong> : le cortisol chronique active les <em>mastocytes</em> cutanés (libération d'histamine) et perturbe le microbiote (axe HPA-intestin). C'est pourquoi les poussées surviennent en période de surcharge. <em>Soigner la peau passe aussi par soigner le système nerveux</em>.</div>
+    </div>
+
+    <div class="disclaim">
+      <strong>Important :</strong> Ce bilan est un outil d'orientation, pas un diagnostic ni une prescription. Les maladies cutanées chroniques peuvent avoir des causes qui nécessitent un suivi dermatologique (psoriasis sévère, eczéma surinfecté, acné nodulo-kystique, urticaire chronique). La micronutrition est un <strong>levier complémentaire puissant</strong>, jamais un substitut à un suivi médical. <strong>Ne stoppez aucun traitement</strong> (dermocorticoïdes, biothérapies, isotrétinoïne) sans avis du dermatologue qui vous suit.
+    </div>
+
+    <div class="cta-final">
+      <h3>Et maintenant, on construit votre plan ?</h3>
+      <p class="cta-lead">Ce bilan met en lumière les leviers — mais la <strong style="color:#fff">vraie transformation</strong> passe par un plan personnalisé, hiérarchisé et adapté à votre vie. Recevez votre rapport détaillé par email, ou prenez RDV pour une consultation individualisée.</p>
+      <div class="cta-success" id="ctaSuccess">✓ Merci ! Le Dr Lapothicaire reçoit votre demande et vous adresse votre rapport personnalisé sous 24-48h. Vous pouvez aussi prendre RDV directement.</div>
+      <form class="cta-form" id="leadForm" method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="access_key" value="57726177-ef80-4817-bcf9-e1a59d4d0131">
+        <input type="hidden" name="subject" value="Nouveau lead — Bilan Peau (LifeMicroNut)">
+        <input type="hidden" name="from_name" value="LifeMicroNut · Bilan Peau">
+        <input type="hidden" name="botcheck">
+        <input type="email" name="email" placeholder="votre@email.com" required>
+        <button type="submit">Recevoir mon bilan →</button>
+      </form>
+      <p class="cta-or">— ou —</p>
+      <a href="contact.html" class="cta-rdv">Prendre RDV avec le Dr Lapothicaire →</a>
+      <p class="cta-tiny">RGPD : votre email ne sert qu'à vous envoyer votre bilan et nos conseils. Désinscription en 1 clic.</p>
+    </div>
+
+    <div style="margin-top:20px;text-align:center">
+      <button class="btn btn-ghost" id="btnRestart">↻ Refaire le bilan</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">LifeMicroNut</div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:18px;font-size:.88rem">
+      <a href="index.html" style="color:var(--ink-2);text-decoration:none">Accueil</a>
+      <a href="comprendre.html" style="color:var(--ink-2);text-decoration:none">Comprendre</a>
+      <a href="microbiote-mental.html" style="color:var(--ink-2);text-decoration:none">Bilans</a>
+      <a href="blog.html" style="color:var(--ink-2);text-decoration:none">Blog</a>
+      <a href="faq.html" style="color:var(--ink-2);text-decoration:none">FAQ</a>
+      <a href="about.html" style="color:var(--ink-2);text-decoration:none">À propos</a>
+      <a href="contact.html" style="color:var(--ink-2);text-decoration:none">Contact</a>
+      <a href="mentions-legales.html" style="color:var(--ink-2);text-decoration:none">Mentions légales</a>
+    </div>
+    <p>La micronutrition appliquée à la vraie vie. Une approche <strong>pharmacienne, scientifique et personnalisée</strong>, pour des résultats durables.</p>
+    <p class="copy">© <span id="year"></span> LifeMicroNut · Tous droits réservés · <a href="https://lifemicronut.com">lifemicronut.com</a></p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+
+var Q = [
+  {id:'age',type:'single',sec:'Votre profil',q:'Votre tranche d\'âge',o:[
+    {v:'lt18',l:'Moins de 18 ans'},{v:'18_30',l:'18 – 30 ans'},{v:'31_45',l:'31 – 45 ans'},{v:'46_60',l:'46 – 60 ans'},{v:'gt60',l:'Plus de 60 ans'}
+  ]},
+  {id:'sexe',type:'single',sec:'Votre profil',q:'Vous êtes',o:[
+    {v:'f',l:'Une femme'},{v:'h',l:'Un homme'},{v:'autre',l:'Autre / je préfère ne pas dire'}
+  ]},
+  {id:'type',type:'single',sec:'Votre tableau cutané',q:'Quel est le problème de peau qui vous préoccupe le plus aujourd\'hui ?',
+    fact:'Chaque tableau cutané a une <strong>signature immunitaire et micronutritionnelle</strong> différente — psoriasis (Th17), eczéma atopique (Th2), acné (insuline/androgènes), urticaire (mastocytes/histamine).',o:[
+    {v:'pso',l:'Psoriasis (plaques rouges, squames blanchâtres)'},
+    {v:'ecz',l:'Eczéma atopique / dermatite atopique'},
+    {v:'acne',l:'Acné adulte / acné persistante'},
+    {v:'urti',l:'Urticaire chronique / poussées de plaques'},
+    {v:'derm',l:'Dermatite séborrhéique (visage, cuir chevelu)'},
+    {v:'mixt',l:'Plusieurs simultanément'},
+    {v:'autre',l:'Autre (rosacée, vitiligo, lichen…)'}
+  ]},
+  {id:'duree',type:'single',sec:'Votre tableau cutané',q:'Depuis combien de temps vivez-vous avec ce problème ?',o:[
+    {v:'lt6',l:'Moins de 6 mois'},
+    {v:'_6_24',l:'6 mois à 2 ans'},
+    {v:'_2_10',l:'2 à 10 ans'},
+    {v:'gt10',l:'Plus de 10 ans'},
+    {v:'tjs',l:'Depuis toujours (enfance)'}
+  ]},
+  {id:'severite',type:'scale',sec:'Votre tableau cutané',q:'À combien évaluez-vous l\'impact actuel sur votre quotidien ?',hint:'0 = aucun · 5 = invalidant (sommeil, vêtements, vie sociale)',
+    lbls:['Aucun','Très léger','Léger','Modéré','Marqué','Invalidant']
+  },
+  {id:'localisation',type:'multi',sec:'Localisations',q:'Où sont principalement les lésions ?',hint:'Plusieurs réponses possibles',
+    fact:'Les <strong>localisations sont des indices</strong> : psoriasis classique en bastions (coudes, genoux, scalp) ; psoriasis inverse (plis) ; eczéma atopique (plis et visage) ; acné mâchoire/menton = signature hormonale.',o:[
+    {v:'coudes',l:'Coudes / genoux (face d\'extension)'},
+    {v:'scalp',l:'Cuir chevelu'},
+    {v:'visage',l:'Visage'},
+    {v:'machoire',l:'Mâchoire / menton / cou (acné)'},
+    {v:'plis',l:'Plis (aisselles, aines, sous les seins, fessier)'},
+    {v:'mains',l:'Mains / doigts'},
+    {v:'ongles',l:'Ongles (piquetés, jaunes, décollés)'},
+    {v:'dos',l:'Dos / torse / épaules'},
+    {v:'jambes',l:'Jambes (étendues, diffuses)'},
+    {v:'gener',l:'Diffuse / sur tout le corps'}
+  ]},
+  {id:'comorb',type:'multi',sec:'Tableau global',q:'Autres signes que vous présentez peut-être ?',
+    fact:'Le psoriasis cutané s\'accompagne d\'un <strong>rhumatisme psoriasique</strong> dans 25-30% des cas (souvent sous-diagnostiqué). L\'eczéma atopique fait partie de la <em>triade atopique</em> (eczéma + asthme + rhinite allergique).',o:[
+    {v:'art',l:'Douleurs articulaires / raideurs matinales'},
+    {v:'asthm',l:'Asthme / sifflements'},
+    {v:'rhin',l:'Rhinite allergique / éternuements répétés'},
+    {v:'conj',l:'Conjonctivite / paupières rouges'},
+    {v:'allerg',l:'Allergies alimentaires connues'},
+    {v:'rien',l:'Aucun',excl:true}
+  ]},
+  {id:'familial',type:'multi',sec:'Hérédité',q:'Antécédents familiaux (parents, frères/sœurs)',o:[
+    {v:'pso',l:'Psoriasis'},
+    {v:'ecz',l:'Eczéma / atopie'},
+    {v:'autoimm',l:'Maladie auto-immune (Hashimoto, Crohn, polyarthrite…)'},
+    {v:'diab',l:'Diabète de type 2'},
+    {v:'aucun',l:'Aucun connu',excl:true}
+  ]},
+  {id:'triggers',type:'multi',sec:'Déclencheurs',q:'Avez-vous identifié des facteurs qui déclenchent ou aggravent vos poussées ?',
+    fact:'Les déclencheurs <strong>parlent du terrain sous-jacent</strong>. Stress → cortisol/mastocytes. Alcool → foie/histamine. Gluten → barrière intestinale. Sucre → insuline/inflammation. Soleil → souvent protecteur dans le psoriasis, parfois aggravant dans la rosacée.',o:[
+    {v:'stress',l:'Stress / surcharge émotionnelle'},
+    {v:'alim',l:'Excès alimentaire (gluten, lait, sucre, fast-food)'},
+    {v:'alcool',l:'Alcool'},
+    {v:'hiver',l:'Hiver / froid / chauffage'},
+    {v:'soleil',l:'Soleil (aggravation)'},
+    {v:'hormo',l:'Cycle hormonal (avant les règles, grossesse, ménopause)'},
+    {v:'infect',l:'Infection ORL / antibiothérapie récente'},
+    {v:'rien',l:'Aucun identifié',excl:true}
+  ]},
+  {id:'digest',type:'multi',sec:'Sphère digestive',q:'Signes digestifs ressentis dans une semaine moyenne ?',
+    fact:'80% des psoriasiques et 75% des eczémas atopiques présentent au moins UN signe d\'<strong>hyperperméabilité intestinale</strong> ou de dysbiose — souvent banalisé ou attribué au stress.',o:[
+    {v:'ballon',l:'Ballonnements (ventre qui gonfle après repas)'},
+    {v:'gaz',l:'Gaz / flatulences quotidiennes'},
+    {v:'reflux',l:'Reflux / brûlures / éructations'},
+    {v:'doul',l:'Douleurs abdominales'},
+    {v:'aucun',l:'Aucun, digestion calme',excl:true}
+  ]},
+  {id:'transit',type:'single',sec:'Sphère digestive',q:'Comment décririez-vous votre transit habituel ?',o:[
+    {v:'norm',l:'Régulier, 1×/jour, forme satisfaisante (type 3-4 Bristol)'},
+    {v:'const',l:'Constipation (&lt; 3 selles/semaine, dures)'},
+    {v:'diarr',l:'Diarrhée fréquente / selles molles'},
+    {v:'altern',l:'Alternance constipation / diarrhée (type SII)'},
+    {v:'irreg',l:'Très irrégulier'}
+  ]},
+  {id:'bouche',type:'multi',sec:'Sphère digestive',q:'Signes au niveau de la bouche / langue ?',
+    fact:'Une <strong>langue chargée blanche</strong> ou des aphtes récurrents évoquent une candidose chronique ou une dysbiose buccale — souvent reliée à la dysbiose digestive.',o:[
+    {v:'blanche',l:'Langue souvent chargée / blanche'},
+    {v:'apht',l:'Aphtes récurrents'},
+    {v:'halit',l:'Haleine chargée au réveil malgré hygiène'},
+    {v:'amer',l:'Bouche amère / pâteuse au réveil'},
+    {v:'aucun',l:'Aucun',excl:true}
+  ]},
+  {id:'histam',type:'multi',sec:'Histamine',q:'Repérez-vous certaines de ces réactions ?',
+    fact:'Ces signes évoquent une <strong>intolérance à l\'histamine</strong> (déficit en DAO). Aliments riches : vin rouge, fromages affinés, charcuterie, conserves, tomate, restes du frigo, fermentés. Souvent invisible à l\'allergologue classique.',o:[
+    {v:'flush',l:'Flushing (rougeur soudaine du visage/cou)'},
+    {v:'urti',l:'Plaques d\'urticaire après certains repas'},
+    {v:'nez',l:'Nez qui coule / bouché après le vin ou les fromages'},
+    {v:'maux',l:'Maux de tête après vin rouge / chocolat'},
+    {v:'demang',l:'Démangeaisons inexpliquées'},
+    {v:'rien',l:'Aucun',excl:true}
+  ]},
+  {id:'stress',type:'scale',sec:'Stress &amp; sommeil',q:'Votre niveau de stress moyen sur les 6 derniers mois ?',hint:'0 = très calme · 5 = surcharge permanente',
+    lbls:['Calme','Léger','Modéré','Élevé','Très élevé','Saturé']
+  },
+  {id:'sommeil',type:'single',sec:'Stress &amp; sommeil',q:'Votre sommeil',
+    fact:'Le sommeil régule l\'<strong>axe HPA</strong> (cortisol) et le <em>cycle circadien cutané</em> — la peau se régénère majoritairement entre 23h et 4h. Un sommeil perturbé = barrière cutanée fragilisée.',o:[
+    {v:'bon',l:'7-8h, réparateur'},
+    {v:'court',l:'&lt; 6h en semaine'},
+    {v:'endorm',l:'Difficultés d\'endormissement'},
+    {v:'reveils',l:'Réveils nocturnes fréquents'},
+    {v:'demang',l:'Réveillé(e) par les démangeaisons'}
+  ]},
+  {id:'energie',type:'single',sec:'Énergie &amp; cognition',q:'Votre énergie globale en journée',o:[
+    {v:'bon',l:'Bonne, stable'},
+    {v:'creux',l:'Creux de 14-16h marqué'},
+    {v:'fatig',l:'Fatigue de fond persistante'},
+    {v:'epuis',l:'Épuisement / besoin de sieste impérative'}
+  ]},
+  {id:'femme_cycle',type:'single',sec:'Hormonal (si applicable)',q:'Pour les femmes : votre cycle aggrave-t-il vos lésions ?',hint:'Sinon, sélectionnez la dernière option',o:[
+    {v:'avant',l:'Oui, avant les règles (poussées prémenstruelles)'},
+    {v:'gross',l:'Apparu / aggravé après grossesse'},
+    {v:'meno',l:'Apparu / aggravé en péri/ménopause'},
+    {v:'pilule',l:'Lien avec contraception (pilule, stérilet hormonal)'},
+    {v:'aucun',l:'Pas de lien identifié'},
+    {v:'na',l:'Non applicable'}
+  ]},
+  {id:'hyperandro',type:'multi',sec:'Signes hormonaux',q:'Repérez-vous des signes d\'excès d\'androgènes ?',
+    fact:'Acné <strong>mâchoire-menton-cou</strong> + cheveux gras + pilosité augmentée chez la femme = <em>signature hyperandrogénique</em>. À explorer (SOPK ?). Chez l\'homme : alopécie androgénétique + acné dorsale.',o:[
+    {v:'acneM',l:'Acné concentrée mâchoire / menton / cou'},
+    {v:'pil',l:'Pilosité augmentée (lèvre, menton, abdomen)'},
+    {v:'gras',l:'Cheveux / cuir chevelu qui regraissent vite'},
+    {v:'chute',l:'Chute de cheveux progressive'},
+    {v:'rien',l:'Aucun',excl:true}
+  ]},
+  {id:'alim_proinflam',type:'multi',sec:'Alimentation',q:'Dans une semaine moyenne, vous consommez :',
+    fact:'Les <strong>4 grands accélérateurs d\'inflammation</strong> en pratique : gluten quotidien (intestin), produits laitiers quotidiens (IGF-1, caséine), sucres rapides (insuline), alcool (foie/histamine). Identifier ne veut pas dire bannir — hiérarchiser ce qui vous concerne.',o:[
+    {v:'glut',l:'Pain / pâtes / biscuits tous les jours'},
+    {v:'lait',l:'Produits laitiers quotidiens (lait, fromage, yaourts)'},
+    {v:'sucre',l:'Sucre / pâtisseries / ultra-transformés au quotidien'},
+    {v:'alcool',l:'Alcool plusieurs fois par semaine'},
+    {v:'charc',l:'Charcuterie / viandes transformées régulières'},
+    {v:'rien',l:'Rien de particulier',excl:true}
+  ]},
+  {id:'alim_protec',type:'multi',sec:'Alimentation',q:'Vous consommez aussi :',hint:'Plusieurs réponses possibles',o:[
+    {v:'leg',l:'Légumes à chaque repas (au moins 2 portions/jour)'},
+    {v:'poiss',l:'Poissons gras 2-3 fois / semaine (sardine, maquereau, saumon)'},
+    {v:'olea',l:'Oléagineux quotidiens (amandes, noix, graines)'},
+    {v:'fibre',l:'30+ végétaux différents par semaine'},
+    {v:'eau',l:'1,5-2 L d\'eau plate par jour'},
+    {v:'aucun',l:'Aucun de ces points',excl:true}
+  ]},
+  {id:'antibio',type:'single',sec:'Histoire médicale',q:'Cures d\'antibiotiques dans votre vie ?',
+    fact:'Les <strong>cures multiples d\'antibiotiques</strong>, surtout dans l\'enfance, sont un facteur de risque majeur de dysbiose persistante — qui se traduit des années plus tard par des troubles cutanés.',o:[
+    {v:'aucune',l:'Aucune ou rarissimes'},
+    {v:'qq',l:'Quelques-unes (1-3 dans la vie adulte)'},
+    {v:'mult',l:'Multiples (5+ cures cumulées)'},
+    {v:'recur',l:'Récurrentes (otites enfance, infections répétées)'},
+    {v:'recent',l:'Cure récente (&lt; 6 mois)'}
+  ]},
+  {id:'meds',type:'multi',sec:'Histoire médicale',q:'Traitements actuels ou récents ?',o:[
+    {v:'cortL',l:'Dermocorticoïdes (crème, pommade) au long cours'},
+    {v:'cortO',l:'Corticoïdes oraux'},
+    {v:'ipp',l:'Inhibiteurs de la pompe à protons (Inexium, Mopral…)'},
+    {v:'ains',l:'AINS réguliers (ibuprofène, kétoprofène)'},
+    {v:'isotret',l:'Roaccutane / isotrétinoïne (passé ou présent)'},
+    {v:'biothera',l:'Biothérapie psoriasis / eczéma (anti-IL17, anti-IL4…)'},
+    {v:'aucun',l:'Aucun',excl:true}
+  ]},
+  {id:'soleil',type:'single',sec:'Mode de vie',q:'Exposition au soleil',o:[
+    {v:'reg',l:'Régulière toute l\'année (extérieur quotidien)'},
+    {v:'sais',l:'Plutôt saisonnière (été uniquement)'},
+    {v:'rare',l:'Rare (vie en intérieur, climat nordique)'},
+    {v:'evit',l:'Évitée (peau réactive, conseil dermato)'}
+  ]},
+  {id:'habitudes',type:'multi',sec:'Mode de vie',q:'Habitudes :',o:[
+    {v:'tabac',l:'Tabac (actif)'},
+    {v:'vape',l:'Vapotage'},
+    {v:'sport',l:'Activité physique 2+ fois / semaine'},
+    {v:'meditation',l:'Pratique régulière relaxation / méditation / yoga'},
+    {v:'rien',l:'Rien de notable',excl:true}
+  ]},
+  {id:'signes_car',type:'multi',sec:'Signes de carence',q:'Repérez-vous ces signes ?',
+    fact:'Ces signes orientent vers des <strong>carences micronutritionnelles</strong> spécifiques : ongles striés/cassants (zinc, biotine, fer) — cheveux ternes (fer, B vitamines) — peau très sèche hors lésions (oméga-3, vitamine A) — paupières craquelées (vitamine A, B2).',o:[
+    {v:'ongles',l:'Ongles striés, cassants, taches blanches'},
+    {v:'chevx',l:'Cheveux ternes, qui chutent, repousse fine'},
+    {v:'sec',l:'Peau très sèche sur le reste du corps'},
+    {v:'paup',l:'Paupières / commissures qui craquent'},
+    {v:'crampes',l:'Crampes / fourmillements fréquents'},
+    {v:'rien',l:'Aucun',excl:true}
+  ]},
+  {id:'bio',type:'multi',sec:'Vos examens',q:'Lesquels avez-vous fait doser dans les 12 derniers mois ?',hint:'Plusieurs réponses possibles',o:[
+    {v:'vitd',l:'Vitamine D (25-OH-D)'},
+    {v:'zinc',l:'Zinc plasmatique'},
+    {v:'omega',l:'Index oméga-3 érythrocytaire'},
+    {v:'crp',l:'CRP ultra-sensible'},
+    {v:'ferr',l:'Ferritine + CST'},
+    {v:'tsh',l:'TSH (+ T3L T4L)'},
+    {v:'igE',l:'IgE totales / RAST allergologique'},
+    {v:'celiaq',l:'Sérologie cœliaque (anti-transglut., anti-endomysium)'},
+    {v:'calp',l:'Calprotectine fécale'},
+    {v:'aucun',l:'Aucun récent / je ne sais pas',excl:true}
+  ]}
+];
+
+var AXES = ['intest','inflam','histam','detox','carence','hormon','immuno'];
+var AXES_LBL = {intest:'Intestin &amp; Microbiote',inflam:'Inflammation chronique',histam:'Histamine &amp; Mastocytes',detox:'Détox hépatique',carence:'Carences micronutritionnelles',hormon:'Hormonal',immuno:'Immunitaire / Atopie'};
+var AXES_SUB = {intest:'Porosité, dysbiose, SIBO, candida',inflam:'TNF-α, IL-17 (pso), IL-4 (ecz)',histam:'DAO, mastocytes, intolérance',detox:'Phase I/II, sulfation, glucuronidation',carence:'Vit D, zinc, oméga-3, A, sélénium',hormon:'Androgènes, cortisol, thyroïde',immuno:'Atopie, autoimmunité familiale'};
+
+function score(a){
+  var s={intest:0,inflam:0,histam:0,detox:0,carence:0,hormon:0,immuno:0};
+  // INTESTIN
+  if(a.digest){var d=a.digest;if(d.indexOf('aucun')===-1)s.intest+=Math.min(4,d.length);}
+  if(a.transit==='const'||a.transit==='diarr'||a.transit==='altern'||a.transit==='irreg')s.intest+=2;
+  if(a.bouche){var b=a.bouche;if(b.indexOf('aucun')===-1)s.intest+=Math.min(3,b.length);}
+  if(a.antibio==='mult'||a.antibio==='recur')s.intest+=3;
+  if(a.antibio==='recent')s.intest+=2;
+  if(a.meds&&a.meds.indexOf('ipp')>-1)s.intest+=2;
+  if(a.alim_proinflam){var ap=a.alim_proinflam;if(ap.indexOf('glut')>-1)s.intest+=1;if(ap.indexOf('lait')>-1)s.intest+=1;if(ap.indexOf('sucre')>-1)s.intest+=1;}
+  // INFLAMMATION
+  if(a.severite!=null)s.inflam+=Math.min(3,a.severite);
+  if(a.type==='pso'||a.type==='mixt')s.inflam+=2;
+  if(a.alim_proinflam){var ai=a.alim_proinflam;if(ai.indexOf('aucun')===-1)s.inflam+=Math.min(3,ai.length);}
+  if(a.alim_protec){var prot=a.alim_protec;if(prot.indexOf('poiss')===-1)s.inflam+=1;}
+  if(a.habitudes&&a.habitudes.indexOf('tabac')>-1)s.inflam+=2;
+  if(a.comorb&&a.comorb.indexOf('art')>-1)s.inflam+=2;
+  // HISTAMINE
+  if(a.histam){var h=a.histam;if(h.indexOf('rien')===-1)s.histam+=Math.min(4,h.length);}
+  if(a.type==='urti'||a.type==='ecz')s.histam+=2;
+  if(a.alim_proinflam&&a.alim_proinflam.indexOf('alcool')>-1)s.histam+=1;
+  if(a.alim_proinflam&&a.alim_proinflam.indexOf('charc')>-1)s.histam+=1;
+  // DETOX
+  if(a.alim_proinflam&&a.alim_proinflam.indexOf('alcool')>-1)s.detox+=2;
+  if(a.habitudes&&a.habitudes.indexOf('tabac')>-1)s.detox+=2;
+  if(a.bouche){var bb=a.bouche;if(bb.indexOf('amer')>-1)s.detox+=2;if(bb.indexOf('halit')>-1)s.detox+=1;}
+  if(a.meds){var m=a.meds;if(m.indexOf('cortO')>-1)s.detox+=2;if(m.indexOf('ains')>-1)s.detox+=1;if(m.indexOf('isotret')>-1)s.detox+=1;}
+  // CARENCES
+  if(a.signes_car){var sc=a.signes_car;if(sc.indexOf('rien')===-1)s.carence+=Math.min(4,sc.length);}
+  if(a.alim_protec){var p=a.alim_protec;if(p.indexOf('aucun')>-1)s.carence+=3;else{if(p.indexOf('poiss')===-1)s.carence+=1;if(p.indexOf('leg')===-1)s.carence+=1;if(p.indexOf('olea')===-1)s.carence+=1;}}
+  if(a.soleil==='rare'||a.soleil==='evit')s.carence+=1;
+  if(a.bio){var bi=a.bio;if(bi.indexOf('aucun')>-1)s.carence+=1;else{if(bi.indexOf('vitd')===-1)s.carence+=1;if(bi.indexOf('zinc')===-1&&a.type==='acne')s.carence+=1;}}
+  // HORMONAL
+  if(a.hyperandro){var ha=a.hyperandro;if(ha.indexOf('rien')===-1)s.hormon+=Math.min(3,ha.length);}
+  if(a.type==='acne'&&(a.localisation&&a.localisation.indexOf('machoire')>-1))s.hormon+=2;
+  if(a.stress!=null)s.hormon+=Math.min(2,Math.floor(a.stress/2));
+  if(a.sommeil==='court'||a.sommeil==='reveils'||a.sommeil==='endorm')s.hormon+=1;
+  if(a.femme_cycle&&a.femme_cycle!=='aucun'&&a.femme_cycle!=='na')s.hormon+=2;
+  // IMMUNITAIRE / ATOPIE
+  if(a.comorb){var co=a.comorb;if(co.indexOf('asthm')>-1)s.immuno+=2;if(co.indexOf('rhin')>-1)s.immuno+=1;if(co.indexOf('conj')>-1)s.immuno+=1;if(co.indexOf('allerg')>-1)s.immuno+=2;}
+  if(a.familial){var f=a.familial;if(f.indexOf('autoimm')>-1)s.immuno+=2;if(f.indexOf('pso')>-1&&a.type==='pso')s.immuno+=2;if(f.indexOf('ecz')>-1&&a.type==='ecz')s.immuno+=2;}
+  if(a.type==='ecz')s.immuno+=1;
+  return s;
+}
+
+function coherencePct(s){var t=0;Object.keys(s).forEach(function(k){t+=s[k]});return Math.min(100,Math.round(t*2.3));}
+function coherenceLabel(p){
+  if(p<25) return {l:'Tableau modéré',d:'Quelques leviers identifiés. Ajustements ciblés possibles.'};
+  if(p<50) return {l:'Tableau marqué',d:'Plusieurs axes méritent une exploration biologique pour cibler les bons leviers.'};
+  if(p<75) return {l:'Tableau important',d:'Multiples axes impliqués. Un accompagnement structuré sera très probablement bénéfique.'};
+  return {l:'Tableau très étendu',d:'Le terrain est multifactoriel — raison de plus pour explorer les vraies causes avant tout traitement supplémentaire.'};
+}
+
+function profile(a,s){
+  var p='';
+  var age={lt18:'jeune',_18_30:'jeune adulte','18_30':'jeune adulte','31_45':'adulte de 31-45 ans','46_60':'adulte de 46-60 ans',gt60:'sénior'}[a.age]||'';
+  var sexe=a.sexe==='f'?'Une femme':(a.sexe==='h'?'Un homme':'Une personne');
+  p='<p>'+sexe+(age?' '+age:'')+'.</p>';
+  var typeLbl={pso:'psoriasis',ecz:'eczéma atopique',acne:'acné adulte',urti:'urticaire chronique',derm:'dermatite séborrhéique',mixt:'tableau cutané mixte',autre:'tableau cutané spécifique'}[a.type]||'tableau cutané';
+  var dureeLbl={lt6:'récent',_6_24:'installé depuis quelques mois à 2 ans','_6_24':'installé depuis quelques mois à 2 ans',_2_10:'évoluant depuis plusieurs années','_2_10':'évoluant depuis plusieurs années',gt10:'chronique depuis plus de 10 ans',tjs:'présent depuis l\'enfance'}[a.duree]||'';
+  p+='<p>Tableau de <em>'+typeLbl+'</em>'+(dureeLbl?', '+dureeLbl:'')+'.</p>';
+  var trois=Object.keys(s).map(function(k){return [k,s[k]]}).sort(function(x,y){return y[1]-x[1]}).slice(0,3).filter(function(e){return e[1]>=2});
+  if(trois.length){p+='<p>Vos <em>axes prioritaires</em> : '+trois.map(function(e){return AXES_LBL[e[0]]}).join(', ')+'.</p>';}
+  if(a.type==='pso'&&s.intest>=4)p+='<p>Le lien <em>intestin-peau</em> est particulièrement marqué dans votre tableau — c\'est une cible thérapeutique prioritaire, et c\'est plutôt une bonne nouvelle (axe accessible à la micronutrition).</p>';
+  if(a.type==='ecz'&&s.histam>=4)p+='<p>La piste <em>histamine / DAO</em> mérite d\'être explorée — souvent ignorée mais responsable de nombreuses poussées dites "inexpliquées".</p>';
+  if(a.type==='acne'&&s.hormon>=4)p+='<p>Votre acné porte une <em>signature hormonale</em> — l\'approche micronutritionnelle (zinc, myo-inositol, oméga-3) et la régulation insuline-IGF-1 sont des leviers majeurs.</p>';
+  if(a.duree==='gt10'||a.duree==='tjs')p+='<p>Un tableau ancien ne veut pas dire un tableau figé : <em>la biologie cellulaire de la peau se renouvelle entièrement tous les 28 jours</em>. Le terrain, lui, demande 3 à 6 mois pour évoluer.</p>';
+  return p;
+}
+
+function phases(a,s){
+  var P=[];
+  P.push({tag:'Phase 1 — Carto',title:'Le bilan biologique d\'abord',items:[
+    'Avant tout : <strong>bilan biologique ciblé</strong> chez votre médecin (voir liste ci-dessous). Sans biologie, on tâtonne.',
+    'Tenir un <strong>journal des poussées</strong> 4 semaines : ce que vous mangez, votre niveau de stress, votre cycle (femmes), pour identifier vos triggers personnels.',
+    'Photographier les lésions à <strong>J0, J30, J60, J90</strong> — l\'œil quotidien ne perçoit pas l\'amélioration progressive.'
+  ]});
+  var corr=[];
+  if(s.intest>=4)corr.push('<strong>Restaurer la barrière intestinale</strong> : 30 végétaux différents par semaine, fibres prébiotiques (poireaux, asperges, oignons), L-glutamine sur courte période, probiotiques ciblés (Lactobacillus rhamnosus, Bifidobacterium longum) après bilan. <em>Tester</em> une éviction gluten + lait sur 3 semaines.');
+  if(s.inflam>=4)corr.push('<strong>Éteindre l\'inflammation</strong> : oméga-3 EPA/DHA 2-3 g/j (forme rTG, dosage selon index), curcumine biodisponible, suppression progressive sucres ajoutés et ultra-transformés. Antioxydants (vit C, E, glutathion, polyphénols).');
+  if(s.histam>=4)corr.push('<strong>Apaiser l\'histamine</strong> : éviction temporaire des aliments riches (vin, fromages affinés, charcuterie, conserves, restes), vitamine C 500 mg × 2/j (antihistaminique naturel), B6 et cuivre (cofacteurs DAO), quercétine, restaurer le microbiote (sources d\'histamine endogène).');
+  if(s.detox>=3)corr.push('<strong>Soutenir le foie</strong> : crucifères quotidiens (chou, brocoli, roquette → sulforaphane et glucosinolates), N-acétylcystéine (NAC), chardon-marie, vitamines B (méthylation). <em>Réduire la charge</em> : alcool, médicaments non indispensables, additifs.');
+  if(s.carence>=4)corr.push('<strong>Corriger les carences</strong> : doser vit D (cible 30-50 ng/mL), zinc, oméga-3 index, ferritine. Supplémenter <em>uniquement après dosage</em> : vit D 2000-4000 UI/j hiver, zinc bisglycinate 15-30 mg/j, oméga-3 EPA/DHA selon index. Pas de cocktail à l\'aveugle.');
+  if(s.hormon>=4)corr.push('<strong>Réguler l\'axe hormonal</strong> : pour acné hyperandrogénique → zinc, myo-inositol 2-4 g/j, baisser charge glycémique. Pour cortisol → magnésium bisglycinate, rhodiola, cohérence cardiaque. Femmes : explorer SOPK / périménopause.');
+  if(s.immuno>=4)corr.push('<strong>Moduler l\'immunité</strong> : vitamine D (immunorégulateur Th17/Treg), vitamine A (intégrité barrière), zinc et sélénium, microbiote ++. <em>Si auto-immunité familiale forte</em> : bilan auto-immun (anti-TPO, ANA) recommandé.');
+  if(corr.length)P.push({tag:'Phase 2 — Corrections',title:'Travailler les axes prioritaires',items:corr});
+  P.push({tag:'Phase 3 — Mode de vie',title:'Les fondations non négociables',items:[
+    '<strong>Sommeil</strong> : 7-8h, fixe, sombre, frais. La peau se régénère majoritairement entre 23h et 4h.',
+    '<strong>Mouvement</strong> : 30 min/jour minimum. Le sport baisse l\'inflammation systémique.',
+    '<strong>Assiette anti-inflammatoire</strong> : protéines de qualité, légumes en majorité, glucides complexes selon besoin, poissons gras 2-3×/semaine, oléagineux, huiles vierges (olive, colza). <em>Limiter</em> : sucre, ultra-transformés, alcool, charcuteries.',
+    '<strong>Stress</strong> : 10 min/jour de pratique respiratoire (cohérence cardiaque) — c\'est gratuit, prouvé, et baisse le cortisol mesuré.',
+    '<strong>Hydratation peau</strong> : émollients adaptés (céramides, beurre de karité, glycérine), pas de douches trop chaudes/longues, savon surgras ou syndets.'
+  ]});
+  P.push({tag:'Phase 4 — Durée',title:'Tenir dans le temps, sans rebond',items:[
+    '<strong>Réévaluation biologique</strong> à 3-6 mois pour ajuster les supplémentations.',
+    '<strong>Accepter les fluctuations</strong> : une amélioration de 70% en 3 mois est un excellent résultat, viser 100% trop vite mène à la frustration et au sur-traitement.',
+    '<strong>Surveiller les déclencheurs identifiés</strong> et apprendre à les gérer plutôt qu\'à les fuir. <em>L\'objectif est l\'autonomie, pas la dépendance à un protocole.</em>'
+  ]});
+  return P;
+}
+
+function analyses(a,s){
+  var L=[];function add(n,w,p){L.push({name:n,why:w,priority:p||3})}
+  add('25-OH Vitamine D','Carence quasi systématique dans les troubles cutanés chroniques. Immunomodulateur Th17. Cible 30-50 ng/mL.',1);
+  add('Zinc plasmatique','Régule la 5α-réductase, le sébum, la barrière épithéliale. Cible 80-110 µg/dL. Carence fréquente en acné et eczéma.',1);
+  add('Index oméga-3 érythrocytaire','Le ratio oméga-6/oméga-3 est le meilleur marqueur d\'inflammation alimentaire. Cible &gt; 7 %.',1);
+  add('CRP ultra-sensible','Inflammation chronique de bas grade — souvent normale en standard mais informative en us (cible &lt; 1 mg/L).',1);
+  add('Ferritine + CST','Carence martiale fréquente (cheveux, ongles, peau). Cible ferritine &gt; 50 ng/mL, CST &gt; 25%.',2);
+  if(s.intest>=4)add('Calprotectine fécale','Marqueur d\'inflammation intestinale. Si élevée, exclure MICI (Crohn, RCH) — comorbidité fréquente avec psoriasis.',1);
+  if(a.type==='pso'||(a.alim_proinflam&&a.alim_proinflam.indexOf('glut')>-1))add('Sérologie cœliaque (IgA anti-TG2, anti-endomysium, IgA totales)','14% des psoriasiques ont des anticorps anti-gliadine élevés sans cœliaque vraie. À explorer avant éviction longue.',2);
+  add('TSH + T3L + T4L + anti-TPO + anti-Tg','Une dysfonction thyroïdienne sub-clinique aggrave peau sèche et terrain auto-immun. Cible TSH &lt; 2,5 mUI/L.',2);
+  if(s.histam>=4)add('DAO sérique + histaminurie 24h','Si symptômes histaminiques marqués : recherche d\'un déficit en DAO (diamine oxydase).',2);
+  add('B12 active + folates','Bases de la méthylation, cofacteurs cutanés. Cible B12 &gt; 400 pmol/L.',3);
+  add('Magnésium érythrocytaire','Bien plus précis que le Mg plasmatique. Carence fréquente en stress chronique.',3);
+  if(a.type==='acne'||s.hormon>=4)add('Bilan hormonal (testostérone libre, SHBG, DHEAS, prolactine, oestradiol si femme)','Surtout si acné mâchoire/menton, pilosité, cycles irréguliers. Explorer SOPK si pertinent.',2);
+  if(a.type==='acne'||a.alim_proinflam&&a.alim_proinflam.indexOf('sucre')>-1)add('Glycémie + insuline à jeun + HOMA-IR','Lien insuline-IGF-1-acné démontré. HOMA-IR &gt; 2 = alerte précoce.',2);
+  if(s.immuno>=4||a.familial&&a.familial.indexOf('autoimm')>-1)add('Bilan auto-immun (ANA, anti-DNA, complément C3 C4)','Si terrain auto-immun familial fort. Sur prescription médicale ciblée.',3);
+  L.sort(function(x,y){return x.priority-y.priority});return L;
+}
+
+var idx=0,ans={};
+var $card=document.getElementById('quizCard'),$result=document.getElementById('resultCard'),$bar=document.getElementById('progressBar'),$meta=document.getElementById('meta'),$qT=document.getElementById('qTitle'),$qH=document.getElementById('qHint'),$qF=document.getElementById('qFact'),$qB=document.getElementById('qBody'),$prev=document.getElementById('btnPrev'),$next=document.getElementById('btnNext'),$restart=document.getElementById('btnRestart');
+
+function render(){
+  var q=Q[idx];
+  $bar.style.width=(idx/Q.length*100)+'%';
+  $meta.textContent=q.sec+' · '+(idx+1)+' sur '+Q.length;
+  $qT.textContent=q.q;
+  $qH.textContent=q.hint||'';$qH.style.display=q.hint?'block':'none';
+  if(q.fact){$qF.innerHTML='💡 '+q.fact;$qF.style.display='block';}else{$qF.style.display='none';}
+  $qB.innerHTML='';
+  $prev.classList.toggle('hidden',idx===0);
+  $next.textContent=(idx===Q.length-1)?'Voir mon bilan →':'Continuer →';
+  if(q.type==='scale'){var sc=document.createElement('div');sc.className='scale';q.lbls.forEach(function(lbl,n){var o=document.createElement('div');o.className='opt'+(ans[q.id]===n?' selected':'');o.innerHTML='<span class="scale-num">'+n+'</span><span class="scale-lbl">'+lbl+'</span>';o.addEventListener('click',function(){ans[q.id]=n;[].forEach.call(sc.children,function(c){c.classList.remove('selected')});o.classList.add('selected')});sc.appendChild(o)});$qB.appendChild(sc)}
+  else{var multi=q.type==='multi';var L=document.createElement('div');L.className='opt-list';q.o.forEach(function(opt){var sel=multi?((ans[q.id]||[]).indexOf(opt.v)>-1):ans[q.id]===opt.v;var o=document.createElement('div');o.className='opt'+(sel?' selected':'');var sub=opt.sub?'<span class="sub">'+opt.sub+'</span>':'';o.innerHTML='<span class="opt-check'+(multi?' square':'')+'">'+(sel?'✓':'')+'</span><span class="opt-text"><strong>'+opt.l+'</strong>'+sub+'</span>';o.addEventListener('click',function(){if(multi){var cur=ans[q.id]||[];if(opt.excl){cur=(cur.indexOf(opt.v)>-1)?[]:[opt.v]}else{var i=cur.indexOf(opt.v);if(i>-1)cur.splice(i,1);else cur.push(opt.v);cur=cur.filter(function(v){var od=q.o.filter(function(x){return x.v===v})[0];return !(od&&od.excl)})}ans[q.id]=cur;render()}else{ans[q.id]=opt.v;render()}});L.appendChild(o)});$qB.appendChild(L)}
+}
+function validate(){var q=Q[idx],v=ans[q.id];if(q.type==='scale'){if(v==null){alert('Merci de sélectionner une réponse.');return false}return true}if(q.type==='single'){if(!v){alert('Merci de sélectionner une réponse.');return false}return true}if(q.type==='multi'){if(!v||!v.length){alert('Merci de sélectionner au moins une réponse.');return false}return true}return true}
+function show(){
+  var s=score(ans);var pct=coherencePct(s);var info=coherenceLabel(pct);
+  document.getElementById('sevScore').textContent=pct+'%';
+  document.getElementById('sevLabel').textContent=info.l;
+  document.getElementById('sevDesc').textContent=info.d;
+  document.getElementById('profileBlock').innerHTML=profile(ans,s);
+  var entries=Object.keys(s).map(function(k){return [k,s[k]]});var max=Math.max(8,Math.max.apply(null,entries.map(function(e){return e[1]})));
+  var ab=document.getElementById('axesBlock');ab.innerHTML='';
+  entries.sort(function(x,y){return y[1]-x[1]}).forEach(function(e){var k=e[0],val=e[1],p=Math.round(val/max*100);var lvl='l-low',lbl='Faible';if(val>=8){lvl='l-critic';lbl='Critique'}else if(val>=5){lvl='l-high';lbl='Élevé'}else if(val>=3){lvl='l-mod';lbl='Modéré'}var col=val>=8?'var(--alert)':val>=5?'#C97A1A':val>=3?'var(--green-d)':'var(--green-br)';var row=document.createElement('div');row.className='axis-row';row.innerHTML='<span class="axis-name">'+AXES_LBL[k]+'<small>'+AXES_SUB[k]+'</small></span><span class="axis-meter"><i style="width:'+p+'%;background:'+col+'"></i></span><span class="axis-val '+lvl+'">'+lbl+'</span>';ab.appendChild(row)});
+  var ph=phases(ans,s);var pb=document.getElementById('phasesBlock');pb.innerHTML='';ph.forEach(function(p){var d=document.createElement('div');d.className='phase-box';var h='<span class="phase-tag">'+p.tag+'</span><h4>'+p.title+'</h4><ul>';p.items.forEach(function(it){h+='<li>'+it+'</li>'});h+='</ul>';d.innerHTML=h;pb.appendChild(d)});
+  var anls=analyses(ans,s);var anb=document.getElementById('analysesBlock');anb.innerHTML='';anls.forEach(function(a,i){var d=document.createElement('div');d.className='an';var b=a.priority===1?' <span class="badge-pri">PRIORITÉ</span>':'';d.innerHTML='<span class="an-num">'+(i+1)+'</span><div><strong>'+a.name+b+'</strong><span class="why">'+a.why+'</span></div>';anb.appendChild(d)});
+  document.getElementById('statCount').textContent=anls.length;
+  // Bloc d'urgence si signes d'alerte
+  var ub=document.getElementById('urgencyBlock');var u='';
+  if(ans.severite>=5)u+='<div class="warn-box"><strong>Vous évaluez l\'impact comme invalidant.</strong> Au-delà du plan micronutritionnel, parlez-en à votre dermatologue : il existe aujourd\'hui des biothérapies très efficaces (psoriasis, eczéma) qui peuvent vous soulager rapidement. La micronutrition vient compléter, pas remplacer.</div>';
+  if(ans.comorb&&ans.comorb.indexOf('art')>-1&&ans.type==='pso')u+='<div class="warn-box"><strong>Douleurs articulaires + psoriasis = penser au rhumatisme psoriasique.</strong> 25-30% des psoriasiques en sont atteints, souvent sous-diagnostiqué. Demandez un avis rhumatologique — le traitement précoce protège les articulations.</div>';
+  ub.innerHTML=u;
+  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'});
+}
+$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
+$prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
+$restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
+
+var $leadForm=document.getElementById('leadForm');
+if($leadForm){$leadForm.addEventListener('submit',function(e){e.preventDefault();var fd=new FormData($leadForm);fetch($leadForm.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){return r.json()}).then(function(d){if(d.success){document.getElementById('ctaSuccess').classList.add('show');$leadForm.style.display='none'}else{alert('Erreur : '+(d.message||'réessayez.'))}}).catch(function(){alert('Une erreur est survenue. Merci de réessayer.')})})}
+
+render();
+</script>
+</body>
+</html>
