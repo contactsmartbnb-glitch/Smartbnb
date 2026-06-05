@@ -177,23 +177,23 @@ footer .copy a{color:var(--green-d);text-decoration:none}
 </style>
 </head>
 <body>
-<!-- ─── GATE D'ACCÈS — code + expiration ───────────────────── -->
-<div id="accessGate" style="position:fixed;inset:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
-  <div style="max-width:460px;width:100%;text-align:center">
+<!-- ─── GATE DE FIN — code requis pour débloquer le rapport ──── -->
+<div id="reportGate" style="position:fixed;inset:0;background:rgba(255,255,255,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
+  <div style="max-width:460px;width:100%;text-align:center;background:#fff;padding:36px 28px;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.18);border:1px solid #E3E9E4">
     <div style="width:48px;height:48px;border-radius:50%;background:#E3F1E9;color:#0B6E4F;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 18px;font-weight:800;font-family:'Fraunces',serif">℞</div>
-    <h2 id="gateTitle" style="font-size:1.5rem;margin-bottom:12px;color:#16211C;font-weight:800;letter-spacing:-.025em">Accès au questionnaire</h2>
+    <h2 id="gateTitle" style="font-size:1.5rem;margin-bottom:12px;color:#16211C;font-weight:800;letter-spacing:-.025em">Votre bilan est prêt 🎉</h2>
     <p id="gateDisclaimer" style="margin-bottom:26px;color:#4C574F;line-height:1.55;font-size:.98rem">
-      Ce questionnaire est réservé aux <strong>personnes invitées au séminaire</strong>.<br>
-      Accès valable jusqu'au <strong>dimanche 7 juin 2026 à 18h00</strong>.
+      Entrez votre <strong>code d'accès</strong> pour débloquer votre rapport personnalisé.<br>
+      <small style="color:#76837A;font-size:.86rem">Accès valable jusqu'au dimanche 7 juin 2026 à 18h00.</small>
     </p>
     <div id="gateForm">
-      <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off" autofocus
+      <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off"
         style="padding:14px 16px;width:100%;border:2px solid #E3E9E4;border-radius:10px;font-size:1.05rem;text-align:center;margin-bottom:14px;font-family:inherit;outline:none;color:#16211C">
-      <button onclick="checkCode()" style="background:#12936A;color:#fff;border:0;padding:14px 32px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:1rem;font-family:inherit;transition:background .15s">Accéder au questionnaire →</button>
+      <button onclick="checkCode()" style="background:#12936A;color:#fff;border:0;padding:14px 32px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:1rem;font-family:inherit;transition:background .15s">Débloquer mon bilan →</button>
       <p id="accessError" style="color:#B0383C;margin-top:14px;display:none;font-size:.92rem">Code incorrect.</p>
     </div>
     <div id="gateExpired" style="display:none">
-      <p style="color:#4C574F;font-size:1.02rem;line-height:1.55;margin-bottom:8px"><strong>L'accès à ce questionnaire est terminé.</strong></p>
+      <p style="color:#4C574F;font-size:1.02rem;line-height:1.55;margin-bottom:8px"><strong>L'accès à votre bilan est terminé.</strong></p>
       <p style="color:#76837A;font-size:.92rem;margin-bottom:24px">Merci de votre participation au séminaire.</p>
       <a href="contact.html" style="display:inline-block;background:#12936A;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:.95rem">Prendre RDV avec le Dr Lapothicaire →</a>
     </div>
@@ -212,23 +212,28 @@ footer .copy a{color:var(--green-d);text-decoration:none}
     document.getElementById('gateTitle').textContent='Accès terminé';
     document.getElementById('gateDisclaimer').style.display='none';
   }
+  window.openReportGate = function(){
+    var rc = document.getElementById('resultCard');
+    if(rc){ rc.style.filter='blur(8px) brightness(.9)'; rc.style.pointerEvents='none'; rc.style.userSelect='none'; }
+    var gate = document.getElementById('reportGate');
+    gate.style.display='flex';
+    if(isExpired()){ showExpired(); return; }
+    document.getElementById('accessError').style.display='none';
+    var inp = document.getElementById('accessCode');
+    if(inp){ inp.value=''; setTimeout(function(){ inp.focus(); }, 80); }
+  };
   window.checkCode = function(){
     if(isExpired()){ showExpired(); return; }
     var input = document.getElementById('accessCode').value;
     if(norm(input) === norm(VALID)){
-      sessionStorage.setItem('lmn_access','1');
-      document.getElementById('accessGate').style.display='none';
+      var rc = document.getElementById('resultCard');
+      if(rc){ rc.style.filter=''; rc.style.pointerEvents=''; rc.style.userSelect=''; }
+      document.getElementById('reportGate').style.display='none';
     } else {
       document.getElementById('accessError').style.display='block';
     }
   };
   document.addEventListener('DOMContentLoaded', function(){
-    if(isExpired()){
-      sessionStorage.removeItem('lmn_access');
-      showExpired();
-    } else if(sessionStorage.getItem('lmn_access')==='1'){
-      document.getElementById('accessGate').style.display='none';
-    }
     var inp = document.getElementById('accessCode');
     if(inp){
       inp.addEventListener('keypress', function(e){ if(e.key==='Enter') window.checkCode(); });
@@ -634,7 +639,7 @@ function show(){
   var ph=phases(ans,s);var pb=document.getElementById('phasesBlock');pb.innerHTML='';ph.forEach(function(p){var d=document.createElement('div');d.className='phase-box';var h='<span class="phase-tag">'+p.tag+'</span><h4>'+p.title+'</h4><ul>';p.items.forEach(function(it){h+='<li>'+it+'</li>'});h+='</ul>';d.innerHTML=h;pb.appendChild(d)});
   var anls=analyses(ans,s);var anb=document.getElementById('analysesBlock');anb.innerHTML='';anls.forEach(function(a,i){var d=document.createElement('div');d.className='an';var b=a.priority===1?' <span class="badge-pri">PRIORITÉ</span>':'';d.innerHTML='<span class="an-num">'+(i+1)+'</span><div><strong>'+a.name+b+'</strong><span class="why">'+a.why+'</span></div>';anb.appendChild(d)});
   document.getElementById('statCount').textContent=anls.length;
-  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'})
+  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'});if(window.openReportGate)window.openReportGate();
 }
 $next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
 $prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
