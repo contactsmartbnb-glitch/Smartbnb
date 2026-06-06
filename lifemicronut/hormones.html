@@ -298,17 +298,25 @@ footer .copy a{color:var(--green-d);text-decoration:none}
       <strong>Important :</strong> Ce bilan est un outil d'orientation, pas un diagnostic ni une prescription. Le surpoids peut avoir des causes médicales qui nécessitent une consultation (endocrinologie, gynécologie, médecine interne). La micronutrition est un <strong>levier complémentaire puissant</strong>, jamais un substitut à un suivi médical. <strong>Ne supprimez aucun aliment de manière restrictive sans accompagnement</strong> — les régimes restrictifs aggravent presque toujours la résistance pondérale à long terme.
     </div>
 
+    <!-- BOUTON TÉLÉCHARGER PDF (hotfix conf) -->
+    <div style="text-align:center;margin:24px 0">
+      <button id="downloadPDF" type="button" style="display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;border:0;padding:16px 30px;border-radius:11px;font-weight:800;font-size:1.02rem;cursor:pointer;font-family:inherit;box-shadow:0 12px 30px -10px rgba(18,147,106,.45);transition:transform .15s">
+        📄 Télécharger mon rapport en PDF
+      </button>
+      <p style="font-size:.84rem;color:var(--ink-3);margin-top:10px">Sauvegardez votre bilan personnalisé · prêt à montrer à votre médecin</p>
+    </div>
+
     <div class="cta-final">
-      <h3>Et maintenant, on construit votre plan ?</h3>
-      <p class="cta-lead">Ce bilan met en lumière vos leviers — mais la <strong style="color:#fff">vraie transformation</strong> passe par un plan personnalisé, hiérarchisé, et adapté à votre vie. Recevez votre rapport détaillé par email, ou prenez RDV pour une consultation individualisée.</p>
-      <div class="cta-success" id="ctaSuccess">✓ Merci ! Le Dr Lapothicaire reçoit votre demande et vous adresse votre rapport personnalisé sous 24-48h. Vous pouvez aussi prendre RDV directement.</div>
+      <h3>Restez en contact avec LifeMicroNut</h3>
+      <p class="cta-lead">Ce bilan met en lumière vos leviers — mais la <strong style="color:#fff">vraie transformation</strong> passe par un plan personnalisé, hiérarchisé, et adapté à votre vie. Laissez votre email pour recevoir nos prochains conseils micronutrition + l'accès anticipé à nos nouveaux questionnaires.</p>
+      <div class="cta-success" id="ctaSuccess">✓ Merci ! Vous êtes inscrit·e à nos prochains conseils. Le Dr Lapothicaire vous écrira prochainement.</div>
       <form class="cta-form" id="leadForm" method="POST" action="https://api.web3forms.com/submit">
         <input type="hidden" name="access_key" value="57726177-ef80-4817-bcf9-e1a59d4d0131">
-        <input type="hidden" name="subject" value="Nouveau lead — Bilan Surpoids (LifeMicroNut)">
-        <input type="hidden" name="from_name" value="LifeMicroNut · Bilan Surpoids">
+        <input type="hidden" name="subject" value="Nouveau lead — Bilan Hormones (LifeMicroNut)">
+        <input type="hidden" name="from_name" value="LifeMicroNut · Bilan Hormones">
         <input type="hidden" name="botcheck">
         <input type="email" name="email" placeholder="votre@email.com" required>
-        <button type="submit">Recevoir mon bilan →</button>
+        <button type="submit">Rester en contact →</button>
       </form>
       <p class="cta-or">— ou —</p>
       <a href="contact.html" class="cta-rdv">Prendre RDV avec le Dr Lapothicaire →</a>
@@ -612,7 +620,8 @@ function show(){
   var anls=analyses(ans,s);var anb=document.getElementById('analysesBlock');anb.innerHTML='';anls.forEach(function(a,i){var d=document.createElement('div');d.className='an';var b=a.priority===1?' <span class="badge-pri">PRIORITÉ</span>':'';d.innerHTML='<span class="an-num">'+(i+1)+'</span><div><strong>'+a.name+b+'</strong><span class="why">'+a.why+'</span></div>';anb.appendChild(d)});
   document.getElementById('statCount').textContent=anls.length;
   $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'});
-  if(window.LMNPaywall) window.LMNPaywall.process(ans, pct);
+  /* HOTFIX conf : paywall désactivé pour les filles de la conférence */
+  /* if(window.LMNPaywall) window.LMNPaywall.process(ans, pct); */
 }
 $next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
 $prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
@@ -719,5 +728,54 @@ render();
 </script>
 <!-- ─── FIN PAYWALL ─── -->
 <script defer src="wa.js"></script>
+
+<!-- HOTFIX CONF · Téléchargement PDF du rapport -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var btn = document.getElementById('downloadPDF');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Génération en cours...';
+    btn.disabled = true;
+    var element = document.getElementById('resultCard');
+    if(!element){ alert('Erreur : rapport introuvable.'); btn.innerHTML = originalText; btn.disabled = false; return; }
+    var prevFilter = element.style.filter;
+    element.style.filter = '';
+    element.style.pointerEvents = '';
+    setTimeout(function(){
+      html2canvas(element, {scale: 1.4, logging: false, useCORS: true, backgroundColor: '#ffffff'}).then(function(canvas){
+        var imgData = canvas.toDataURL('image/jpeg', 0.92);
+        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        var imgWidth = 210;
+        var pageHeight = 297;
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+        var position = 0;
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+        while(heightLeft > 0){
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+        var today = new Date().toISOString().slice(0,10);
+        pdf.save('LifeMicroNut-Bilan-Hormones-'+today+'.pdf');
+        element.style.filter = prevFilter;
+        btn.innerHTML = '✓ Téléchargé !';
+        setTimeout(function(){ btn.innerHTML = originalText; btn.disabled = false; }, 2500);
+      }).catch(function(err){
+        element.style.filter = prevFilter;
+        alert('Erreur génération PDF : '+(err.message||'réessayez.'));
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      });
+    }, 80);
+  });
+});
+</script>
 </body>
 </html>
