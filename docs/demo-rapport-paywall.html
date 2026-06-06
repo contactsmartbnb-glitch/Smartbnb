@@ -111,6 +111,14 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
 
 .legend{margin-top:20px;text-align:center;font-size:.78rem;color:var(--ink-3);padding:14px;background:#fff;border:1px dashed var(--line);border-radius:10px}
 .legend strong{color:var(--ink)}
+.fomo-pill{display:inline-block;background:linear-gradient(135deg,#C97A1A,#A65500);color:#fff;padding:6px 16px;border-radius:14px;font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;animation:pulse 2.5s ease-in-out infinite;box-shadow:0 4px 14px -2px rgba(201,122,26,.4)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.option .strike{text-decoration:line-through;color:var(--ink-3);font-size:1.2rem;font-family:'Inter',sans-serif;font-style:normal;font-weight:500;align-self:flex-end;margin-left:6px}
+.guarantee-box{display:flex;gap:14px;background:linear-gradient(135deg,var(--mint) 0%,var(--bg-soft) 100%);border:2px solid var(--green);border-radius:14px;padding:18px 20px;margin-top:18px;align-items:flex-start}
+.guarantee-icon{font-size:2rem;flex-shrink:0;background:#fff;width:54px;height:54px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid var(--mint-d)}
+.guarantee-text strong{color:var(--green-d);font-size:1rem;display:block;margin-bottom:4px}
+.guarantee-text p{font-size:.86rem;color:var(--ink-2);line-height:1.5;margin:0}
+.guarantee-text p strong{color:var(--ink);font-size:.86rem;display:inline}
 </style>
 </head>
 <body>
@@ -216,43 +224,58 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
 
       <!-- PAYWALL CARD -->
       <div class="paywall-overlay">
-        <h2>Votre plan complet est <em>prêt</em>.</h2>
-        <p>Plan d'action détaillé en 4 phases, <strong>11 analyses biologiques à demander à votre médecin</strong>, bibliographie scientifique, et compléments adaptés à votre profil. <strong>2 façons de débloquer.</strong></p>
+        <div class="fomo-pill">⏰ Prix de lancement — limité</div>
+        <h2>Enfin un rapport qui ne se contente pas de te renvoyer <em>chez le médecin</em>.</h2>
+        <p>Votre rapport détaillé contient votre <strong>feuille de route sur 3 mois</strong>, les <strong>11 analyses biologiques à demander à votre médecin</strong>, la bibliographie scientifique, et les compléments adaptés à votre profil. <strong>2 façons de le recevoir.</strong></p>
 
         <div class="dual-pricing">
 
           <div class="option">
-            <span class="name">Le bilan seul</span>
+            <span class="name">Le rapport seul</span>
             <div class="price-row">
-              <span class="price">19,90 €</span>
+              <span class="price">9,90 €</span>
+              <span class="strike">19,90 €</span>
             </div>
-            <div class="what">Débloquer mon rapport complet PDF</div>
+            <span class="save">−50 % · lancement</span>
+            <div class="what">Recevoir mon rapport détaillé PDF</div>
             <ul>
-              <li>Plan d'action 4 phases</li>
+              <li>Feuille de route sur 3 mois</li>
               <li>Liste 11 analyses biologiques</li>
               <li>Bibliographie scientifique</li>
               <li>PDF à montrer à votre médecin</li>
+              <li>Mises à jour scientifiques mensuelles</li>
             </ul>
-            <a href="#" class="cta">Débloquer pour 19,90 €</a>
+            <a href="#" class="cta">Recevoir mon rapport · 9,90 €</a>
           </div>
 
           <div class="option featured">
             <span class="badge">⭐ Le + malin</span>
-            <span class="name">Bilan + Akkermansia</span>
+            <span class="name">Rapport + Akkermansia</span>
             <div class="price-row">
-              <span class="price">49,90 €</span>
+              <span class="price">29,90 €</span>
+              <span class="strike">59,80 €</span>
             </div>
-            <span class="save">Économie 19,90 €</span>
-            <div class="what">Bilan complet OFFERT avec la cure Akkermansia</div>
+            <span class="save">Économie 29,90 €</span>
+            <div class="what">Rapport OFFERT avec la cure Akkermansia</div>
             <ul>
-              <li>Tout le bilan complet inclus</li>
+              <li>Le rapport détaillé complet inclus</li>
               <li>+ 1 cure Akkermansia (30 jours)</li>
-              <li>+ Suivi email Assiya (J30/J60/J90)</li>
               <li>Le complément recommandé pour VOTRE profil</li>
+              <li>Livraison 48h offerte</li>
+              <li>Le pack qui a marché pour Youness (story fondateur)</li>
             </ul>
-            <a href="#" class="cta">Débloquer + Cure 49,90 €</a>
+            <a href="#" class="cta">Recevoir mon rapport + cure · 29,90 €</a>
           </div>
 
+        </div>
+
+        <!-- GARANTIE -->
+        <div class="guarantee-box">
+          <div class="guarantee-icon">🛡</div>
+          <div class="guarantee-text">
+            <strong>Garantie 90 jours · Satisfait ou remboursé</strong>
+            <p>Vous appliquez les leviers de la Phase 1 de votre plan, vous ne voyez <strong>aucune amélioration ressentie</strong> au bout de 90 jours ? On vous rembourse <strong>intégralement le prix de votre rapport</strong>. Sans justification compliquée. Écrivez-nous, on traite votre demande sous 48h.</p>
+          </div>
         </div>
 
         <div class="paywall-or">— OU —</div>
