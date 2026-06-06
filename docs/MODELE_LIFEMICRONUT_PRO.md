@@ -36,7 +36,7 @@ LifeMicroNut Pro = **un cabinet en ligne complémentaire** pour pros de santé :
 
 | # | Cible | Profil | Taille marché FR | Acquisition |
 |---|-------|--------|------------------|-------------|
-| 1 | **Naturopathes** | Pas remboursés, en quête d'outils, communauté soudée | ~10 000 | Partenariats CENATHO / FENA / réseaux indépendants, Instagram, salons |
+| 1 | **Naturopathes** | Pas remboursés, en quête d'outils, communauté soudée | ~10 000 | Écoles indépendantes solides (ISUPNAT, Hippocratus, Adnr, Aesculape, Académie Daniel Kieffer), réseau FENA, Instagram, salons. ⚠ Éviter CENATHO (redressement judiciaire fin 2024). |
 | 2 | **Pharmaciens micronutritionnistes** | Formés au DU, autonomes, à l'aise tech | ~3 000 | Réseau Assiya, salons pharma, LinkedIn |
 | 3 | **Sage-femmes en libéral** | Périménopause / SOPK / SPM = leur quotidien | ~5 000 (libéral) | Réseaux, mailings ciblés, Instagram |
 | 4 | **Ostéopathes / kinés** | Plaintes croisées (digestion, sommeil, hormones) | ~30 000 | Plus difficile, à exclure phase 1 |
@@ -139,7 +139,7 @@ Sur les bilans générés (volume secondaire, marge faible mais alimente le mote
 
 ### Phase 2 (Mois 3-4) — Communauté naturopathes
 1. **LinkedIn** : Assiya publie 2 fois / semaine sur le réseau, ciblé pros
-2. **Partenariats écoles** : CENATHO, ISUPNAT, Hippocratus, etc. → offre groupée
+2. **Partenariats écoles solides** : ISUPNAT, Hippocratus, Adnr, Académie Daniel Kieffer, Aesculape → offre groupée (étudiants en fin de cursus + jeunes diplômés). ⚠ Ne pas approcher CENATHO (redressement judiciaire fin 2024 — risque d'instabilité, mauvaise image associative).
 3. **Webinaire mensuel** « Cas clinique du mois » → entonnoir vers l'offre Pro
 4. **Bouche-à-oreille** : programme de parrainage (3 mois gratuits offerts par filleul converti)
 
