@@ -86,12 +86,19 @@ a{color:var(--green-d)}
 .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff;margin-left:10px}
 .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
 
-footer{border-top:1px solid var(--line);background:var(--bg-soft);padding:38px 0}
-footer .wrap{max-width:820px;text-align:center}
-footer .brand{justify-content:center;margin-bottom:10px}
-footer p{font-size:.9rem;color:var(--ink-2);max-width:520px;margin:0 auto 14px}
-footer .copy{font-size:.78rem;color:var(--ink-3);letter-spacing:.02em}
-footer .copy a{color:var(--green-d);text-decoration:none}
+footer{border-top:1px solid var(--line);background:var(--ink);color:#fff;padding:50px 0 30px}
+footer .wrap{max-width:1180px;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:30px;text-align:left}
+footer .col h4{color:#fff;font-size:.95rem;margin-bottom:14px}
+footer .col .brand{color:#fff;margin-bottom:12px;font-size:1.3rem}
+footer .col p{color:rgba(255,255,255,.6);font-size:.86rem;line-height:1.55;margin-bottom:12px;max-width:280px}
+footer .col p strong{color:#fff}
+footer .col ul{list-style:none;padding:0}
+footer .col ul li{margin-bottom:8px}
+footer .col ul a{color:rgba(255,255,255,.7);font-size:.88rem;text-decoration:none}
+footer .col ul a:hover{color:#fff}
+footer .copy{border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:20px;text-align:center;font-size:.78rem;color:rgba(255,255,255,.5)}
+@media(max-width:780px){footer .wrap{grid-template-columns:1fr 1fr}.col:first-child{grid-column:1/-1}}
+@media(max-width:520px){footer .wrap{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -100,14 +107,13 @@ footer .copy a{color:var(--green-d);text-decoration:none}
  <div class="wrap">
  <a href="index.html" class="brand">LifeMicroNut</a>
  <nav class="nav-main">
- <a href="index.html" class="nav-keep">Accueil</a>
- <a href="index.html#questionnaires" class="nav-keep">Questionnaires</a>
+ <a href="index.html#bilans" class="nav-keep">Bilans</a>
+ <a href="../boutique/index.html">Boutique</a>
+ <a href="pro.html">Pour les pros</a>
  <a href="comprendre.html">Comprendre</a>
  <a href="blog.html">Blog</a>
- <a href="faq.html">FAQ</a>
- <a href="about.html" class="active">À propos</a>
- <a href="mentions-legales.html">Mentions légales</a>
- <a href="contact.html" class="btn-nav">Prendre RDV</a>
+ <a href="about.html" class="active nav-keep">À propos</a>
+ <a href="index.html#bilans" class="btn-nav nav-keep">Faire mon bilan</a>
  </nav>
  </div>
 </header>
@@ -129,6 +135,20 @@ footer .copy a{color:var(--green-d);text-decoration:none}
  <div class="pull">« La micronutrition n'est pas une mode.<br>C'est une science du terrain. »</div>
  <p>LifeMicroNut est né de cette conviction : <strong>il faut allier l'exigence du pharmacien</strong> (la rigueur scientifique, la lecture clinique, le respect du dossier médical) <strong>à la finesse du micronutritionniste</strong> (la compréhension cellulaire, les axes intestin-cerveau, les déficits invisibles).</p>
  <p>Pas de raccourci. Pas de protocole générique. Pas de vente forcée de compléments. Juste une méthode, un dialogue, et des résultats durables.</p>
+ </div>
+</section>
+
+<!-- STORY YOUNESS — co-fondateur -->
+<section class="section" style="background:linear-gradient(180deg,#fff 0%,var(--bg-soft) 100%)">
+ <div class="wrap wrap-narrow">
+ <span class="eyebrow">Le co-fondateur</span>
+ <h2>Youness, l'<em>histoire personnelle</em> derrière LifeMicroNut</h2>
+ <p>Tout a commencé avec une <strong>plaque de psoriasis</strong> sur le coude de Youness. Pendant <strong>15 ans</strong>, il a tout essayé : crèmes, dermocorticoïdes, photothérapie, UV. Ça partait. Ça revenait. Toujours la même histoire.</p>
+ <p>Puis Assiya — pharmacienne micronutritionniste, sa femme — lui a parlé d'un concept qu'il n'avait jamais entendu en consultation dermato : <strong>l'axe intestin-peau</strong>. Le mucus intestinal, la perméabilité, l'inflammation systémique, les LPS bactériens.</p>
+ <p>Il a commencé par une bactérie : l'<em>Akkermansia muciniphila</em> (la souche brevetée Cani / UCLouvain). 3 mois. Pas miraculeux du jour au lendemain, mais progressif. Sa peau s'est apaisée. Et <strong>bonus inattendu : il a perdu 4 kg</strong> sans changer son alimentation.</p>
+ <p>Cette transformation, on la voulait <strong>pour le plus grand nombre</strong>. Pas comme un produit miracle. Pas comme une promesse magique. Comme ce qu'elle est vraiment : <strong>une approche scientifique honnête, structurée et personnalisée</strong>.</p>
+ <div class="pull">« Je ne savais pas que ma peau parlait de mon intestin.<br>Maintenant je le sais. Et je veux que d'autres le sachent aussi. » — Youness</div>
+ <p>Youness, c'est l'<strong>opérationnel</strong> : produit, technique, business. Assiya, c'est la <strong>scientifique</strong> : pharmacienne, micronutritionniste, formatrice. Ensemble, ils ont créé LifeMicroNut pour démocratiser une approche qui restait jusqu'ici confidentielle.</p>
  </div>
 </section>
 
@@ -200,21 +220,40 @@ footer .copy a{color:var(--green-d);text-decoration:none}
 </section>
 
 <footer>
- <div class="wrap">
- <div class="brand">LifeMicroNut</div>
- <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:18px;font-size:.88rem">
- <a href="index.html" style="color:var(--ink-2);text-decoration:none">Accueil</a>
- <a href="comprendre.html" style="color:var(--ink-2);text-decoration:none">Comprendre</a>
- <a href="microbiote-mental.html" style="color:var(--ink-2);text-decoration:none">Bilans</a>
- <a href="blog.html" style="color:var(--ink-2);text-decoration:none">Blog</a>
- <a href="faq.html" style="color:var(--ink-2);text-decoration:none">FAQ</a>
- <a href="about.html" style="color:var(--ink-2);text-decoration:none">À propos</a>
- <a href="contact.html" style="color:var(--ink-2);text-decoration:none">Contact</a>
- <a href="mentions-legales.html" style="color:var(--ink-2);text-decoration:none">Mentions légales</a>
- </div>
-<p>La micronutrition appliquée à la vraie vie. Une approche <strong>pharmacienne, scientifique et personnalisée</strong>, pour des résultats durables.</p>
- <p class="copy">© <span id="year"></span> LifeMicroNut · Tous droits réservés · <a href="https://lifemicronut.com">lifemicronut.com</a></p>
- </div>
+  <div class="wrap">
+    <div class="col">
+      <a href="index.html" class="brand">LifeMicroNut</a>
+      <p>La micronutrition appliquée à la vraie vie. Une approche <strong>pharmacienne, scientifique et personnalisée</strong>.</p>
+    </div>
+    <div class="col">
+      <h4>Bilans</h4>
+      <ul>
+        <li><a href="microbiote-mental.html">Microbiote &amp; Mental</a></li>
+        <li><a href="hormones.html">Hormones féminines</a></li>
+        <li><a href="peau-psoriasis-eczema.html">Peau · Pso / Eczéma</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>Boutique</h4>
+      <ul>
+        <li><a href="../boutique/akkermansia.html">Akkermansia</a></li>
+        <li><a href="../boutique/index.html">Tous les produits</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>Plus</h4>
+      <ul>
+        <li><a href="pro.html">Pour les pros</a></li>
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="comprendre.html">Comprendre</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">© <span id="year"></span> LifeMicroNut · Tous droits réservés</div>
 </footer>
 
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
