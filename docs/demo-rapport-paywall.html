@@ -138,6 +138,32 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
 .reco{display:flex;flex-direction:column;padding:11px 14px;background:var(--bg-soft);border-left:3px solid var(--green);border-radius:8px;margin-bottom:8px}
 .reco strong{color:var(--green-d);font-size:.96rem;margin-bottom:2px}
 .reco span{font-size:.84rem;color:var(--ink-2);line-height:1.4}
+
+/* PHASE VISIBLE (Phase 1 dévoilée) */
+.phase-visible{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;position:relative}
+.phase-tag-vis{display:inline-block;background:var(--mint);color:var(--green-d);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:10px}
+.phase-h{font-size:1.1rem;margin-bottom:12px;color:var(--ink);font-weight:800}
+.phase-bullets-vis{list-style:none;padding:0;margin:0}
+.phase-bullets-vis li{padding:8px 0 8px 26px;font-size:.94rem;color:var(--ink-2);line-height:1.55;position:relative;border-bottom:1px solid #F4F8F5}
+.phase-bullets-vis li:last-child{border-bottom:0}
+.phase-bullets-vis li::before{content:'✓';position:absolute;left:0;top:8px;color:var(--green-d);font-weight:900}
+.phase-bullets-vis li strong{color:var(--ink)}
+
+/* MORE TEASE */
+.more-tease{margin-top:14px;font-size:.86rem;color:var(--green-d);font-style:italic;background:linear-gradient(90deg,var(--mint) 0%,transparent 100%);padding:10px 14px;border-radius:8px;border-left:3px dashed var(--green);line-height:1.45}
+
+/* ANALYSES GRID */
+.analyses-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.ana{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 14px}
+.ana .num{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--mint);color:var(--green-d);font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ana strong{display:block;font-size:.86rem;color:var(--ink);margin-bottom:3px;line-height:1.2}
+.ana .prio{display:inline-block;background:var(--green-d);color:#fff;padding:1px 6px;border-radius:9px;font-size:.62rem;margin-left:4px;font-weight:700;vertical-align:middle;letter-spacing:.04em}
+.ana span:not(.prio){font-size:.78rem;color:var(--ink-2);line-height:1.4;display:block}
+@media(max-width:780px){.analyses-grid{grid-template-columns:1fr}}
+
+/* BIBLIO VISIBLE */
+.bib-visible{background:#fff;border-left:4px solid var(--green-br);padding:14px 18px;border-radius:8px;font-size:.92rem;line-height:1.6;color:var(--ink)}
+.bib-visible strong{color:var(--green-d)}
 </style>
 </head>
 <body>
@@ -206,6 +232,42 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
           <div class="axis-val low">Faible</div>
         </div>
       </div>
+    </div>
+
+    <!-- PHASE 1 visible (donne envie) -->
+    <div class="section">
+      <h2>📋 Votre <em>plan d'action</em> — Phase 1 sur 4</h2>
+      <div class="phase-visible">
+        <span class="phase-tag-vis">Phase 1 · Cartographier</span>
+        <h3 class="phase-h">Le bilan biologique d'abord</h3>
+        <ul class="phase-bullets-vis">
+          <li><strong>Avant tout : bilan biologique ciblé</strong> chez votre médecin (liste détaillée ci-dessous). Sans biologie, on tâtonne.</li>
+          <li><strong>Tenir un journal des poussées</strong> sur 4 semaines : alimentation, niveau de stress, cycle. Identifie les triggers personnels.</li>
+          <li><strong>Photographier les lésions</strong> à J0, J30, J60, J90. L'œil quotidien ne perçoit pas l'amélioration progressive.</li>
+        </ul>
+      </div>
+      <p class="more-tease">+ Phase 2 (Corrections), Phase 3 (Mode de vie), Phase 4 (Durée) débloquées dans votre rapport complet ↓</p>
+    </div>
+
+    <!-- ANALYSES — 3 visibles, 8 teasées -->
+    <div class="section">
+      <h2>🩸 Vos <em>11 analyses</em> à demander à votre médecin</h2>
+      <p style="font-size:.9rem;color:var(--ink-2);margin-bottom:14px">Pour le profil <em>« Tableau marqué — axe intestin/inflammation »</em>, voici les premières analyses ciblées :</p>
+      <div class="analyses-grid">
+        <div class="ana"><span class="num">1</span><div><strong>25-OH Vitamine D <span class="prio">PRIORITÉ</span></strong><span>Immunomodulateur Th17. Carence quasi systématique en pso. Cible 30-50 ng/mL.</span></div></div>
+        <div class="ana"><span class="num">2</span><div><strong>CRP ultra-sensible <span class="prio">PRIORITÉ</span></strong><span>Marqueur d'inflammation chronique de bas grade. Cible &lt; 1 mg/L.</span></div></div>
+        <div class="ana"><span class="num">3</span><div><strong>Zinc plasmatique <span class="prio">PRIORITÉ</span></strong><span>Régulation 5α-réductase, peau, immunité. Cible 80-110 µg/dL.</span></div></div>
+      </div>
+      <p class="more-tease">+ 8 autres analyses spécifiques à votre profil (Index oméga-3, Ferritine + CST, TSH+T3L+T4L+anti-TPO, Calprotectine fécale, Sérologie cœliaque, B12 active, Magnésium érythrocytaire, Bilan hormonal) débloquées dans votre rapport ↓</p>
+    </div>
+
+    <!-- BIBLIO — 1 visible, 2 floutés -->
+    <div class="section">
+      <h2>📚 Le <em>saviez-vous</em> — Synthèse scientifique</h2>
+      <div class="bib-visible">
+        <strong>L'axe intestin-peau n'est plus une hypothèse :</strong> c'est une réalité physiologique démontrée. Quand la barrière intestinale fuit, les lipopolysaccharides (LPS) bactériens passent dans le sang, activent les récepteurs TLR4, déclenchent NF-κB et inondent l'organisme de cytokines pro-inflammatoires. La peau, organe-cible, exprime cette inflammation.
+      </div>
+      <p class="more-tease">+ 9 autres faits scientifiques (Psoriasis &amp; Th17, déficit filaggrine, gluten et anti-gliadine, axe HPA-mastocytes…) débloqués dans votre rapport ↓</p>
     </div>
 
     <!-- 🔒 ZONE FLOUTÉE + PAYWALL -->
