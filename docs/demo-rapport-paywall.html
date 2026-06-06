@@ -162,8 +162,29 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
 @media(max-width:780px){.analyses-grid{grid-template-columns:1fr}}
 
 /* BIBLIO VISIBLE */
-.bib-visible{background:#fff;border-left:4px solid var(--green-br);padding:14px 18px;border-radius:8px;font-size:.92rem;line-height:1.6;color:var(--ink)}
+.bib-visible{background:#fff;border-left:4px solid var(--green-br);padding:14px 18px;border-radius:8px;font-size:.92rem;line-height:1.6;color:var(--ink);margin-bottom:14px}
 .bib-visible strong{color:var(--green-d)}
+
+/* TITLES TEASE (just titles, content locked) */
+.titles-tease{list-style:none;padding:0;margin:0;background:#F8FBF9;border:1px dashed var(--mint-d);border-radius:10px;padding:14px 18px}
+.titles-tease li{padding:7px 0;font-size:.88rem;color:var(--ink-2);line-height:1.45;border-bottom:1px dashed rgba(11,110,79,.1);position:relative}
+.titles-tease li:last-child{border-bottom:0;color:var(--green-d);font-weight:700;font-style:italic}
+
+/* PHASE TITLES (just titles) */
+.phase-titles{display:flex;flex-direction:column;gap:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.phase-title{display:flex;align-items:center;gap:14px;padding:11px 14px;background:var(--bg-soft);border-radius:10px;transition:background .15s}
+.phase-title:hover{background:var(--mint)}
+.phase-num{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem}
+.phase-title strong{display:block;font-size:.98rem;color:var(--ink);font-weight:800;line-height:1.2}
+.phase-title span{font-size:.84rem;color:var(--ink-2);font-weight:500;display:block;margin-top:2px}
+
+/* ANA TITLES (just titles) */
+.ana-titles{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.ana-t{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg-soft);border-radius:9px}
+.ana-t .num{flex-shrink:0;width:24px;height:24px;border-radius:7px;background:var(--mint);color:var(--green-d);font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.ana-t strong{font-size:.86rem;color:var(--ink);font-weight:700;flex:1;line-height:1.2}
+.ana-t .prio{background:var(--green-d);color:#fff;padding:1px 6px;border-radius:9px;font-size:.6rem;font-weight:700;letter-spacing:.04em}
+@media(max-width:780px){.ana-titles{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -234,40 +255,55 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
       </div>
     </div>
 
-    <!-- PHASE 1 visible (donne envie) -->
-    <div class="section">
-      <h2>📋 Votre <em>plan d'action</em> — Phase 1 sur 4</h2>
-      <div class="phase-visible">
-        <span class="phase-tag-vis">Phase 1 · Cartographier</span>
-        <h3 class="phase-h">Le bilan biologique d'abord</h3>
-        <ul class="phase-bullets-vis">
-          <li><strong>Avant tout : bilan biologique ciblé</strong> chez votre médecin (liste détaillée ci-dessous). Sans biologie, on tâtonne.</li>
-          <li><strong>Tenir un journal des poussées</strong> sur 4 semaines : alimentation, niveau de stress, cycle. Identifie les triggers personnels.</li>
-          <li><strong>Photographier les lésions</strong> à J0, J30, J60, J90. L'œil quotidien ne perçoit pas l'amélioration progressive.</li>
-        </ul>
-      </div>
-      <p class="more-tease">+ Phase 2 (Corrections), Phase 3 (Mode de vie), Phase 4 (Durée) débloquées dans votre rapport complet ↓</p>
-    </div>
-
-    <!-- ANALYSES — 3 visibles, 8 teasées -->
-    <div class="section">
-      <h2>🩸 Vos <em>11 analyses</em> à demander à votre médecin</h2>
-      <p style="font-size:.9rem;color:var(--ink-2);margin-bottom:14px">Pour le profil <em>« Tableau marqué — axe intestin/inflammation »</em>, voici les premières analyses ciblées :</p>
-      <div class="analyses-grid">
-        <div class="ana"><span class="num">1</span><div><strong>25-OH Vitamine D <span class="prio">PRIORITÉ</span></strong><span>Immunomodulateur Th17. Carence quasi systématique en pso. Cible 30-50 ng/mL.</span></div></div>
-        <div class="ana"><span class="num">2</span><div><strong>CRP ultra-sensible <span class="prio">PRIORITÉ</span></strong><span>Marqueur d'inflammation chronique de bas grade. Cible &lt; 1 mg/L.</span></div></div>
-        <div class="ana"><span class="num">3</span><div><strong>Zinc plasmatique <span class="prio">PRIORITÉ</span></strong><span>Régulation 5α-réductase, peau, immunité. Cible 80-110 µg/dL.</span></div></div>
-      </div>
-      <p class="more-tease">+ 8 autres analyses spécifiques à votre profil (Index oméga-3, Ferritine + CST, TSH+T3L+T4L+anti-TPO, Calprotectine fécale, Sérologie cœliaque, B12 active, Magnésium érythrocytaire, Bilan hormonal) débloquées dans votre rapport ↓</p>
-    </div>
-
-    <!-- BIBLIO — 1 visible, 2 floutés -->
+    <!-- BIBLIO — éduquer en premier -->
     <div class="section">
       <h2>📚 Le <em>saviez-vous</em> — Synthèse scientifique</h2>
       <div class="bib-visible">
         <strong>L'axe intestin-peau n'est plus une hypothèse :</strong> c'est une réalité physiologique démontrée. Quand la barrière intestinale fuit, les lipopolysaccharides (LPS) bactériens passent dans le sang, activent les récepteurs TLR4, déclenchent NF-κB et inondent l'organisme de cytokines pro-inflammatoires. La peau, organe-cible, exprime cette inflammation.
       </div>
-      <p class="more-tease">+ 9 autres faits scientifiques (Psoriasis &amp; Th17, déficit filaggrine, gluten et anti-gliadine, axe HPA-mastocytes…) débloqués dans votre rapport ↓</p>
+      <ul class="titles-tease">
+        <li>📖 Psoriasis = maladie Th17 — pourquoi les biothérapies marchent…</li>
+        <li>📖 Eczéma atopique : déficit filaggrine + dysbiose, le duo gagnant…</li>
+        <li>📖 Acné adulte = signature insuline / IGF-1, le lait écrémé est pire…</li>
+        <li>📖 Gluten et psoriasis : 14 % des patients ont des anticorps anti-gliadine…</li>
+        <li>📖 Histamine et eczéma : 1-3 % de la population a un déficit en DAO…</li>
+        <li>📖 Vitamine D = immunomodulateur Th17, cible 30-50 ng/mL…</li>
+        <li>📖 Carence en zinc = 30-50 % des acnéiques, comparable au minocycline…</li>
+        <li>📖 Stress et axe HPA : cortisol → mastocytes → poussées…</li>
+        <li>📖 + 1 autre fait scientifique</li>
+      </ul>
+    </div>
+
+    <!-- PLAN D'ACTION — juste les titres -->
+    <div class="section">
+      <h2>📋 Votre <em>plan d'action</em> en 4 phases</h2>
+      <div class="phase-titles">
+        <div class="phase-title"><span class="phase-num">1</span><div><strong>Cartographier</strong><span>Le bilan biologique d'abord</span></div></div>
+        <div class="phase-title"><span class="phase-num">2</span><div><strong>Corriger</strong><span>Travailler les axes prioritaires de votre profil</span></div></div>
+        <div class="phase-title"><span class="phase-num">3</span><div><strong>Stabiliser</strong><span>Les fondations mode de vie non négociables</span></div></div>
+        <div class="phase-title"><span class="phase-num">4</span><div><strong>Tenir dans le temps</strong><span>Réévaluation à 3-6 mois, ajustements personnalisés</span></div></div>
+      </div>
+      <p class="more-tease">Détails complets de chaque phase + actions concrètes adaptées à VOTRE profil débloqués dans votre rapport ↓</p>
+    </div>
+
+    <!-- ANALYSES — juste les titres -->
+    <div class="section">
+      <h2>🩸 Vos <em>11 analyses</em> à demander à votre médecin</h2>
+      <p style="font-size:.9rem;color:var(--ink-2);margin-bottom:14px">Pour le profil <em>« Tableau marqué — axe intestin/inflammation »</em>, voici les analyses ciblées :</p>
+      <div class="ana-titles">
+        <div class="ana-t"><span class="num">1</span><strong>25-OH Vitamine D</strong><span class="prio">PRIORITÉ</span></div>
+        <div class="ana-t"><span class="num">2</span><strong>CRP ultra-sensible</strong><span class="prio">PRIORITÉ</span></div>
+        <div class="ana-t"><span class="num">3</span><strong>Zinc plasmatique</strong><span class="prio">PRIORITÉ</span></div>
+        <div class="ana-t"><span class="num">4</span><strong>Index oméga-3 érythrocytaire</strong></div>
+        <div class="ana-t"><span class="num">5</span><strong>Ferritine + CST</strong></div>
+        <div class="ana-t"><span class="num">6</span><strong>TSH + T3L + T4L + anti-TPO + anti-Tg</strong></div>
+        <div class="ana-t"><span class="num">7</span><strong>Calprotectine fécale</strong></div>
+        <div class="ana-t"><span class="num">8</span><strong>Sérologie cœliaque (IgA anti-TG2)</strong></div>
+        <div class="ana-t"><span class="num">9</span><strong>B12 active + folates</strong></div>
+        <div class="ana-t"><span class="num">10</span><strong>Magnésium érythrocytaire</strong></div>
+        <div class="ana-t"><span class="num">11</span><strong>Bilan hormonal complet</strong></div>
+      </div>
+      <p class="more-tease">Explications détaillées + cibles biologiques + pourquoi ces analyses précises pour votre profil débloquées dans votre rapport ↓</p>
     </div>
 
     <!-- 🔒 ZONE FLOUTÉE + PAYWALL -->
