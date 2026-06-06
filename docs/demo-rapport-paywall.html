@@ -119,6 +119,25 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
 .guarantee-text strong{color:var(--green-d);font-size:1rem;display:block;margin-bottom:4px}
 .guarantee-text p{font-size:.86rem;color:var(--ink-2);line-height:1.5;margin:0}
 .guarantee-text p strong{color:var(--ink);font-size:.86rem;display:inline}
+
+/* SINGLE PRICING (replaces dual) */
+.single-pricing{max-width:520px;margin:0 auto 22px}
+.single-card{background:linear-gradient(180deg,var(--mint) 0%,#fff 60%);border:2.5px solid var(--green);border-radius:18px;padding:28px 26px;text-align:center;box-shadow:0 16px 40px -14px rgba(11,110,79,.32)}
+.single-price-row{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:4px}
+.price-big{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:3rem;color:var(--ink);letter-spacing:-.04em;line-height:1}
+.strike-big{text-decoration:line-through;color:var(--ink-3);font-size:1.4rem;font-weight:500;font-family:'Inter',sans-serif;font-style:normal}
+.save-big{display:inline-block;background:var(--green);color:#fff;padding:5px 14px;border-radius:14px;font-size:.78rem;font-weight:800;margin-bottom:18px;letter-spacing:.04em}
+.single-bullets{list-style:none;padding:0;margin:0 0 22px;text-align:left}
+.single-bullets li{padding:7px 0 7px 26px;font-size:.94rem;color:var(--ink);position:relative;line-height:1.5}
+.single-bullets li::before{content:'✓';position:absolute;left:0;top:7px;color:var(--green-d);font-weight:900;font-size:1.05rem}
+.cta-big{display:block;width:100%;text-align:center;background:var(--ink);color:#fff;padding:16px 24px;border-radius:12px;font-weight:900;font-size:1.05rem;text-decoration:none;transition:background .15s,transform .15s;letter-spacing:-.01em}
+.cta-big:hover{background:var(--green-d);transform:translateY(-2px)}
+
+/* RECOS PREVIEW (in locked zone) */
+.recos-preview{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:8px}
+.reco{display:flex;flex-direction:column;padding:11px 14px;background:var(--bg-soft);border-left:3px solid var(--green);border-radius:8px;margin-bottom:8px}
+.reco strong{color:var(--green-d);font-size:.96rem;margin-bottom:2px}
+.reco span{font-size:.84rem;color:var(--ink-2);line-height:1.4}
 </style>
 </head>
 <body>
@@ -220,53 +239,52 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
             <li>Assiette anti-inflammatoire.</li>
           </ul>
         </div>
+
+        <h2 style="margin-top:24px">Vos compléments recommandés</h2>
+        <div class="recos-preview">
+          <div class="reco">
+            <strong>Akkermansia muciniphila</strong>
+            <span>Restauration de la muqueuse intestinale — axe intestin-peau</span>
+          </div>
+          <div class="reco">
+            <strong>Zinc bisglycinate</strong>
+            <span>Régulation sébum, immunité, peau</span>
+          </div>
+          <div class="reco">
+            <strong>Oméga-3 EPA/DHA rTG</strong>
+            <span>Anti-inflammatoire systémique</span>
+          </div>
+          <div class="reco">
+            <strong>Vitamine D3 + K2</strong>
+            <span>Immunomodulateur Th17 — psoriasis</span>
+          </div>
+          <p style="font-size:.86rem;color:var(--ink-3);margin-top:10px;font-style:italic">→ Tous nos compléments sélectionnés sur la <strong>boutique LifeMicroNut</strong> (à venir).</p>
+        </div>
       </div>
 
       <!-- PAYWALL CARD -->
       <div class="paywall-overlay">
         <div class="fomo-pill">⏰ Prix de lancement — limité</div>
         <h2>Enfin un rapport qui ne se contente pas de te renvoyer <em>chez le médecin</em>.</h2>
-        <p>Votre rapport détaillé contient votre <strong>feuille de route sur 3 mois</strong>, les <strong>11 analyses biologiques à demander à votre médecin</strong>, la bibliographie scientifique, et les compléments adaptés à votre profil. <strong>2 façons de le recevoir.</strong></p>
+        <p>Votre rapport contient votre <strong>feuille de route sur 3 mois</strong>, les <strong>11 analyses biologiques à demander à votre médecin</strong>, la bibliographie scientifique, et la <strong>liste des compléments adaptés à votre profil</strong>.</p>
 
-        <div class="dual-pricing">
-
-          <div class="option">
-            <span class="name">Le rapport seul</span>
-            <div class="price-row">
-              <span class="price">9,90 €</span>
-              <span class="strike">19,90 €</span>
+        <div class="single-pricing">
+          <div class="single-card">
+            <div class="single-price-row">
+              <span class="price-big">9,90 €</span>
+              <span class="strike-big">19,90 €</span>
             </div>
-            <span class="save">−50 % · lancement</span>
-            <div class="what">Recevoir mon rapport détaillé PDF</div>
-            <ul>
-              <li>Feuille de route sur 3 mois</li>
-              <li>Liste 11 analyses biologiques</li>
-              <li>Bibliographie scientifique</li>
-              <li>PDF à montrer à votre médecin</li>
-              <li>Mises à jour scientifiques mensuelles</li>
+            <span class="save-big">−50 % · prix de lancement</span>
+            <ul class="single-bullets">
+              <li>Feuille de route sur <strong>3 mois</strong></li>
+              <li>Liste des <strong>11 analyses biologiques</strong> à demander à votre médecin</li>
+              <li>Recommandations de <strong>compléments adaptés à VOTRE profil</strong></li>
+              <li>Bibliographie scientifique complète</li>
+              <li>PDF téléchargeable à montrer à votre médecin</li>
+              <li>Mises à jour scientifiques mensuelles (automatiques)</li>
             </ul>
-            <a href="#" class="cta">Recevoir mon rapport · 9,90 €</a>
+            <a href="#" class="cta-big">Recevoir mon rapport · 9,90 €</a>
           </div>
-
-          <div class="option featured">
-            <span class="badge">⭐ Le + malin</span>
-            <span class="name">Rapport + Akkermansia</span>
-            <div class="price-row">
-              <span class="price">29,90 €</span>
-              <span class="strike">59,80 €</span>
-            </div>
-            <span class="save">Économie 29,90 €</span>
-            <div class="what">Rapport OFFERT avec la cure Akkermansia</div>
-            <ul>
-              <li>Le rapport détaillé complet inclus</li>
-              <li>+ 1 cure Akkermansia (30 jours)</li>
-              <li>Le complément recommandé pour VOTRE profil</li>
-              <li>Livraison 48h offerte</li>
-              <li>Le pack qui a marché pour Youness (story fondateur)</li>
-            </ul>
-            <a href="#" class="cta">Recevoir mon rapport + cure · 29,90 €</a>
-          </div>
-
         </div>
 
         <!-- GARANTIE -->
@@ -300,7 +318,7 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
   </div>
 
   <div class="legend">
-    <strong>🧠 La logique :</strong> on transforme chaque bilan en <strong>2 leviers de conversion en parallèle</strong>. L'option « Bilan + Cure 49,90 € » est presque toujours la plus rentable (panier moyen ×2,5, intention d'achat très forte, LTV démarrée).
+    <strong>🧠 La logique :</strong> le paywall vend <strong>uniquement le rapport</strong> (1 prix, 1 décision = conversion max). Les compléments recommandés apparaissent <strong>dans le rapport reçu</strong> et renvoient vers la boutique (cross-sell différé, plus naturel). Pour l'instant les liens boutique sont en placeholder en attendant le Shopify.
   </div>
 </div>
 
