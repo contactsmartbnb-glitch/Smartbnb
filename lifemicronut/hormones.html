@@ -275,6 +275,21 @@ footer .copy a{color:var(--green-d);text-decoration:none}
 </script>
 <!-- ─── FIN GATE ───────────────────────────────────────────────── -->
 
+<!-- EMAIL GATE — entre dernière question et rapport -->
+<div id="emailGate" style="display:none;position:fixed;inset:0;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9998;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
+  <div style="max-width:480px;width:100%;background:#fff;padding:36px 28px;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.18);border:1px solid #E3E9E4;text-align:center">
+    <div style="width:54px;height:54px;border-radius:14px;background:#E3F1E9;color:#0B6E4F;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 16px">✉</div>
+    <h2 style="font-size:1.55rem;color:#16211C;font-weight:800;letter-spacing:-.025em;margin-bottom:8px">Votre bilan est <em style="font-family:'Fraunces',serif;font-weight:600;color:#0B6E4F;font-style:italic">prêt</em>.</h2>
+    <p style="color:#4C574F;line-height:1.55;font-size:.96rem;margin-bottom:22px">Entrez votre email pour recevoir votre rapport détaillé. Vous accédez aussi à votre rapport tout de suite, sur cet écran.</p>
+    <form id="emailGateForm" style="display:flex;flex-direction:column;gap:12px">
+      <input type="email" id="emailGateInput" placeholder="votre@email.com" required autocomplete="email" style="padding:14px 16px;width:100%;border:2px solid #E3E9E4;border-radius:10px;font-size:1rem;text-align:center;font-family:inherit;outline:none;color:#16211C">
+      <button type="submit" style="background:#12936A;color:#fff;border:0;padding:15px 32px;border-radius:10px;font-weight:800;cursor:pointer;width:100%;font-size:1rem;font-family:inherit;transition:background .15s">Voir mon bilan →</button>
+    </form>
+    <p style="font-size:.78rem;color:#76837A;margin-top:14px">RGPD : votre email ne sert qu'à vous envoyer votre bilan et nos conseils. Désinscription en 1 clic.</p>
+  </div>
+</div>
+<!-- ─── FIN EMAIL GATE ───────────────────────────────────────────────── -->
+
 
 <header class="hdr">
   <div class="wrap">
@@ -683,8 +698,42 @@ function show(){
   $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'});
   /* HOTFIX conf : paywall désactivé pour les filles de la conférence */
   /* if(window.LMNPaywall) window.LMNPaywall.process(ans, pct); */
+
+  /* NOTIFICATION AUTO — envoyée dès la fin du quiz */
+  try{
+    var topAxes = Object.keys(s).sort(function(a,b){return s[b]-s[a]}).slice(0,3).map(function(k){return AXES_LBL[k]+' ('+s[k]+')'}).join(' · ');
+    var nfd = new FormData();
+    nfd.append('access_key', '57726177-ef80-4817-bcf9-e1a59d4d0131');
+    nfd.append('subject', '🔔 Quiz Hormones complété — Score '+pct+'%');
+    nfd.append('from_name', 'LifeMicroNut · Notification automatique');
+    nfd.append('quiz_type', 'Hormones féminines');
+    nfd.append('score_global', pct+'%');
+    nfd.append('niveau_severite', info.l);
+    nfd.append('axes_prioritaires', topAxes);
+    nfd.append('phase_hormonale', ans.phase || 'non précisé');
+    nfd.append('age', ans.age || 'non précisé');
+    nfd.append('email_utilisateur', window.__lmnEmail || 'non saisi');
+    nfd.append('reponses_completes', JSON.stringify(ans));
+    nfd.append('user_agent', navigator.userAgent);
+    nfd.append('botcheck', '');
+    fetch('https://api.web3forms.com/submit', {method:'POST', body:nfd, headers:{'Accept':'application/json'}}).catch(function(){});
+  }catch(e){}
 }
-$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
+$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){askEmailThenShow();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
+
+function askEmailThenShow(){
+  var gate = document.getElementById('emailGate');
+  if(!gate){ show(); return; }
+  gate.style.display = 'flex';
+  setTimeout(function(){ document.getElementById('emailGateInput').focus(); }, 100);
+  document.getElementById('emailGateForm').onsubmit = function(e){
+    e.preventDefault();
+    var email = document.getElementById('emailGateInput').value;
+    window.__lmnEmail = email;
+    gate.style.display = 'none';
+    show();
+  };
+}
 $prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
 $restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
 
