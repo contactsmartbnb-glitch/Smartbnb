@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Ad FOMO 1 — Ventre réveil</title>
+<style>
+@page { size: 1080px 1350px; margin: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  background: radial-gradient(ellipse at top right, #1a3d2f 0%, #0c1612 60%, #000 100%);
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  padding: 60px 70px 55px;
+  display: flex;
+  flex-direction: column;
+}
+.bg-glow { position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; border-radius: 50%; background: #1FB07F; filter: blur(220px); opacity: 0.45; z-index: 0; }
+.content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1FB07F;
+  background: rgba(255,255,255,0.07);
+  padding: 14px 24px;
+  border-radius: 36px;
+  border: 1px solid rgba(31, 176, 127, 0.35);
+  align-self: flex-start;
+  margin-bottom: 32px;
+  backdrop-filter: blur(10px);
+}
+.eyebrow::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: #1FB07F; box-shadow: 0 0 14px #1FB07F; }
+h1 {
+  font-size: 110px;
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  color: #fff;
+  margin-bottom: 14px;
+  max-width: 900px;
+}
+h1 .accent {
+  color: #1FB07F;
+  display: block;
+  margin-top: -6px;
+}
+.sub-q {
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 50px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.15;
+  margin-bottom: 28px;
+  max-width: 900px;
+  letter-spacing: -0.02em;
+}
+.body {
+  font-size: 30px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.45;
+  margin-bottom: 30px;
+  max-width: 920px;
+  font-weight: 500;
+}
+.body strong { color: #fff; font-weight: 800; }
+.tags {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.tag {
+  background: rgba(31, 176, 127, 0.12);
+  border: 1px solid rgba(31, 176, 127, 0.45);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1FB07F;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: #1FB07F;
+  color: #0c1612;
+  padding: 32px 50px;
+  border-radius: 18px;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  box-shadow: 0 24px 60px -10px rgba(31, 176, 127, 0.55);
+}
+.cta::after { content: '→'; font-size: 40px; }
+.cta-tiny { font-size: 22px; color: rgba(255,255,255,0.5); font-weight: 500; margin-bottom: auto; }
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: auto;
+}
+.brand-dot { width: 16px; height: 16px; border-radius: 50%; background: #1FB07F; flex-shrink: 0; }
+.brand-text { display: flex; flex-direction: column; }
+.brand-text strong { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.brand-text span { font-size: 20px; color: rgba(255,255,255,0.5); font-weight: 500; margin-top: 2px; }
+.brand-url {
+  margin-left: auto;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1FB07F;
+  background: rgba(31, 176, 127, 0.1);
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(31, 176, 127, 0.3);
+}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="content">
+  <span class="eyebrow">Bilan en ligne · 5 minutes</span>
+  <h1>Mal au ventre.<span class="accent">Tous les matins.</span></h1>
+  <p class="sub-q">Depuis combien d'années, déjà ?</p>
+  <p class="body">Ni « normal », ni « stress », ni « tu manges mal ». <strong>Ton ventre suit une logique précise.</strong> En 5 minutes, on l'identifie.</p>
+  <div class="tags"><div class="tag">Microbiote</div><div class="tag">Dysbiose</div><div class="tag">SIBO</div></div>
+  <div class="cta">Comprendre mon ventre</div>
+  <p class="cta-tiny">Gratuit · Confidentiel · Conçu par une pharmacienne</p>
+  <div class="footer">
+    <div class="brand-dot"></div>
+    <div class="brand-text"><strong>Dr Lapothicaire</strong><span>Pharmacienne micronutritionniste</span></div>
+    <div class="brand-url">lifemicronut.com</div>
+  </div>
+</div>
+</body>
+</html>
