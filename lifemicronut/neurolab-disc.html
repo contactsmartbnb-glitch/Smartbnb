@@ -372,9 +372,14 @@ function computeScores(){
   var total=sums.D+sums.I+sums.S+sums.C;
   var out={};
   ['D','I','S','C'].forEach(function(s){out[s]=Math.round(sums[s]/total*100);});
-  // Re-balance to 100
+  // Re-balance to 100 — répartit le reliquat sur le score le plus haut, pas systématiquement sur D
   var sum=out.D+out.I+out.S+out.C;
-  out.D+=(100-sum);
+  var diff=100-sum;
+  if(diff!==0){
+    var topKey='D',topVal=-1;
+    ['D','I','S','C'].forEach(function(s){if(out[s]>topVal){topVal=out[s];topKey=s;}});
+    out[topKey]+=diff;
+  }
   return out;
 }
 
@@ -383,10 +388,20 @@ function show(){
   var ranked=[['D',scores.D],['I',scores.I],['S',scores.S],['C',scores.C]].sort(function(a,b){return b[1]-a[1];});
   var dominant=ranked[0][0],secondary=ranked[1][0];
   document.getElementById('result').classList.add('active');
-  document.getElementById('dominantLetter').textContent=dominant;
-  document.getElementById('dominantLetter').style.color=STYLES[dominant].color;
-  document.getElementById('rTitle').textContent='Profil '+STYLES[dominant].name+' ('+dominant+')';
-  document.getElementById('rSub').textContent="Secondaire : "+STYLES[secondary].name+" ("+secondary+", "+scores[secondary]+"%)";
+
+  // Profil équilibré : écart top-bas < 8 points
+  var spread=ranked[0][1]-ranked[3][1];
+  if(spread<8){
+    document.getElementById('dominantLetter').textContent='≈';
+    document.getElementById('dominantLetter').style.color='var(--orange)';
+    document.getElementById('rTitle').textContent='Profil équilibré sur les 4 styles';
+    document.getElementById('rSub').textContent="Aucun style ne ressort clairement (écart de seulement "+spread+" points). Tu es soit très adaptable, soit tes réponses étaient trop neutres.";
+  } else {
+    document.getElementById('dominantLetter').textContent=dominant;
+    document.getElementById('dominantLetter').style.color=STYLES[dominant].color;
+    document.getElementById('rTitle').textContent='Profil '+STYLES[dominant].name+' ('+dominant+')';
+    document.getElementById('rSub').textContent="Secondaire : "+STYLES[secondary].name+" ("+secondary+", "+scores[secondary]+"%)";
+  }
 
   var distEl=document.getElementById('dist');distEl.innerHTML='';
   ['D','I','S','C'].forEach(function(s){

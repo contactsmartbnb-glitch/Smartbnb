@@ -372,6 +372,22 @@ function show(){
   document.getElementById('result').classList.add('active');
   var dominant='V',maxV=-1;
   ['V','A','K','O','G'].forEach(function(c){if(scores[c]>maxV){maxV=scores[c];dominant=c;}});
+  // Détection profil non discriminant : trop de canaux à égalité ou écart trop faible
+  var topCount=0;
+  ['V','A','K','O','G'].forEach(function(c){if(scores[c]===maxV)topCount++;});
+  var sortedVals=Object.values(scores).sort(function(a,b){return b-a;});
+  var spread=sortedVals[0]-sortedVals[4];
+  if(topCount>=3 || spread<10){
+    document.getElementById('bigIco').textContent='🔀';
+    document.getElementById('canalName').textContent='Profil multi-canal';
+    document.getElementById('canalShort').textContent='Tes 5 canaux sensoriels sont équilibrés — ou tes réponses sont trop neutres pour distinguer une préférence.';
+    document.getElementById('dist').innerHTML='';
+    document.getElementById('howWorks').innerHTML='<p>Soit tu fonctionnes vraiment de façon équilibrée sur tous tes canaux sensoriels (rare mais possible), soit tes réponses étaient trop neutres pour identifier un dominant. La PNL est un modèle de préférences, pas une moyenne.</p><p>Recommandation : refais le test en te demandant pour chaque question "est-ce que c\'est VRAIMENT comme ça que je fonctionne ?" plutôt que de cocher au milieu.</p>';
+    document.getElementById('communicate').innerHTML='<li>Refaire le test avec des réponses plus tranchées</li>';
+    document.getElementById('learn').innerHTML='<li>Observer 1 journée comment tu capte spontanément l\'info : par les yeux, l\'oreille, le corps ?</li>';
+    document.querySelector('.result').scrollIntoView({behavior:'smooth'});
+    return;
+  }
   var C=CANAUX[dominant];
   document.getElementById('bigIco').textContent=C.ico;
   document.getElementById('canalName').textContent=C.name;

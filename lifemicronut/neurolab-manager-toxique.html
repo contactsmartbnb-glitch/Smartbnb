@@ -384,9 +384,9 @@ function show(){
 
   var g=scores.global;
   var box=document.getElementById('globalBox'),verdict,sub,lvl;
-  if(g<=25){lvl='green';verdict='🟢 Profil sain';sub='Tu n\'as pas du tout le profil "manager toxique". Tes traits sombres sont bas : tu fonctionnes par la confiance, l\'empathie, l\'éthique. Vigilance : assure-toi de ne pas être trop "gentil(le)" au point de te laisser marcher dessus.';}
-  else if(g<=45){lvl='yellow';verdict='🟡 Profil équilibré';sub='Tu présentes des traits sombres modérés — c\'est normal et même utile (ambition, stratégie, assertivité). Aucun signe de toxicité. Tu sais te défendre et faire avancer les choses.';}
-  else if(g<=65){lvl='orange';verdict='🟠 Vigilance';sub='Certains de tes traits sombres atteignent un seuil où ils peuvent gêner tes équipes ou tes proches. Pas du tout perdu, mais il est temps d\'observer comment tu impactes les autres.';}
+  if(g<=35){lvl='green';verdict='🟢 Profil sain';sub='Tu n\'as pas du tout le profil "manager toxique". Tes traits sombres sont bas : tu fonctionnes par la confiance, l\'empathie, l\'éthique. Vigilance : assure-toi de ne pas être trop "gentil(le)" au point de te laisser marcher dessus.';}
+  else if(g<=55){lvl='yellow';verdict='🟡 Profil équilibré';sub='Tu présentes des traits sombres modérés — c\'est normal et même utile (ambition, stratégie, assertivité). Aucun signe de toxicité. Tu sais te défendre et faire avancer les choses.';}
+  else if(g<=72){lvl='orange';verdict='🟠 Vigilance';sub='Certains de tes traits sombres atteignent un seuil où ils peuvent gêner tes équipes ou tes proches. Pas du tout perdu, mais il est temps d\'observer comment tu impactes les autres.';}
   else {lvl='red';verdict='🔴 Drapeau rouge';sub='Tes traits sombres sont marqués. Tu obtiens des résultats, mais probablement au prix d\'un coût humain élevé autour de toi (turnover, conflits, isolement). Une introspection sérieuse — idéalement accompagnée — peut transformer cette intensité en leadership puissant ET sain.';}
   box.className='global-box lvl-'+lvl;
   document.getElementById('globalScore').textContent=g+'%';
@@ -413,7 +413,7 @@ function show(){
   var mirror='';
   var topDim=['N','M','P'].sort(function(a,b){return scores[b].pct-scores[a].pct;})[0];
   var topVal=scores[topDim].pct;
-  if(topVal>50){
+  if(topVal>=55){
     if(topDim==='N')mirror='<p><em>Tu portes surtout du narcissisme.</em> Demande-toi : la dernière fois que quelqu\'un t\'a contredit, comment tu as réagi ? Si tu te défends fort, tu coupes les retours de tes équipes. Donne-toi pour règle : laisser parler 3 personnes avant de réagir en réunion.</p>';
     if(topDim==='M')mirror='<p><em>Tu portes surtout du machiavélisme.</em> Tu joues au-delà de ce que tu dis. Demande-toi : combien de tes collaborateurs te font totalement confiance ? Si la réponse honnête est "peu", tes équipes savent quelque chose que tu refuses de voir.</p>';
     if(topDim==='P')mirror='<p><em>Tu portes surtout de la froideur émotionnelle.</em> Demande-toi : qui est venu te parler de ses émotions au travail ces 6 derniers mois ? Si la réponse est "personne", ce n\'est pas qu\'ils n\'ont rien à dire. C\'est qu\'ils ont compris que ce n\'est pas safe avec toi.</p>';
