@@ -524,7 +524,11 @@ function profile(a, s, p){
   var age = {lt25:'jeune adulte (< 25 ans)', '25_35':'de 25-35 ans', '36_50':'de 36-50 ans', gt50:'de 50+ ans'}[a.age] || '';
   html += '<p>' + sexe + (age ? ' ' + age : '') + '.</p>';
 
-  // Type dominant TDAH
+  // Cas particulier : "aucune difficulté" explicitement déclarée
+  if(a.duree === 'aucune'){
+    html += '<p>Vous indiquez <em>ne pas vivre avec des difficultés particulières</em> liées à ces dimensions. Vos réponses ne dressent pas un profil TDAH. Si certains items sont ressortis (ex. distraction occasionnelle, hyperfocus), cela peut juste refléter un fonctionnement cognitif standard.</p>';
+  }
+  // Type dominant TDAH (uniquement si score significatif)
   var inat = (a.a1||0)+(a.a2||0)+(a.a3||0)+(a.a4||0);
   var hyper = (a.a5||0)+(a.a6||0);
   if(p >= 50){
@@ -535,6 +539,10 @@ function profile(a, s, p){
     } else {
       html += '<p>Profil <em>TDAH mixte (combiné)</em>. Vous présentez à la fois des traits d\'inattention et d\'hyperactivité — le profil classique.</p>';
     }
+  } else if(p < 30 && a.duree !== 'aucune'){
+    html += '<p>Vos réponses ne dressent <em>pas un profil TDAH adulte</em>. Quelques items isolés peuvent être présents (chacun en a, c\'est humain), mais sans constituer un syndrome. Si tu te poses des questions sur ton énergie, ton attention ou ta sensibilité, regarde plutôt les axes HSP, burnout ou biologique ci-dessous.</p>';
+  } else if(p >= 30 && p < 50){
+    html += '<p>Profil <em>en zone grise</em>. Quelques traits TDAH sont présents sans former un syndrome clair. Le contexte (stress, sommeil, alimentation) influence beaucoup ce type de profil. À surveiller, à ne pas surinterpréter.</p>';
   }
 
   // HSP
@@ -549,18 +557,22 @@ function profile(a, s, p){
     html += '<p>Signal fort de <em>burnout cognitif</em>. Le masquage social chronique épuise les ressources attentionnelles. C\'est probablement ce qui amplifie tous vos symptômes en ce moment.</p>';
   }
 
-  // Début enfance
-  if(a.b6 != null && a.b6 >= 3){
+  // Début enfance — uniquement contextualisé si profil TDAH plausible
+  if(a.b6 != null && a.b6 >= 3 && p >= 50){
     html += '<p>Vos signes étaient déjà présents dans l\'<em>enfance</em>. C\'est le critère DSM-5 majeur pour un diagnostic TDAH adulte (apparition avant 12 ans).</p>';
+  } else if(a.b6 != null && a.b6 >= 3 && p >= 30){
+    html += '<p>Vous mentionnez des comportements de rêverie/agitation déjà présents dans l\'enfance. C\'est un trait, pas un diagnostic — c\'est utile à savoir si tu approfondis la piste.</p>';
   }
 
-  // Impact
-  if(a.impact >= 3){
+  // Impact — conditionné au score TDAH global
+  if(a.impact >= 3 && p >= 50){
     html += '<p>L\'impact sur votre quotidien est <em>marqué à invalidant</em>. Une consultation spécialisée est fortement recommandée — pas pour un traitement automatique, mais pour comprendre, valider, et explorer les options (TCC, accompagnement, médicament si justifié).</p>';
+  } else if(a.impact >= 3 && p < 50){
+    html += '<p>Vous décrivez un <em>impact marqué sur votre quotidien</em>, mais le profil ne pointe pas spécifiquement vers le TDAH. Cet impact peut venir d\'ailleurs : stress chronique, burnout, déséquilibre hormonal, déficits micronutritionnels, sommeil. Le bilan microbiote-mental peut éclairer.</p>';
   }
 
-  // Encouragement diagnostique selon démarche
-  if(a.consult === 'pense' || a.consult === 'demarche'){
+  // Encouragement diagnostique : seulement si profil plausible
+  if((a.consult === 'pense' || a.consult === 'demarche') && p >= 50){
     html += '<p><strong>Bonne nouvelle :</strong> vous avez déjà commencé la démarche. Notre guide complet vous aidera à préparer votre consultation et à mettre en place des stratégies dès maintenant.</p>';
   }
 
