@@ -187,7 +187,7 @@ footer a{color:var(--ink-2);text-decoration:none;font-size:.85rem;margin:0 10px}
 <main class="wrap">
 <div class="card">
 
-<div class="gate active" id="gate">
+<div class="gate" id="gate" style="display:none">
   <h2>D'abord, le code d'accès.</h2>
   <p>Test gratuit et anonyme. Tes réponses restent privées.</p>
   <input type="text" id="codeInput" placeholder="Code à 4 chiffres" autocomplete="off">
@@ -195,7 +195,7 @@ footer a{color:var(--ink-2);text-decoration:none;font-size:.85rem;margin:0 10px}
   <div style="margin-top:18px"><button class="btn btn-primary" id="codeBtn">Entrer →</button></div>
 </div>
 
-<div class="gate" id="whoGate">
+<div class="gate active" id="whoGate">
   <h2>De qui parle-t-on ?</h2>
   <p>Le test décrit les <strong>comportements de cette personne</strong>. Choisis qui te vient en tête.</p>
   <div class="who-options" id="whoOpts">

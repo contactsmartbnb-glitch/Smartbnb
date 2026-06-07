@@ -178,7 +178,7 @@ footer a{color:var(--ink-2);text-decoration:none;font-size:.85rem;margin:0 10px}
 <main class="wrap">
 <div class="card">
 
-<div class="gate active" id="gate">
+<div class="gate" id="gate" style="display:none">
   <h2>D'abord, le code d'accès.</h2>
   <p>Test gratuit, anonyme. Code donné lors de la conférence du week-end.</p>
   <input type="text" id="codeInput" placeholder="Code à 4 chiffres" autocomplete="off">
@@ -186,7 +186,7 @@ footer a{color:var(--ink-2);text-decoration:none;font-size:.85rem;margin:0 10px}
   <div style="margin-top:18px"><button class="btn btn-primary" id="codeBtn">Entrer →</button></div>
 </div>
 
-<div class="quiz" id="quiz" style="display:none">
+<div class="quiz" id="quiz">
   <div class="q-meta">
     <span class="q-num" id="qNum">Question 1/16</span>
     <span id="qSec">Empathie</span>
@@ -465,6 +465,7 @@ document.getElementById('shareBtn').onclick=function(){
   else{navigator.clipboard.writeText(url);this.textContent='✓ Copié';setTimeout(()=>{this.textContent='🔗 Partager';},2000);}
 };
 </script>
+<script>if(typeof render==="function")render();</script>
 <script defer src="wa.js"></script>
 
 </body>
