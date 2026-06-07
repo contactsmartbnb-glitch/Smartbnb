@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroLab · Suis-je un manager toxique ? Test Dark Triad — Miroir honnête</title>
+<meta name="description" content="Test 'Suis-je un manager toxique' basé sur la Dark Triad scientifique (SD3 - Jones &amp; Paulhus 2014). 27 questions, miroir honnête, conseils constructifs.">
+<link rel="canonical" href="https://lifemicronut.com/neurolab-manager-toxique">
+<meta property="og:title" content="Suis-je un manager toxique ? · Test Dark Triad — NeuroLab">
+<meta property="og:description" content="27 questions pour un miroir honnête. Narcissisme, machiavélisme, psychopathie : le triangle sombre, scientifiquement.">
+<meta property="og:url" content="https://lifemicronut.com/neurolab-manager-toxique">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LifeMicroNut">
+<meta name="theme-color" content="#B83C45">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg-soft:#F1F7F3;--ink:#16211C;--ink-2:#4C574F;--ink-3:#76837A;--red:#B83C45;--red-d:#8B2630;--red-l:#FBE6E8;--gold:#D4A437;--green:#12936A;--line:#E3E9E4;--sh:0 4px 10px rgba(20,40,30,.05),0 20px 40px -16px rgba(20,40,30,.16)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-weight:800;line-height:1.15;letter-spacing:-.025em;color:var(--ink)}
+h1{font-size:clamp(1.8rem,4.5vw,2.8rem)}
+h1 em{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--red)}
+h2{font-size:clamp(1.4rem,2.6vw,2rem)}
+p{color:var(--ink-2);font-size:1.02rem}
+strong{color:var(--ink)}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+.hdr{padding:16px 0;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;max-width:1100px}
+.brand{font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:8px;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--red);display:inline-block}
+.nav-main{display:flex;align-items:center;gap:18px}
+.nav-main a{font-size:.93rem;font-weight:500;color:var(--ink-2);text-decoration:none}
+.nav-main a:hover{color:var(--red)}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.eyebrow::before{content:'';width:22px;height:2px;background:var(--red);border-radius:2px}
+.intro{text-align:center;padding:40px 0 22px;background:linear-gradient(180deg,#FBE6E8 0%,#fff 80%)}
+.intro h1{margin:8px 0 14px}
+.intro p{max-width:660px;margin:0 auto}
+
+.warn-strip{background:#7A1A22;color:#fff;padding:14px 0;margin-top:0}
+.warn-strip .wrap{display:flex;align-items:center;gap:14px;max-width:880px}
+.warn-strip p{color:#fff;font-size:.9rem;margin:0;line-height:1.5}
+.warn-strip strong{color:#FFD1D4}
+
+.card{background:#fff;border-radius:28px;box-shadow:var(--sh);border:1px solid var(--line);padding:clamp(22px,3vw,34px);margin:30px auto 60px}
+.gate{display:none}.gate.active{display:block}
+.gate input{width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:1rem}
+.gate input:focus{outline:none;border-color:var(--red)}
+.gate-msg{margin-top:10px;font-size:.88rem;min-height:18px}
+.progress{height:7px;background:var(--bg-soft);border-radius:999px;overflow:hidden;margin-bottom:9px}
+.progress-bar{height:100%;background:var(--red);width:0;transition:width .35s ease;border-radius:999px}
+.meta{font-size:.78rem;color:var(--red);font-weight:700;letter-spacing:.04em;margin-bottom:16px;text-transform:uppercase}
+.q-title{font-size:1.22rem;font-weight:800;margin-bottom:18px;line-height:1.4}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.opt{padding:13px 5px;border:1.5px solid var(--line);border-radius:14px;cursor:pointer;transition:all .15s;background:#fff;text-align:center;user-select:none}
+.opt:hover{border-color:var(--red);background:var(--red-l)}
+.opt.selected{border-color:var(--red);background:var(--red-l)}
+.opt-num{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;color:var(--red);display:block;line-height:1}
+.opt-lbl{font-size:.74rem;color:var(--ink-2);margin-top:5px;display:block;line-height:1.2}
+@media(max-width:560px){.scale{gap:5px}.opt{padding:11px 2px}.opt-num{font-size:1.15rem}.opt-lbl{font-size:.66rem}}
+
+.nav{display:flex;justify-content:space-between;margin-top:24px;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;font-size:.94rem;padding:12px 22px;border-radius:10px;border:1.5px solid transparent;cursor:pointer;transition:all .2s;text-decoration:none}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 6px 16px -6px rgba(184,60,69,.5)}
+.btn-primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+.btn.hidden{visibility:hidden}
+.result{display:none}.result.active{display:block}
+
+.global-box{border-radius:24px;padding:30px;text-align:center;margin-bottom:24px;color:#fff;position:relative;overflow:hidden}
+.global-box::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.1);filter:blur(80px);top:-100px;right:-100px}
+.global-box.lvl-green{background:linear-gradient(135deg,#0E7654,#12936A)}
+.global-box.lvl-yellow{background:linear-gradient(135deg,#C19A1C,#D4A437)}
+.global-box.lvl-orange{background:linear-gradient(135deg,#D97A2B,#A85A18)}
+.global-box.lvl-red{background:linear-gradient(135deg,#8B2630,#B83C45)}
+.global-box h2{color:#fff;margin-bottom:6px;position:relative;z-index:1}
+.global-box .big-num{font-family:'Fraunces',serif;font-style:italic;font-size:4.5rem;font-weight:700;line-height:1;color:#fff;display:block;margin-bottom:10px;position:relative;z-index:1}
+.global-box .verdict{font-size:1.05rem;color:#fff;font-weight:600;margin-bottom:10px;position:relative;z-index:1}
+.global-box .sub{font-size:.95rem;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto;position:relative;z-index:1}
+
+.dim-list{display:flex;flex-direction:column;gap:14px;margin:24px 0}
+.dim{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:22px}
+.dim-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.dim-name{font-size:1.05rem;font-weight:800;display:flex;align-items:center;gap:10px}
+.dim-icon{font-size:1.3rem}
+.dim-val{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:1.5rem;letter-spacing:-.02em}
+.dim-bar-wrap{height:10px;background:var(--bg-soft);border-radius:999px;overflow:hidden;margin-bottom:10px;position:relative}
+.dim-bar{height:100%;border-radius:999px;transition:width 1s ease}
+.dim-tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700;margin-left:8px}
+.dim-tag.low{background:#DFF3E5;color:#0E7654}
+.dim-tag.mod{background:#FBEFE0;color:#A85A18}
+.dim-tag.high{background:#FBE6E8;color:#8B2630}
+.dim-desc{font-size:.94rem;line-height:1.55;color:var(--ink-2);margin-top:8px}
+.dim-desc strong{color:var(--ink)}
+
+.mirror-box{background:#FFFAEC;border:1.5px solid #FAE4B0;border-radius:18px;padding:24px;margin:24px 0}
+.mirror-box h3{font-size:1.05rem;margin-bottom:10px;color:#7A5A20}
+.mirror-box p{color:#5A3F10;font-size:.95rem;line-height:1.65;margin-bottom:10px}
+.mirror-box em{font-style:italic;color:#7A5A20}
+
+.actions-box{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px}
+.actions-box h3{font-size:1.05rem;margin-bottom:12px}
+.actions-box ul{list-style:none;padding:0}
+.actions-box li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:.94rem;color:var(--ink-2)}
+.actions-box li::before{content:'→';color:var(--red);font-weight:800;flex-shrink:0}
+
+.synthesis{background:linear-gradient(135deg,#1F2B3D,#16211C);color:#fff;border-radius:24px;padding:28px;margin:24px 0}
+.synthesis h3{color:#fff;margin-bottom:12px;font-size:1.15rem}
+.synthesis p{color:rgba(255,255,255,.85);font-size:.96rem;line-height:1.65;margin-bottom:10px}
+.synthesis em{color:#F4A3A8;font-style:normal;font-weight:600}
+
+.cta-final{background:linear-gradient(135deg,var(--ink),#3D1F1F);color:#fff;border-radius:20px;padding:30px;text-align:center;margin-top:24px}
+.cta-final h3{color:#fff;font-size:1.2rem;margin-bottom:8px}
+.cta-final p{color:rgba(255,255,255,.78);margin-bottom:18px;font-size:.95rem}
+.cta-final .btn-primary{background:#fff;color:var(--ink)}
+
+.disclaimer{background:#FBE6E8;border:1px solid #F4A3A8;border-radius:14px;padding:14px 18px;font-size:.86rem;color:#8B2630;margin-top:18px}
+.actions-share{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:#fff;border:1.5px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.86rem;cursor:pointer;font-family:inherit}
+.share-btn:hover{border-color:var(--red);color:var(--red)}
+
+footer{border-top:1px solid var(--line);background:var(--ink);color:#fff;padding:40px 0 24px;margin-top:40px}
+footer .wrap{text-align:center;max-width:680px}
+footer p{color:rgba(255,255,255,.6);font-size:.86rem;margin-bottom:10px}
+footer a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.86rem;margin:0 10px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap">
+    <a href="/" class="brand">LifeMicroNut</a>
+    <nav class="nav-main">
+      <a href="/neurolab.html">← NeuroLab</a>
+      <a href="/boutique.html">Boutique</a>
+    </nav>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <span class="eyebrow">NeuroLab · Miroir honnête</span>
+    <h1>Suis-je un <em>manager toxique</em> ?</h1>
+    <p>Le test le plus cash du NeuroLab. Basé sur la <strong>Dark Triad</strong> de Paulhus &amp; Williams (2002), un cadre scientifique pour mesurer 3 traits "sombres" : narcissisme, machiavélisme, psychopathie sociale.</p>
+  </div>
+</section>
+
+<div class="warn-strip">
+  <div class="wrap">
+    <p><strong>⚠️ Test direct, sans filtre.</strong> Réponds avec honnêteté — ce test n'a aucun intérêt si tu te mens. Personne ne verra tes réponses sauf toi (et l'équipe LifeMicroNut, en agrégé). Aucun jugement, juste un miroir.</p>
+  </div>
+</div>
+
+<main class="wrap">
+<div class="card">
+
+<div class="gate active" id="gate">
+  <span class="eyebrow">Code d'accès</span>
+  <h2>Entre le code pour commencer</h2>
+  <p>Test gratuit et anonyme. Code reçu lors de la conférence du week-end.</p>
+  <input type="text" id="codeInput" placeholder="Code d'accès" autocomplete="off">
+  <div class="gate-msg" id="codeMsg"></div>
+  <div style="margin-top:18px"><button class="btn btn-primary" id="codeBtn">Valider →</button></div>
+</div>
+
+<div class="quiz" id="quiz" style="display:none">
+  <div class="meta"><span id="qNum">Question 1</span> · <span id="qDim">Narcissisme</span></div>
+  <div class="progress"><div class="progress-bar" id="bar"></div></div>
+  <h2 class="q-title" id="qTitle">…</h2>
+  <div class="scale" id="opts">
+    <div class="opt" data-v="1"><span class="opt-num">1</span><span class="opt-lbl">Pas du tout</span></div>
+    <div class="opt" data-v="2"><span class="opt-num">2</span><span class="opt-lbl">Plutôt non</span></div>
+    <div class="opt" data-v="3"><span class="opt-num">3</span><span class="opt-lbl">Neutre</span></div>
+    <div class="opt" data-v="4"><span class="opt-num">4</span><span class="opt-lbl">Plutôt oui</span></div>
+    <div class="opt" data-v="5"><span class="opt-num">5</span><span class="opt-lbl">Tout à fait</span></div>
+  </div>
+  <div class="nav">
+    <button class="btn btn-ghost" id="prev">← Précédent</button>
+    <button class="btn btn-primary hidden" id="next">Suivant →</button>
+  </div>
+</div>
+
+<div class="gate" id="emailGate">
+  <span class="eyebrow">Dernière étape</span>
+  <h2>Ton email pour voir tes résultats</h2>
+  <p>On t'envoie ton rapport détaillé. Tes réponses restent agrégées et anonymisées.</p>
+  <input type="email" id="emailInput" placeholder="ton@email.com" autocomplete="email">
+  <div class="gate-msg" id="emailMsg"></div>
+  <div style="margin-top:18px"><button class="btn btn-primary" id="emailBtn">Voir le miroir →</button></div>
+</div>
+
+<div class="result" id="result">
+  <div class="global-box" id="globalBox">
+    <span class="eyebrow" style="color:rgba(255,255,255,.9)">Indice toxicité managériale</span>
+    <span class="big-num" id="globalScore">0%</span>
+    <div class="verdict" id="verdictText">…</div>
+    <p class="sub" id="verdictSub">…</p>
+  </div>
+
+  <div class="dim-list" id="dims"></div>
+
+  <div class="mirror-box">
+    <h3>🪞 Le miroir te dit quoi ?</h3>
+    <div id="mirrorText"></div>
+  </div>
+
+  <div class="actions-box">
+    <h3>🎯 3 actions concrètes pour ton management</h3>
+    <ul id="actionsList"></ul>
+  </div>
+
+  <div class="synthesis">
+    <h3>🧠 Comprendre le triangle sombre</h3>
+    <p>La <em>Dark Triad</em> n'est pas une étiquette de "méchant". Ce sont des <em>traits</em> présents à des degrés divers chez chacun. À doses modérées, ils nourrissent l'ambition, l'assertivité, la stratégie. À doses fortes, ils détruisent les équipes, les couples, les amitiés.</p>
+    <p>La bonne nouvelle : ces traits sont en partie <em>contextuels</em> et <em>régulables</em>. Stress chronique, manque de sommeil, alcool, déficits biologiques (sérotonine basse, magnésium, oméga-3, B12) augmentent l'expression de la dimension psychopathie sociale. Reprendre soin de soi diminue souvent les comportements toxiques.</p>
+  </div>
+
+  <div class="cta-final">
+    <h3>Le mental se nourrit aussi</h3>
+    <p>Sérotonine basse = irritabilité. Dopamine élevée non régulée = quête de validation. Cortisol haut = manque d'empathie. Le manager toxique est aussi un cerveau mal nourri.</p>
+    <a href="/microbiote-mental.html" class="btn btn-primary">Bilan mental/équilibre →</a>
+    <a href="/boutique.html" class="btn btn-ghost" style="margin-left:8px;border-color:rgba(255,255,255,.4);color:#fff">Boutique</a>
+  </div>
+
+  <div class="actions-share">
+    <button class="share-btn" id="dlBtn">📥 Télécharger en PDF</button>
+    <button class="share-btn" id="shareBtn">🔗 Partager le test</button>
+    <a href="/neurolab.html" class="share-btn">🧠 Autres tests</a>
+  </div>
+
+  <div class="disclaimer">
+    <strong>⚠️ Test à visée d'auto-réflexion.</strong> Le SD3 (Jones &amp; Paulhus, 2014) est un outil de recherche validé, mais un résultat élevé ne signifie pas que tu es "un méchant". Si ce test te met mal à l'aise ou t'inquiète, parles-en à un psychologue.
+  </div>
+</div>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong style="color:#fff">LifeMicroNut · NeuroLab</strong> · Tests cérébraux gratuits.</p>
+    <div style="margin-top:14px"><a href="/neurolab.html">NeuroLab</a> · <a href="/">Accueil</a> · <a href="/boutique.html">Boutique</a></div>
+    <p style="margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.4)">© <span id="year"></span> LifeMicroNut</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// SD3 — Short Dark Triad (Jones & Paulhus 2014) — adapté
+// 9 items par dim : N (narcissisme), M (machiavélisme), P (psychopathie sociale)
+// (R) = reverse scored
+var Q=[
+  // NARCISSISME
+  {d:'N',t:"Les gens me voient souvent comme un leader naturel."},
+  {d:'N',t:"Je sais que je suis spécial(e), même si on ne me le dit pas toujours."},
+  {d:'N',t:"J'aime être au centre de l'attention."},
+  {d:'N',t:"On m'a déjà comparé(e) à des personnes connues ou influentes."},
+  {d:'N',t:"Je suis un(e) gagnant(e), c'est dans mes gènes."},
+  {d:'N',t:"Je suis gêné(e) qu'on me complimente.",r:true},
+  {d:'N',t:"Beaucoup d'événements collectifs sont fades sans ma présence."},
+  {d:'N',t:"Je mérite plus de respect que la moyenne des gens."},
+  {d:'N',t:"Je préfère me fondre dans la foule.",r:true},
+  // MACHIAVÉLISME
+  {d:'M',t:"Il vaut mieux ne pas dévoiler tes secrets aux autres."},
+  {d:'M',t:"Avoir des informations compromettantes sur des personnes-clés peut être utile."},
+  {d:'M',t:"La manipulation indirecte est souvent plus efficace que le conflit ouvert."},
+  {d:'M',t:"Garder des informations 'pour plus tard' est une stratégie sage."},
+  {d:'M',t:"Attendre le bon moment pour se venger est une preuve d'intelligence."},
+  {d:'M',t:"Cacher certaines choses sur soi est nécessaire pour préserver sa réputation."},
+  {d:'M',t:"Mes plans doivent d'abord me profiter à moi."},
+  {d:'M',t:"La plupart des gens peuvent être manipulés si on connaît leurs faiblesses."},
+  {d:'M',t:"Flatter est une technique efficace pour obtenir ce qu'on veut."},
+  // PSYCHOPATHIE SOCIALE
+  {d:'P',t:"J'aime parfois défier ouvertement l'autorité."},
+  {d:'P',t:"J'évite les situations à risque ou dangereuses.",r:true},
+  {d:'P',t:"Une bonne confrontation peut faire réfléchir un adversaire."},
+  {d:'P',t:"Je promets parfois des choses que je n'ai pas l'intention de faire."},
+  {d:'P',t:"On m'a déjà dit que je perdais le contrôle."},
+  {d:'P',t:"Je peux être dur(e) ou tranchant(e) avec les autres si nécessaire."},
+  {d:'P',t:"Les gens qui se font avoir l'ont souvent un peu cherché."},
+  {d:'P',t:"Je respecte toujours la loi à la lettre.",r:true},
+  {d:'P',t:"J'apprécie qu'une personne qui m'a fait du tort paie pour ça."}
+];
+
+var DIMS={
+  N:{name:'Narcissisme',icon:'👑',color:'#D4A437',colorLight:'#F4E5B0',
+    desc_low:"Tu as une estime de toi équilibrée, sans besoin compulsif de reconnaissance.",
+    desc_mod:"Une confiance assumée. Tu te connais de la valeur, sans excès. Reste vigilant(e) à écouter autant que tu parles.",
+    desc_high:"Forte dimension narcissique. Tu peux dominer une pièce, séduire — mais aussi étouffer ceux qui te servent ou minimiser leurs contributions. Risque : leadership solitaire et collaborateurs qui partent."
+  },
+  M:{name:'Machiavélisme',icon:'♟️',color:'#7A4C9C',colorLight:'#E0CCF0',
+    desc_low:"Tu joues franc-jeu. Tu fonctionnes mieux dans la confiance que dans la stratégie politique.",
+    desc_mod:"Lucidité stratégique. Tu sais que tout n'est pas dit dans une réunion, sans être manipulateur(rice). Atout en négo.",
+    desc_high:"Forte tendance à la stratégie cachée. Tu lis les rapports de pouvoir et tu joues. Risque : tes collaborateurs sentent qu'ils sont des pions, la confiance s'érode dans la durée."
+  },
+  P:{name:'Psychopathie sociale',icon:'❄️',color:'#B83C45',colorLight:'#FBE6E8',
+    desc_low:"Empathie forte, prise en compte des autres, recherche de l'harmonie. Tu peux parfois éviter les conflits nécessaires.",
+    desc_mod:"Tu sais être ferme, mais tu restes connecté(e) aux émotions des autres. Bon équilibre managérial.",
+    desc_high:"Distance émotionnelle marquée. Tu peux trancher sans état d'âme. Force opérationnelle, mais risque humain : équipes qui se sentent objet plutôt que sujet, départ de tes meilleurs talents."
+  }
+};
+
+var ACCESS_CODE='1234';
+var EXPIRY=new Date('2026-06-08T18:00:00');
+var i=0,ans=[],userEmail='';
+
+document.getElementById('codeBtn').onclick=function(){
+  var v=document.getElementById('codeInput').value.trim();
+  var msg=document.getElementById('codeMsg');
+  if(new Date()>EXPIRY){msg.style.color='#B0383C';msg.textContent='⏱ Code expiré.';return;}
+  if(v===ACCESS_CODE){
+    document.getElementById('gate').classList.remove('active');
+    document.getElementById('quiz').style.display='block';
+    render();
+  }else{msg.style.color='#B0383C';msg.textContent='❌ Code incorrect';}
+};
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('codeBtn').click();});
+
+function render(){
+  if(i>=Q.length){showEmailGate();return;}
+  var q=Q[i];
+  document.getElementById('qNum').textContent='Question '+(i+1)+'/'+Q.length;
+  document.getElementById('qDim').textContent=DIMS[q.d].name;
+  document.getElementById('qTitle').textContent=q.t;
+  document.getElementById('bar').style.width=((i+1)/Q.length*100)+'%';
+  document.querySelectorAll('.opt').forEach(function(o){
+    o.classList.remove('selected');
+    if(ans[i]==parseInt(o.dataset.v))o.classList.add('selected');
+  });
+  document.getElementById('prev').classList.toggle('hidden',i===0);
+  document.getElementById('next').classList.toggle('hidden',!ans[i]);
+}
+document.querySelectorAll('#opts .opt').forEach(function(o){
+  o.onclick=function(){
+    ans[i]=parseInt(o.dataset.v);
+    document.querySelectorAll('.opt').forEach(function(x){x.classList.remove('selected');});
+    o.classList.add('selected');
+    setTimeout(function(){if(i<Q.length-1){i++;render();}else{showEmailGate();}},250);
+  };
+});
+document.getElementById('next').onclick=function(){if(i<Q.length-1){i++;render();}else{showEmailGate();}};
+document.getElementById('prev').onclick=function(){if(i>0){i--;render();}};
+
+function showEmailGate(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('emailGate').classList.add('active');
+}
+document.getElementById('emailBtn').onclick=function(){
+  var v=document.getElementById('emailInput').value.trim();
+  var msg=document.getElementById('emailMsg');
+  if(!v||v.indexOf('@')<0){msg.style.color='#B0383C';msg.textContent='Email valide requis';return;}
+  userEmail=v;
+  document.getElementById('emailGate').classList.remove('active');
+  show();
+};
+document.getElementById('emailInput').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('emailBtn').click();});
+
+function computeScores(){
+  var sums={N:0,M:0,P:0},counts={N:0,M:0,P:0};
+  Q.forEach(function(q,idx){
+    var v=ans[idx]||3;
+    if(q.r)v=6-v;
+    sums[q.d]+=v;counts[q.d]+=1;
+  });
+  var out={};
+  ['N','M','P'].forEach(function(d){
+    var avg=sums[d]/counts[d]; // 1-5
+    out[d]={avg:avg,pct:Math.round((avg-1)/4*100)};
+  });
+  // Indice global pondéré : P pèse le plus, puis M, puis N
+  var global=Math.round((out.P.pct*0.40 + out.M.pct*0.35 + out.N.pct*0.25));
+  out.global=global;
+  return out;
+}
+
+function show(){
+  var scores=computeScores();
+  document.getElementById('result').classList.add('active');
+
+  var g=scores.global;
+  var box=document.getElementById('globalBox'),verdict,sub,lvl;
+  if(g<=25){lvl='green';verdict='🟢 Profil sain';sub='Tu n\'as pas du tout le profil "manager toxique". Tes traits sombres sont bas : tu fonctionnes par la confiance, l\'empathie, l\'éthique. Vigilance : assure-toi de ne pas être trop "gentil(le)" au point de te laisser marcher dessus.';}
+  else if(g<=45){lvl='yellow';verdict='🟡 Profil équilibré';sub='Tu présentes des traits sombres modérés — c\'est normal et même utile (ambition, stratégie, assertivité). Aucun signe de toxicité. Tu sais te défendre et faire avancer les choses.';}
+  else if(g<=65){lvl='orange';verdict='🟠 Vigilance';sub='Certains de tes traits sombres atteignent un seuil où ils peuvent gêner tes équipes ou tes proches. Pas du tout perdu, mais il est temps d\'observer comment tu impactes les autres.';}
+  else {lvl='red';verdict='🔴 Drapeau rouge';sub='Tes traits sombres sont marqués. Tu obtiens des résultats, mais probablement au prix d\'un coût humain élevé autour de toi (turnover, conflits, isolement). Une introspection sérieuse — idéalement accompagnée — peut transformer cette intensité en leadership puissant ET sain.';}
+  box.className='global-box lvl-'+lvl;
+  document.getElementById('globalScore').textContent=g+'%';
+  document.getElementById('verdictText').textContent=verdict;
+  document.getElementById('verdictSub').textContent=sub;
+
+  var dimsEl=document.getElementById('dims');dimsEl.innerHTML='';
+  ['N','M','P'].forEach(function(d){
+    var sc=scores[d],D=DIMS[d];
+    var tag,desc;
+    if(sc.avg<=2.5){tag='<span class="dim-tag low">Bas</span>';desc=D.desc_low;}
+    else if(sc.avg<=3.5){tag='<span class="dim-tag mod">Modéré</span>';desc=D.desc_mod;}
+    else{tag='<span class="dim-tag high">Élevé</span>';desc=D.desc_high;}
+    var html='<div class="dim">'+
+      '<div class="dim-head"><div class="dim-name"><span class="dim-icon">'+D.icon+'</span>'+D.name+tag+'</div>'+
+      '<div class="dim-val" style="color:'+D.color+'">'+sc.pct+'%</div></div>'+
+      '<div class="dim-bar-wrap"><div class="dim-bar" style="width:'+sc.pct+'%;background:'+D.color+'"></div></div>'+
+      '<p class="dim-desc">'+desc+'</p>'+
+      '</div>';
+    dimsEl.insertAdjacentHTML('beforeend',html);
+  });
+
+  // Mirror
+  var mirror='';
+  var topDim=['N','M','P'].sort(function(a,b){return scores[b].pct-scores[a].pct;})[0];
+  var topVal=scores[topDim].pct;
+  if(topVal>50){
+    if(topDim==='N')mirror='<p><em>Tu portes surtout du narcissisme.</em> Demande-toi : la dernière fois que quelqu\'un t\'a contredit, comment tu as réagi ? Si tu te défends fort, tu coupes les retours de tes équipes. Donne-toi pour règle : laisser parler 3 personnes avant de réagir en réunion.</p>';
+    if(topDim==='M')mirror='<p><em>Tu portes surtout du machiavélisme.</em> Tu joues au-delà de ce que tu dis. Demande-toi : combien de tes collaborateurs te font totalement confiance ? Si la réponse honnête est "peu", tes équipes savent quelque chose que tu refuses de voir.</p>';
+    if(topDim==='P')mirror='<p><em>Tu portes surtout de la froideur émotionnelle.</em> Demande-toi : qui est venu te parler de ses émotions au travail ces 6 derniers mois ? Si la réponse est "personne", ce n\'est pas qu\'ils n\'ont rien à dire. C\'est qu\'ils ont compris que ce n\'est pas safe avec toi.</p>';
+  }else{
+    mirror='<p>Aucun trait sombre n\'est saillant. <em>Tu fonctionnes plutôt par l\'éthique, l\'empathie, la collaboration.</em> Continue — et apprends à être ferme quand c\'est nécessaire (ce n\'est pas être toxique).</p>';
+  }
+  mirror+='<p>Note importante : <em>l\'intensité de tes réponses ne définit pas qui tu es</em>. Elle dit comment tu fonctionnes dans le contexte actuel. Le stress chronique, l\'épuisement et les déficits biologiques amplifient ces traits.</p>';
+  document.getElementById('mirrorText').innerHTML=mirror;
+
+  // Actions
+  var aEl=document.getElementById('actionsList');aEl.innerHTML='';
+  var actions=[];
+  if(scores.N.pct>50)actions.push("<strong>Demande des feedbacks anonymes</strong> à 3 personnes différentes (équipe, pair, supérieur) sur ce qu'elles aimeraient que tu changes.");
+  if(scores.M.pct>50)actions.push("<strong>Choisis 1 décision/semaine</strong> où tu communiques tes vraies intentions, ouvertement, même si ça t'expose.");
+  if(scores.P.pct>50)actions.push("<strong>Écoute 5 min/jour</strong> un collaborateur sans interrompre, sans solution, sans jugement. Reformule simplement.");
+  if(actions.length<3)actions.push("<strong>Travaille ton biologique :</strong> magnésium, oméga-3 EPA, sommeil de qualité, sport. La régulation émotionnelle est aussi physiologique.");
+  if(actions.length<3)actions.push("<strong>Lis un livre sur le leadership émotionnel</strong> (Goleman, Brené Brown) — autant qu'un livre de stratégie.");
+  if(actions.length<3)actions.push("<strong>Considère un coach ou un psy</strong> — pas par faiblesse, par puissance. Les meilleurs leaders sont accompagnés.");
+  actions.slice(0,3).forEach(function(a){aEl.insertAdjacentHTML('beforeend','<li>'+a+'</li>');});
+
+  try{
+    var nfd=new FormData();
+    nfd.append('access_key','57726177-ef80-4817-bcf9-e1a59d4d0131');
+    nfd.append('subject','⚠️ Quiz Manager Toxique complété — indice '+g+'%');
+    nfd.append('source','NeuroLab — Manager Toxique (Dark Triad)');
+    nfd.append('email_utilisateur',userEmail||'non saisi');
+    nfd.append('indice_global',g+'%');
+    nfd.append('scores',JSON.stringify({N:scores.N.pct,M:scores.M.pct,P:scores.P.pct}));
+    nfd.append('reponses',JSON.stringify(ans));
+    fetch('https://api.web3forms.com/submit',{method:'POST',body:nfd});
+  }catch(e){}
+
+  document.querySelector('.result').scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('dlBtn').onclick=async function(){
+  this.disabled=true;this.textContent='Génération…';
+  try{
+    var canvas=await html2canvas(document.getElementById('result'),{scale:2,backgroundColor:'#fff'});
+    var pdf=new jspdf.jsPDF('p','mm','a4');
+    var w=210,h=canvas.height*w/canvas.width;
+    pdf.addImage(canvas.toDataURL('image/png'),'PNG',0,0,w,h);
+    pdf.save('LifeMicroNut-ManagerToxique-Rapport.pdf');
+  }catch(e){alert('Erreur PDF');}
+  this.disabled=false;this.textContent='📥 Télécharger en PDF';
+};
+document.getElementById('shareBtn').onclick=function(){
+  var url='https://lifemicronut.com/neurolab-manager-toxique';
+  if(navigator.share){navigator.share({title:'Suis-je un manager toxique ? · NeuroLab',url:url});}
+  else{navigator.clipboard.writeText(url);this.textContent='✓ Copié';setTimeout(()=>{this.textContent='🔗 Partager le test';},2000);}
+};
+</script>
+<script defer src="wa.js"></script>
+
+</body>
+</html>
