@@ -174,83 +174,110 @@ footer p{font-size:.9rem;color:var(--ink-2);max-width:520px;margin:0 auto 14px}
 footer .copy{font-size:.78rem;color:var(--ink-3);letter-spacing:.02em}
 footer .copy a{color:var(--green-d);text-decoration:none}
 @media(max-width:600px){.analyses{grid-template-columns:1fr}.axis-row{grid-template-columns:1fr 1.4fr 50px;gap:8px;padding:10px 12px}.axis-name{font-size:.84rem}.scale .opt{min-width:0;padding:10px 3px}}
-/* ─── PAYWALL Variante A « Le Plan » ─── */
-.lmn-overlay{position:fixed;inset:0;background:rgba(241,247,243,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;display:none;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;font-family:'Inter',system-ui,sans-serif}
-.lmn-overlay.active{display:flex}
-.lmn-card{max-width:540px;width:100%;background:#fff;padding:30px 26px;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.18);border:1px solid var(--line);text-align:center;margin:auto}
-.lmn-score{padding:14px 16px;border-radius:12px;margin-bottom:18px;font-size:.93rem;line-height:1.45;text-align:left}
-.lmn-score strong{display:block;font-size:1.02rem;margin-bottom:3px;letter-spacing:-.015em}
-.lmn-score-rouge{background:#FBEBEC;color:#7a1f22;border-left:3px solid var(--alert)}
-.lmn-score-rouge strong{color:var(--alert)}
-.lmn-score-orange{background:#FBF1E0;color:#6a4310;border-left:3px solid var(--warn)}
-.lmn-score-orange strong{color:#7a4a0e}
-.lmn-score-vert{background:var(--mint);color:var(--green-d);border-left:3px solid var(--green)}
-.lmn-score-vert strong{color:var(--green-d)}
-.lmn-card h2{font-size:1.45rem;color:var(--ink);font-weight:800;letter-spacing:-.025em;margin-bottom:8px;line-height:1.22}
-.lmn-card h2 em{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--green-d)}
-.lmn-sub{color:var(--ink-2);line-height:1.5;font-size:.96rem;margin-bottom:18px}
-.lmn-angle{background:var(--bg-soft);color:var(--green-d);font-style:italic;font-size:.9rem;padding:11px 14px;border-radius:8px;margin-bottom:18px;border-left:3px solid var(--green);text-align:left;line-height:1.5}
-.lmn-stack{display:flex;flex-direction:column;gap:9px;margin-bottom:20px;text-align:left}
-.lmn-item{display:flex;align-items:flex-start;gap:12px;padding:11px 13px;background:#F8FBF9;border:1px solid var(--line);border-radius:10px}
-.lmn-ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:var(--mint);color:var(--green-d);display:flex;align-items:center;justify-content:center;font-size:1.05rem}
-.lmn-item-text strong{display:block;color:var(--ink);font-size:.9rem;font-weight:700;margin-bottom:2px}
-.lmn-item-text span{display:block;font-size:.8rem;color:var(--ink-2);line-height:1.4}
-.lmn-cta{display:block;width:100%;background:var(--green);color:#fff;border:0;padding:15px 24px;border-radius:10px;font-weight:700;cursor:pointer;font-size:1rem;font-family:inherit;transition:background .15s,transform .15s;box-shadow:0 8px 20px -8px rgba(18,147,106,.55)}
-.lmn-cta:hover{background:var(--green-d);transform:translateY(-1px)}
-.lmn-anchor{font-size:.82rem;color:var(--ink-3);font-style:italic;margin:10px 0 18px}
-.lmn-reass{font-size:.77rem;color:var(--ink-2);background:#F8FBF9;padding:10px 12px;border-radius:8px;margin-bottom:8px;line-height:1.55}
-.lmn-reass small{display:block;color:var(--ink-3);margin-top:4px;font-size:.72rem}
-.lmn-legal{font-size:.68rem;color:#9aa39d;line-height:1.45;margin-top:6px}
-.lmn-notify{display:none;background:#F8FBF9;border:1px solid var(--mint-d);border-radius:12px;padding:16px;margin-top:8px;text-align:left}
-.lmn-notify h3{font-size:.95rem;color:var(--green-d);margin-bottom:5px;font-weight:700}
-.lmn-notify p{font-size:.83rem;color:var(--ink-2);margin-bottom:10px;line-height:1.5}
-.lmn-notify form{display:flex;gap:7px;flex-wrap:wrap}
-.lmn-notify input{flex:1;min-width:170px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-family:inherit;font-size:.9rem;outline:none}
-.lmn-notify input:focus{border-color:var(--green)}
-.lmn-notify button{background:var(--green);color:#fff;border:0;padding:10px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-family:inherit;font-size:.9rem}
-.lmn-notify-ok{display:none;background:var(--mint);color:var(--green-d);padding:11px 13px;border-radius:8px;font-size:.88rem;text-align:left;line-height:1.5}
-.lmn-mini-prix{display:inline-block;background:var(--mint);color:var(--green-d);padding:3px 9px;border-radius:14px;font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
-@media(max-width:520px){.lmn-card{padding:22px 18px}.lmn-card h2{font-size:1.2rem}.lmn-stack{gap:7px}.lmn-item{padding:10px 11px}.lmn-ico{width:28px;height:28px;font-size:.95rem}}
 </style>
 </head>
 <body>
-<!-- ─── GATE D'ACCÈS — code + expiration ───────────────────── -->
-<div id="accessGate" style="position:fixed;inset:0;background:#fff;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
-  <div style="max-width:460px;width:100%;text-align:center">
-    <div style="width:48px;height:48px;border-radius:50%;background:#E3F1E9;color:#0B6E4F;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 18px;font-weight:800;font-family:'Fraunces',serif">℞</div>
-    <h2 id="gateTitle" style="font-size:1.5rem;margin-bottom:12px;color:#16211C;font-weight:800;letter-spacing:-.025em">Accès au questionnaire</h2>
-    <p id="gateDisclaimer" style="margin-bottom:26px;color:#4C574F;line-height:1.55;font-size:.98rem">
-      Ce questionnaire est réservé aux <strong>personnes invitées au séminaire</strong>.<br>
-      Accès valable jusqu'au <strong>dimanche 7 juin 2026 à 18h00</strong>.
+<!-- ─── GATE D'ACCÈS — code + demande gratuite ───────────── -->
+<div id="accessGate" style="position:fixed;inset:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif;overflow-y:auto">
+  <div style="max-width:520px;width:100%;text-align:center;padding:30px 0">
+    <div style="width:54px;height:54px;border-radius:50%;background:#E3F1E9;color:#0B6E4F;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 18px;font-weight:800;font-family:'Fraunces',serif">℞</div>
+    <h2 style="font-size:1.5rem;margin-bottom:10px;color:#16211C;font-weight:800;letter-spacing:-.025em">Demandez votre code d'accès</h2>
+    <p style="margin-bottom:22px;color:#4C574F;line-height:1.55;font-size:.98rem">
+      Ce bilan est offert sur demande par le <strong>Dr Lapothicaire</strong>,<br>pharmacienne micronutritionniste.<br>
+      <span style="display:inline-block;margin-top:8px;color:#76837A;font-size:.88rem">Remplissez le formulaire ci-dessous &mdash; vous recevrez votre code par email.</span>
     </p>
-    <div id="gateForm">
-      <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off" autofocus
-        style="padding:14px 16px;width:100%;border:2px solid #E3E9E4;border-radius:10px;font-size:1.05rem;text-align:center;margin-bottom:14px;font-family:inherit;outline:none;color:#16211C">
-      <button onclick="checkCode()" style="background:#12936A;color:#fff;border:0;padding:14px 32px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:1rem;font-family:inherit;transition:background .15s">Accéder au questionnaire →</button>
-      <p id="accessError" style="color:#B0383C;margin-top:14px;display:none;font-size:.92rem">Code incorrect.</p>
-    </div>
-    <div id="gateExpired" style="display:none">
-      <p style="color:#4C574F;font-size:1.02rem;line-height:1.55;margin-bottom:8px"><strong>L'accès à ce questionnaire est terminé.</strong></p>
-      <p style="color:#76837A;font-size:.92rem;margin-bottom:24px">Merci de votre participation au séminaire.</p>
-      <a href="/contact.html" style="display:inline-block;background:#12936A;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:.95rem">Prendre RDV avec le Dr Lapothicaire →</a>
-    </div>
+
+    <!-- Formulaire de demande -->
+    <form id="lmnAccessReqForm" style="text-align:left;background:#F1F7F3;border:1px solid #E3E9E4;border-radius:14px;padding:20px;margin-bottom:18px">
+      <input type="hidden" name="access_key" value="57726177-ef80-4817-bcf9-e1a59d4d0131">
+      <input type="hidden" name="subject" value="🔑 Nouvelle demande d'accès questionnaire LifeMicroNut">
+      <input type="hidden" name="from_name" value="LifeMicroNut · Demande d'accès">
+      <input type="hidden" name="questionnaire" id="lmnReqQuiz" value="">
+      <input type="hidden" name="botcheck">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <input type="text" name="prenom" placeholder="Prénom" required autocomplete="given-name"
+          style="padding:13px 14px;width:100%;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.96rem;font-family:inherit;outline:none;color:#16211C;background:#fff">
+        <input type="text" name="nom" placeholder="Nom" required autocomplete="family-name"
+          style="padding:13px 14px;width:100%;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.96rem;font-family:inherit;outline:none;color:#16211C;background:#fff">
+      </div>
+      <input type="email" name="email" placeholder="Votre email" required autocomplete="email"
+        style="padding:13px 14px;width:100%;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.96rem;margin-bottom:12px;font-family:inherit;outline:none;color:#16211C;background:#fff">
+      <button type="submit" id="lmnReqBtn"
+        style="background:#12936A;color:#fff;border:0;padding:14px 24px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:.98rem;font-family:inherit;transition:background .15s">
+        Obtenir mon accès gratuit →
+      </button>
+      <p id="lmnReqSuccess" style="display:none;color:#0B6E4F;margin-top:14px;font-size:.92rem;text-align:center;font-weight:600">✓ Demande envoyée. Vous recevrez votre code par email rapidement.</p>
+      <p id="lmnReqError" style="display:none;color:#B0383C;margin-top:14px;font-size:.92rem;text-align:center">Erreur. Réessayez ou écrivez à <a href="mailto:lifemicronut@gmail.com" style="color:#B0383C">lifemicronut@gmail.com</a></p>
+    </form>
+
+    <!-- Section "j'ai déjà un code" -->
+    <details style="text-align:left;background:#fff;border:1px solid #E3E9E4;border-radius:14px;padding:14px 18px">
+      <summary style="cursor:pointer;color:#4C574F;font-weight:600;font-size:.92rem;list-style:none;display:flex;align-items:center;gap:8px">
+        <span style="color:#12936A">›</span> J'ai déjà reçu mon code
+      </summary>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off"
+          style="flex:1;min-width:140px;padding:11px 14px;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.94rem;font-family:inherit;outline:none;color:#16211C;background:#F1F7F3">
+        <button onclick="checkCode()"
+          style="background:#0B6E4F;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.92rem;font-family:inherit">
+          Valider →
+        </button>
+      </div>
+      <p id="accessError" style="color:#B0383C;margin-top:10px;display:none;font-size:.88rem">Code incorrect.</p>
+    </details>
   </div>
 </div>
 
 <script>
 (function(){
   var VALID = '1234';
-  var EXPIRES_AT = new Date('2026-06-07T18:00:00+02:00');
-  function norm(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim(); }
-  function isExpired(){ return new Date() >= EXPIRES_AT; }
-  function showExpired(){
-    document.getElementById('gateForm').style.display='none';
-    document.getElementById('gateExpired').style.display='block';
-    document.getElementById('gateTitle').textContent='Accès terminé';
-    document.getElementById('gateDisclaimer').style.display='none';
-  }
+  function norm(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+
+  // Pré-remplir le nom du questionnaire dans le formulaire
+  document.addEventListener('DOMContentLoaded', function(){
+    var quizField = document.getElementById('lmnReqQuiz');
+    if(quizField) quizField.value = document.title || location.pathname;
+
+    // Bypass si déjà autorisé
+    if(sessionStorage.getItem('lmn_access')==='1'){
+      document.getElementById('accessGate').style.display='none';
+    }
+
+    // Code via input
+    var inp = document.getElementById('accessCode');
+    if(inp){
+      inp.addEventListener('keypress', function(e){ if(e.key==='Enter'){ e.preventDefault(); window.checkCode(); }});
+    }
+
+    // Formulaire demande d'accès
+    var form = document.getElementById('lmnAccessReqForm');
+    if(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn = document.getElementById('lmnReqBtn');
+        btn.disabled = true; btn.textContent = 'Envoi…';
+        var fd = new FormData(form);
+        fetch('https://api.web3forms.com/submit', {method:'POST', body:fd, headers:{'Accept':'application/json'}})
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if(d.success){
+              form.querySelectorAll('input:not([type=hidden]), button').forEach(function(el){ el.style.display='none'; });
+              document.getElementById('lmnReqSuccess').style.display='block';
+            } else {
+              document.getElementById('lmnReqError').style.display='block';
+              btn.disabled = false; btn.textContent = 'Obtenir mon accès gratuit →';
+            }
+          })
+          .catch(function(){
+            document.getElementById('lmnReqError').style.display='block';
+            btn.disabled = false; btn.textContent = 'Obtenir mon accès gratuit →';
+          });
+      });
+    }
+  });
+
   window.checkCode = function(){
-    if(isExpired()){ showExpired(); return; }
     var input = document.getElementById('accessCode').value;
     if(norm(input) === norm(VALID)){
       sessionStorage.setItem('lmn_access','1');
@@ -259,50 +286,22 @@ footer .copy a{color:var(--green-d);text-decoration:none}
       document.getElementById('accessError').style.display='block';
     }
   };
-  document.addEventListener('DOMContentLoaded', function(){
-    if(isExpired()){
-      sessionStorage.removeItem('lmn_access');
-      showExpired();
-    } else if(sessionStorage.getItem('lmn_access')==='1'){
-      document.getElementById('accessGate').style.display='none';
-    }
-    var inp = document.getElementById('accessCode');
-    if(inp){
-      inp.addEventListener('keypress', function(e){ if(e.key==='Enter') window.checkCode(); });
-    }
-  });
 })();
 </script>
 <!-- ─── FIN GATE ───────────────────────────────────────────────── -->
 
-<!-- EMAIL GATE — entre dernière question et rapport -->
-<div id="emailGate" style="display:none;position:fixed;inset:0;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9998;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
-  <div style="max-width:480px;width:100%;background:#fff;padding:36px 28px;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.18);border:1px solid #E3E9E4;text-align:center">
-    <div style="width:54px;height:54px;border-radius:14px;background:#E3F1E9;color:#0B6E4F;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 16px">✉</div>
-    <h2 style="font-size:1.55rem;color:#16211C;font-weight:800;letter-spacing:-.025em;margin-bottom:8px">Votre bilan est <em style="font-family:'Fraunces',serif;font-weight:600;color:#0B6E4F;font-style:italic">prêt</em>.</h2>
-    <p style="color:#4C574F;line-height:1.55;font-size:.96rem;margin-bottom:22px">Entrez votre email pour recevoir votre rapport détaillé. Vous accédez aussi à votre rapport tout de suite, sur cet écran.</p>
-    <form id="emailGateForm" style="display:flex;flex-direction:column;gap:12px">
-      <input type="email" id="emailGateInput" placeholder="votre@email.com" required autocomplete="email" style="padding:14px 16px;width:100%;border:2px solid #E3E9E4;border-radius:10px;font-size:1rem;text-align:center;font-family:inherit;outline:none;color:#16211C">
-      <button type="submit" style="background:#12936A;color:#fff;border:0;padding:15px 32px;border-radius:10px;font-weight:800;cursor:pointer;width:100%;font-size:1rem;font-family:inherit;transition:background .15s">Voir mon bilan →</button>
-    </form>
-    <p style="font-size:.78rem;color:#76837A;margin-top:14px">RGPD : votre email ne sert qu'à vous envoyer votre bilan et nos conseils. Désinscription en 1 clic.</p>
-  </div>
-</div>
-<!-- ─── FIN EMAIL GATE ───────────────────────────────────────────────── -->
-
-
 <header class="hdr">
   <div class="wrap">
-    <a href="/" class="brand">LifeMicroNut</a>
+    <a href="index.html" class="brand">LifeMicroNut</a>
     <nav class="nav-main">
-      <a href="/" class="nav-keep">Accueil</a>
+      <a href="index.html" class="nav-keep">Accueil</a>
       <a href="index.html#questionnaires" class="nav-keep active">Questionnaires</a>
-      <a href="/comprendre.html">Comprendre</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/faq.html">FAQ</a>
-      <a href="/about.html">À propos</a>
-      <a href="/mentions-legales.html">Mentions légales</a>
-      <a href="/contact.html" class="btn-nav">Prendre RDV</a>
+      <a href="comprendre.html">Comprendre</a>
+      <a href="blog.html">Blog</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">À propos</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="contact.html" class="btn-nav">Prendre RDV</a>
     </nav>
   </div>
 </header>
@@ -374,28 +373,20 @@ footer .copy a{color:var(--green-d);text-decoration:none}
       <strong>Important :</strong> Ce bilan est un outil d'orientation, pas un diagnostic ni une prescription. Le surpoids peut avoir des causes médicales qui nécessitent une consultation (endocrinologie, gynécologie, médecine interne). La micronutrition est un <strong>levier complémentaire puissant</strong>, jamais un substitut à un suivi médical. <strong>Ne supprimez aucun aliment de manière restrictive sans accompagnement</strong> — les régimes restrictifs aggravent presque toujours la résistance pondérale à long terme.
     </div>
 
-    <!-- BOUTON TÉLÉCHARGER PDF (hotfix conf) -->
-    <div style="text-align:center;margin:24px 0">
-      <button id="downloadPDF" type="button" style="display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;border:0;padding:16px 30px;border-radius:11px;font-weight:800;font-size:1.02rem;cursor:pointer;font-family:inherit;box-shadow:0 12px 30px -10px rgba(18,147,106,.45);transition:transform .15s">
-        📄 Télécharger mon rapport en PDF
-      </button>
-      <p style="font-size:.84rem;color:var(--ink-3);margin-top:10px">Sauvegardez votre bilan personnalisé · prêt à montrer à votre médecin</p>
-    </div>
-
     <div class="cta-final">
-      <h3>Restez en contact avec LifeMicroNut</h3>
-      <p class="cta-lead">Ce bilan met en lumière vos leviers — mais la <strong style="color:#fff">vraie transformation</strong> passe par un plan personnalisé, hiérarchisé, et adapté à votre vie. Laissez votre email pour recevoir nos prochains conseils micronutrition + l'accès anticipé à nos nouveaux questionnaires.</p>
-      <div class="cta-success" id="ctaSuccess">✓ Merci ! Vous êtes inscrit·e à nos prochains conseils. Le Dr Lapothicaire vous écrira prochainement.</div>
+      <h3>Et maintenant, on construit votre plan ?</h3>
+      <p class="cta-lead">Ce bilan met en lumière vos leviers — mais la <strong style="color:#fff">vraie transformation</strong> passe par un plan personnalisé, hiérarchisé, et adapté à votre vie. Recevez votre rapport détaillé par email, ou prenez RDV pour une consultation individualisée.</p>
+      <div class="cta-success" id="ctaSuccess">✓ Merci ! Le Dr Lapothicaire reçoit votre demande et vous adresse votre rapport personnalisé sous 24-48h. Vous pouvez aussi prendre RDV directement.</div>
       <form class="cta-form" id="leadForm" method="POST" action="https://api.web3forms.com/submit">
         <input type="hidden" name="access_key" value="57726177-ef80-4817-bcf9-e1a59d4d0131">
-        <input type="hidden" name="subject" value="Nouveau lead — Bilan Hormones (LifeMicroNut)">
-        <input type="hidden" name="from_name" value="LifeMicroNut · Bilan Hormones">
+        <input type="hidden" name="subject" value="Nouveau lead — Bilan Surpoids (LifeMicroNut)">
+        <input type="hidden" name="from_name" value="LifeMicroNut · Bilan Surpoids">
         <input type="hidden" name="botcheck">
         <input type="email" name="email" placeholder="votre@email.com" required>
-        <button type="submit">Rester en contact →</button>
+        <button type="submit">Recevoir mon bilan →</button>
       </form>
       <p class="cta-or">— ou —</p>
-      <a href="/contact.html" class="cta-rdv">Prendre RDV avec le Dr Lapothicaire →</a>
+      <a href="contact.html" class="cta-rdv">Prendre RDV avec le Dr Lapothicaire →</a>
       <p class="cta-tiny">RGPD : votre email ne sert qu'à vous envoyer votre bilan et nos conseils. Désinscription en 1 clic.</p>
     </div>
 
@@ -431,14 +422,14 @@ footer .copy a{color:var(--green-d);text-decoration:none}
   <div class="wrap">
     <div class="brand">LifeMicroNut</div>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:18px;font-size:.88rem">
-      <a href="/" style="color:var(--ink-2);text-decoration:none">Accueil</a>
-      <a href="/comprendre.html" style="color:var(--ink-2);text-decoration:none">Comprendre</a>
-      <a href="/microbiote-mental.html" style="color:var(--ink-2);text-decoration:none">Bilans</a>
-      <a href="/blog.html" style="color:var(--ink-2);text-decoration:none">Blog</a>
-      <a href="/faq.html" style="color:var(--ink-2);text-decoration:none">FAQ</a>
-      <a href="/about.html" style="color:var(--ink-2);text-decoration:none">À propos</a>
-      <a href="/contact.html" style="color:var(--ink-2);text-decoration:none">Contact</a>
-      <a href="/mentions-legales.html" style="color:var(--ink-2);text-decoration:none">Mentions légales</a>
+      <a href="index.html" style="color:var(--ink-2);text-decoration:none">Accueil</a>
+      <a href="comprendre.html" style="color:var(--ink-2);text-decoration:none">Comprendre</a>
+      <a href="microbiote-mental.html" style="color:var(--ink-2);text-decoration:none">Bilans</a>
+      <a href="blog.html" style="color:var(--ink-2);text-decoration:none">Blog</a>
+      <a href="faq.html" style="color:var(--ink-2);text-decoration:none">FAQ</a>
+      <a href="about.html" style="color:var(--ink-2);text-decoration:none">À propos</a>
+      <a href="contact.html" style="color:var(--ink-2);text-decoration:none">Contact</a>
+      <a href="mentions-legales.html" style="color:var(--ink-2);text-decoration:none">Mentions légales</a>
     </div>
 <p>La micronutrition appliquée à la vraie vie. Une approche <strong>pharmacienne, scientifique et personnalisée</strong>, pour des résultats durables.</p>
     <p class="copy">© <span id="year"></span> LifeMicroNut · Tous droits réservés · <a href="https://lifemicronut.com">lifemicronut.com</a></p>
@@ -695,45 +686,9 @@ function show(){
   var ph=phases(ans,s);var pb=document.getElementById('phasesBlock');pb.innerHTML='';ph.forEach(function(p){var d=document.createElement('div');d.className='phase-box';var h='<span class="phase-tag">'+p.tag+'</span><h4>'+p.title+'</h4><ul>';p.items.forEach(function(it){h+='<li>'+it+'</li>'});h+='</ul>';d.innerHTML=h;pb.appendChild(d)});
   var anls=analyses(ans,s);var anb=document.getElementById('analysesBlock');anb.innerHTML='';anls.forEach(function(a,i){var d=document.createElement('div');d.className='an';var b=a.priority===1?' <span class="badge-pri">PRIORITÉ</span>':'';d.innerHTML='<span class="an-num">'+(i+1)+'</span><div><strong>'+a.name+b+'</strong><span class="why">'+a.why+'</span></div>';anb.appendChild(d)});
   document.getElementById('statCount').textContent=anls.length;
-  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'});
-  /* HOTFIX conf : paywall désactivé pour les filles de la conférence */
-  /* if(window.LMNPaywall) window.LMNPaywall.process(ans, pct); */
-
-  /* NOTIFICATION AUTO — envoyée dès la fin du quiz */
-  try{
-    var topAxes = Object.keys(s).sort(function(a,b){return s[b]-s[a]}).slice(0,3).map(function(k){return AXES_LBL[k]+' ('+s[k]+')'}).join(' · ');
-    var nfd = new FormData();
-    nfd.append('access_key', '57726177-ef80-4817-bcf9-e1a59d4d0131');
-    nfd.append('subject', '🔔 Quiz Hormones complété — Score '+pct+'%');
-    nfd.append('from_name', 'LifeMicroNut · Notification automatique');
-    nfd.append('quiz_type', 'Hormones féminines');
-    nfd.append('score_global', pct+'%');
-    nfd.append('niveau_severite', info.l);
-    nfd.append('axes_prioritaires', topAxes);
-    nfd.append('phase_hormonale', ans.phase || 'non précisé');
-    nfd.append('age', ans.age || 'non précisé');
-    nfd.append('email_utilisateur', window.__lmnEmail || 'non saisi');
-    nfd.append('reponses_completes', JSON.stringify(ans));
-    nfd.append('user_agent', navigator.userAgent);
-    nfd.append('botcheck', '');
-    fetch('https://api.web3forms.com/submit', {method:'POST', body:nfd, headers:{'Accept':'application/json'}}).catch(function(){});
-  }catch(e){}
+  $card.style.display='none';$result.classList.add('active');$bar.style.width='100%';window.scrollTo({top:document.getElementById('resultCard').offsetTop-60,behavior:'smooth'})
 }
-$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){askEmailThenShow();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
-
-function askEmailThenShow(){
-  var gate = document.getElementById('emailGate');
-  if(!gate){ show(); return; }
-  gate.style.display = 'flex';
-  setTimeout(function(){ document.getElementById('emailGateInput').focus(); }, 100);
-  document.getElementById('emailGateForm').onsubmit = function(e){
-    e.preventDefault();
-    var email = document.getElementById('emailGateInput').value;
-    window.__lmnEmail = email;
-    gate.style.display = 'none';
-    show();
-  };
-}
+$next.addEventListener('click',function(){if(!validate())return;if(idx===Q.length-1){show();return}idx++;render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
 $prev.addEventListener('click',function(){if(idx>0){idx--;render()}});
 $restart.addEventListener('click',function(){ans={};idx=0;$result.classList.remove('active');$card.style.display='block';render();window.scrollTo({top:document.getElementById('quizCard').offsetTop-60,behavior:'smooth'})});
 
@@ -747,145 +702,6 @@ function tjUpdate(v,from){v=Math.max(5,Math.min(1000,parseInt(v)||5));$tjVal.tex
 $tjSlider.addEventListener('input',function(){tjUpdate(this.value,'slider')});$tjPresets.forEach(function(b){b.addEventListener('click',function(){tjUpdate(b.dataset.amount,'preset')})});$tjCustom.addEventListener('input',function(){if(this.value)tjUpdate(this.value,'custom')});tjUpdate(5,'init');
 render();
 </script>
-
-<!-- ─── PAYWALL Variante A « Le Plan » ─── -->
-<div id="paywall" class="lmn-overlay">
-  <div class="lmn-card">
-    <span class="lmn-mini-prix">Bilan complet · 19,90 €</span>
-    <div id="scoreBlock" class="lmn-score"></div>
-    <h2>Votre plan d'action <em>personnalisé</em> est prêt.</h2>
-    <p class="lmn-sub">Vous avez répondu honnêtement. Voici ce que vos réponses révèlent — et exactement quoi en faire.</p>
-    <p class="lmn-angle">Le flou, c'est ce qui épuise. À partir de maintenant, vous savez par où commencer.</p>
-    <div class="lmn-stack">
-      <div class="lmn-item"><div class="lmn-ico">📊</div><div class="lmn-item-text"><strong>Votre profil détaillé</strong><span>Au-delà du score : ce que vos réponses révèlent vraiment.</span></div></div>
-      <div class="lmn-item"><div class="lmn-ico">🎯</div><div class="lmn-item-text"><strong>Votre plan d'action priorisé</strong><span>Pas 40 conseils génériques. Les 3-5 leviers qui comptent pour vous, dans l'ordre.</span></div></div>
-      <div class="lmn-item"><div class="lmn-ico">🩺</div><div class="lmn-item-text"><strong>La liste exacte des analyses à demander à votre médecin</strong><span>Vous arrivez préparée, vous ne perdez plus de temps ni d'argent.</span></div></div>
-      <div class="lmn-item"><div class="lmn-ico">📄</div><div class="lmn-item-text"><strong>Votre PDF téléchargeable</strong><span>À garder, à montrer à votre médecin, à suivre dans le temps.</span></div></div>
-    </div>
-    <button id="paywallCTA" type="button" class="lmn-cta" onclick="lmnUnlock()">Débloquer mon plan d'action — 19,90 €</button>
-    <p class="lmn-anchor">Un plan clair, en 2 minutes, au lieu de mois d'essais au hasard.</p>
-    <div class="lmn-reass">🔒 Paiement sécurisé · ⚡ Accès immédiat · 📄 PDF à télécharger<br><small>CB · Apple Pay · PayPal · Satisfait ou remboursé sous 14 jours</small></div>
-    <p class="lmn-legal">En débloquant, vous reconnaissez accéder immédiatement à un contenu numérique et renoncer au délai de rétractation de 14 jours.</p>
-
-    <div id="paywallNotify" class="lmn-notify">
-      <h3>Activation du paiement en cours</h3>
-      <p>Laissez votre email — vous serez prévenue <strong>dès l'ouverture du paiement</strong> et bénéficierez du tarif de lancement.</p>
-      <form id="lmnNotifyForm" method="POST" action="https://api.web3forms.com/submit">
-        <input type="hidden" name="access_key" value="57726177-ef80-4817-bcf9-e1a59d4d0131">
-        <input type="hidden" name="subject" value="Lead Paywall — Bilan Hormones Féminines (variante A)">
-        <input type="hidden" name="from_name" value="LifeMicroNut · Paywall Hormones">
-        <input type="hidden" name="botcheck">
-        <input type="hidden" name="quiz" value="hormones">
-        <input type="hidden" name="variante" value="A">
-        <input type="email" name="email" placeholder="votre@email.com" required>
-        <button type="submit">Me prévenir →</button>
-      </form>
-      <div id="lmnNotifySuccess" class="lmn-notify-ok" style="margin-top:10px">✓ Merci ! Vous serez prévenue dès l'activation du paiement.</div>
-    </div>
-  </div>
-</div>
-
-<script>
-(function(){
-  var STRIPE_LINK = ''; // ← À remplir avec le Stripe Payment Link quand prêt
-  var SCORE_TEXTS = {
-    rouge:  {t:'Votre corps vous envoie des signaux clairs.',     d:'Bonne nouvelle : des signaux clairs = des pistes claires.'},
-    orange: {t:'Vous êtes à un tournant.',                         d:'Vos symptômes sont encore gérables — c\'est le bon moment pour agir.'},
-    vert:   {t:'Vous allez globalement bien.',                     d:'Et c\'est exactement pour ça que ça vaut le coup d\'optimiser maintenant.'}
-  };
-  // Pas de drapeau rouge spécifique sur ce quiz pour l'instant
-  function isRedFlag(){ return false; }
-  window.LMNPaywall = {
-    process: function(ans, pct){
-      if(isRedFlag(ans)){ return; }
-      var color = pct >= 50 ? 'rouge' : pct >= 25 ? 'orange' : 'vert';
-      var sb = document.getElementById('scoreBlock');
-      var t = SCORE_TEXTS[color];
-      sb.className = 'lmn-score lmn-score-'+color;
-      sb.innerHTML = '<strong>'+t.t+'</strong>'+t.d;
-      var rc = document.getElementById('resultCard');
-      if(rc){ rc.style.filter='blur(8px) brightness(.9)'; rc.style.pointerEvents='none'; rc.style.userSelect='none'; }
-      document.getElementById('paywall').classList.add('active');
-    }
-  };
-  window.lmnUnlock = function(){
-    if(STRIPE_LINK){
-      window.location.href = STRIPE_LINK;
-    } else {
-      document.getElementById('paywallCTA').style.display = 'none';
-      document.getElementById('paywallNotify').style.display = 'block';
-    }
-  };
-  document.addEventListener('DOMContentLoaded', function(){
-    var notifyForm = document.getElementById('lmnNotifyForm');
-    if(notifyForm){
-      notifyForm.addEventListener('submit', function(e){
-        e.preventDefault();
-        var fd = new FormData(notifyForm);
-        fetch(notifyForm.action, {method:'POST', body:fd, headers:{'Accept':'application/json'}})
-          .then(function(r){return r.json()})
-          .then(function(d){
-            if(d.success){
-              notifyForm.style.display = 'none';
-              document.getElementById('lmnNotifySuccess').style.display = 'block';
-            } else { alert('Erreur : '+(d.message||'réessayez.')); }
-          })
-          .catch(function(){ alert('Une erreur est survenue. Merci de réessayer.'); });
-      });
-    }
-  });
-})();
-</script>
-<!-- ─── FIN PAYWALL ─── -->
 <script defer src="wa.js"></script>
-
-<!-- HOTFIX CONF · Téléchargement PDF du rapport -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  var btn = document.getElementById('downloadPDF');
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    var originalText = btn.innerHTML;
-    btn.innerHTML = '⏳ Génération en cours...';
-    btn.disabled = true;
-    var element = document.getElementById('resultCard');
-    if(!element){ alert('Erreur : rapport introuvable.'); btn.innerHTML = originalText; btn.disabled = false; return; }
-    var prevFilter = element.style.filter;
-    element.style.filter = '';
-    element.style.pointerEvents = '';
-    setTimeout(function(){
-      html2canvas(element, {scale: 1.4, logging: false, useCORS: true, backgroundColor: '#ffffff'}).then(function(canvas){
-        var imgData = canvas.toDataURL('image/jpeg', 0.92);
-        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-        var imgWidth = 210;
-        var pageHeight = 297;
-        var imgHeight = canvas.height * imgWidth / canvas.width;
-        var heightLeft = imgHeight;
-        var position = 0;
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-        while(heightLeft > 0){
-          position = heightLeft - imgHeight;
-          pdf.addPage();
-          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight;
-        }
-        var today = new Date().toISOString().slice(0,10);
-        pdf.save('LifeMicroNut-Bilan-Hormones-'+today+'.pdf');
-        element.style.filter = prevFilter;
-        btn.innerHTML = '✓ Téléchargé !';
-        setTimeout(function(){ btn.innerHTML = originalText; btn.disabled = false; }, 2500);
-      }).catch(function(err){
-        element.style.filter = prevFilter;
-        alert('Erreur génération PDF : '+(err.message||'réessayez.'));
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-      });
-    }, 80);
-  });
-});
-</script>
 </body>
 </html>

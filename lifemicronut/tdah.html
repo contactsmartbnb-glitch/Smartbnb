@@ -148,58 +148,118 @@ footer .copy{font-size:.78rem;color:var(--ink-3)}
 </style>
 </head>
 <body>
-<!-- ─── GATE D'ACCÈS — code + expiration ───────────────────── -->
-<div id="accessGate" style="position:fixed;inset:0;background:#fff;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
-  <div style="max-width:460px;width:100%;text-align:center">
-    <div style="width:48px;height:48px;border-radius:50%;background:#F5EEFB;color:#7A4C9C;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 18px;font-weight:800;font-family:'Fraunces',serif">℞</div>
-    <h2 id="gateTitle" style="font-size:1.5rem;margin-bottom:12px;color:#16211C;font-weight:800;letter-spacing:-.025em">Accès au questionnaire</h2>
-    <p id="gateDisclaimer" style="margin-bottom:26px;color:#4C574F;line-height:1.55;font-size:.98rem">
-      Ce questionnaire est réservé aux <strong>personnes invitées au séminaire</strong>.<br>
-      Accès valable jusqu'au <strong>dimanche 7 juin 2026 à 18h00</strong>.
+<!-- ─── GATE D'ACCÈS — code + demande gratuite ───────────── -->
+<div id="accessGate" style="position:fixed;inset:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif;overflow-y:auto">
+  <div style="max-width:520px;width:100%;text-align:center;padding:30px 0">
+    <div style="width:54px;height:54px;border-radius:50%;background:#E3F1E9;color:#0B6E4F;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 18px;font-weight:800;font-family:'Fraunces',serif">℞</div>
+    <h2 style="font-size:1.5rem;margin-bottom:10px;color:#16211C;font-weight:800;letter-spacing:-.025em">Demandez votre code d'accès</h2>
+    <p style="margin-bottom:22px;color:#4C574F;line-height:1.55;font-size:.98rem">
+      Ce bilan est offert sur demande par le <strong>Dr Lapothicaire</strong>,<br>pharmacienne micronutritionniste.<br>
+      <span style="display:inline-block;margin-top:8px;color:#76837A;font-size:.88rem">Remplissez le formulaire ci-dessous &mdash; vous recevrez votre code par email.</span>
     </p>
-    <div id="gateForm">
-      <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off" autofocus
-        style="padding:14px 16px;width:100%;border:2px solid #E3E9E4;border-radius:10px;font-size:1.05rem;text-align:center;margin-bottom:14px;font-family:inherit;outline:none;color:#16211C">
-      <button onclick="checkCode()" style="background:#7A4C9C;color:#fff;border:0;padding:14px 32px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:1rem;font-family:inherit">Accéder au questionnaire →</button>
-      <p id="accessError" style="color:#B0383C;margin-top:14px;display:none;font-size:.92rem">Code incorrect.</p>
-    </div>
-    <div id="gateExpired" style="display:none">
-      <p style="color:#4C574F;font-size:1.02rem;line-height:1.55;margin-bottom:8px"><strong>L'accès à ce questionnaire est terminé.</strong></p>
-      <p style="color:#76837A;font-size:.92rem;margin-bottom:24px">Merci de votre participation au séminaire.</p>
-      <a href="/contact.html" style="display:inline-block;background:#7A4C9C;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:.95rem">Prendre RDV avec le Dr Lapothicaire →</a>
-    </div>
+
+    <!-- Formulaire de demande -->
+    <form id="lmnAccessReqForm" style="text-align:left;background:#F1F7F3;border:1px solid #E3E9E4;border-radius:14px;padding:20px;margin-bottom:18px">
+      <input type="hidden" name="access_key" value="57726177-ef80-4817-bcf9-e1a59d4d0131">
+      <input type="hidden" name="subject" value="🔑 Nouvelle demande d'accès questionnaire LifeMicroNut">
+      <input type="hidden" name="from_name" value="LifeMicroNut · Demande d'accès">
+      <input type="hidden" name="questionnaire" id="lmnReqQuiz" value="">
+      <input type="hidden" name="botcheck">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <input type="text" name="prenom" placeholder="Prénom" required autocomplete="given-name"
+          style="padding:13px 14px;width:100%;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.96rem;font-family:inherit;outline:none;color:#16211C;background:#fff">
+        <input type="text" name="nom" placeholder="Nom" required autocomplete="family-name"
+          style="padding:13px 14px;width:100%;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.96rem;font-family:inherit;outline:none;color:#16211C;background:#fff">
+      </div>
+      <input type="email" name="email" placeholder="Votre email" required autocomplete="email"
+        style="padding:13px 14px;width:100%;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.96rem;margin-bottom:12px;font-family:inherit;outline:none;color:#16211C;background:#fff">
+      <button type="submit" id="lmnReqBtn"
+        style="background:#12936A;color:#fff;border:0;padding:14px 24px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:.98rem;font-family:inherit;transition:background .15s">
+        Obtenir mon accès gratuit →
+      </button>
+      <p id="lmnReqSuccess" style="display:none;color:#0B6E4F;margin-top:14px;font-size:.92rem;text-align:center;font-weight:600">✓ Demande envoyée. Vous recevrez votre code par email rapidement.</p>
+      <p id="lmnReqError" style="display:none;color:#B0383C;margin-top:14px;font-size:.92rem;text-align:center">Erreur. Réessayez ou écrivez à <a href="mailto:lifemicronut@gmail.com" style="color:#B0383C">lifemicronut@gmail.com</a></p>
+    </form>
+
+    <!-- Section "j'ai déjà un code" -->
+    <details style="text-align:left;background:#fff;border:1px solid #E3E9E4;border-radius:14px;padding:14px 18px">
+      <summary style="cursor:pointer;color:#4C574F;font-weight:600;font-size:.92rem;list-style:none;display:flex;align-items:center;gap:8px">
+        <span style="color:#12936A">›</span> J'ai déjà reçu mon code
+      </summary>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <input type="text" id="accessCode" placeholder="Code d'accès" autocomplete="off"
+          style="flex:1;min-width:140px;padding:11px 14px;border:1.5px solid #E3E9E4;border-radius:10px;font-size:.94rem;font-family:inherit;outline:none;color:#16211C;background:#F1F7F3">
+        <button onclick="checkCode()"
+          style="background:#0B6E4F;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.92rem;font-family:inherit">
+          Valider →
+        </button>
+      </div>
+      <p id="accessError" style="color:#B0383C;margin-top:10px;display:none;font-size:.88rem">Code incorrect.</p>
+    </details>
   </div>
 </div>
 
 <script>
 (function(){
   var VALID = '1234';
-  var EXPIRES_AT = new Date('2026-06-07T18:00:00+02:00');
-  function norm(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim(); }
-  function isExpired(){ return new Date() >= EXPIRES_AT; }
-  function showExpired(){
-    document.getElementById('gateForm').style.display='none';
-    document.getElementById('gateExpired').style.display='block';
-    document.getElementById('gateTitle').textContent='Accès terminé';
-    document.getElementById('gateDisclaimer').style.display='none';
-  }
+  function norm(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+
+  // Pré-remplir le nom du questionnaire dans le formulaire
+  document.addEventListener('DOMContentLoaded', function(){
+    var quizField = document.getElementById('lmnReqQuiz');
+    if(quizField) quizField.value = document.title || location.pathname;
+
+    // Bypass si déjà autorisé
+    if(sessionStorage.getItem('lmn_access')==='1'){
+      document.getElementById('accessGate').style.display='none';
+    }
+
+    // Code via input
+    var inp = document.getElementById('accessCode');
+    if(inp){
+      inp.addEventListener('keypress', function(e){ if(e.key==='Enter'){ e.preventDefault(); window.checkCode(); }});
+    }
+
+    // Formulaire demande d'accès
+    var form = document.getElementById('lmnAccessReqForm');
+    if(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn = document.getElementById('lmnReqBtn');
+        btn.disabled = true; btn.textContent = 'Envoi…';
+        var fd = new FormData(form);
+        fetch('https://api.web3forms.com/submit', {method:'POST', body:fd, headers:{'Accept':'application/json'}})
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if(d.success){
+              form.querySelectorAll('input:not([type=hidden]), button').forEach(function(el){ el.style.display='none'; });
+              document.getElementById('lmnReqSuccess').style.display='block';
+            } else {
+              document.getElementById('lmnReqError').style.display='block';
+              btn.disabled = false; btn.textContent = 'Obtenir mon accès gratuit →';
+            }
+          })
+          .catch(function(){
+            document.getElementById('lmnReqError').style.display='block';
+            btn.disabled = false; btn.textContent = 'Obtenir mon accès gratuit →';
+          });
+      });
+    }
+  });
+
   window.checkCode = function(){
-    if(isExpired()){ showExpired(); return; }
     var input = document.getElementById('accessCode').value;
     if(norm(input) === norm(VALID)){
       sessionStorage.setItem('lmn_access','1');
       document.getElementById('accessGate').style.display='none';
-    } else { document.getElementById('accessError').style.display='block'; }
+    } else {
+      document.getElementById('accessError').style.display='block';
+    }
   };
-  document.addEventListener('DOMContentLoaded', function(){
-    if(isExpired()){ sessionStorage.removeItem('lmn_access'); showExpired(); }
-    else if(sessionStorage.getItem('lmn_access')==='1'){ document.getElementById('accessGate').style.display='none'; }
-    var inp = document.getElementById('accessCode');
-    if(inp){ inp.addEventListener('keypress', function(e){ if(e.key==='Enter') window.checkCode(); }); }
-  });
 })();
 </script>
-<!-- ─── FIN GATE ─── -->
+<!-- ─── FIN GATE ───────────────────────────────────────────────── -->
 
 <!-- EMAIL GATE — entre dernière question et rapport -->
 <div id="emailGate" style="display:none;position:fixed;inset:0;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9998;align-items:center;justify-content:center;padding:20px;font-family:'Inter',system-ui,sans-serif">
