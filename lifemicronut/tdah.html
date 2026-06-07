@@ -483,17 +483,30 @@ function score(a){
   return s;
 }
 
-function pctTDAH(s){
-  // Part A est l'indicateur principal : sur 24
-  // Part B confirme : sur 24
-  // Bonus si impact élevé et début ancien
-  var partA = s.asrs_a / 24 * 100;
-  var partB = s.asrs_b / 24 * 100;
-  // Score combiné pondéré 70% A + 30% B
-  var pct = Math.round(partA * 0.7 + partB * 0.3);
-  // Ajustement impact
-  if(s.impact >= 3) pct = Math.min(99, pct + 5);
-  if(ans.duree === 'tjs' || ans.duree === 'long') pct = Math.min(99, pct + 3);
+function pctTDAH(s, a){
+  // Méthode ASRS-v1.1 officielle (OMS) : scoring binaire avec seuils par item
+  // Part A : Q1-3 seuil "Parfois" (≥2), Q4-6 seuil "Souvent" (≥3)
+  var partAPositive = 0;
+  if((a.a1||0) >= 2) partAPositive++;
+  if((a.a2||0) >= 2) partAPositive++;
+  if((a.a3||0) >= 2) partAPositive++;
+  if((a.a4||0) >= 3) partAPositive++;
+  if((a.a5||0) >= 3) partAPositive++;
+  if((a.a6||0) >= 3) partAPositive++;
+  // Part B : seuil "Souvent" (≥3) sur tous les items
+  var partBPositive = 0;
+  ['b1','b2','b3','b4','b5','b6'].forEach(function(k){if((a[k]||0) >= 3) partBPositive++;});
+  // Courbe calibrée : seuil clinique OMS = 4+ items Part A positifs
+  var aPctMap = [3, 12, 25, 42, 62, 78, 92];
+  var bPctMap = [8, 18, 30, 45, 58, 72, 85];
+  var partAPct = aPctMap[partAPositive];
+  var partBPct = bPctMap[partBPositive];
+  // Pondération 70% A + 30% B
+  var pct = Math.round(partAPct * 0.7 + partBPct * 0.3);
+  // Ajustements modérés (max +8 cumulés au lieu de +8 avant)
+  if(a.impact >= 3) pct = Math.min(99, pct + 4);
+  if(a.duree === 'tjs' || a.duree === 'long') pct = Math.min(99, pct + 3);
+  if((a.b6||0) >= 3) pct = Math.min(99, pct + 1);
   return Math.max(0, Math.min(99, pct));
 }
 
@@ -553,13 +566,21 @@ function profile(a, s, p){
   return html;
 }
 
-function subscores(s){
+function subscores(s, a){
   var t = '';
-  var partAPct = Math.round(s.asrs_a / 24 * 100);
+  // ASRS-A : nombre d'items positifs selon seuils OMS officiels
+  var aPos = 0;
+  if((a.a1||0) >= 2) aPos++;
+  if((a.a2||0) >= 2) aPos++;
+  if((a.a3||0) >= 2) aPos++;
+  if((a.a4||0) >= 3) aPos++;
+  if((a.a5||0) >= 3) aPos++;
+  if((a.a6||0) >= 3) aPos++;
+  var partAPct = Math.round(aPos / 6 * 100);
   var hspPct = Math.round(s.hsp / 12 * 100);
   var boPct = Math.round(s.burnout / 12 * 100);
 
-  t += '<div class="subscore"><div class="lbl">ASRS-A · TDAH screening</div><div class="val">'+partAPct+' %</div><div class="desc">Échelle OMS · Part A (6 questions clés)</div></div>';
+  t += '<div class="subscore"><div class="lbl">ASRS-A · TDAH screening</div><div class="val">'+aPos+'/6</div><div class="desc">Items positifs OMS · seuil clinique = 4+</div></div>';
   t += '<div class="subscore"><div class="lbl">HSP · Hypersensibilité</div><div class="val">'+hspPct+' %</div><div class="desc">Échelle Aron simplifiée</div></div>';
   t += '<div class="subscore"><div class="lbl">Burnout cognitif</div><div class="val">'+boPct+' %</div><div class="desc">Fatigue + masquage social</div></div>';
   return t;
@@ -567,7 +588,8 @@ function subscores(s){
 
 function signs(s, a){
   var arr = [];
-  if(s.asrs_a >= 14) arr.push({txt:'Score ASRS-A élevé : signal majeur de TDAH adulte', strong:true});
+  var aPos = ((a.a1||0)>=2?1:0)+((a.a2||0)>=2?1:0)+((a.a3||0)>=2?1:0)+((a.a4||0)>=3?1:0)+((a.a5||0)>=3?1:0)+((a.a6||0)>=3?1:0);
+  if(aPos >= 4) arr.push({txt:'Score ASRS-A ≥ 4/6 : seuil clinique OMS franchi', strong:true});
   if((a.a1||0)+(a.a2||0)+(a.a3||0)+(a.a4||0) >= 12) arr.push({txt:'Forte dimension <strong>inattention</strong> (organisation, oublis, procrastination)', strong:true});
   if((a.a5||0)+(a.a6||0) >= 6) arr.push({txt:'Forte dimension <strong>hyperactivité/impulsivité</strong>', strong:true});
   if((a.b4||0) >= 3) arr.push({txt:'<strong>Hyperfocus</strong> régulier sur les centres d\'intérêt', strong:true});
@@ -582,13 +604,13 @@ function signs(s, a){
 
 function show(){
   var s = score(ans);
-  var p = pctTDAH(s);
+  var p = pctTDAH(s, ans);
   var info = pctLabel(p);
   document.getElementById('sevScore').textContent = p + ' %';
   document.getElementById('sevLabel').textContent = info.l;
   document.getElementById('sevDesc').textContent = info.d;
   document.getElementById('profileBlock').innerHTML = profile(ans, s, p);
-  document.getElementById('subscoresBlock').innerHTML = subscores(s);
+  document.getElementById('subscoresBlock').innerHTML = subscores(s, ans);
   document.getElementById('signsBlock').innerHTML = signs(s, ans);
 
   $card.style.display='none';
