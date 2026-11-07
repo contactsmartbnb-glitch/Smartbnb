@@ -1,0 +1,2977 @@
+{
+  "MB": {
+    "pages": [
+      {
+        "k": "intro",
+        "n": "Avant de commencer",
+        "q": [
+          {
+            "t": "warn",
+            "l": "Ce questionnaire ne remplace pas un avis médical",
+            "h": [
+              "Il ne donne aucun résultat ni aucune explication, et ne pose aucun diagnostic. Il ne remplace ni une consultation ni un examen médical.",
+              "En cas d'urgence, appelez le 15."
+            ]
+          },
+          "pc1",
+          "pc2"
+        ]
+      },
+      {
+        "k": "securite",
+        "n": "Votre sécurité",
+        "q": [
+          "ddn",
+          {
+            "t": "warn",
+            "l": "Questionnaire réservé aux adultes",
+            "h": [
+              "Ce questionnaire est conçu pour les adultes. Pour un enfant ou un adolescent, parlez-en à son médecin."
+            ],
+            "w": {
+              "age_lt": 18
+            }
+          },
+          "sexe",
+          "g_etat",
+          "alarme",
+          {
+            "t": "warn",
+            "l": "Douleur dans la poitrine",
+            "h": [
+              "Si cette gêne ou cette douleur est présente maintenant ou s'est produite récemment, n'attendez pas : <b>appelez le 15</b> (ou le 112)."
+            ],
+            "w": {
+              "q": "alarme",
+              "any": [
+                "Une gêne ou une douleur dans la poitrine"
+              ]
+            }
+          },
+          {
+            "t": "warn",
+            "l": "Somnolence et conduite",
+            "h": [
+              "Tant que cette envie de dormir n'a pas été vue par un médecin, évitez de conduire."
+            ],
+            "w": {
+              "q": "alarme",
+              "any": [
+                "Une envie de dormir telle que vous n'arrivez pas à rester éveillé(e) dans la journée"
+              ]
+            }
+          },
+          {
+            "t": "warn",
+            "l": "À signaler rapidement à votre médecin",
+            "h": [
+              "Ce que vous venez de cocher doit être examiné par un médecin. Parlez-en rapidement à votre médecin traitant, <b>sans attendre</b>.",
+              "En cas d'urgence, appelez le 15.",
+              "Vous pouvez poursuivre le questionnaire."
+            ],
+            "w": {
+              "q": "alarme",
+              "anyBut": [
+                "Aucun de ces signes"
+              ]
+            }
+          }
+        ],
+        "lead": "Ces questions sont posées à tout le monde : elles comptent pour votre sécurité.",
+        "si": "c_toujours"
+      },
+      {
+        "k": "motif",
+        "n": "Ce qui vous amène",
+        "q": [
+          "qn_signes"
+        ],
+        "si": "c_toujours"
+      },
+      {
+        "k": "fatigue",
+        "n": "Votre fatigue",
+        "q": [
+          "f_niveau",
+          "f_retent",
+          "f_depuis",
+          "f_debut",
+          "f_postinf",
+          {
+            "t": "warn",
+            "l": "À signaler à votre médecin",
+            "h": [
+              "Une fatigue qui ne s'améliore pas plus de 4 à 6 semaines après la fin d'une infection mérite d'en parler à votre médecin. Vous pouvez continuer le questionnaire."
+            ],
+            "w": {
+              "q": "f_postinf",
+              "any": [
+                "Ne s'améliore pas",
+                "S'aggrave"
+              ]
+            }
+          },
+          "f_moment",
+          "f_matin",
+          "f_type",
+          "f_repos",
+          "f_recup",
+          "ef_endur",
+          "f_agite"
+        ],
+        "lead": "L'horaire de la fatigue, et ce qui la soulage ou l'aggrave, comptent autant que son intensité.",
+        "si": "c_toujours"
+      },
+      {
+        "k": "signes",
+        "n": "Quelques signes du quotidien",
+        "q": [
+          "qn_hv"
+        ],
+        "si": "c_toujours"
+      },
+      {
+        "k": "sommeil",
+        "n": "Votre sommeil",
+        "q": [
+          "s_endor",
+          "s_rev",
+          "s_revq",
+          "s_nonrep",
+          "s_duree",
+          "s_sieste",
+          "s_coucher",
+          "s_rythme",
+          "s_lum",
+          "s_ronf",
+          "s_uri",
+          "s_somno",
+          "s_cafe",
+          "s_viol",
+          {
+            "t": "warn",
+            "l": "Mouvements pendant le sommeil",
+            "h": [
+              "Parlez-en à votre médecin : ces mouvements méritent d'être examinés."
+            ],
+            "w": {
+              "q": "s_viol",
+              "eq": "Oui"
+            }
+          }
+        ],
+        "si": "m_sommeil"
+      },
+      {
+        "k": "stress",
+        "n": "Stress, humeur et motivation",
+        "q": [
+          "st_niv",
+          "st_duree",
+          "n_demarr",
+          "n_duree",
+          "n_irrit",
+          "n_angoisse",
+          "n_vuln",
+          "n_compense",
+          "qn_psy",
+          "psy_duree",
+          {
+            "t": "warn",
+            "l": "Votre moral compte aussi",
+            "h": [
+              "Si votre humeur est souvent basse, parlez-en à votre médecin.",
+              "Si vous avez des idées noires ou des pensées de suicide, appelez le <b>3114</b> : numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7. En cas d'urgence, appelez le 15.",
+              "Vous pouvez poursuivre le questionnaire."
+            ],
+            "w": {
+              "or": [
+                {
+                  "q": "psy_duree",
+                  "any": [
+                    "Oui, presque tous les jours, depuis au moins 2 semaines"
+                  ]
+                },
+                {
+                  "q": "qn_psy",
+                  "any": [
+                    "Des idées noires, ou des pensées de mort"
+                  ]
+                }
+              ]
+            }
+          },
+          "st_burn",
+          "st_evts",
+          "st_temps"
+        ],
+        "si": "m_stress"
+      },
+      {
+        "k": "tete",
+        "n": "Mémoire et concentration",
+        "q": [
+          "n_brouil",
+          "n_mem",
+          "n_conc",
+          "n_ivre"
+        ],
+        "si": "m_tete"
+      },
+      {
+        "k": "glycemie",
+        "n": "Coups de barre et fringales",
+        "q": [
+          "gl_sucre",
+          "gl_pain",
+          "gl_apres",
+          "gl_fringale",
+          "gl_saut",
+          "gl_vue",
+          "gl_nuit",
+          "gl_ventre"
+        ],
+        "si": "m_gly"
+      },
+      {
+        "k": "effort",
+        "n": "Effort et muscles",
+        "q": [
+          "ef_courb",
+          "ef_crampes",
+          "ef_force",
+          "ef_fonte"
+        ],
+        "si": "m_effort"
+      },
+      {
+        "k": "thyroide",
+        "n": "Froid, peau, cheveux et poids",
+        "q": [
+          "t_froid",
+          "t_peau",
+          "t_chev",
+          "t_sourc",
+          "t_paup",
+          "t_oreiller",
+          "t_langue",
+          "t_voix",
+          "t_ralent",
+          "t_const",
+          "t_satiete",
+          "t_carp",
+          "t_tibia",
+          "t_hiver",
+          "t_poids",
+          "t_carot",
+          "t_hyper",
+          "t_iode"
+        ],
+        "si": "m_thyro"
+      },
+      {
+        "k": "digestion",
+        "n": "Digestion",
+        "q": [
+          "d_quoi",
+          "d_stress",
+          "d_aliments",
+          "d_delai",
+          "d_selles",
+          "gl_jeune",
+          {
+            "t": "note",
+            "l": "Un questionnaire dédié à la digestion",
+            "h": [
+              "Si vos troubles digestifs sont au premier plan, votre pharmacienne pourra vous proposer aussi le questionnaire « Microbiote et santé intestinale »."
+            ],
+            "w": {
+              "q": "qn_signes",
+              "any": [
+                "J'ai des troubles digestifs (ballonnements, transit, reflux)"
+              ]
+            }
+          }
+        ],
+        "si": "m_dig"
+      },
+      {
+        "k": "douleurs",
+        "n": "Douleurs",
+        "q": [
+          "dl_ou",
+          "dl_aura",
+          "dl_bouge",
+          "dl_jour",
+          "dl_contact",
+          "dl_aggrave",
+          "dl_soulage",
+          "dl_type",
+          "dl_trop",
+          "dl_assoc"
+        ],
+        "si": "m_doul"
+      },
+      {
+        "k": "immunite",
+        "n": "Infections",
+        "q": [
+          "im_freq",
+          "im_duree",
+          "im_type",
+          "im_myco",
+          "im_stress",
+          "im_allerg"
+        ],
+        "si": "m_infect"
+      },
+      {
+        "k": "cycle",
+        "n": "Votre cycle",
+        "q": [
+          "c_statut",
+          "c_abond",
+          "c_moment",
+          {
+            "t": "warn",
+            "l": "Idées noires avant les règles",
+            "h": [
+              "Parlez-en à votre médecin : ces idées noires méritent d'être prises en charge, même si elles ne durent que quelques jours.",
+              "Si vous avez des pensées de suicide, appelez le <b>3114</b>, gratuit, 24 h/24. En cas d'urgence, appelez le 15."
+            ],
+            "w": {
+              "q": "c_moment",
+              "any": [
+                "Des idées noires avant les règles"
+              ]
+            }
+          },
+          "c_debut",
+          "c_pelv",
+          "c_meno",
+          "c_menoage",
+          "c_contra",
+          "c_contra_eff",
+          "c_accouch",
+          "c_amaig",
+          {
+            "t": "warn",
+            "l": "Règles arrêtées",
+            "h": [
+              "Parlez-en à votre médecin : des règles qui s'arrêtent après un amaigrissement ou un sport très intense doivent être examinées."
+            ],
+            "w": {
+              "q": "c_amaig",
+              "eq": "Oui"
+            }
+          }
+        ],
+        "lead": "Cette page s'adresse aux femmes.",
+        "si": "m_cycle"
+      },
+      {
+        "k": "homme",
+        "n": "Vitalité masculine",
+        "q": [
+          "h_sig"
+        ],
+        "lead": "Cette page s'adresse aux hommes.",
+        "si": "m_homme"
+      },
+      {
+        "k": "histoire",
+        "n": "Votre histoire",
+        "q": [
+          "qn_atcd",
+          "atcd_fer",
+          {
+            "t": "warn",
+            "l": "Manque de fer chez un homme",
+            "h": [
+              "Chez un homme, un manque de fer doit toujours être exploré par un médecin, pour en trouver la cause."
+            ],
+            "w": {
+              "and": [
+                {
+                  "q": "sexe",
+                  "eq": "Homme"
+                },
+                {
+                  "q": "qn_atcd",
+                  "any": [
+                    "Anémie ou manque de fer"
+                  ]
+                }
+              ]
+            }
+          },
+          "qn_fam",
+          "chir",
+          "atb5",
+          "mieux_sous",
+          "don_sang",
+          "x_consult",
+          {
+            "t": "warn",
+            "l": "Une fatigue qui dure mérite un avis médical",
+            "h": [
+              "Si vous n'avez pas encore consulté pour cette fatigue, parlez-en à votre médecin traitant : certaines causes de fatigue doivent être recherchées par un médecin."
+            ],
+            "w": {
+              "q": "x_consult",
+              "eq": "Non, pas encore"
+            }
+          },
+          "qn_exam"
+        ],
+        "si": "c_toujours"
+      },
+      {
+        "k": "traitements",
+        "n": "Vos traitements",
+        "q": [
+          "meds",
+          "m_ipp",
+          "m_ipp_arret",
+          "m_stat_eff",
+          {
+            "t": "warn",
+            "l": "Statine et douleurs musculaires",
+            "h": [
+              "Des douleurs musculaires intenses ou brutales, ou des urines foncées, sous statine : appelez rapidement votre médecin.",
+              "N'arrêtez jamais seul(e) votre traitement : parlez-en d'abord à votre médecin."
+            ],
+            "w": {
+              "q": "meds",
+              "any": [
+                "Contre le cholestérol : une statine (atorvastatine, rosuvastatine, simvastatine…)"
+              ]
+            }
+          },
+          "m_thy_fat",
+          "m_ad_eff",
+          "m_nb",
+          "compl",
+          {
+            "t": "warn",
+            "l": "Compléments et médicaments",
+            "h": [
+              "Le 5-HTP, le griffonia et le millepertuis peuvent interagir avec certains médicaments (antidépresseurs, contraception…). Signalez-les à votre médecin ou à votre pharmacienne avant de continuer."
+            ],
+            "w": {
+              "and": [
+                {
+                  "q": "compl",
+                  "any": [
+                    "5-HTP, griffonia ou millepertuis"
+                  ]
+                },
+                {
+                  "or": [
+                    {
+                      "q": "meds",
+                      "anyBut": [
+                        "Aucun de ces médicaments",
+                        "Je ne sais pas"
+                      ]
+                    },
+                    {
+                      "q": "c_contra",
+                      "any": [
+                        "Pilule",
+                        "Implant, anneau ou patch"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "k_fer",
+          "k_fer_prise",
+          "k_mg",
+          "k_o3"
+        ],
+        "si": "c_toujours"
+      },
+      {
+        "k": "habitudes",
+        "n": "Alimentation et habitudes",
+        "q": [
+          "a_type",
+          {
+            "t": "warn",
+            "l": "Régime riche en protéines",
+            "h": [
+              "Si, pendant ce régime, vous avez des moments de confusion, des troubles de l'équilibre ou une envie de dormir inhabituelle, arrêtez-le et parlez-en rapidement à votre médecin."
+            ],
+            "w": {
+              "q": "a_type",
+              "any": [
+                "Riche en protéines (diète protéinée) en ce moment"
+              ]
+            }
+          },
+          "gl_pdj",
+          "a_pg",
+          "a_leg",
+          "a_cereales",
+          "a_indus",
+          "a_cafe",
+          "a_eau",
+          "a_mache",
+          "v_alc",
+          "v_tabac",
+          "v_sport",
+          "v_soir",
+          "v_malaise",
+          "v_sportdig",
+          "v_infect",
+          "v_arret",
+          "v_expo"
+        ],
+        "si": "c_toujours"
+      },
+      "FIN"
+    ],
+    "ouvre": {
+      "c_toujours": null,
+      "m_sommeil": {
+        "or": [
+          {
+            "q": "qn_signes",
+            "any": [
+              "Je dors mal, ou mon sommeil ne me repose pas"
+            ]
+          },
+          {
+            "q": "f_moment",
+            "any": [
+              "Dès le réveil : j'ai du mal à démarrer le matin"
+            ]
+          }
+        ]
+      },
+      "m_stress": {
+        "q": "qn_signes",
+        "any": [
+          "Je suis stressé(e), anxieux(se) ou irritable",
+          "Mon moral ou ma motivation sont en baisse"
+        ]
+      },
+      "m_tete": {
+        "q": "qn_signes",
+        "any": [
+          "J'ai du mal à me concentrer ou à retenir les choses"
+        ]
+      },
+      "m_gly": {
+        "q": "qn_signes",
+        "any": [
+          "J'ai des coups de barre dans la journée",
+          "J'ai des envies de sucré ou des fringales",
+          "J'ai pris du poids sans changer mes habitudes"
+        ]
+      },
+      "m_effort": {
+        "q": "qn_signes",
+        "any": [
+          "Je récupère mal après un effort, ou mes muscles sont faibles"
+        ]
+      },
+      "m_thyro": {
+        "q": "qn_signes",
+        "any": [
+          "J'ai souvent froid",
+          "Ma peau, mes cheveux ou mes ongles ont changé (sécheresse, chute, ongles cassants)",
+          "J'ai pris du poids sans changer mes habitudes"
+        ]
+      },
+      "m_dig": {
+        "q": "qn_signes",
+        "any": [
+          "J'ai des troubles digestifs (ballonnements, transit, reflux)",
+          "J'ai des envies de sucré ou des fringales"
+        ]
+      },
+      "m_doul": {
+        "q": "qn_signes",
+        "any": [
+          "J'ai des douleurs (muscles, articulations, dos, maux de tête)"
+        ]
+      },
+      "m_infect": {
+        "q": "qn_signes",
+        "any": [
+          "J'attrape souvent des infections, ou elles traînent"
+        ]
+      },
+      "m_cycle": {
+        "and": [
+          {
+            "q": "sexe",
+            "eq": "Femme"
+          },
+          {
+            "non": {
+              "q": "g_etat",
+              "any": [
+                "Enceinte"
+              ]
+            }
+          }
+        ]
+      },
+      "m_homme": {
+        "and": [
+          {
+            "q": "sexe",
+            "eq": "Homme"
+          },
+          {
+            "or": [
+              {
+                "q": "qn_signes",
+                "any": [
+                  "Ma libido a baissé",
+                  "Je récupère mal après un effort, ou mes muscles sont faibles"
+                ]
+              },
+              {
+                "non": {
+                  "age_lt": 40
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "plein": {},
+    "cles": {},
+    "sousTitres": {},
+    "siQ": {},
+    "exclusives": {
+      "alarme": "Aucun de ces signes",
+      "qn_signes": "Rien d'autre : seulement la fatigue",
+      "f_debut": [
+        "Aucun de ces événements",
+        "Je ne sais pas"
+      ],
+      "f_moment": [
+        "Toute la journée, de la même façon",
+        "Variable, sans horaire précis",
+        "Je ne sais pas"
+      ],
+      "qn_hv": [
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ],
+      "s_revq": [
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "qn_psy": [
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ],
+      "t_hyper": [
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ],
+      "d_quoi": "Je ne sais pas",
+      "d_aliments": [
+        "Pas de lien avec les aliments",
+        "Je ne sais pas"
+      ],
+      "d_selles": [
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "dl_ou": "Je ne sais pas",
+      "dl_aggrave": [
+        "Rien que j'aie repéré",
+        "Je ne sais pas"
+      ],
+      "dl_type": [
+        "Rien de tout cela",
+        "Je ne sais pas"
+      ],
+      "dl_assoc": [
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ],
+      "im_type": "Je ne sais pas",
+      "im_myco": [
+        "Sans lien que j'aie repéré",
+        "Je ne sais pas"
+      ],
+      "c_abond": [
+        "Non",
+        "Je ne sais pas"
+      ],
+      "c_moment": [
+        "Pas de lien avec le cycle",
+        "Je ne sais pas"
+      ],
+      "c_pelv": [
+        "Rien de tout cela",
+        "Je ne sais pas"
+      ],
+      "c_meno": [
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "c_contra_eff": [
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "h_sig": [
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ],
+      "qn_atcd": [
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ],
+      "qn_fam": [
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ],
+      "chir": [
+        "Aucune de ces interventions",
+        "Je ne sais pas"
+      ],
+      "mieux_sous": [
+        "Non, je n'ai rien remarqué de tel",
+        "Je ne sais pas"
+      ],
+      "qn_exam": "Je ne sais pas",
+      "meds": [
+        "Aucun de ces médicaments",
+        "Je ne sais pas"
+      ],
+      "m_stat_eff": [
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "compl": [
+        "Aucun complément",
+        "Je ne sais pas"
+      ],
+      "a_type": "Je ne sais pas",
+      "v_sport": [
+        "Aucune, ou presque",
+        "Je ne sais pas"
+      ],
+      "v_expo": [
+        "Aucun de ces éléments",
+        "Je ne sais pas"
+      ]
+    },
+    "nsp": [
+      "f_agite",
+      "s_endor",
+      "s_rev",
+      "s_nonrep",
+      "s_somno",
+      "n_demarr",
+      "n_duree",
+      "n_irrit",
+      "n_angoisse",
+      "n_vuln",
+      "n_compense",
+      "n_brouil",
+      "n_mem",
+      "n_conc",
+      "n_ivre",
+      "gl_apres",
+      "gl_fringale",
+      "gl_saut",
+      "gl_vue",
+      "gl_nuit",
+      "ef_courb",
+      "ef_crampes",
+      "ef_force",
+      "t_froid",
+      "t_peau",
+      "t_chev",
+      "t_sourc",
+      "t_paup",
+      "t_oreiller",
+      "t_langue",
+      "t_voix",
+      "t_ralent",
+      "t_const",
+      "t_satiete",
+      "t_carp",
+      "t_hiver",
+      "gl_jeune",
+      "dl_bouge",
+      "dl_contact"
+    ],
+    "blocs": {}
+  },
+  "questions": [
+    {
+      "id": "pc1",
+      "t": "single",
+      "l": "J'ai compris que ce questionnaire ne donne aucun résultat, ne pose pas de diagnostic et ne remplace pas un avis médical.",
+      "o": [
+        "Oui, j'ai compris"
+      ],
+      "req": 1
+    },
+    {
+      "id": "pc2",
+      "t": "single",
+      "l": "J'accepte de répondre à des questions portant sur ma santé.",
+      "o": [
+        "Oui, j'accepte"
+      ],
+      "h": "Ce sont des données sensibles. Cette page ne les transmet à personne : elles ne quittent cet appareil que dans le fichier PDF que vous envoyez vous-même.",
+      "req": 1
+    },
+    {
+      "id": "ddn",
+      "t": "date",
+      "l": "Date de naissance",
+      "req": 1
+    },
+    {
+      "id": "sexe",
+      "t": "single",
+      "l": "Sexe de naissance",
+      "o": [
+        "Femme",
+        "Homme"
+      ],
+      "h": "Certaines questions ne sont posées qu'aux femmes.",
+      "req": 1
+    },
+    {
+      "id": "g_etat",
+      "t": "single",
+      "l": "Êtes-vous actuellement enceinte ou allaitez-vous ?",
+      "o": [
+        "Enceinte",
+        "Allaitement en cours",
+        "Ni l'un ni l'autre"
+      ],
+      "req": 1,
+      "w": {
+        "q": "sexe",
+        "eq": "Femme"
+      }
+    },
+    {
+      "id": "alarme",
+      "t": "multi",
+      "l": "Avez-vous remarqué l'un de ces signes au cours des derniers mois ?",
+      "o": [
+        "Une perte de poids sans l'avoir cherchée",
+        "Une soif intense et permanente, avec des envies d'uriner très fréquentes",
+        "Un essoufflement au moindre effort ou au repos, ou des palpitations qui surviennent par crises",
+        "Une gêne ou une douleur dans la poitrine",
+        "Une vraie perte de force, ou des fourmillements ou engourdissements qui s'étendent",
+        "Des oublis qui s'aggravent, ou des difficultés nouvelles avec des gestes ou des appareils habituels",
+        "Une envie de dormir telle que vous n'arrivez pas à rester éveillé(e) dans la journée",
+        "Des taches brunes nouvelles dans les plis de la peau (paumes des mains, aine), avec des vertiges ou une envie de sel",
+        "Du sang dans les selles ou les urines, des selles noires, ou des saignements inhabituels",
+        "Une fièvre qui dure ou qui revient sans explication",
+        "Le blanc des yeux qui devient jaune",
+        "Une faiblesse qui s'aggrave quand on répète un effort (paupière qui tombe, vision double, mal à mâcher)",
+        "Une douleur de ventre ou une diarrhée qui vous réveille la nuit",
+        "Un écoulement par un seul mamelon",
+        "Des saignements après la ménopause",
+        "Aucun de ces signes"
+      ],
+      "h": "Cochez même si c'est discret ou si cela ne vous inquiète pas.",
+      "req": 1,
+      "oSex": {
+        "Un écoulement par un seul mamelon": "Femme",
+        "Des saignements après la ménopause": "Femme"
+      }
+    },
+    {
+      "id": "qn_signes",
+      "t": "multi",
+      "l": "En plus de la fatigue, qu'est-ce qui vous gêne souvent ?",
+      "o": [
+        "Je dors mal, ou mon sommeil ne me repose pas",
+        "Je suis stressé(e), anxieux(se) ou irritable",
+        "Mon moral ou ma motivation sont en baisse",
+        "J'ai du mal à me concentrer ou à retenir les choses",
+        "J'ai des coups de barre dans la journée",
+        "J'ai des envies de sucré ou des fringales",
+        "Je récupère mal après un effort, ou mes muscles sont faibles",
+        "J'ai souvent froid",
+        "Ma peau, mes cheveux ou mes ongles ont changé (sécheresse, chute, ongles cassants)",
+        "J'ai pris du poids sans changer mes habitudes",
+        "J'ai des troubles digestifs (ballonnements, transit, reflux)",
+        "J'ai des douleurs (muscles, articulations, dos, maux de tête)",
+        "J'attrape souvent des infections, ou elles traînent",
+        "Mon cycle ou la ménopause me gênent (fatigue avant les règles, règles abondantes, bouffées de chaleur)",
+        "Ma libido a baissé",
+        "Rien d'autre : seulement la fatigue"
+      ],
+      "h": "Cochez tout ce qui vous concerne : les questions suivantes s'adaptent à vos réponses.",
+      "req": 1,
+      "oSex": {
+        "Mon cycle ou la ménopause me gênent (fatigue avant les règles, règles abondantes, bouffées de chaleur)": "Femme"
+      }
+    },
+    {
+      "id": "f_niveau",
+      "t": "s10",
+      "l": "Sur une échelle de 0 à 10, quel est votre niveau de fatigue en ce moment ?",
+      "ends": [
+        "Pas de fatigue",
+        "La pire fatigue imaginable"
+      ],
+      "min": 0,
+      "req": 1
+    },
+    {
+      "id": "f_retent",
+      "t": "single",
+      "l": "Votre fatigue vous empêche-t-elle de faire vos activités habituelles (travail, tâches du quotidien, vie sociale) ?",
+      "o": [
+        "Non, je fais tout comme d'habitude",
+        "Un peu : je fais tout, mais au prix d'un effort",
+        "Oui : j'ai dû réduire mes activités (travail, tâches, sorties)",
+        "Oui, beaucoup : j'ai arrêté certaines activités, ou je suis en arrêt de travail",
+        "Je ne sais pas"
+      ],
+      "req": 1
+    },
+    {
+      "id": "f_depuis",
+      "t": "single",
+      "l": "Depuis combien de temps êtes-vous fatigué(e) ?",
+      "o": [
+        "Moins de 3 mois",
+        "3 mois à 1 an",
+        "1 à 5 ans",
+        "Plus de 5 ans",
+        "Aussi loin que je me souvienne",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "f_debut",
+      "t": "multi",
+      "l": "Votre fatigue a-t-elle commencé, ou nettement augmenté, après l'un de ces événements ?",
+      "o": [
+        "Un COVID",
+        "Une autre infection (virus, grippe, mononucléose…)",
+        "Une gastro-entérite sévère ou une intoxication alimentaire",
+        "Une diarrhée de voyage ou un parasite intestinal",
+        "Une hépatite",
+        "Une vaccination",
+        "Un nouveau médicament ou un changement de traitement",
+        "Une opération ou une anesthésie",
+        "Une période de stress, un choc émotionnel ou un burn-out",
+        "Plusieurs changements de vie dans la même année (déménagement, travail, séparation, retraite…)",
+        "Une grossesse ou un accouchement",
+        "L'approche de la ménopause, ou la ménopause",
+        "Un régime ou une perte de poids rapide",
+        "L'arrêt d'un sport régulier",
+        "Aucun de ces événements",
+        "Je ne sais pas"
+      ],
+      "oSex": {
+        "Une grossesse ou un accouchement": "Femme",
+        "L'approche de la ménopause, ou la ménopause": "Femme"
+      }
+    },
+    {
+      "id": "f_postinf",
+      "t": "single",
+      "l": "Depuis la fin de cette infection, votre fatigue :",
+      "o": [
+        "S'améliore peu à peu",
+        "Ne s'améliore pas",
+        "S'aggrave",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "f_debut",
+        "any": [
+          "Un COVID",
+          "Une autre infection (virus, grippe, mononucléose…)",
+          "Une gastro-entérite sévère ou une intoxication alimentaire",
+          "Une diarrhée de voyage ou un parasite intestinal",
+          "Une hépatite"
+        ]
+      }
+    },
+    {
+      "id": "f_moment",
+      "t": "multi",
+      "l": "À quel moment de la journée votre fatigue est-elle la plus forte ?",
+      "o": [
+        "Dès le réveil : j'ai du mal à démarrer le matin",
+        "En milieu de matinée, vers 10-11 h",
+        "Après les repas",
+        "En fin d'après-midi, vers 15-17 h",
+        "Le soir",
+        "Je suis à plat toute la journée, puis j'ai un regain d'énergie le soir",
+        "Toute la journée, de la même façon",
+        "Variable, sans horaire précis",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "f_matin",
+      "t": "single",
+      "l": "Le matin au réveil, vous reconnaissez-vous plutôt dans :",
+      "o": [
+        "Je me réveille tendu(e), en alerte, parfois avant le réveil",
+        "Je démarre normalement",
+        "Il me faut 1 à 2 heures pour démarrer",
+        "Cela varie",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "f_type",
+      "t": "single",
+      "l": "Votre fatigue est-elle plutôt :",
+      "o": [
+        "Physique : corps lourd, muscles fatigués",
+        "Intellectuelle : concentration, mémoire, brouillard",
+        "Les deux",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "f_repos",
+      "t": "single",
+      "l": "Comment vous sentez-vous après une bonne nuit, un week-end ou des vacances de repos ?",
+      "o": [
+        "Nettement mieux, je récupère bien",
+        "Un peu mieux, mais jamais vraiment reposé(e)",
+        "Pareil : le repos ne change rien",
+        "Paradoxalement plus fatigué(e)",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "f_recup",
+      "t": "single",
+      "l": "Après un effort ou une journée plus chargée que d'habitude, même agréable, combien de temps vous faut-il pour récupérer ?",
+      "o": [
+        "Quelques heures",
+        "Le lendemain, tout est passé",
+        "2 à 3 jours",
+        "Plus de 3 jours",
+        "Je me sens plus mal les jours suivants qu'avant l'effort",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "ef_endur",
+      "t": "single",
+      "l": "Pouvez-vous tenir un effort modéré et prolongé (1 heure de marche, vélo tranquille) ?",
+      "o": [
+        "Oui, sans difficulté",
+        "Oui, mais je suis vidé(e) ensuite",
+        "Non, je dois m'arrêter vite",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "f_agite",
+      "t": "scale5",
+      "l": "Je me sens à la fois épuisé(e) et agité(e), à cran, « speed »",
+      "sc": "FREQ"
+    },
+    {
+      "id": "qn_hv",
+      "t": "multi",
+      "l": "Avez-vous souvent l'un de ces signes ?",
+      "o": [
+        "Une paupière qui saute toute seule",
+        "Des crampes la nuit, dans les mollets ou les pieds",
+        "Je supporte mal le bruit ou la lumière, je sursaute facilement",
+        "Des fourmillements ou des engourdissements dans les mains ou les pieds",
+        "Des impatiences dans les jambes le soir ou la nuit",
+        "Je m'essouffle plus vite qu'avant, ou mon cœur s'accélère pour un petit effort",
+        "Des ongles cassants ou striés, des cheveux qui tombent",
+        "Une peau sèche, des yeux secs",
+        "Le goût ou l'odorat moins bons qu'avant",
+        "Je cicatrise lentement",
+        "Je supporte mal l'alcool, le café, les parfums ou certains médicaments",
+        "Des sueurs la nuit qui mouillent l'oreiller",
+        "Des démangeaisons des paupières, des bras ou du cuir chevelu",
+        "Des vertiges ou un voile noir quand je me lève vite",
+        "Des envies de salé",
+        "Des rougeurs, des palpitations ou des maux de tête après le vin, les fromages affinés ou la charcuterie",
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ],
+      "h": "Ces petits signes passent souvent inaperçus ; ils aident à orienter le bilan."
+    },
+    {
+      "id": "s_endor",
+      "t": "scale5",
+      "l": "J'ai du mal à m'endormir",
+      "sc": "FREQ",
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_rev",
+      "t": "scale5",
+      "l": "Je me réveille la nuit et j'ai du mal à me rendormir",
+      "sc": "FREQ",
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_revq",
+      "t": "multi",
+      "l": "Quand vous vous réveillez la nuit :",
+      "o": [
+        "C'est souvent vers 3 heures du matin",
+        "Je dois aller uriner",
+        "J'ai chaud, je transpire",
+        "Mon esprit tourne, je rumine",
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "s_rev",
+        "ge": 2
+      }
+    },
+    {
+      "id": "s_nonrep",
+      "t": "scale5",
+      "l": "Mon sommeil ne me repose pas, même quand il dure assez longtemps",
+      "sc": "FREQ",
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_duree",
+      "t": "single",
+      "l": "Combien d'heures dormez-vous en général ?",
+      "o": [
+        "Moins de 6 heures",
+        "6 à 7 heures",
+        "7 à 8 heures",
+        "Plus de 8 heures",
+        "C'est très variable",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_sieste",
+      "t": "single",
+      "l": "Faites-vous la sieste ?",
+      "o": [
+        "Non",
+        "Oui, courte (moins de 30 minutes)",
+        "Oui, longue (plus de 30 minutes)",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "s_coucher",
+      "t": "single",
+      "l": "À quelle heure vous couchez-vous en général ?",
+      "o": [
+        "Avant 22 h 30",
+        "Entre 22 h 30 et minuit",
+        "Après minuit",
+        "C'est très variable",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_rythme",
+      "t": "single",
+      "l": "Quels sont vos horaires de travail ?",
+      "o": [
+        "Horaires de jour",
+        "Horaires décalés (très tôt ou très tard)",
+        "Travail posté (matin, après-midi, nuit en alternance)",
+        "Travail de nuit",
+        "Je ne travaille pas actuellement",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_lum",
+      "t": "single",
+      "l": "Voyez-vous la lumière du jour dans l'heure qui suit votre réveil ?",
+      "o": [
+        "Oui, tous les jours",
+        "Parfois",
+        "Non, presque jamais",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_ronf",
+      "t": "single",
+      "l": "Ronflez-vous, ou vous a-t-on signalé des pauses respiratoires pendant votre sommeil ?",
+      "o": [
+        "Non",
+        "Je ronfle",
+        "On m'a signalé des pauses respiratoires",
+        "Je dors seul(e), je ne sais pas"
+      ]
+    },
+    {
+      "id": "s_uri",
+      "t": "single",
+      "l": "Combien de fois vous levez-vous la nuit pour uriner ?",
+      "o": [
+        "Jamais",
+        "Une fois",
+        "Deux fois ou plus",
+        "Ça change selon la période du mois",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "s_ronf",
+            "any": [
+              "Je ronfle",
+              "On m'a signalé des pauses respiratoires"
+            ]
+          },
+          {
+            "q": "f_moment",
+            "any": [
+              "Dès le réveil : j'ai du mal à démarrer le matin"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "s_somno",
+      "t": "scale5",
+      "l": "Je somnole ou je m'endors facilement dans la journée (après le repas, devant un écran)",
+      "sc": "FREQ"
+    },
+    {
+      "id": "s_cafe",
+      "t": "single",
+      "l": "Un café ou un thé pris après 14 heures vous empêche-t-il de dormir ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je n'en bois jamais après 14 heures",
+        "Je ne bois ni café ni thé",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "s_viol",
+      "t": "single",
+      "l": "Vous a-t-on dit que vous donnez des coups ou que vous faites des mouvements violents en dormant ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je dors seul(e), je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "Je dors mal, ou mon sommeil ne me repose pas"
+        ]
+      }
+    },
+    {
+      "id": "st_niv",
+      "t": "s10",
+      "l": "Comment évaluez-vous votre niveau de stress en ce moment ?",
+      "ends": [
+        "Aucun stress",
+        "Stress maximal"
+      ],
+      "niv": [
+        "Aucun stress",
+        "Très peu de stress",
+        "Un peu de stress, facile à gérer",
+        "Un stress léger mais présent",
+        "Un stress modéré, qui revient souvent",
+        "Un stress net, j'ai du mal à décrocher",
+        "Un stress élevé, qui pèse sur mon quotidien",
+        "Un stress très élevé, je suis souvent débordé(e)",
+        "Un stress presque permanent, je n'en peux plus",
+        "Stress maximal"
+      ]
+    },
+    {
+      "id": "st_duree",
+      "t": "single",
+      "l": "Depuis combien de temps vivez-vous ce stress ?",
+      "o": [
+        "Quelques semaines",
+        "Quelques mois",
+        "Plus d'un an",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "st_niv",
+        "ge": 4
+      }
+    },
+    {
+      "id": "n_demarr",
+      "t": "scale5",
+      "l": "J'ai du mal à me motiver, à démarrer ce que j'entreprends",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_duree",
+      "t": "scale5",
+      "l": "Quand je commence quelque chose, j'ai du mal à tenir dans la durée",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_irrit",
+      "t": "scale5",
+      "l": "Je m'énerve pour un rien, je supporte mal les frustrations",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_angoisse",
+      "t": "scale5",
+      "l": "Angoisses, inquiétudes, ruminations",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_vuln",
+      "t": "scale5",
+      "l": "Le moindre imprévu me déborde",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_compense",
+      "t": "scale5",
+      "l": "Je compense par le grignotage, les écrans, les achats, l'alcool ou le sport",
+      "sc": "FREQ"
+    },
+    {
+      "id": "qn_psy",
+      "t": "multi",
+      "l": "Avez-vous souvent l'un de ces signes ?",
+      "o": [
+        "Un manque de motivation ou d'élan",
+        "Une tristesse ou une humeur basse",
+        "Moins de plaisir dans ce que je fais",
+        "Je me renferme, j'ai moins envie de voir du monde",
+        "J'ai besoin de dormir plus que d'habitude",
+        "Mon moral baisse en automne et en hiver, quand les jours raccourcissent",
+        "Des idées noires, ou des pensées de mort",
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "psy_duree",
+      "t": "single",
+      "l": "Cette tristesse ou cette perte de plaisir est-elle là presque tous les jours, la plus grande partie de la journée ?",
+      "o": [
+        "Oui, presque tous les jours, depuis au moins 2 semaines",
+        "Non, ça va et ça vient",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_psy",
+        "any": [
+          "Une tristesse ou une humeur basse",
+          "Moins de plaisir dans ce que je fais"
+        ]
+      }
+    },
+    {
+      "id": "st_burn",
+      "t": "single",
+      "l": "Avez-vous déjà fait un burn-out ?",
+      "o": [
+        "Non",
+        "Oui, et j'ai retrouvé mon énergie",
+        "Oui, et je n'ai jamais retrouvé mon énergie",
+        "Je pense en traverser un en ce moment",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "st_evts",
+      "t": "single",
+      "l": "Combien d'événements importants avez-vous vécus ces 12 derniers mois (deuil, séparation, déménagement, nouveau travail, retraite, naissance…) ?",
+      "o": [
+        "Aucun",
+        "Un",
+        "Deux",
+        "Trois ou plus",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "st_temps",
+      "t": "single",
+      "l": "Avez-vous, chaque semaine, du temps rien que pour vous ?",
+      "o": [
+        "Oui",
+        "Rarement",
+        "Jamais",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "n_brouil",
+      "t": "scale5",
+      "l": "Brouillard mental, pensées lentes ou floues",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_mem",
+      "t": "scale5",
+      "l": "Oublis, mémoire à court terme qui flanche",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_conc",
+      "t": "scale5",
+      "l": "Je n'arrive pas à me concentrer plus de quelques minutes",
+      "sc": "FREQ"
+    },
+    {
+      "id": "n_ivre",
+      "t": "scale5",
+      "l": "J'ai l'impression d'être ivre (jambes molles, idées confuses) sans avoir bu d'alcool",
+      "sc": "FREQ"
+    },
+    {
+      "id": "gl_sucre",
+      "t": "single",
+      "l": "Avez-vous des envies de sucré ? Si oui, surtout à quel moment ?",
+      "o": [
+        "Jamais",
+        "Rarement",
+        "Surtout en fin d'après-midi ou le soir",
+        "Surtout quand je saute ou que je retarde un repas",
+        "À n'importe quel moment, sans horaire",
+        "Surtout avant les règles",
+        "Je ne sais pas"
+      ],
+      "oSex": {
+        "Surtout avant les règles": "Femme"
+      }
+    },
+    {
+      "id": "gl_pain",
+      "t": "single",
+      "l": "Sans être attiré(e) par le sucré, mangez-vous beaucoup de pain ou de féculents ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "gl_sucre",
+        "any": [
+          "Jamais",
+          "Rarement"
+        ]
+      }
+    },
+    {
+      "id": "gl_apres",
+      "t": "scale5",
+      "l": "Je somnole ou j'ai un coup de barre après le repas",
+      "sc": "FREQ"
+    },
+    {
+      "id": "gl_fringale",
+      "t": "scale5",
+      "l": "Peu de temps après un repas ou un en-cas sucré, j'ai de nouveau faim et je grignote",
+      "sc": "FREQ"
+    },
+    {
+      "id": "gl_saut",
+      "t": "scale5",
+      "l": "Si je saute ou retarde un repas, je deviens faible, tremblant(e) ou irritable",
+      "sc": "FREQ"
+    },
+    {
+      "id": "gl_vue",
+      "t": "scale5",
+      "l": "Voir ou sentir de la nourriture sans la manger me donne une faim intense ou un malaise",
+      "sc": "FREQ"
+    },
+    {
+      "id": "gl_nuit",
+      "t": "scale5",
+      "l": "Je me réveille la nuit avec faim ou besoin de sucré",
+      "sc": "FREQ"
+    },
+    {
+      "id": "gl_ventre",
+      "t": "single",
+      "l": "Votre tour de taille a-t-il augmenté ces dernières années ?",
+      "o": [
+        "Oui, nettement",
+        "Un peu",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "ef_courb",
+      "t": "scale5",
+      "l": "Après un effort même léger, j'ai des courbatures fortes ou qui durent plusieurs jours",
+      "sc": "FREQ"
+    },
+    {
+      "id": "ef_crampes",
+      "t": "scale5",
+      "l": "Des crampes ou des douleurs musculaires pendant un effort ou juste après",
+      "sc": "FREQ"
+    },
+    {
+      "id": "ef_force",
+      "t": "scale5",
+      "l": "Faiblesse : monter un escalier, me relever d'une chaise, ouvrir un bocal, porter mes courses",
+      "sc": "FREQ"
+    },
+    {
+      "id": "ef_fonte",
+      "t": "single",
+      "l": "Vos mollets ou vos cuisses ont-ils fondu ces dernières années ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "t_froid",
+      "t": "scale5",
+      "l": "J'ai froid quand les autres n'ont pas froid",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_peau",
+      "t": "scale5",
+      "l": "Peau sèche, surtout sur les tibias",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_chev",
+      "t": "scale5",
+      "l": "Chute de cheveux",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_sourc",
+      "t": "scale5",
+      "l": "La queue des sourcils se dégarnit",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_paup",
+      "t": "scale5",
+      "l": "Yeux ou visage gonflés au réveil",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_oreiller",
+      "t": "scale5",
+      "l": "La marque de l'oreiller reste longtemps sur mon visage le matin",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_langue",
+      "t": "scale5",
+      "l": "Traces de dents sur les bords de la langue",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_voix",
+      "t": "scale5",
+      "l": "Voix plus grave ou rauque, surtout le matin",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_ralent",
+      "t": "scale5",
+      "l": "Je pense et je bouge au ralenti",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_const",
+      "t": "scale5",
+      "l": "Constipation",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_satiete",
+      "t": "scale5",
+      "l": "Je n'arrive plus à manger un grand repas, je suis vite rassasié(e)",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_carp",
+      "t": "scale5",
+      "l": "Fourmillements ou douleurs dans les mains la nuit",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_tibia",
+      "t": "single",
+      "l": "Quand vous appuyez sur le devant du tibia, le creux reste-t-il marqué ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "t_hiver",
+      "t": "scale5",
+      "l": "Ma fatigue ou ma frilosité s'aggravent en hiver ou au froid",
+      "sc": "FREQ"
+    },
+    {
+      "id": "t_poids",
+      "t": "single",
+      "l": "Prenez-vous du poids, ou n'arrivez-vous pas à en perdre, alors que vous mangez peu ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "t_carot",
+      "t": "single",
+      "l": "Vos paumes de mains ou vos plantes de pieds ont-elles une teinte jaune-orangée ?",
+      "o": [
+        "Oui, nettement",
+        "Un peu",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "t_hyper",
+      "t": "multi",
+      "l": "Avez-vous aussi l'un de ces signes ?",
+      "o": [
+        "Je supporte mal la chaleur",
+        "Mon cœur bat vite au repos",
+        "Je passe par des périodes agitées et des périodes ralenties",
+        "Mes yeux semblent plus saillants qu'avant",
+        "Mon cou s'est épaissi à sa base",
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "t_iode",
+      "t": "single",
+      "l": "Mangez-vous du poisson ou des fruits de mer, et utilisez-vous du sel iodé ?",
+      "o": [
+        "Oui, régulièrement",
+        "Rarement",
+        "Jamais",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "d_quoi",
+      "t": "multi",
+      "l": "Quels troubles digestifs avez-vous souvent ?",
+      "o": [
+        "Ballonnements, gaz",
+        "Constipation",
+        "Diarrhée ou selles molles",
+        "Un transit qui alterne",
+        "Lourdeurs, digestion lente",
+        "Brûlures d'estomac ou remontées acides",
+        "Nausées après les repas",
+        "Une mauvaise haleine, malgré une bonne hygiène dentaire",
+        "Des douleurs de ventre",
+        "Un malaise ou des vertiges juste après le repas",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "J'ai des troubles digestifs (ballonnements, transit, reflux)"
+        ]
+      }
+    },
+    {
+      "id": "d_stress",
+      "t": "single",
+      "l": "Vos troubles digestifs augmentent-ils quand vous êtes stressé(e) ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "d_quoi",
+        "anyBut": [
+          "Je ne sais pas"
+        ]
+      }
+    },
+    {
+      "id": "d_aliments",
+      "t": "multi",
+      "l": "Vos lourdeurs ou vos ballonnements apparaissent-ils surtout après :",
+      "o": [
+        "La viande, le poisson ou les œufs",
+        "Le pain, les pâtes, les biscuits ou le sucre",
+        "Les légumes, les fruits, les légumineuses ou l'oignon",
+        "Le lait ou les laitages",
+        "Les plats gras",
+        "Les repas copieux, quel que soit l'aliment",
+        "Les fromages affinés, la charcuterie, le vin ou le chocolat",
+        "Pas de lien avec les aliments",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "d_quoi",
+        "any": [
+          "Ballonnements, gaz",
+          "Lourdeurs, digestion lente"
+        ]
+      }
+    },
+    {
+      "id": "d_delai",
+      "t": "single",
+      "l": "Vos ballonnements apparaissent plutôt :",
+      "o": [
+        "Pendant le repas ou dans l'heure et demie qui suit",
+        "Plus tard, plusieurs heures après",
+        "C'est variable",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "d_quoi",
+        "any": [
+          "Ballonnements, gaz"
+        ]
+      }
+    },
+    {
+      "id": "d_selles",
+      "t": "multi",
+      "l": "Vos selles sont-elles souvent :",
+      "o": [
+        "Grasses, brillantes ou luisantes",
+        "Collantes à la cuvette",
+        "Très malodorantes",
+        "Avec des morceaux d'aliments non digérés",
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_signes",
+        "any": [
+          "J'ai des troubles digestifs (ballonnements, transit, reflux)"
+        ]
+      }
+    },
+    {
+      "id": "gl_jeune",
+      "t": "scale5",
+      "l": "Je vais mieux quand je supprime le sucre ou que je jeûne, mais tout revient dès que je remange normalement",
+      "sc": "FREQ"
+    },
+    {
+      "id": "dl_ou",
+      "t": "multi",
+      "l": "Où avez-vous mal le plus souvent ?",
+      "o": [
+        "Dans les muscles, un peu partout",
+        "Dans les articulations",
+        "Dans le dos ou la nuque",
+        "Maux de tête ou migraines",
+        "Dans les mâchoires",
+        "Dans le ventre",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "dl_aura",
+      "t": "single",
+      "l": "Vos migraines sont-elles précédées de troubles de la vue (aura) ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "dl_ou",
+        "any": [
+          "Maux de tête ou migraines"
+        ]
+      }
+    },
+    {
+      "id": "dl_bouge",
+      "t": "scale5",
+      "l": "Mes douleurs changent d'endroit",
+      "sc": "FREQ"
+    },
+    {
+      "id": "dl_jour",
+      "t": "single",
+      "l": "Au fil de la journée, vos douleurs :",
+      "o": [
+        "Augmentent, puis diminuent quand je me repose",
+        "Augmentent le soir et surtout au coucher",
+        "Sont plus fortes le matin",
+        "Ne varient pas",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "dl_contact",
+      "t": "scale5",
+      "l": "Un simple contact me fait mal (vêtements, draps, toucher léger)",
+      "sc": "FREQ"
+    },
+    {
+      "id": "dl_aggrave",
+      "t": "multi",
+      "l": "Qu'est-ce qui aggrave vos douleurs ?",
+      "o": [
+        "Le stress",
+        "Le manque de sommeil",
+        "Un effort intellectuel prolongé",
+        "Un effort physique",
+        "Un repas ou un aliment sucré",
+        "Rien que j'aie repéré",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "dl_soulage",
+      "t": "single",
+      "l": "Les anti-inflammatoires ou la glace soulagent-ils vos douleurs ?",
+      "o": [
+        "Oui, nettement",
+        "Un peu",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "dl_type",
+      "t": "multi",
+      "l": "Votre douleur ressemble-t-elle à :",
+      "o": [
+        "Une brûlure",
+        "Un froid douloureux",
+        "Des décharges électriques",
+        "Des fourmillements ou des picotements",
+        "Rien de tout cela",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "dl_trop",
+      "t": "single",
+      "l": "Si vous en faites trop, les douleurs se déclenchent-elles les jours suivants ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "dl_assoc",
+      "t": "multi",
+      "l": "Avez-vous aussi :",
+      "o": [
+        "Des envies pressantes d'uriner ou des douleurs de vessie, sans infection",
+        "Des douleurs ou des brûlures à l'anus, avec des douleurs de ventre",
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "im_freq",
+      "t": "single",
+      "l": "Combien d'infections (rhumes, angines, bronchites, cystites…) faites-vous par an ?",
+      "o": [
+        "0 ou 1",
+        "2 ou 3",
+        "4 ou plus",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "im_duree",
+      "t": "single",
+      "l": "Un rhume ou une virose dure en général :",
+      "o": [
+        "Moins de 10 jours",
+        "Plus de 10 jours",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "im_type",
+      "t": "multi",
+      "l": "Lesquelles reviennent le plus ?",
+      "o": [
+        "Nez, gorge, oreilles ou sinus",
+        "Bronches",
+        "Cystites",
+        "Mycoses",
+        "Peau : acné, folliculite",
+        "Dents ou gencives",
+        "Boutons de fièvre (herpès), surtout après un stress",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "im_myco",
+      "t": "multi",
+      "l": "Vos mycoses surviennent-elles surtout :",
+      "o": [
+        "Après un traitement antibiotique",
+        "Dans la deuxième partie du cycle",
+        "Dans les périodes de stress ou de grande fatigue",
+        "Sans lien que j'aie repéré",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "im_type",
+        "any": [
+          "Mycoses"
+        ]
+      },
+      "oSex": {
+        "Dans la deuxième partie du cycle": "Femme"
+      }
+    },
+    {
+      "id": "im_stress",
+      "t": "single",
+      "l": "Tombez-vous plus souvent malade dans les périodes de stress ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "im_allerg",
+      "t": "single",
+      "l": "Avez-vous des allergies (rhinite, conjonctivite, eczéma, asthme, urticaire) ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "c_statut",
+      "t": "single",
+      "l": "Où en êtes-vous ?",
+      "o": [
+        "J'ai des règles régulières",
+        "J'ai des règles irrégulières",
+        "Mes cycles changent depuis quelques années (après 40 ans)",
+        "Je n'ai plus de règles : ménopause",
+        "Je n'ai pas de règles pour une autre raison (contraception, stérilet hormonal, autre)",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "c_abond",
+      "t": "multi",
+      "l": "Vos règles sont-elles abondantes ?",
+      "o": [
+        "Non",
+        "Je dois me changer toutes les 2 heures, ou plus souvent",
+        "Le sang traverse mes vêtements ou mes draps",
+        "J'ai des caillots",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "c_statut",
+        "any": [
+          "J'ai des règles régulières",
+          "J'ai des règles irrégulières",
+          "Mes cycles changent depuis quelques années (après 40 ans)"
+        ]
+      }
+    },
+    {
+      "id": "c_moment",
+      "t": "multi",
+      "l": "Ces signes suivent-ils votre cycle ?",
+      "o": [
+        "Une fatigue plus forte avant les règles",
+        "Je dors moins bien avant les règles",
+        "Des fringales de sucré ou de chocolat avant les règles",
+        "Des migraines avant les règles",
+        "Les seins tendus ou douloureux avant les règles",
+        "Irritabilité, humeur instable avant les règles",
+        "Des ballonnements ou des troubles digestifs dans la deuxième partie du cycle",
+        "Des idées noires avant les règles",
+        "Pas de lien avec le cycle",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "and": [
+          {
+            "q": "c_statut",
+            "any": [
+              "J'ai des règles régulières",
+              "J'ai des règles irrégulières",
+              "Mes cycles changent depuis quelques années (après 40 ans)"
+            ]
+          },
+          {
+            "q": "qn_signes",
+            "any": [
+              "Mon cycle ou la ménopause me gênent (fatigue avant les règles, règles abondantes, bouffées de chaleur)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "c_debut",
+      "t": "single",
+      "l": "Ces signes commencent :",
+      "o": [
+        "Quelques jours avant les règles, et disparaissent avec elles",
+        "Dès le milieu du cycle (ovulation)",
+        "Dès la fin des règles, et durent tout le cycle",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "c_moment",
+        "anyBut": [
+          "Pas de lien avec le cycle",
+          "Je ne sais pas"
+        ]
+      }
+    },
+    {
+      "id": "c_pelv",
+      "t": "multi",
+      "l": "Avez-vous :",
+      "o": [
+        "Des règles très douloureuses",
+        "Une douleur qui augmente en fin de règles",
+        "Des douleurs pendant les rapports",
+        "Des douleurs du bas-ventre en dehors des règles",
+        "Rien de tout cela",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "c_statut",
+        "any": [
+          "J'ai des règles régulières",
+          "J'ai des règles irrégulières",
+          "Mes cycles changent depuis quelques années (après 40 ans)"
+        ]
+      }
+    },
+    {
+      "id": "c_meno",
+      "t": "multi",
+      "l": "Depuis quelques années (périménopause) ou depuis la ménopause, avez-vous remarqué :",
+      "o": [
+        "Des cycles qui raccourcissent, des règles plus abondantes",
+        "Des règles qui s'espacent",
+        "Les seins tendus, de la rétention d'eau",
+        "Des bouffées de chaleur sans transpiration",
+        "Des bouffées de chaleur avec beaucoup de transpiration, des réveils la nuit draps trempés",
+        "Une humeur instable, des envies de sucre, le stress moins bien supporté",
+        "Un sommeil moins bon",
+        "Le ventre qui s'arrondit",
+        "Des douleurs un peu partout",
+        "Une brûlure de la langue",
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "c_statut",
+        "any": [
+          "Mes cycles changent depuis quelques années (après 40 ans)",
+          "Je n'ai plus de règles : ménopause"
+        ]
+      }
+    },
+    {
+      "id": "c_menoage",
+      "t": "single",
+      "l": "À quel âge vos règles se sont-elles arrêtées ?",
+      "o": [
+        "Avant 40 ans",
+        "Entre 40 et 45 ans",
+        "Entre 45 et 55 ans",
+        "Après 55 ans",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "c_statut",
+        "any": [
+          "Je n'ai plus de règles : ménopause"
+        ]
+      }
+    },
+    {
+      "id": "c_contra",
+      "t": "single",
+      "l": "Prenez-vous une contraception hormonale ?",
+      "o": [
+        "Pilule",
+        "Stérilet hormonal",
+        "Implant, anneau ou patch",
+        "Aucune contraception hormonale",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "non": {
+          "q": "c_statut",
+          "any": [
+            "Je n'ai plus de règles : ménopause"
+          ]
+        }
+      }
+    },
+    {
+      "id": "c_contra_eff",
+      "t": "multi",
+      "l": "Depuis cette contraception, avez-vous remarqué :",
+      "o": [
+        "Plus de fatigue",
+        "Une humeur plus basse ou irritable",
+        "Une prise de poids",
+        "Des mycoses",
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "c_contra",
+        "any": [
+          "Pilule",
+          "Stérilet hormonal",
+          "Implant, anneau ou patch"
+        ]
+      }
+    },
+    {
+      "id": "c_accouch",
+      "t": "single",
+      "l": "Avez-vous accouché au cours des 2 dernières années ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "age_lt": 50
+      }
+    },
+    {
+      "id": "c_amaig",
+      "t": "single",
+      "l": "Vos règles se sont-elles arrêtées après un amaigrissement important ou un sport très intense ?",
+      "o": [
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "c_statut",
+        "any": [
+          "J'ai des règles irrégulières",
+          "Je n'ai pas de règles pour une autre raison (contraception, stérilet hormonal, autre)"
+        ]
+      }
+    },
+    {
+      "id": "h_sig",
+      "t": "multi",
+      "l": "Avez-vous remarqué :",
+      "o": [
+        "Une baisse de la libido",
+        "Des érections moins fermes ou moins fréquentes",
+        "Moins d'érections au réveil",
+        "Une perte de muscle",
+        "Le ventre qui s'arrondit",
+        "Aucun de ces signes",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "qn_atcd",
+      "t": "multi",
+      "l": "Un médecin vous a-t-il déjà parlé de l'un de ces problèmes de santé, actuel ou passé ?",
+      "o": [
+        "Anémie ou manque de fer",
+        "Hypothyroïdie ou maladie de Hashimoto",
+        "Hyperthyroïdie ou nodule de la thyroïde",
+        "Diabète ou prédiabète",
+        "Cholestérol ou triglycérides élevés",
+        "Cholestérol bas",
+        "Apnées du sommeil",
+        "Dépression",
+        "Fibromyalgie ou syndrome de fatigue chronique",
+        "Une maladie auto-immune (autre que la thyroïde)",
+        "Une maladie inflammatoire chronique (polyarthrite, maladie de Crohn…)",
+        "Maladie cœliaque",
+        "Gastrite atrophique ou maladie de Biermer",
+        "Ovaires polykystiques (SOPK)",
+        "Endométriose",
+        "Hémochromatose, ou fer trop élevé",
+        "COVID long",
+        "Hypertension artérielle",
+        "Maladie du cœur ou des poumons (insuffisance cardiaque, asthme, BPCO…)",
+        "Immunité affaiblie (traitement qui diminue l'immunité, chimiothérapie…)",
+        "Une insuffisance rénale",
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ],
+      "oSex": {
+        "Ovaires polykystiques (SOPK)": "Femme",
+        "Endométriose": "Femme"
+      },
+      "h": "Cochez même si c'est ancien."
+    },
+    {
+      "id": "atcd_fer",
+      "t": "single",
+      "l": "Ce manque de fer, c'était quand ?",
+      "o": [
+        "Il y a moins d'un an",
+        "Il y a 1 à 5 ans",
+        "Il y a plus de 5 ans",
+        "Il revient régulièrement",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_atcd",
+        "any": [
+          "Anémie ou manque de fer"
+        ]
+      }
+    },
+    {
+      "id": "qn_fam",
+      "t": "multi",
+      "l": "Dans votre famille proche (parents, frères et sœurs, enfants) :",
+      "o": [
+        "Hémochromatose, ou fer trop élevé",
+        "Une maladie de la thyroïde",
+        "Diabète",
+        "Une maladie auto-immune",
+        "Fibromyalgie",
+        "Ménopause précoce (avant 45 ans) chez la mère ou la grand-mère maternelle",
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "chir",
+      "t": "multi",
+      "l": "Avez-vous eu l'une de ces interventions ?",
+      "o": [
+        "Ablation de la vésicule biliaire",
+        "Chirurgie de l'obésité (bypass, sleeve)",
+        "Chirurgie de l'estomac ou de l'intestin",
+        "Ablation de tout ou partie de la thyroïde",
+        "Ablation de l'utérus, ou ligature des trompes",
+        "Plusieurs opérations du ventre ou du bassin",
+        "Aucune de ces interventions",
+        "Je ne sais pas"
+      ],
+      "oSex": {
+        "Ablation de l'utérus, ou ligature des trompes": "Femme"
+      }
+    },
+    {
+      "id": "atb5",
+      "t": "single",
+      "l": "Combien de cures d'antibiotiques avez-vous prises au cours des 5 dernières années ?",
+      "o": [
+        "Aucune",
+        "1 à 2",
+        "3 à 5",
+        "Plus de 5",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "mieux_sous",
+      "t": "multi",
+      "l": "Pendant un traitement, avez-vous déjà remarqué que vous alliez nettement mieux (plus d'énergie, meilleur sommeil, meilleur moral) ?",
+      "o": [
+        "Pendant des antibiotiques",
+        "Pendant des anti-inflammatoires, de l'aspirine ou de la cortisone",
+        "Non, je n'ai rien remarqué de tel",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "don_sang",
+      "t": "single",
+      "l": "Donnez-vous votre sang ?",
+      "o": [
+        "Jamais",
+        "1 ou 2 fois par an",
+        "3 fois par an ou plus",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_hv",
+            "any": [
+              "Je m'essouffle plus vite qu'avant, ou mon cœur s'accélère pour un petit effort",
+              "Des impatiences dans les jambes le soir ou la nuit",
+              "Des ongles cassants ou striés, des cheveux qui tombent"
+            ]
+          },
+          {
+            "q": "qn_atcd",
+            "any": [
+              "Anémie ou manque de fer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "x_consult",
+      "t": "single",
+      "l": "Avez-vous déjà consulté un médecin pour cette fatigue ?",
+      "o": [
+        "Oui, et des analyses ont été faites",
+        "Oui, sans analyse",
+        "Non, pas encore",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "qn_exam",
+      "t": "multi",
+      "l": "Quelles analyses avez-vous déjà faites pour cette fatigue ?",
+      "o": [
+        "Prise de sang générale (numération)",
+        "Fer ou ferritine",
+        "Bilan de la thyroïde",
+        "Vitamine D",
+        "Vitamine B12",
+        "Glycémie",
+        "Cortisol (sang ou salive)",
+        "Étude du sommeil",
+        "Je ne sais pas"
+      ],
+      "h": "Cochez seulement : les résultats ne sont pas demandés.",
+      "w": {
+        "q": "x_consult",
+        "eq": "Oui, et des analyses ont été faites"
+      }
+    },
+    {
+      "id": "meds",
+      "t": "multi",
+      "l": "Prenez-vous actuellement, ou avez-vous pris récemment, l'un de ces médicaments ?",
+      "o": [
+        "Contre le reflux : oméprazole, pantoprazole, ésoméprazole… (avec ou sans ordonnance)",
+        "Contre le cholestérol : une statine (atorvastatine, rosuvastatine, simvastatine…)",
+        "Metformine (traitement du diabète)",
+        "Traitement de la thyroïde (lévothyroxine, Cynomel…)",
+        "Antidépresseur",
+        "Antidépresseur tricyclique (amitriptyline, clomipramine…)",
+        "Anxiolytique ou somnifère",
+        "Bêtabloquant (propranolol, bisoprolol…)",
+        "Diurétique",
+        "Corticoïdes (cortisone), au long cours ou en cures répétées",
+        "Anti-inflammatoires ou aspirine, régulièrement (ibuprofène, kétoprofène…)",
+        "Paracétamol, plusieurs fois par semaine",
+        "Antidouleurs de la famille de la morphine (codéine, tramadol…)",
+        "Injections pour le diabète ou pour maigrir (sémaglutide, tirzépatide…)",
+        "Anticoagulant de type AVK (warfarine, fluindione…)",
+        "Traitement hormonal de la ménopause",
+        "Lithium, antiépileptique ou neuroleptique",
+        "Un antibiotique pris plusieurs mois (acné, rosacée…)",
+        "Aucun de ces médicaments",
+        "Je ne sais pas"
+      ],
+      "h": "Sur ordonnance ou en automédication régulière.",
+      "oSex": {
+        "Traitement hormonal de la ménopause": "Femme"
+      }
+    },
+    {
+      "id": "m_ipp",
+      "t": "single",
+      "l": "Depuis combien de temps prenez-vous ce médicament contre le reflux ?",
+      "o": [
+        "Moins d'un an",
+        "1 à 5 ans",
+        "Plus de 5 ans",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "meds",
+        "any": [
+          "Contre le reflux : oméprazole, pantoprazole, ésoméprazole… (avec ou sans ordonnance)"
+        ]
+      }
+    },
+    {
+      "id": "m_ipp_arret",
+      "t": "single",
+      "l": "Avez-vous déjà essayé d'arrêter ce médicament contre le reflux ?",
+      "o": [
+        "Non",
+        "Oui, et le reflux est revenu plus fort",
+        "Oui, sans problème",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "meds",
+        "any": [
+          "Contre le reflux : oméprazole, pantoprazole, ésoméprazole… (avec ou sans ordonnance)"
+        ]
+      }
+    },
+    {
+      "id": "m_stat_eff",
+      "t": "multi",
+      "l": "Depuis que vous prenez cette statine, avez-vous remarqué :",
+      "o": [
+        "Des douleurs, des crampes ou une faiblesse dans les muscles",
+        "Des difficultés de mémoire ou de concentration",
+        "Une baisse du moral ou de la libido",
+        "Des selles grasses ou des ballonnements après les repas",
+        "Une glycémie qui augmente",
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "meds",
+        "any": [
+          "Contre le cholestérol : une statine (atorvastatine, rosuvastatine, simvastatine…)"
+        ]
+      }
+    },
+    {
+      "id": "m_thy_fat",
+      "t": "single",
+      "l": "Avec votre traitement de la thyroïde, restez-vous fatigué(e) ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "meds",
+        "any": [
+          "Traitement de la thyroïde (lévothyroxine, Cynomel…)"
+        ]
+      }
+    },
+    {
+      "id": "m_ad_eff",
+      "t": "single",
+      "l": "Votre antidépresseur vous aide-t-il ?",
+      "o": [
+        "Oui, nettement",
+        "Un peu",
+        "Pas vraiment",
+        "Je viens de le commencer",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "meds",
+        "any": [
+          "Antidépresseur",
+          "Antidépresseur tricyclique (amitriptyline, clomipramine…)"
+        ]
+      }
+    },
+    {
+      "id": "m_nb",
+      "t": "single",
+      "l": "Combien de médicaments différents prenez-vous chaque jour ?",
+      "o": [
+        "Aucun tous les jours (seulement de temps en temps)",
+        "1 ou 2",
+        "3 ou 4",
+        "5 ou plus",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "meds",
+        "anyBut": [
+          "Aucun de ces médicaments",
+          "Je ne sais pas"
+        ]
+      }
+    },
+    {
+      "id": "compl",
+      "t": "multi",
+      "l": "Prenez-vous actuellement l'un de ces compléments ?",
+      "o": [
+        "Fer",
+        "Magnésium",
+        "Vitamine D",
+        "Vitamine B12 ou complexe de vitamines B",
+        "Oméga-3",
+        "Coenzyme Q10",
+        "Iode ou Lugol",
+        "Sélénium",
+        "Biotine, ou complément pour les cheveux et les ongles",
+        "Mélatonine",
+        "5-HTP, griffonia ou millepertuis",
+        "DHEA",
+        "Probiotiques",
+        "Vitamine C",
+        "Zinc",
+        "Un autre complément",
+        "Aucun complément",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "k_fer",
+      "t": "single",
+      "l": "Avec le fer, qu'avez-vous constaté ?",
+      "o": [
+        "Ma fatigue s'est améliorée",
+        "Aucun effet sur ma fatigue",
+        "Je l'ai mal toléré et je l'ai arrêté",
+        "Je viens de commencer",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "compl",
+        "any": [
+          "Fer"
+        ]
+      }
+    },
+    {
+      "id": "k_fer_prise",
+      "t": "single",
+      "l": "Comment prenez-vous le fer ?",
+      "o": [
+        "À distance des repas, du thé et du café",
+        "Avec un thé, un café, ou en même temps que mon médicament contre le reflux",
+        "En même temps que d'autres compléments (magnésium, zinc, calcium)",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "compl",
+        "any": [
+          "Fer"
+        ]
+      }
+    },
+    {
+      "id": "k_mg",
+      "t": "single",
+      "l": "Avec le magnésium, qu'avez-vous constaté ?",
+      "o": [
+        "Une amélioration",
+        "Aucun effet",
+        "Il me donne la diarrhée",
+        "Je viens de commencer",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "compl",
+        "any": [
+          "Magnésium"
+        ]
+      }
+    },
+    {
+      "id": "k_o3",
+      "t": "single",
+      "l": "Avec les oméga-3, qu'avez-vous constaté ?",
+      "o": [
+        "Une amélioration",
+        "Aucun effet",
+        "Des renvois au goût de poisson",
+        "Je viens de commencer",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "compl",
+        "any": [
+          "Oméga-3"
+        ]
+      }
+    },
+    {
+      "id": "a_type",
+      "t": "multi",
+      "l": "Votre alimentation :",
+      "o": [
+        "Je mange de tout, y compris de la viande rouge",
+        "Je mange peu de viande rouge",
+        "Végétarienne : ni viande ni poisson",
+        "Végétalienne : aucun produit animal",
+        "Sans gluten",
+        "Cétogène, ou très pauvre en glucides",
+        "Riche en protéines (diète protéinée) en ce moment",
+        "Je fais des régimes à répétition, avec reprise de poids",
+        "Je saute souvent des repas, ou je pratique le jeûne intermittent",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "gl_pdj",
+      "t": "single",
+      "l": "Votre petit-déjeuner, le plus souvent :",
+      "o": [
+        "Salé, avec des protéines (œufs, jambon, fromage…)",
+        "Sucré (pain, céréales, confiture, jus de fruits…)",
+        "Un café seul, ou rien du tout",
+        "C'est variable",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "a_pg",
+      "t": "single",
+      "l": "Mangez-vous des petits poissons gras (sardines, maquereaux, harengs, anchois) ?",
+      "o": [
+        "Au moins 2 fois par semaine",
+        "1 fois par semaine",
+        "Rarement ou jamais",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "a_leg",
+      "t": "single",
+      "l": "Des fruits et des légumes :",
+      "o": [
+        "À chaque repas",
+        "Une fois par jour",
+        "Rarement ou jamais",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "a_cereales",
+      "t": "single",
+      "l": "Votre pain, vos pâtes, votre riz sont plutôt :",
+      "o": [
+        "Blancs (raffinés)",
+        "Complets ou semi-complets, bio",
+        "Complets ou semi-complets, non bio",
+        "Ça dépend",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "a_indus",
+      "t": "single",
+      "l": "Des plats préparés, des produits industriels ou de la restauration rapide :",
+      "o": [
+        "Jamais",
+        "Rarement",
+        "Plusieurs fois par semaine",
+        "Tous les jours",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "a_cafe",
+      "t": "single",
+      "l": "Buvez-vous du thé ou du café pendant les repas ?",
+      "o": [
+        "Souvent",
+        "Parfois",
+        "Jamais",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_hv",
+            "any": [
+              "Je m'essouffle plus vite qu'avant, ou mon cœur s'accélère pour un petit effort",
+              "Des impatiences dans les jambes le soir ou la nuit",
+              "Des ongles cassants ou striés, des cheveux qui tombent"
+            ]
+          },
+          {
+            "q": "qn_atcd",
+            "any": [
+              "Anémie ou manque de fer"
+            ]
+          },
+          {
+            "q": "c_abond",
+            "any": [
+              "Je dois me changer toutes les 2 heures, ou plus souvent",
+              "Le sang traverse mes vêtements ou mes draps",
+              "J'ai des caillots"
+            ]
+          },
+          {
+            "q": "a_type",
+            "any": [
+              "Végétarienne : ni viande ni poisson",
+              "Végétalienne : aucun produit animal"
+            ]
+          },
+          {
+            "q": "compl",
+            "any": [
+              "Fer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "a_eau",
+      "t": "single",
+      "l": "Combien buvez-vous d'eau par jour ?",
+      "o": [
+        "Moins d'1 litre",
+        "1 à 1,5 litre",
+        "Plus d'1,5 litre",
+        "J'attends d'avoir soif",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "a_mache",
+      "t": "single",
+      "l": "Mangez-vous vite, sans bien mâcher, ou en étant stressé(e) ?",
+      "o": [
+        "Souvent",
+        "Parfois",
+        "Rarement",
+        "Jamais",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_signes",
+            "any": [
+              "J'ai des troubles digestifs (ballonnements, transit, reflux)",
+              "J'ai des envies de sucré ou des fringales"
+            ]
+          },
+          {
+            "q": "qn_hv",
+            "any": [
+              "Le goût ou l'odorat moins bons qu'avant"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "v_alc",
+      "t": "single",
+      "l": "Quelle est votre consommation d'alcool habituelle ?",
+      "o": [
+        "Je ne bois pas",
+        "Moins d'un verre par semaine",
+        "1 à 7 verres par semaine",
+        "1 verre par jour ou plus",
+        "Plus de 2 verres par jour",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "v_tabac",
+      "t": "single",
+      "l": "Fumez-vous ?",
+      "o": [
+        "Non",
+        "Oui",
+        "J'ai arrêté",
+        "Je ne fume pas, mais je respire souvent la fumée des autres",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "v_sport",
+      "t": "multi",
+      "l": "Quelle activité physique pratiquez-vous ?",
+      "o": [
+        "Aucune, ou presque",
+        "De la marche, au moins 3 fois par semaine",
+        "Un sport d'endurance modéré",
+        "Un sport d'endurance intense, ou de la compétition",
+        "Du renforcement musculaire",
+        "Une autre activité",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "v_soir",
+      "t": "single",
+      "l": "Faites-vous du sport intense le soir, par exemple après une journée stressante ?",
+      "o": [
+        "Souvent",
+        "Parfois",
+        "Jamais",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "v_sport",
+        "any": [
+          "Un sport d'endurance modéré",
+          "Un sport d'endurance intense, ou de la compétition",
+          "Du renforcement musculaire"
+        ]
+      }
+    },
+    {
+      "id": "v_malaise",
+      "t": "single",
+      "l": "Pendant un effort long, faites-vous des malaises ou des hypoglycémies ?",
+      "o": [
+        "Souvent",
+        "Parfois",
+        "Jamais",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "v_sport",
+        "any": [
+          "Un sport d'endurance modéré",
+          "Un sport d'endurance intense, ou de la compétition"
+        ]
+      }
+    },
+    {
+      "id": "v_sportdig",
+      "t": "single",
+      "l": "Pendant ou après un effort long, avez-vous un inconfort digestif ?",
+      "o": [
+        "Souvent",
+        "Parfois",
+        "Jamais",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "v_sport",
+        "any": [
+          "Un sport d'endurance intense, ou de la compétition"
+        ]
+      }
+    },
+    {
+      "id": "v_infect",
+      "t": "single",
+      "l": "Tombez-vous malade (rhume, angine) après une compétition ou une grosse période d'entraînement ?",
+      "o": [
+        "Souvent",
+        "Parfois",
+        "Jamais",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "v_sport",
+        "any": [
+          "Un sport d'endurance intense, ou de la compétition"
+        ]
+      }
+    },
+    {
+      "id": "v_arret",
+      "t": "single",
+      "l": "Avez-vous arrêté un sport régulier ces dernières années ?",
+      "o": [
+        "Oui, et j'ai pris du poids depuis",
+        "Oui",
+        "Non",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "v_expo",
+      "t": "multi",
+      "l": "Êtes-vous exposé(e) à l'un de ces éléments ?",
+      "o": [
+        "Des plombages gris (amalgames)",
+        "Du thon, de l'espadon ou d'autres gros poissons, plusieurs fois par semaine",
+        "Des pesticides (agriculture, jardinage, habitation près de champs traités)",
+        "Des solvants, peintures, vapeurs de métaux ou soudure au travail",
+        "Un air intérieur mal ventilé",
+        "Un logement ancien (vieilles peintures, canalisations en plomb)",
+        "Beaucoup de fruits et légumes non bio",
+        "Aucun de ces éléments",
+        "Je ne sais pas"
+      ]
+    }
+  ]
+}

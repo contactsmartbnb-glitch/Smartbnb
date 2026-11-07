@@ -1,0 +1,1780 @@
+{
+  "MB": {
+    "pages": [
+      {
+        "k": "intro",
+        "n": "Avant de commencer",
+        "q": [
+          {
+            "t": "warn",
+            "l": "Ce questionnaire ne remplace pas un avis médical",
+            "h": [
+              "Il ne donne aucun résultat ni aucune explication, et ne pose aucun diagnostic. Il ne remplace ni une consultation ni un examen médical.",
+              "En cas d'urgence, appelez le 15."
+            ]
+          },
+          "pc1",
+          "pc2"
+        ]
+      },
+      {
+        "k": "securite",
+        "n": "Votre sécurité",
+        "q": [
+          "ddn",
+          {
+            "t": "warn",
+            "l": "Questionnaire réservé aux adultes",
+            "h": [
+              "Ce questionnaire est conçu pour les adultes. Pour un enfant ou un adolescent, parlez-en à son médecin."
+            ],
+            "w": {
+              "age_lt": 18
+            }
+          },
+          "sexe",
+          "g_etat",
+          "alarme",
+          {
+            "t": "warn",
+            "l": "Douleur dans la poitrine",
+            "h": [
+              "Si cette gêne ou cette douleur est présente maintenant ou s'est produite récemment, n'attendez pas : <b>appelez le 15</b> (ou le 112)."
+            ],
+            "w": {
+              "q": "alarme",
+              "any": [
+                "Une gêne ou une douleur dans la poitrine"
+              ]
+            }
+          },
+          {
+            "t": "warn",
+            "l": "À signaler rapidement à votre médecin",
+            "h": [
+              "Ce que vous venez de cocher doit être examiné par un médecin. Parlez-en rapidement à votre médecin traitant, <b>sans attendre</b>.",
+              "En cas d'urgence, appelez le 15.",
+              "Vous pouvez poursuivre le questionnaire."
+            ],
+            "w": {
+              "q": "alarme",
+              "anyBut": [
+                "Aucun de ces signes"
+              ]
+            }
+          }
+        ],
+        "lead": "Ces questions sont posées à tout le monde : elles comptent pour votre sécurité.",
+        "si": "c_secu"
+      },
+      {
+        "k": "motif",
+        "n": "Ce qui vous amène",
+        "q": [
+          "qn_motif",
+          "d_depuis",
+          "qa_debut"
+        ],
+        "si": "c_motif"
+      },
+      {
+        "k": "ballon",
+        "n": "Ballonnements et gaz",
+        "q": [
+          "d_ball",
+          "d_soufre",
+          "ba_gazdelai",
+          "d_balldoul",
+          "r_ballreflux",
+          "qb_prebio"
+        ],
+        "si": "m_ballon"
+      },
+      {
+        "k": "aliments",
+        "n": "Les aliments et vous",
+        "q": [
+          "qn_aliments",
+          "d_laitdelai",
+          "d_lait2",
+          "d_ble",
+          "d_jeune",
+          "d_liste",
+          "d_evict",
+          "d_evictres",
+          "bb_evictreint",
+          "pa_allerg"
+        ],
+        "si": "m_aliments"
+      },
+      {
+        "k": "transit",
+        "n": "Transit et selles",
+        "q": [
+          "d_bristol",
+          "d_freq",
+          "qn_selles",
+          "d_couleur",
+          "d_constgonf",
+          "qa_envie",
+          "d_urg",
+          "d_diargonf",
+          "d_diardoul",
+          "d_soulage",
+          "d_prod"
+        ],
+        "si": "c_transit"
+      },
+      {
+        "k": "douleurs",
+        "n": "Douleurs du ventre",
+        "q": [
+          "d_siege",
+          "d_horaire",
+          "d_axe"
+        ],
+        "si": "m_douleur"
+      },
+      {
+        "k": "digestion",
+        "n": "Estomac et digestion",
+        "q": [
+          "d_eau",
+          "es_midi",
+          "d_brique",
+          "d_apres",
+          "d_app"
+        ],
+        "si": "m_digestion"
+      },
+      {
+        "k": "stress",
+        "n": "Stress et émotions",
+        "q": [
+          "st_entree",
+          "d_we",
+          "st_emo",
+          "qn_psy",
+          {
+            "t": "warn",
+            "l": "Votre moral compte aussi",
+            "w": {
+              "q": "qn_psy",
+              "any": [
+                "Une humeur basse, une perte d'élan ou de plaisir"
+              ]
+            },
+            "h": [
+              "Si votre humeur est souvent basse, parlez-en à votre médecin.",
+              "Si vous avez des idées noires ou des pensées de suicide, appelez le <b>3114</b> : numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7. En cas d'urgence, appelez le 15.",
+              "Vous pouvez poursuivre le questionnaire."
+            ]
+          }
+        ],
+        "si": "m_stress"
+      },
+      {
+        "k": "hors",
+        "n": "En dehors du ventre",
+        "q": [
+          "qn_hv",
+          "bb_histcrise",
+          "hv_vag_atb"
+        ],
+        "si": "m_hors"
+      },
+      {
+        "k": "histoire",
+        "n": "Votre histoire",
+        "q": [
+          "atb5",
+          "hv_atb_effet",
+          "gea",
+          "qn_diag",
+          "qn_mal",
+          "qn_exam",
+          "chir",
+          "chir_n",
+          "d_vesic"
+        ],
+        "si": "c_histoire"
+      },
+      {
+        "k": "traitements",
+        "n": "Vos traitements",
+        "q": [
+          "meds",
+          "m_ipp",
+          "r_ippres",
+          "m_int",
+          "m_prob",
+          "m_recid",
+          "ba_antifong",
+          "bb_betaine"
+        ],
+        "si": "c_traitements"
+      },
+      {
+        "k": "habitudes",
+        "n": "Alimentation et habitudes",
+        "q": [
+          "a_mastication",
+          "a_sucre",
+          "a_sucremoment",
+          "a_viande",
+          "v_alc",
+          "a_alcjeun",
+          "hv_endurance",
+          "hv_sport_dig"
+        ],
+        "si": "c_habitudes"
+      },
+      "FIN"
+    ],
+    "ouvre": {
+      "c_secu": null,
+      "c_motif": null,
+      "c_transit": null,
+      "c_histoire": null,
+      "c_traitements": null,
+      "c_habitudes": null,
+      "m_ballon": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz"
+        ]
+      },
+      "m_aliments": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz",
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée",
+          "Douleurs ou crampes dans le ventre",
+          "Digestion difficile : lourdeurs, digestion lente, nausées après les repas",
+          "Je ne supporte pas certains aliments"
+        ]
+      },
+      "m_douleur": {
+        "q": "qn_motif",
+        "any": [
+          "Douleurs ou crampes dans le ventre"
+        ]
+      },
+      "m_digestion": {
+        "q": "qn_motif",
+        "any": [
+          "Digestion difficile : lourdeurs, digestion lente, nausées après les repas"
+        ]
+      },
+      "m_stress": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz",
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée",
+          "Douleurs ou crampes dans le ventre",
+          "Digestion difficile : lourdeurs, digestion lente, nausées après les repas",
+          "Brûlures d'estomac ou remontées acides",
+          "Je ne supporte pas certains aliments"
+        ]
+      },
+      "m_hors": {
+        "q": "qn_motif",
+        "anyBut": [
+          "Je veux surtout faire le point sur ma santé intestinale"
+        ]
+      }
+    },
+    "plein": {},
+    "cles": {},
+    "sousTitres": {},
+    "siQ": {},
+    "exclusives": {
+      "alarme": "Aucun de ces signes",
+      "anticoag": "Aucun",
+      "meds": "Aucun de ces médicaments",
+      "chir": "Aucune de ces interventions",
+      "atcdp": "Aucun de ces problèmes",
+      "fam": "Aucun de ces problèmes",
+      "bo_entree": "Aucun de ces soucis",
+      "hv_entree": "Aucun de ces problèmes",
+      "f_entree": "Aucun de ces soucis",
+      "hv_detox": "Aucun de ces signes",
+      "hv_vag": "Aucun de ces signes",
+      "hv_regles_dig": "Rien de particulier",
+      "hv_gyn_dx": "Aucun de ces problèmes",
+      "hv_thyro_hyper": "Aucun de ces signes",
+      "st_emo": "Rien de particulier",
+      "st_epuis": "Aucun de ces signes",
+      "e_reac": "Rien de tout cela",
+      "d_grasdiff": "Aucun de ceux-là",
+      "sante_gen": "Aucun de ces problèmes",
+      "d_atcd": "Aucun de ces antécédents",
+      "d_catal": "Je n'ai pas de ballonnements",
+      "d_breath": [
+        "Non, jamais",
+        "Je ne sais pas"
+      ],
+      "d_horaire": "Sans horaire identifiable",
+      "d_esto": "Aucun",
+      "d_orl": "Aucun",
+      "d_apres": "Rien",
+      "d_bam": "Aucun lien identifié",
+      "d_evict": "Jamais",
+      "m_int": "Aucun",
+      "a_ferm": "Aucun",
+      "a_poly": "Aucun",
+      "i_masto": "Aucun",
+      "n_doul": "Non, pas de douleurs chroniques",
+      "i_signes": "Aucun de ces signes",
+      "g_contra": "Jamais de contraception hormonale",
+      "g_cycle": "Aucune particularité",
+      "evts": "Aucun en particulier",
+      "i_all": "Aucune",
+      "pa_allerg": [
+        "Non",
+        "Je ne sais pas"
+      ],
+      "d_collcirc": [
+        "Je ne sais pas"
+      ],
+      "d_vesic": [
+        "Pas de changement",
+        "Je ne sais pas"
+      ],
+      "d_prod": [
+        "Aucun de ces produits",
+        "Je ne sais pas"
+      ],
+      "qa_debut": [
+        "Aucun de ces événements",
+        "Je ne sais pas"
+      ],
+      "qa_glp": [
+        "Aucun de ces troubles",
+        "Je ne sais pas"
+      ],
+      "qb_atblong": [
+        "Non",
+        "Je ne sais pas"
+      ],
+      "qb_cortic": "Je ne sais pas",
+      "qc_os": [
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ],
+      "m_risq": "Aucun",
+      "a_reg": "Aucun régime particulier",
+      "a_fruct": "Aucun",
+      "n_type": "Je ne sais pas",
+      "i_migd": [
+        "Aucun lien",
+        "Sans objet"
+      ],
+      "g_circ": "Sans facteur déclenchant identifié",
+      "qn_aliments": [
+        "Je n'ai pas remarqué de lien avec les aliments",
+        "Je ne sais pas"
+      ],
+      "qn_selles": [
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "qn_psy": "Aucun de ces signes",
+      "qn_hv": "Aucun de ces signes",
+      "qn_diag": [
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ],
+      "qn_mal": [
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ],
+      "qn_exam": [
+        "Aucun de ces examens",
+        "Je ne sais pas"
+      ]
+    },
+    "nsp": [
+      "d_prot",
+      "d_fibres",
+      "d_jeune",
+      "d_hal",
+      "d_flotte",
+      "d_morceaux",
+      "d_odeur",
+      "d_balldoul"
+    ],
+    "blocs": {}
+  },
+  "questions": [
+    {
+      "id": "pc1",
+      "t": "single",
+      "l": "J'ai compris que ce questionnaire ne donne aucun résultat, ne pose pas de diagnostic et ne remplace pas un avis médical.",
+      "o": [
+        "Oui, j'ai compris"
+      ],
+      "req": 1
+    },
+    {
+      "id": "pc2",
+      "t": "single",
+      "l": "J'accepte de répondre à des questions portant sur ma santé.",
+      "o": [
+        "Oui, j'accepte"
+      ],
+      "h": "Ce sont des données sensibles. Cette page ne les transmet à personne : elles ne quittent cet appareil que dans le fichier PDF que vous envoyez vous-même.",
+      "req": 1
+    },
+    {
+      "id": "ddn",
+      "t": "date",
+      "l": "Date de naissance",
+      "req": 1,
+      "max": "today"
+    },
+    {
+      "id": "sexe",
+      "t": "single",
+      "l": "Sexe de naissance",
+      "o": [
+        "Femme",
+        "Homme"
+      ],
+      "h": "Certaines questions ne sont posées qu'aux femmes.",
+      "req": 1
+    },
+    {
+      "id": "g_etat",
+      "t": "single",
+      "l": "Êtes-vous actuellement enceinte ou allaitez-vous ?",
+      "o": [
+        "Enceinte",
+        "Allaitement en cours",
+        "Ni l'un ni l'autre"
+      ],
+      "w": {
+        "q": "sexe",
+        "eq": "Femme"
+      },
+      "req": 1
+    },
+    {
+      "id": "alarme",
+      "t": "multi",
+      "l": "Avez-vous remarqué l'un de ces signes au cours des derniers mois ?",
+      "o": [
+        "Du sang rouge dans les selles ou sur le papier toilette, en dehors des règles",
+        "Des selles noires, comme du goudron",
+        "Une perte de poids sans l'avoir cherchée",
+        "Les aliments solides passent mal, restent bloqués ou descendent lentement",
+        "Une gêne ou une douleur dans la poitrine",
+        "Un malaise avec perte de connaissance",
+        "Du sang dans les urines, en dehors des règles",
+        "Une diarrhée apparue depuis peu, avec de la fièvre, ou pendant ou juste après des antibiotiques",
+        "Aucun de ces signes"
+      ],
+      "h": "Cochez même si c'est discret ou si cela ne vous inquiète pas. Cochez aussi une douleur dans la poitrine inhabituelle, même si vous pensez qu'elle vient de l'estomac.",
+      "req": 1
+    },
+    {
+      "id": "qn_motif",
+      "t": "multi",
+      "l": "Pourquoi faites-vous ce questionnaire ?",
+      "o": [
+        "Ventre qui gonfle, ballonnements ou gaz",
+        "Constipation",
+        "Diarrhée ou selles molles",
+        "Transit qui alterne entre constipation et diarrhée",
+        "Douleurs ou crampes dans le ventre",
+        "Digestion difficile : lourdeurs, digestion lente, nausées après les repas",
+        "Brûlures d'estomac ou remontées acides",
+        "Je ne supporte pas certains aliments",
+        "Mycoses ou candidoses qui reviennent",
+        "Je veux surtout faire le point sur ma santé intestinale"
+      ],
+      "h": "Cochez tout ce qui vous concerne : les questions suivantes s'adaptent à vos réponses.",
+      "req": 1
+    },
+    {
+      "id": "d_depuis",
+      "t": "single",
+      "l": "Depuis combien de temps avez-vous ces troubles ?",
+      "o": [
+        "Moins de 3 mois",
+        "3 mois à 1 an",
+        "1 à 5 ans",
+        "Plus de 5 ans",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "anyBut": [
+          "Je veux surtout faire le point sur ma santé intestinale"
+        ]
+      }
+    },
+    {
+      "id": "qa_debut",
+      "t": "multi",
+      "l": "Vos troubles ont-ils commencé, ou nettement augmenté, après l'un de ces événements ?",
+      "o": [
+        "Une cure d'antibiotiques",
+        "Une opération du ventre",
+        "Un nouveau médicament ou un changement de traitement",
+        "Une infection (autre qu'une gastro-entérite)",
+        "Une période de stress ou un choc émotionnel",
+        "Un changement d'alimentation",
+        "Une grossesse ou un accouchement",
+        "À l'approche de la quarantaine",
+        "La ménopause",
+        "Un autre événement",
+        "Aucun de ces événements",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "anyBut": [
+          "Je veux surtout faire le point sur ma santé intestinale"
+        ]
+      },
+      "oSex": {
+        "Une grossesse ou un accouchement": "Femme",
+        "À l'approche de la quarantaine": "Femme",
+        "La ménopause": "Femme"
+      }
+    },
+    {
+      "id": "d_ball",
+      "t": "single",
+      "l": "Quand vos ballonnements apparaissent-ils ?",
+      "o": [
+        "Pendant le repas ou dans la demi-heure qui suit",
+        "Entre une demi-heure et une heure et demie après",
+        "Plus d'une heure et demie après",
+        "Variable, sans régularité",
+        "Je n'ai pas de ballonnements, seulement des gaz",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "d_soufre",
+      "t": "single",
+      "l": "Vos gaz ont-ils une odeur d'œuf pourri ou de soufre ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Odeur forte, mais pas d'œuf pourri",
+        "Odeur habituelle, pas particulièrement forte",
+        "Je n'ai que très peu ou pas de gaz",
+        "Je ne sais pas"
+      ],
+      "h": "Les gaz sans odeur et les gaz malodorants n'ont pas la même origine : la distinction compte."
+    },
+    {
+      "id": "ba_gazdelai",
+      "t": "single",
+      "l": "Ces gaz très odorants apparaissent surtout à quel moment ?",
+      "o": [
+        "Pendant le repas ou dans l'heure et demie qui suit",
+        "Plus tard : le soir, la nuit ou le lendemain matin",
+        "À n'importe quel moment, sans lien avec les repas",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "d_soufre",
+        "any": [
+          "Oui, souvent",
+          "Parfois",
+          "Odeur forte, mais pas d'œuf pourri"
+        ]
+      }
+    },
+    {
+      "id": "d_balldoul",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Quand mon ventre gonfle ou que des gaz circulent, j'ai mal (crampes, douleurs)"
+    },
+    {
+      "id": "r_ballreflux",
+      "t": "single",
+      "l": "Vos brûlures ou vos remontées sont-elles plus fortes les jours où votre ventre est gonflé ?",
+      "o": [
+        "Oui, nettement",
+        "Un peu",
+        "Non",
+        "Je n'ai pas de brûlures ni de remontées",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Brûlures d'estomac ou remontées acides"
+        ]
+      }
+    },
+    {
+      "id": "qb_prebio",
+      "t": "single",
+      "l": "Avez-vous déjà pris des fibres en complément (inuline, gomme de guar, fibres en poudre…) ? Avec quel effet ?",
+      "o": [
+        "Jamais",
+        "Oui, cela m'a soulagé(e)",
+        "Oui, sans effet",
+        "Oui, j'ai eu plus de ballonnements ou de douleurs",
+        "Je n'ai pas tenu assez longtemps pour juger",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "qn_aliments",
+      "t": "multi",
+      "l": "Après quels aliments ou quels repas vos troubles apparaissent-ils ou augmentent-ils ?",
+      "o": [
+        "Pain, pâtes, biscuits ou sucreries",
+        "Légumineuses (lentilles, pois chiches), choux, oignon, ail, poireau, artichaut, asperges, pommes ou poires",
+        "Bonbons ou chewing-gums « sans sucre »",
+        "Lait, yaourts, fromages frais ou glaces",
+        "Viande, œufs ou fromages affinés",
+        "Plats gras, fritures ou jaune d'œuf",
+        "Alcool",
+        "Chocolat",
+        "Les repas copieux ou riches, quel que soit l'aliment",
+        "Je n'ai pas remarqué de lien avec les aliments",
+        "Je ne sais pas"
+      ],
+      "h": "Cochez tout ce que vous avez remarqué."
+    },
+    {
+      "id": "d_laitdelai",
+      "t": "single",
+      "l": "Après du lait ou un laitage frais, au bout de combien de temps la gêne apparaît-elle ?",
+      "o": [
+        "Dans la demi-heure",
+        "Entre une demi-heure et 1 heure",
+        "Entre 1 heure et 1 heure et demie",
+        "Entre 1 heure et demie et 2 heures",
+        "Plus de 2 heures",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_aliments",
+        "any": [
+          "Lait, yaourts, fromages frais ou glaces"
+        ]
+      }
+    },
+    {
+      "id": "d_lait2",
+      "t": "single",
+      "l": "Tolérez-vous certains produits laitiers mieux que d'autres ?",
+      "o": [
+        "Je tolère les fromages à pâte dure affinés (comté, parmesan, emmental) mais pas le lait",
+        "Je tolère les yaourts et fromages frais",
+        "Je ne tolère aucun laitage",
+        "Je tolère tout",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_aliments",
+        "any": [
+          "Lait, yaourts, fromages frais ou glaces"
+        ]
+      }
+    },
+    {
+      "id": "d_ble",
+      "t": "single",
+      "l": "Vous sentez-vous mieux lorsque vous réduisez le pain et les produits à base de blé ?",
+      "o": [
+        "Oui, nettement mieux",
+        "Oui, un peu",
+        "Aucune différence",
+        "Je n'ai jamais essayé"
+      ],
+      "w": {
+        "q": "qn_aliments",
+        "any": [
+          "Pain, pâtes, biscuits ou sucreries"
+        ]
+      }
+    },
+    {
+      "id": "d_jeune",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Je vais mieux quand je jeûne ou que je supprime les sucres, mais tout revient dès que je remange normalement",
+      "w": {
+        "q": "qn_aliments",
+        "any": [
+          "Pain, pâtes, biscuits ou sucreries"
+        ]
+      }
+    },
+    {
+      "id": "d_liste",
+      "t": "single",
+      "l": "Avez-vous l'impression de ne plus rien tolérer, et la liste des aliments qui vous gênent s'allonge-t-elle avec le temps ?",
+      "o": [
+        "Oui, la liste s'allonge nettement",
+        "Oui, un peu",
+        "Non, elle est stable",
+        "Non, elle diminue"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Je ne supporte pas certains aliments"
+        ]
+      }
+    },
+    {
+      "id": "d_evict",
+      "t": "multi",
+      "l": "Avez-vous déjà supprimé un aliment pendant plusieurs semaines pour voir si vous alliez mieux ?",
+      "o": [
+        "Gluten",
+        "Lactose",
+        "Tous les laitages",
+        "Aliments « FODMAP » (oignon, ail, choux, pommes, légumineuses…)",
+        "Œuf",
+        "Autre",
+        "Jamais"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_motif",
+            "any": [
+              "Je ne supporte pas certains aliments"
+            ]
+          },
+          {
+            "q": "qn_aliments",
+            "any": [
+              "Pain, pâtes, biscuits ou sucreries",
+              "Légumineuses (lentilles, pois chiches), choux, oignon, ail, poireau, artichaut, asperges, pommes ou poires",
+              "Bonbons ou chewing-gums « sans sucre »",
+              "Lait, yaourts, fromages frais ou glaces",
+              "Viande, œufs ou fromages affinés",
+              "Plats gras, fritures ou jaune d'œuf",
+              "Alcool",
+              "Chocolat",
+              "Les repas copieux ou riches, quel que soit l'aliment"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "d_evictres",
+      "t": "single",
+      "l": "Avec quel résultat ?",
+      "o": [
+        "Nette amélioration",
+        "Légère amélioration",
+        "Aucun changement",
+        "Aggravation"
+      ],
+      "w": {
+        "q": "d_evict",
+        "anyBut": [
+          "Jamais"
+        ]
+      }
+    },
+    {
+      "id": "bb_evictreint",
+      "t": "single",
+      "l": "Quand vous avez remangé l'aliment supprimé, vos troubles sont-ils revenus ?",
+      "o": [
+        "Oui, nettement",
+        "Un peu",
+        "Non",
+        "Je ne l'ai pas remangé",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "and": [
+          {
+            "q": "d_evict",
+            "anyBut": [
+              "Jamais"
+            ]
+          },
+          {
+            "q": "d_evictres",
+            "any": [
+              "Nette amélioration",
+              "Légère amélioration"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pa_allerg",
+      "t": "multi",
+      "l": "Avez-vous une allergie alimentaire connue ?",
+      "o": [
+        "Non",
+        "Oui, au lait",
+        "Oui, à l'œuf",
+        "Oui, à un autre aliment",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Je ne supporte pas certains aliments"
+        ]
+      }
+    },
+    {
+      "id": "d_bristol",
+      "t": "bristol",
+      "l": "À quoi ressemblent le plus souvent vos selles ?",
+      "h": "Choisissez le dessin et la description les plus proches de vos selles habituelles. Si cela change beaucoup d'un jour à l'autre, choisissez le plus fréquent."
+    },
+    {
+      "id": "d_freq",
+      "t": "single",
+      "l": "À quelle fréquence allez-vous à la selle ?",
+      "o": [
+        "3 fois par jour ou plus",
+        "2 fois par jour",
+        "1 fois par jour",
+        "1 fois tous les 2 jours",
+        "Moins d'une fois tous les 2 jours",
+        "Très irrégulier"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "d_couleur",
+      "t": "single",
+      "l": "De quelle couleur sont vos selles le plus souvent ?",
+      "h": "Plutôt claire ou plutôt foncée n'ont pas la même origine (fermentation vs putréfaction).",
+      "o": [
+        "Plutôt claire",
+        "Plutôt foncée (brun foncé)",
+        "Normale, je ne remarque rien de particulier",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz",
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée",
+          "Douleurs ou crampes dans le ventre",
+          "Digestion difficile : lourdeurs, digestion lente, nausées après les repas"
+        ]
+      }
+    },
+    {
+      "id": "d_soulage",
+      "t": "single",
+      "l": "Vos douleurs ou inconforts du ventre sont-ils soulagés quand vous allez à la selle ?",
+      "o": [
+        "Oui, souvent soulagés",
+        "Parfois",
+        "Non, aucun changement",
+        "Non, plutôt aggravés",
+        "Je n'ai pas de douleurs au ventre",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz",
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée",
+          "Douleurs ou crampes dans le ventre",
+          "Digestion difficile : lourdeurs, digestion lente, nausées après les repas"
+        ]
+      }
+    },
+    {
+      "id": "qn_selles",
+      "t": "multi",
+      "l": "Vos selles ont-elles souvent l'un de ces aspects ?",
+      "o": [
+        "Elles collent à la cuvette ou demandent beaucoup de papier",
+        "Elles sont grasses, brillantes ou luisantes",
+        "Elles ont une odeur très forte",
+        "On y voit des morceaux d'aliments non digérés (par exemple des petits pois)",
+        "Leur aspect change beaucoup d'un jour à l'autre",
+        "Rien de particulier",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz",
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée",
+          "Douleurs ou crampes dans le ventre",
+          "Digestion difficile : lourdeurs, digestion lente, nausées après les repas"
+        ]
+      }
+    },
+    {
+      "id": "d_constgonf",
+      "t": "single",
+      "l": "Quand vous êtes constipé(e), avez-vous aussi le ventre gonflé ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Non"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Constipation",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "qa_envie",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Je reste plusieurs jours sans ressentir l'envie d'aller à la selle",
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Constipation",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "d_urg",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Besoin urgent d'aller à la selle, difficile à retenir",
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "d_diargonf",
+      "t": "single",
+      "l": "Quand vos selles sont molles ou que vous avez la diarrhée, avez-vous aussi le ventre gonflé ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "d_diardoul",
+      "t": "single",
+      "l": "Quand vous avez la diarrhée ou des selles molles, avez-vous aussi des douleurs ou des crampes dans le ventre ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "d_prod",
+      "t": "multi",
+      "l": "Prenez-vous régulièrement l'un de ces produits ?",
+      "o": [
+        "Du magnésium en complément",
+        "De la vitamine C en complément",
+        "De l'argile à boire",
+        "Des graines de lin entières",
+        "Aucun de ces produits",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "d_siege",
+      "t": "single",
+      "l": "Où avez-vous mal le plus souvent ?",
+      "o": [
+        "En bas à droite",
+        "En bas à gauche",
+        "Autour du nombril",
+        "En haut au centre, au creux de l'estomac",
+        "Tout le ventre",
+        "Variable"
+      ]
+    },
+    {
+      "id": "d_horaire",
+      "t": "multi",
+      "l": "À quel moment ces douleurs surviennent-elles ?",
+      "o": [
+        "La nuit",
+        "Au réveil le matin",
+        "Avant d'aller à la selle",
+        "Après les repas",
+        "En période de stress",
+        "Sans horaire identifiable"
+      ]
+    },
+    {
+      "id": "d_axe",
+      "t": "single",
+      "l": "Parmi vos gênes, laquelle domine ?",
+      "o": [
+        "Le ventre qui gonfle, les gaz, les renvois ou les remontées après les repas",
+        "Des douleurs nettes ou des crampes, parfois avec un transit qui alterne",
+        "Des gênes qui suivent surtout le stress, et qui vont mieux en vacances ou le week-end",
+        "Plusieurs de ces gênes, sans que l'une domine",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz",
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée"
+        ]
+      }
+    },
+    {
+      "id": "d_eau",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Une lourdeur à l'estomac, même après avoir seulement bu un verre d'eau"
+    },
+    {
+      "id": "es_midi",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Le soir, j'ai encore l'impression d'avoir mon repas de midi dans l'estomac"
+    },
+    {
+      "id": "d_brique",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Après un plat de pâtes, l'impression d'avoir avalé une brique"
+    },
+    {
+      "id": "d_apres",
+      "t": "multi",
+      "l": "Avez-vous besoin de quelque chose après le repas pour mieux digérer ?",
+      "o": [
+        "Café",
+        "Boisson au cola ou boisson acide",
+        "Alcool digestif",
+        "Cigarette",
+        "Bicarbonate",
+        "Rien"
+      ]
+    },
+    {
+      "id": "d_app",
+      "t": "single",
+      "l": "Comment est votre appétit au moment des repas ? L'eau vous vient-elle à la bouche devant un plat qui vous plaît ?",
+      "o": [
+        "Bon appétit, je salive facilement",
+        "Appétit correct, sans envie particulière",
+        "Peu d'appétit, je mange par habitude",
+        "Aucun appétit",
+        "Appétit excessif, j'ai toujours faim"
+      ]
+    },
+    {
+      "id": "st_entree",
+      "t": "scale5",
+      "sc": "FREQ",
+      "nsp": 1,
+      "l": "Mon ventre réagit au stress, aux contrariétés, aux émotions ou au manque de sommeil"
+    },
+    {
+      "id": "d_we",
+      "t": "single",
+      "l": "Vos troubles digestifs s'améliorent-ils le week-end ou en vacances ?",
+      "o": [
+        "Oui, nettement",
+        "Oui, un peu",
+        "Aucun changement",
+        "Ils s'aggravent",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "st_entree",
+        "ge": 2
+      }
+    },
+    {
+      "id": "st_emo",
+      "t": "multi",
+      "l": "Quand vous vivez une contrariété ou une émotion que vous gardez pour vous, que se passe-t-il dans votre corps ?",
+      "o": [
+        "Ma digestion se bloque ou ralentit",
+        "J'ai la diarrhée ou des envies pressantes",
+        "Ma peau réagit (boutons, urticaire, eczéma)",
+        "J'ai des nausées",
+        "Je n'ai plus faim",
+        "Rien de particulier"
+      ],
+      "w": {
+        "q": "st_entree",
+        "ge": 2
+      }
+    },
+    {
+      "id": "qn_psy",
+      "t": "multi",
+      "l": "Avez-vous souvent l'un de ces signes ?",
+      "o": [
+        "Des angoisses ou des ruminations",
+        "Une humeur basse, une perte d'élan ou de plaisir",
+        "Des difficultés à vous endormir",
+        "Aucun de ces signes"
+      ],
+      "w": {
+        "q": "st_entree",
+        "ge": 2
+      }
+    },
+    {
+      "id": "qn_hv",
+      "t": "multi",
+      "l": "En dehors du ventre, avez-vous souvent, ou depuis longtemps, l'un de ces signes ?",
+      "o": [
+        "Une fatigue qui dure",
+        "Du mal à penser clairement ou à se concentrer (brouillard mental)",
+        "Des démangeaisons, surtout des paupières, des bras ou du cuir chevelu",
+        "L'impression d'être ivre sans avoir bu d'alcool",
+        "Par crises, parfois après un repas : rougeurs, palpitations ou gêne pour respirer",
+        "Des allergies, ou une peau qui réagit (urticaire, eczéma, boutons)",
+        "Des maux de tête ou des migraines fréquents",
+        "Des douleurs des articulations",
+        "Une mauvaise haleine que l'entourage remarque, malgré une bonne hygiène dentaire",
+        "Des candidoses ou infections qui reviennent (mycoses intimes, buccales, peau ou ongles, cystites, sinusites…)",
+        "Aucun de ces signes"
+      ],
+      "oSex": {}
+    },
+    {
+      "id": "bb_histcrise",
+      "t": "single",
+      "l": "Ces crises surviennent-elles surtout peu après certains aliments, ou surtout en période de stress ?",
+      "o": [
+        "Surtout peu après certains aliments",
+        "Surtout en période de stress",
+        "Les deux",
+        "Sans lien que j'aie repéré",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_hv",
+        "any": [
+          "Par crises, parfois après un repas : rougeurs, palpitations ou gêne pour respirer"
+        ]
+      }
+    },
+    {
+      "id": "hv_vag_atb",
+      "t": "single",
+      "l": "Vos mycoses ou candidoses apparaissent-elles souvent après un traitement antibiotique ?",
+      "o": [
+        "Oui, souvent",
+        "Parfois",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_motif",
+            "any": [
+              "Mycoses ou candidoses qui reviennent"
+            ]
+          },
+          {
+            "q": "qn_hv",
+            "any": [
+              "Des candidoses ou infections qui reviennent (mycoses intimes, buccales, peau ou ongles, cystites, sinusites…)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "atb5",
+      "t": "single",
+      "l": "Combien de cures d'antibiotiques avez-vous prises au cours des 5 dernières années ?",
+      "o": [
+        "Aucune",
+        "1 à 2",
+        "3 à 5",
+        "Plus de 5",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "hv_atb_effet",
+      "t": "single",
+      "l": "Pendant un traitement antibiotique, avez-vous déjà remarqué que vous alliez mieux : moins fatigué(e), meilleur sommeil, moins stressé(e) ?",
+      "o": [
+        "Oui, nettement",
+        "Pas de différence",
+        "Non, j'allais moins bien",
+        "Je ne me souviens pas"
+      ],
+      "w": {
+        "q": "atb5",
+        "any": [
+          "1 à 2",
+          "3 à 5",
+          "Plus de 5"
+        ]
+      }
+    },
+    {
+      "id": "gea",
+      "t": "single",
+      "l": "Avez-vous déjà eu une gastro-entérite sévère, une intoxication alimentaire ou une turista, même il y a plusieurs années ?",
+      "o": [
+        "Oui, avec antibiotiques",
+        "Oui, sans antibiotiques",
+        "Oui, mais je ne me souviens plus des détails",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "qn_motif",
+        "any": [
+          "Ventre qui gonfle, ballonnements ou gaz",
+          "Constipation",
+          "Diarrhée ou selles molles",
+          "Transit qui alterne entre constipation et diarrhée",
+          "Douleurs ou crampes dans le ventre",
+          "Digestion difficile : lourdeurs, digestion lente, nausées après les repas",
+          "Brûlures d'estomac ou remontées acides",
+          "Je ne supporte pas certains aliments"
+        ]
+      }
+    },
+    {
+      "id": "qn_diag",
+      "t": "multi",
+      "l": "Un médecin vous a-t-il déjà diagnostiqué l'un de ces problèmes digestifs ?",
+      "o": [
+        "Syndrome de l'intestin irritable ou colopathie",
+        "Maladie de Crohn ou rectocolite hémorragique",
+        "Maladie cœliaque",
+        "Pullulation bactérienne de l'intestin grêle (SIBO)",
+        "Reflux gastro-œsophagien ou œsophagite",
+        "Gastrite ou ulcère de l'estomac",
+        "Infection par Helicobacter pylori",
+        "Gastrite atrophique ou maladie de Biermer",
+        "Candidose digestive (œsophage, estomac ou intestin)",
+        "Pancréatite, ou pancréas qui ne produit pas assez de sucs digestifs (insuffisance pancréatique)",
+        "Calculs ou « sable » dans la vésicule biliaire",
+        "Parasites de l'intestin",
+        "Infection de l'intestin par la bactérie Clostridium difficile",
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "qn_mal",
+      "t": "multi",
+      "l": "Un médecin vous a-t-il déjà dit que vous aviez l'un de ces problèmes de santé ?",
+      "o": [
+        "Diabète",
+        "Thyroïde qui fonctionne au ralenti (hypothyroïdie, Hashimoto)",
+        "Sclérodermie",
+        "Maladie de Parkinson",
+        "Sclérose en plaques",
+        "Polyarthrite rhumatoïde ou spondylarthrite ankylosante",
+        "Une autre maladie auto-immune",
+        "Des défenses immunitaires diminuées",
+        "Aucun de ces problèmes",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "qn_exam",
+      "t": "multi",
+      "l": "Quels examens avez-vous déjà faits pour ces troubles ?",
+      "o": [
+        "Coloscopie",
+        "Fibroscopie de l'estomac (gastroscopie)",
+        "Test respiratoire (hydrogène, méthane)",
+        "Analyse de selles",
+        "Recherche de la maladie cœliaque",
+        "Aucun de ces examens",
+        "Je ne sais pas"
+      ],
+      "h": "Cochez seulement : les résultats ne sont pas demandés.",
+      "w": {
+        "and": [
+          {
+            "q": "qn_motif",
+            "anyBut": [
+              "Je veux surtout faire le point sur ma santé intestinale"
+            ]
+          },
+          {
+            "q": "d_depuis",
+            "anyBut": [
+              "Moins de 3 mois"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chir",
+      "t": "multi",
+      "l": "Avez-vous eu l'une de ces interventions ?",
+      "o": [
+        "Ablation de la vésicule biliaire",
+        "Ablation d'une partie ou de la totalité de l'estomac",
+        "Chirurgie de l'obésité par bypass",
+        "Chirurgie de l'obésité par anneau ou sleeve",
+        "Chirurgie de l'intestin (retrait d'une partie, ou poche sur le ventre appelée stomie)",
+        "Ablation de l'appendice (appendicectomie)",
+        "Autre chirurgie du ventre",
+        "Aucune de ces interventions"
+      ]
+    },
+    {
+      "id": "chir_n",
+      "t": "single",
+      "l": "Combien d'opérations du ventre avez-vous eues au total ?",
+      "o": [
+        "Une",
+        "Deux ou plus",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "chir",
+        "anyBut": [
+          "Aucune de ces interventions"
+        ]
+      }
+    },
+    {
+      "id": "d_vesic",
+      "t": "multi",
+      "l": "Depuis l'ablation de votre vésicule biliaire, vos selles ont-elles changé ?",
+      "o": [
+        "Elles sont plus molles ou plus fréquentes",
+        "J'ai plus souvent des besoins pressants",
+        "Elles sont plus grasses ou collent davantage",
+        "Pas de changement",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "chir",
+        "has": "vésicule"
+      }
+    },
+    {
+      "id": "meds",
+      "t": "multi",
+      "l": "Prenez-vous actuellement, ou avez-vous pris récemment, l'un de ces médicaments ?",
+      "o": [
+        "Contre le reflux : oméprazole, pantoprazole, ésoméprazole…",
+        "Autre médicament contre l'acidité (famotidine…)",
+        "Antibiotiques, en cours ou répétés ces derniers mois",
+        "Anti-inflammatoires ou aspirine, régulièrement (ibuprofène, kétoprofène, naproxène, diclofénac…)",
+        "Corticoïdes (cortisone)",
+        "Traitement qui diminue les défenses immunitaires (immunosuppresseur, biothérapie)",
+        "Antidouleurs de la famille de la morphine (codéine, tramadol, morphine…)",
+        "Antidépresseur tricyclique (amitriptyline, clomipramine, imipramine…)",
+        "Autre antidépresseur",
+        "Laxatifs réguliers",
+        "Metformine (traitement du diabète)",
+        "Médicament contre le cholestérol (statine : atorvastatine, rosuvastatine, simvastatine…)",
+        "Injections de sémaglutide ou de tirzépatide (diabète, perte de poids)",
+        "Traitement de la thyroïde (lévothyroxine…)",
+        "Hormones : progestérone, ou traitement hormonal de la ménopause",
+        "Aucun de ces médicaments"
+      ],
+      "h": "Sur ordonnance ou en automédication régulière.",
+      "oSex": {
+        "Hormones : progestérone, ou traitement hormonal de la ménopause": "Femme"
+      }
+    },
+    {
+      "id": "m_ipp",
+      "t": "single",
+      "l": "Depuis combien de temps prenez-vous ce médicament contre le reflux ?",
+      "o": [
+        "Moins d'un mois",
+        "1 à 6 mois",
+        "6 mois à 2 ans",
+        "Plus de 2 ans",
+        "Plus de 10 ans"
+      ],
+      "w": {
+        "q": "meds",
+        "has": "oméprazole"
+      }
+    },
+    {
+      "id": "r_ippres",
+      "t": "single",
+      "l": "Malgré votre médicament contre l'acidité, vos brûlures ou vos remontées persistent-elles ?",
+      "o": [
+        "Non, il les calme",
+        "En partie",
+        "Oui, elles persistent",
+        "Je n'ai pas de brûlures ni de remontées"
+      ],
+      "w": {
+        "and": [
+          {
+            "q": "meds",
+            "any": [
+              "Contre le reflux : oméprazole, pantoprazole, ésoméprazole…",
+              "Autre médicament contre l'acidité (famotidine…)"
+            ]
+          },
+          {
+            "q": "qn_motif",
+            "any": [
+              "Brûlures d'estomac ou remontées acides"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "m_int",
+      "t": "multi",
+      "l": "Avez-vous déjà pris un traitement visant spécifiquement votre intestin ?",
+      "o": [
+        "Antifongique (nystatine, fluconazole)",
+        "Antibiotique intestinal (rifaximine, métronidazole, néomycine)",
+        "Plantes antimicrobiennes (origan, berbérine, pépins de pamplemousse)",
+        "Probiotiques",
+        "Enzymes digestives",
+        "Glutamine",
+        "Cholestyramine (Questran)",
+        "Bétaïne HCl",
+        "Aucun"
+      ]
+    },
+    {
+      "id": "m_prob",
+      "t": "single",
+      "l": "Avec les probiotiques, qu'avez-vous constaté ?",
+      "o": [
+        "Une nette amélioration",
+        "Aucun effet",
+        "Plus de ballonnements",
+        "Je ne les ai pas pris assez longtemps pour juger",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "m_int",
+        "any": [
+          "Probiotiques"
+        ]
+      }
+    },
+    {
+      "id": "m_recid",
+      "t": "single",
+      "l": "Après ce traitement antibiotique destiné à l'intestin, vos troubles sont-ils revenus ?",
+      "o": [
+        "Oui, en quelques semaines",
+        "Oui, plus tard",
+        "Non",
+        "Le traitement ne m'avait pas soulagé(e)",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "m_int",
+        "has": "Antibiotique intestinal"
+      }
+    },
+    {
+      "id": "ba_antifong",
+      "t": "single",
+      "l": "Après ce traitement antifongique, comment vos troubles digestifs ont-ils évolué ?",
+      "o": [
+        "Nettement mieux, et c'est resté",
+        "Mieux, puis les troubles sont revenus",
+        "Pas de changement",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "m_int",
+        "has": "Antifongique"
+      }
+    },
+    {
+      "id": "bb_betaine",
+      "t": "single",
+      "l": "Avec la bétaïne HCl, vos lourdeurs digestives ont-elles diminué ?",
+      "o": [
+        "Oui, nettement",
+        "Un peu",
+        "Non",
+        "Je ne sais pas"
+      ],
+      "w": {
+        "q": "m_int",
+        "has": "Bétaïne"
+      }
+    },
+    {
+      "id": "a_mastication",
+      "t": "single",
+      "l": "Comment mangez-vous le plus souvent ?",
+      "h": "La mastication est la première étape de la digestion : mal mâcher favorise ballonnements et intolérances.",
+      "o": [
+        "Je mange vite et je mâche peu",
+        "À vitesse normale",
+        "Je prends mon temps et je mâche bien",
+        "Je ne sais pas"
+      ]
+    },
+    {
+      "id": "a_sucre",
+      "t": "single",
+      "l": "À quelle fréquence mangez-vous des produits sucrés (pâtisseries, sodas, chocolat, confiseries) ?",
+      "o": [
+        "Rarement ou jamais",
+        "Moins d'une fois par semaine",
+        "Plusieurs fois par semaine",
+        "Tous les jours"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_motif",
+            "any": [
+              "Ventre qui gonfle, ballonnements ou gaz",
+              "Mycoses ou candidoses qui reviennent"
+            ]
+          },
+          {
+            "q": "qn_hv",
+            "any": [
+              "Des candidoses ou infections qui reviennent (mycoses intimes, buccales, peau ou ongles, cystites, sinusites…)"
+            ]
+          },
+          {
+            "q": "qn_aliments",
+            "any": [
+              "Pain, pâtes, biscuits ou sucreries"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "a_sucremoment",
+      "t": "single",
+      "l": "Avez-vous des envies de sucré ? Si oui, à quel moment ?",
+      "o": [
+        "Non, rarement",
+        "Oui, surtout en fin d'après-midi ou le soir",
+        "Oui, à n'importe quel moment, sans horaire"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_motif",
+            "any": [
+              "Ventre qui gonfle, ballonnements ou gaz",
+              "Mycoses ou candidoses qui reviennent"
+            ]
+          },
+          {
+            "q": "qn_hv",
+            "any": [
+              "Des candidoses ou infections qui reviennent (mycoses intimes, buccales, peau ou ongles, cystites, sinusites…)"
+            ]
+          },
+          {
+            "q": "qn_aliments",
+            "any": [
+              "Pain, pâtes, biscuits ou sucreries"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "a_viande",
+      "t": "single",
+      "l": "À quelle fréquence mangez-vous de la viande rouge ou de la charcuterie ?",
+      "o": [
+        "Rarement ou jamais",
+        "1 à 2 fois par semaine",
+        "3 à 6 fois par semaine",
+        "Tous les jours"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "d_soufre",
+            "any": [
+              "Oui, souvent",
+              "Parfois",
+              "Odeur forte, mais pas d'œuf pourri"
+            ]
+          },
+          {
+            "q": "qn_aliments",
+            "any": [
+              "Viande, œufs ou fromages affinés"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "v_alc",
+      "t": "single",
+      "l": "Quelle est votre consommation d'alcool habituelle ?",
+      "o": [
+        "Je ne bois pas",
+        "Moins d'un verre par semaine",
+        "1 à 7 verres par semaine",
+        "1 verre par jour ou plus",
+        "Plus de 2 verres par jour"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_hv",
+            "any": [
+              "Des allergies, ou une peau qui réagit (urticaire, eczéma, boutons)",
+              "Des maux de tête ou des migraines fréquents",
+              "Des douleurs des articulations"
+            ]
+          },
+          {
+            "q": "d_liste",
+            "any": [
+              "Oui, la liste s'allonge nettement",
+              "Oui, un peu"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "a_alcjeun",
+      "t": "single",
+      "l": "Vous arrive-t-il de boire de l'alcool à jeun, en apéritif avant le repas ?",
+      "o": [
+        "Jamais",
+        "Rarement",
+        "Souvent",
+        "Systématiquement"
+      ],
+      "w": {
+        "q": "v_alc",
+        "anyBut": [
+          "Je ne bois pas"
+        ]
+      }
+    },
+    {
+      "id": "hv_endurance",
+      "t": "single",
+      "l": "Pratiquez-vous un sport d'endurance intense (course longue, trail, marathon, triathlon…) ?",
+      "o": [
+        "Oui, régulièrement",
+        "De temps en temps",
+        "Non"
+      ],
+      "w": {
+        "or": [
+          {
+            "q": "qn_hv",
+            "any": [
+              "Des allergies, ou une peau qui réagit (urticaire, eczéma, boutons)",
+              "Des maux de tête ou des migraines fréquents",
+              "Des douleurs des articulations"
+            ]
+          },
+          {
+            "q": "d_liste",
+            "any": [
+              "Oui, la liste s'allonge nettement",
+              "Oui, un peu"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hv_sport_dig",
+      "t": "single",
+      "l": "Pendant ou après un effort long, avez-vous un inconfort digestif ?",
+      "o": [
+        "Souvent",
+        "Parfois",
+        "Jamais"
+      ],
+      "w": {
+        "q": "hv_endurance",
+        "any": [
+          "Oui, régulièrement",
+          "De temps en temps"
+        ]
+      }
+    }
+  ]
+}
