@@ -829,7 +829,7 @@
       "o": [
         "Oui, j'accepte"
       ],
-      "h": "Ce sont des données sensibles. Cette page ne les transmet à personne : elles ne quittent cet appareil que dans le fichier PDF que vous envoyez vous-même.",
+      "h": "Ce sont des données sensibles. Elles restent sur cet appareil pendant le questionnaire ; elles ne sont transmises à LifeMicroNut que si vous demandez votre rapport complet, avec votre accord.",
       "req": 1
     },
     {
