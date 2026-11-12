@@ -38,10 +38,10 @@ def must(s, old, new, label, count=1, optional_done=None):
 
 def seo_block(c):
     graph = [
-      {"@type": "Organization", "@id": "https://lifemicronut.com/#organisation", "name": "LifeMicroNut", "url": "https://lifemicronut.com/"},
+      {"@type": "Organization", "@id": "https://lifemicronut.com/#organization", "name": "LifeMicroNut", "url": "https://lifemicronut.com/"},
       {"@type": "WebPage", "@id": c["url"] + "#page", "url": c["url"], "name": c["name"], "description": c["desc"],
-       "inLanguage": "fr-FR", "isPartOf": {"@type": "WebSite", "@id": "https://lifemicronut.com/#site", "url": "https://lifemicronut.com/", "name": "LifeMicroNut"},
-       "publisher": {"@id": "https://lifemicronut.com/#organisation"},
+       "inLanguage": "fr-FR", "isPartOf": {"@type": "WebSite", "@id": "https://lifemicronut.com/#website", "url": "https://lifemicronut.com/", "name": "LifeMicroNut"},
+       "publisher": {"@id": "https://lifemicronut.com/#organization"},
        "about": {"@type": "Thing", "name": "Micronutrition"}},
     ]
     if c["faq"]:

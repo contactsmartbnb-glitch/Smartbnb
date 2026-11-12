@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="Bilan fatigue en ligne : questionnaire d'orientation | LifeMicroNut">
 <meta name="twitter:description" content="Fatigue persistante, coups de pompe, récupération difficile : un questionnaire d'orientation de 15 minutes pensé avec une pharmacienne. Aperçu gratuit des pistes.">
 <meta name="twitter:image" content="https://lifemicronut.com/og-image.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://lifemicronut.com/#organisation", "name": "LifeMicroNut", "url": "https://lifemicronut.com/"}, {"@type": "WebPage", "@id": "https://fatigue.lifemicronut.com/#page", "url": "https://fatigue.lifemicronut.com/", "name": "Bilan fatigue & énergie — LifeMicroNut", "description": "Fatigue persistante, coups de pompe, récupération difficile : un questionnaire d'orientation de 15 minutes pensé avec une pharmacienne. Aperçu gratuit des pistes.", "inLanguage": "fr-FR", "isPartOf": {"@type": "WebSite", "@id": "https://lifemicronut.com/#site", "url": "https://lifemicronut.com/", "name": "LifeMicroNut"}, "publisher": {"@id": "https://lifemicronut.com/#organisation"}, "about": {"@type": "Thing", "name": "Micronutrition"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://lifemicronut.com/#organization", "name": "LifeMicroNut", "url": "https://lifemicronut.com/"}, {"@type": "WebPage", "@id": "https://fatigue.lifemicronut.com/#page", "url": "https://fatigue.lifemicronut.com/", "name": "Bilan fatigue & énergie — LifeMicroNut", "description": "Fatigue persistante, coups de pompe, récupération difficile : un questionnaire d'orientation de 15 minutes pensé avec une pharmacienne. Aperçu gratuit des pistes.", "inLanguage": "fr-FR", "isPartOf": {"@type": "WebSite", "@id": "https://lifemicronut.com/#website", "url": "https://lifemicronut.com/", "name": "LifeMicroNut"}, "publisher": {"@id": "https://lifemicronut.com/#organization"}, "about": {"@type": "Thing", "name": "Micronutrition"}}]}</script>
 <!--SEO-END-->
 <!-- Questionnaire LifeMicroNut « Bilan de fatigue », version de test (un seul fichier). Polices, figures et générateur de PDF intégrés ; aucune requête réseau.
      Générée par build/assemble_questionnaire.js : ne pas modifier à la main.
@@ -7547,7 +7547,7 @@ body.glass footer strong{color:var(--fg)!important}
   function tick(){ updateSteps(); mark(); jauge(); }
   var pg=id('page');
   pg.addEventListener('change',function(){setTimeout(tick,0);});
-  pg.addEventListener('input',function(){setTimeout(tick,0);});pg.addEventListener('click',function(){setTimeout(tick,30);});pg.addEventListener('click',function(){setTimeout(tick,30);});
+  pg.addEventListener('input',function(){setTimeout(tick,0);});pg.addEventListener('click',function(){setTimeout(tick,30);});pg.addEventListener('click',function(){setTimeout(tick,30);});pg.addEventListener('click',function(){setTimeout(tick,30);});
   if(window.MutationObserver){ new MutationObserver(function(){ setTimeout(tick,0); }).observe(pg,{childList:true}); }
   tick(); setTimeout(tick,120); setTimeout(tick,400);
 })();

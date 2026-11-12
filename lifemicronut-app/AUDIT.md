@@ -75,3 +75,47 @@ réponse IA (GEO), l'expérience mobile. Le site vitrine (lifemicronut.com) fait
 | Aperçu des bilans corrigés | En ligne : https://apercu-app.lifemicronut-git.pages.dev/ (et `/fatigue/`, `/admin/`) |
 | bilan.lifemicronut.com, fatigue.lifemicronut.com | **Inchangés** (anciennes versions). Mise à jour après les priorités 1 à 3. |
 | Code source | Dépôt `Smartbnb`, dossier `lifemicronut-app/` |
+
+## 6. Site vitrine (lifemicronut.com) — corrigé et **en production**
+
+Source : dépôt `lifemicronut/lifemicronut`, branche `main` (Cloudflare déploie chaque envoi automatiquement).
+
+### Anomalies corrigées
+- **Fichier interne public** : `lifemicronut.com/CLAUDE.md` (notes de projet, code d'accès, éléments de stratégie)
+  était lisible par tous. → Masqué. Les anciens déploiements d'aperçu (`*.pages.dev`) le servent encore : à supprimer
+  dans Cloudflare si vous le jugez sensible.
+- **Fausses pages** : toute adresse inconnue (`/faq`, `/hormones`…) affichait l'accueil avec un code « 200 ».
+  → Vraie page 404.
+- **5 articles du Journal introuvables** : les liens de la page Journal menaient à l'accueil. → Les 6 articles sont
+  remis en ligne au style du site (texte d'origine conservé).
+- **Image de partage inexistante** (aperçus de liens cassés sur les réseaux). → Image créée.
+- **Aucune donnée structurée**, Open Graph incomplet, titres trop longs, liens internes passant tous par une
+  redirection, plan du site listant des adresses redirigées. → Corrigé sur toutes les pages.
+- **Ancienne « version de test » du questionnaire** encore en ligne et indexable. → Redirigée vers les bilans.
+- **Mention « ne remplace pas un avis médical »** absente de la plupart des pages. → Ajoutée dans le pied de page.
+- **GEO** : `llms.txt` créé ; `robots.txt` autorise explicitement les robots de recherche et de réponse IA
+  (ChatGPT, Perplexity, Claude, Bing, Google). Les robots d'*entraînement* restent bloqués par votre réglage Cloudflare.
+
+### Vérifié après mise en ligne
+Pages et articles en 200, adresses inconnues en 404, redirections actives, aucune erreur ni débordement sur mobile,
+questionnaire « microbiote & santé mentale » inchangé.
+
+### Décisions éditoriales qui vous reviennent (non modifiées)
+- **Formulations contraires à votre propre charte** (« pas de soigner / traiter / résultats ») :
+  « pour des résultats durables » (pied de page), « La connaissance, le premier traitement » (accueil),
+  « les soigner, c'est soigner sa lignée » (Comprendre), « Soigner le microbiote », « résultats remarquables »,
+  « c'est réversible » (bilan microbiote), « Soigner ses mitochondries » (article).
+- **Chiffres contradictoires** : sérotonine 95 % ou 90 %, nerf vague 90 % ou 80 % selon les pages.
+- **Prix contradictoires** : bilans « gratuits » dans les articles, « 9,99 € au lieu de 19,90 € » sur l'accueil,
+  19,99 € dans les bilans. Un prix barré doit pouvoir être justifié.
+- **Les articles donnent des doses** (CoQ10, NAC, L-glutamine…) : à faire relire par Dr AICHE.
+- **Aucune page de mentions légales ni de confidentialité**, alors que le site collecte des données (formulaires)
+  et affiche un prix. Une ancienne version existe et peut être remise en forme après relecture.
+- Phrase de présentation claire en haut de l'accueil (utile aux moteurs de réponse IA), proposée :
+  « LifeMicroNut propose des bilans de micronutrition en ligne, conçus avec la pharmacienne Dr AICHE Assiya, pour
+  comprendre des symptômes persistants (fatigue, digestion, humeur). Ce sont des outils d'orientation, qui ne
+  remplacent pas un avis médical. »
+- Lisibilité mobile : textes de 8 à 11 px, liens de pied de page peu espacés, rubriques Journal / Officine / Contact
+  masquées du menu sur téléphone, contraste faible des bilans grisés. Les corriger change l'aspect : à valider.
+- Cloudflare : rediriger `www.lifemicronut.com` vers `lifemicronut.com` ; supprimer l'ancien projet
+  `lifemicronut.pages.dev` (page « Bientôt disponible » encore en ligne).
