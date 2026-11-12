@@ -207,3 +207,52 @@ Relis « FORTS » (chacun suffit) et « CONTRIBUTIFS » (il en faut `seuil`)._
 - **Mon ventre réagit au stress, aux contrariétés, aux émotions ou au manque de sommeil** → Souvent / Toujours
 - **Avez-vous souvent l'un de ces signes ?** → au moins une de « Des angoisses ou des ruminations » / « Une humeur basse, une perte d'élan ou de plaisir » / « Des difficultés à vous endormir »
 - **Pourquoi faites-vous ce questionnaire ?** → contient « Transit qui alterne entre constipation et diarrhée »
+
+---
+
+# Compléments — audit du 12 novembre 2026 (les deux bilans)
+
+## Ce qui a été vérifié par simulation
+4 000 parcours simulés par bilan (réponses tirées au hasard, en respectant l'enchaînement réel des pages
+et des questions). Le hasard **surestime** les symptômes par rapport à de vrais patients : ces chiffres
+servent à repérer les règles mortes et les pistes trop faciles à déclencher, pas à prédire la réalité.
+
+| | Digestion | Fatigue |
+|---|---|---|
+| Règles jamais vraies | 0 sur 61 | 0 sur 226 |
+| Questions jamais posées | 0 | 0 |
+| Parcours sans aucune piste | 9 % | 0,03 % (1 sur 4 000) |
+| Nombre médian de pistes | 3 | 6 |
+
+Fréquence de sortie des pistes (réponses au hasard) :
+- **Digestion** : intestin irritable 46 %, perte de diversité 35 %, putréfaction 34 %, terrain fongique 34 %,
+  graisses 25 %, fermentation 21 %, H₂S 18 %, perméabilité 18 %, digestion haute 15 %, méthane 13 %, SIBO 8 %, lactose 5 %.
+- **Fatigue** : mitochondries **77 %**, inflammation **70 %**, foie **61 %**, muscle 53 %, cortisol 49 %,
+  post-infectieux 48 %, hormones 38 %, fer 37 %, médicaments 33 %, glycémie 30 %, thyroïde 24 %, vitamine D 17 %,
+  B12 17 %, sommeil 17 %, magnésium 13 %, neuro 13 %, oméga-3 **1 %**.
+
+## Décisions supplémentaires à trancher
+
+**D6 — Le texte d'entrée dit que le questionnaire « ne donne aucun résultat ni aucune explication ».**
+C'est aussi la phrase que la personne valide (« J'ai compris que ce questionnaire ne donne aucun résultat… »).
+Or le bilan affiche des pistes et propose un rapport. → Formulation proposée, à valider :
+« Ce questionnaire donne des pistes d'orientation. Il ne pose aucun diagnostic et ne remplace ni une
+consultation ni un examen médical. » (non modifié en attendant votre accord).
+
+**D7 — Fatigue : trois pistes sortent dans la majorité des parcours simulés.**
+- *Mitochondries* (77 %) : elle sort dès qu'il y a **un** signe d'effort (par exemple « je récupère en 2 à 3 jours »)
+  **et un** facteur parmi une liste large (n'importe quelle exposition cochée, peu de viande rouge, alimentation
+  industrielle, antalgiques fréquents…).
+- *Inflammation* (70 %) et *foie* (61 %) : plusieurs signaux très courants comptent (« le repos ne change rien »,
+  3 à 5 cures d'antibiotiques, toute exposition cochée, 1 verre par jour).
+→ Si presque tout le monde reçoit ces pistes, elles perdent leur valeur d'orientation. Faut-il relever leur
+seuil, ou exiger un signal plus spécifique ?
+
+**D8 — Fatigue : presque personne ne ressort sans piste** (1 parcours sur 4 000), contre 9 % en digestion.
+Est-ce voulu ? Un bilan « sans signal net » rassure aussi, et crédibilise les autres.
+
+**D9 — Réponses obligatoires : les deux bilans ne suivent pas la même règle.**
+Digestion : toutes les questions affichées sont obligatoires. Fatigue : 9 seulement (les autres peuvent rester
+vides, ce qui prive le rapport de signaux). → Harmoniser ? (L'interface s'adapte déjà aux deux cas.)
+
+**D10 — Oméga-3 (fatigue) ne sort presque jamais** (1 %). Règle trop stricte, ou piste secondaire assumée ?
